@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from "react";
 
 import {getPLaylists} from "../../api";
-import {TitleSection, ViewPort, PlayList, PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
+
+import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
+
+import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHover_img,
+ PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
 export default () => {
 
@@ -19,7 +23,10 @@ export default () => {
                 {playListsResume.map((playList, index) => {
                     return (
                         <PlayList to={`/playList/${playList.keyInPlaylistDetails}`} key={index}>
-                        	<PlayListImg src={playList.playListImg} alt='playList img'/>
+                            <BtnPLayHover id="BtnPLayHover">
+                            	<BtnPLayHover_img src={iconPlay} alt="play icon"/>
+                            </BtnPLayHover>
+                        	<PlayListImg id="PlayListImg" src={playList.playListImg} alt='playList img'/>
                         	<section>
                         		<PlayListTitle>{playList.playListTitle}</PlayListTitle>
                         		<Description>{playList.totalMusic} Musics</Description>
