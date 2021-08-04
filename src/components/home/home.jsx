@@ -1,6 +1,5 @@
 import React from "react";
 import Styled from "styled-components";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import BoxQuickPicks from "./QuickPicks";
 import PlaylistsRow from "../playlistsRow"

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Styled from "styled-components";
-import searchIcon from '../../assets/icons/search_white_24dp.svg'
+import search_Icon from '../../assets/icons/search_white_24dp.svg'
 
 const ViewPort = Styled.section`
     display: flex;
@@ -14,7 +14,7 @@ const SearchBar = Styled.section`
 	width: 500px;
 	height: 40px;
 `
-const Input_SearchBar = Styled.input`
+const InputSearchBar = Styled.input`
     background-color: transparent;
     padding: 0px 11px 0px 11px;
     outline: none;
@@ -22,7 +22,7 @@ const Input_SearchBar = Styled.input`
 	border: none;
 	width: 87%;
 	height: 95%;
-	border-radius: 6px 0px 0px 10px;
+	border-radius: 6px 0px 0px 0px;
 	border-bottom: 2px solid white;
 	font-size: 1.2em;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -43,7 +43,7 @@ const Input_SearchBar = Styled.input`
 	   color: #A9A9A9;  
 	}
 `
-const Btn_Search = Styled.button`
+const BtnSearch = Styled.button`
     background-color: white;
     width: 13%;
 	border: none;
@@ -56,7 +56,7 @@ const Btn_Search = Styled.button`
     	background-color: #C9C9C9;
     }
 `
-const Search_Icon = Styled.img`
+const SearchIcon = Styled.img`
 	filter invert(100%);
 `
 const Suggestions = Styled.section`
@@ -91,10 +91,10 @@ export default () => {
 	return(
 		<ViewPort>
 			<SearchBar>
-				<Input_SearchBar type="text" name="seach" placeholder="Artists & Songs"/>
-				<Btn_Search>
-					<Search_Icon src={searchIcon} alt="search icon"/>
-				</Btn_Search>
+				<InputSearchBar type="text" name="seach" placeholder="Artists & Songs"/>
+				<BtnSearch>
+					<SearchIcon src={search_Icon} alt="search icon"/>
+				</BtnSearch>
 			</SearchBar>
 			<Suggestions>
 				{demoSuggestion.map((suggestion, index) => {

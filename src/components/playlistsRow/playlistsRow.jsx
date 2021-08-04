@@ -4,7 +4,7 @@ import {getPLaylists} from "../../api";
 
 import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
 
-import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHover_img,
+import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg,
  PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
 export default () => {
@@ -24,7 +24,7 @@ export default () => {
                     return (
                         <PlayList to={`/playList/${playList.keyInPlaylistDetails}`} key={index}>
                             <BtnPLayHover id="BtnPLayHover">
-                            	<BtnPLayHover_img src={iconPlay} alt="play icon"/>
+                            	<BtnPLayHoverImg src={iconPlay} alt="play icon"/>
                             </BtnPLayHover>
                         	<PlayListImg id="PlayListImg" src={playList.playListImg} alt='playList img'/>
                         	<section>

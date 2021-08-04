@@ -6,7 +6,6 @@ export const HeaderBranding = styled.img`
     margin-left: 10px;
     margin-bottom: 5px;
 `
-
 export const HeaderContainer = styled.header`
     position: fixed;
     display: flex;

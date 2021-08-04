@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react"
-import {dataBase as data} from "../../dataBase";
 import Styled from "styled-components";
 import {S, Ss} from "./playlistStyles"
-import { useParams, useRouteMatch, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg";
 import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg';
@@ -21,7 +20,6 @@ const ViewPort = Styled.section`
 export default ({playingNow}) => {
 
     const { id } = useParams()
-    const { url, path } = useRouteMatch()
 
     const [playingIndex, setPLayingIndex] = useState(null)
     const [playlist, setPlaylist] = useState({

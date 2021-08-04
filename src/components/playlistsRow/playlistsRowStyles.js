@@ -47,7 +47,7 @@ export const BtnPLayHover = Styled.button`
     border-radius: 19px;
     box-shadow: 5px 5px 30px black;
 `
-export const BtnPLayHover_img = Styled.img`
+export const BtnPLayHoverImg = Styled.img`
     width: 100%;
     margin-top: 2px;
     filter: invert(100%);

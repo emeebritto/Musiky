@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {dataBase as data} from "../../../dataBase";
 
 import { quickPicks } from "../../../api";
 import iconPlay from "../../../assets/icons/play_arrow_black_24dp.svg";
