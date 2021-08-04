@@ -39,24 +39,3 @@ export default () => {
     )
 }
 
-/*
-
-	const playLists = [{
-		img: 'https://raw.githubusercontent.com/Emerson-Britto/API-Musiky/main/dataBase/imgs/chill/1.jpg',
-		title: 'Mix 1',
-		totalMusics: "14"},{
-		img: 'https://raw.githubusercontent.com/Emerson-Britto/API-Musiky/main/dataBase/imgs/chill/2.jpg',
-		title: 'Mix 2',
-		totalMusics: "14"},{
-		img: 'https://raw.githubusercontent.com/Emerson-Britto/API-Musiky/main/dataBase/imgs/chill/3.jpg',
-		title: 'Mix 3',
-		totalMusics: "14"},{
-		img: 'https://raw.githubusercontent.com/Emerson-Britto/API-Musiky/main/dataBase/imgs/chill/4.jpg',
-		title: 'Mix 4',
-		totalMusics: "14"},{
-		img: 'https://raw.githubusercontent.com/Emerson-Britto/API-Musiky/main/dataBase/imgs/chill/5.jpg',
-		title: 'Mix 5',
-		totalMusics: "14"
-	}]
-
-*/

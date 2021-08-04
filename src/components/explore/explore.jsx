@@ -1,6 +1,7 @@
 import React from "react";
 import Styled from "styled-components";
 
+import SearchBar from '../search'
 import PlaylistsRow from "../playlistsRow"
 const RandomList = PlaylistsRow;
 
@@ -14,6 +15,7 @@ function PlayList() {
 
     return (
         <ViewPort>
+            <SearchBar/>
             <RandomList/>
             <RandomList/>
         </ViewPort>

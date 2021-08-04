@@ -15,8 +15,7 @@ const Background = styled.section`
     position: fixed;
 `
 const Blur = styled.div`
-    backdrop-filter: blur(7px);
-    -webkitBackdrop-filter: blur(7px);
+
 `
 const ViewPort = styled.section` 
     background-color: rgb(0 0 0 /95%);
@@ -85,3 +84,10 @@ function App() {
 }
 
 export default App;
+
+/*
+
+    backdrop-filter: blur(7px);
+    -webkitBackdrop-filter: blur(7px);
+
+*/
