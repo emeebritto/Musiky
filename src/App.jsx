@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {dataBase as data, PlayingNow} from "./dataBase";
+import { db, PlayingNow } from "./dataBase";
 import { GlobalStyle } from "./components/GlobalStyle";
 import styled from "styled-components";
 import { BrowserRouter as Router, useRouteMatch, Route, Switch } from 'react-router-dom'
@@ -55,8 +55,8 @@ function App() {
 				<Blur>
 					<ViewPort>
 						<GlobalStyle />
-						<Player playingNow={PlayingNow}/>
-						<Header/>
+						<Player playingNow={PlayingNow} db={db}/>
+						<Header db={db}/>
 
 						<Centralize>
 							<Switch>
@@ -75,7 +75,7 @@ function App() {
 							</Switch>
 						</Centralize>
 		                
-						<PlayerControl playingNow={PlayingNow}/>
+						<PlayerControl playingNow={PlayingNow} db={db}/>
 					</ViewPort>
 				</Blur>
 			</Background>

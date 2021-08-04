@@ -1,32 +1,45 @@
-const _functionsStorage = {};
-const _dataStorage = {};
-const _stateStorage = {};
+class local_db {
+    constructor(){
+        this._functionsStorage = {};
+        this._dataStorage = {};
+        this._stateStorage = {};
+    }
 
-const setToBase = (key, value, local) => {
-    if (local[key] === undefined) { local[key] = value; return };
-    //throw new Error(`Storage: ${key} has already been defined`);
+    setToBase(key, value, local){
+        if (local[key] === undefined) { local[key] = value; return };
+        //throw new Error(`Storage: ${key} has already been defined`);
+    }
+    
+
+    setFunction(key, value){
+        this.setToBase( key, value, this._functionsStorage)
+    }
+
+    getFunction(key){
+        return this._functionsStorage[key]
+    }
+
+
+    setData(key, value){ 
+        this.setToBase( key, value, this._dataStorage)
+    }
+
+    getData(key){
+        return this._dataStorage[key]
+    }
+
+
+    setState(key, value){ 
+        this.setToBase( key, value, this._stateStorage)
+    }
+
+    getState(key){
+        return this._stateStorage[key]
+    }
 }
 
-const setFunction = (key, value) => { setToBase( key, value, _functionsStorage);}
-const getFunction = (key) => {
-    return _functionsStorage[key]
-}
+export const db = new local_db()
 
-const setData = (key, value) => { setToBase( key, value, _dataStorage);}
-const getData = (key) => {
-    return _dataStorage[key]
-}
-
-const setState = (key, value) => { setToBase( key, value, _stateStorage);}
-const getState = (key) => {
-    return _stateStorage[key]
-}
-
-export const dataBase = {
-    setFunction, getFunction,
-    setData, getData,
-    setState, getState
-}
 
 class Playing {
     constructor(){

@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react"
-import {dataBase as data} from "../../dataBase"
 
 import musicLoading from '../../assets/icons/AnimatedSvg/loading.svg'
 import iconBack from "../../assets/icons/skip_previous_white_24dp.svg"
@@ -17,7 +16,7 @@ import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, Sect
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
 VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from "./playerStyles"
 
-function PlayerControl({playingNow}) {
+function PlayerControl({playingNow, db}) {
     const [visibility, setVisibility] = useState('none')
     const [currentTime, setCurrentTime] = useState(0)
     const [lastVolume, setLastVolume] = useState(0)
@@ -49,7 +48,7 @@ function PlayerControl({playingNow}) {
     }
 
     const handlePlayPause = () => {
-        data.getFunction('play_Pause')();
+        db.getFunction('play_Pause')();
         setPlaying(playing => !playing);
     }
 
@@ -64,8 +63,8 @@ function PlayerControl({playingNow}) {
     }
 
     const handlelyrics = () => {
-        data.getFunction('lyricsScreen')();
-        data.getFunction('lyricsMode_header')();
+        db.getFunction('lyricsScreen')();
+        db.getFunction('lyricsMode_header')();
         setLyrics(lyrics => !lyrics)
     }
 
@@ -75,12 +74,12 @@ function PlayerControl({playingNow}) {
 
     const handleLoop = () => {
         setLoop(loop => !loop);
-        data.getFunction('playerLoop')();
+        db.getFunction('playerLoop')();
     }
 
     const handleSeekMouseUp = e => {
         setSeeking(false);
-        data.getData("videoPlayer").seekTo(parseFloat(e.target.value));
+        db.getData("videoPlayer").seekTo(parseFloat(e.target.value));
     }
 
     const handleSeekChange = e => {
@@ -96,19 +95,19 @@ function PlayerControl({playingNow}) {
         if(muted){ setMuted(false)}
         if(volume === 0){ setMuted(true)}
         setVolume(volume)
-        data.getFunction("VolumeChange")(volume);
+        db.getFunction("VolumeChange")(volume);
     }
 
     const handleToggleMuted = () => {
         if(muted){
             setVolume(lastVolume); 
-            data.getFunction("VolumeChange")(lastVolume); 
+            db.getFunction("VolumeChange")(lastVolume); 
             setMuted(false)
             return
         }
         setLastVolume(volume);
         setVolume(0); setMuted(true);
-        data.getFunction("VolumeChange")(0);
+        db.getFunction("VolumeChange")(0);
     }
 
     useEffect(()=>{
@@ -117,9 +116,9 @@ function PlayerControl({playingNow}) {
     },[])
 
     useEffect(()=>{
-        data.setFunction('slideBarProgress', slideBarProgress)
-        data.setFunction('loadingStatus', loadingStatus)
-        data.setFunction('closeLyricsOnControl', closeLyricsOnControl)
+        db.setFunction('slideBarProgress', slideBarProgress)
+        db.setFunction('loadingStatus', loadingStatus)
+        db.setFunction('closeLyricsOnControl', closeLyricsOnControl)
     }, [])
 
     //component:
@@ -142,13 +141,19 @@ function PlayerControl({playingNow}) {
             </MusicInfor>
 
             <PlayerControlPainel>
+
                 <BtnsBackPlayNext>
-                    <BtnPlayerControl onClick={()=>{nextAndBack_Music(-1)}}><IconPlay src={iconBack} alt="Back Music" /></BtnPlayerControl>
+                    <BtnPlayerControl onClick={()=>{nextAndBack_Music(-1)}}>
+                        <IconPlay src={iconBack} alt="Back Music" />
+                    </BtnPlayerControl>
 
                     {loading ? <Loading src={musicLoading} alt='loading'/> : <Btn_PlayAndPause/>}
 
-                    <BtnPlayerControl onClick={()=>{nextAndBack_Music(1)}}><IconPlay src={iconNext} alt="Next Music" /></BtnPlayerControl>
+                    <BtnPlayerControl onClick={()=>{nextAndBack_Music(1)}}>
+                        <IconPlay src={iconNext} alt="Next Music" />
+                    </BtnPlayerControl>
                 </BtnsBackPlayNext>
+                
                 <DurationSlider
                     type='range' min={0} max={0.999999} step='any' 
                     value={currentTime}

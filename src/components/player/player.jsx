@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { dataBase as data } from "../../dataBase"
 
 import { ViewPort, VideoPlayer, Blocker } from "./playerStyles";
 
-function Player({playingNow}) {
+function Player({playingNow, db}) {
     const [playing, setPlaying] = useState(false);
     const [volume, setVolume] = useState(1);
     const [lyrics, setLyrics] = useState(false);
@@ -40,7 +39,7 @@ function Player({playingNow}) {
     }
 
     const handleProgress = state => {
-        data.getFunction('slideBarProgress')(state)
+        db.getFunction('slideBarProgress')(state)
     }
 
     const handleDuration = duration => {
@@ -48,12 +47,12 @@ function Player({playingNow}) {
     }
 
     const onBuffer = status => {
-        data.getFunction('loadingStatus')(status)
+        db.getFunction('loadingStatus')(status)
     }
 
     const onEnded = () => {
         playingNow.nextAndBack_Music(1)
-        //data.getFunction('nextAndBack_Music')()
+        //db.getFunction('nextAndBack_Music')()
     }
 
     useEffect(()=>{
@@ -62,12 +61,12 @@ function Player({playingNow}) {
     },[])
 
     const ref = player => {
-        data.setData('videoPlayer', player)
-        data.setFunction('playerLoop', playerLoop)
-        data.setFunction('play_Pause', play_Pause)
-        data.setFunction('lyricsScreen', lyricsScreen)
-        data.setFunction('closeLyrics', closeLyrics)
-        data.setFunction('VolumeChange', VolumeChange)
+        db.setData('videoPlayer', player)
+        db.setFunction('playerLoop', playerLoop)
+        db.setFunction('play_Pause', play_Pause)
+        db.setFunction('lyricsScreen', lyricsScreen)
+        db.setFunction('closeLyrics', closeLyrics)
+        db.setFunction('VolumeChange', VolumeChange)
     }
 
     return (
