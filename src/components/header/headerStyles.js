@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 export const HeaderBranding = styled.img`
     width: 120px;
+    margin-left: 10px;
     margin-bottom: 5px;
 `
 

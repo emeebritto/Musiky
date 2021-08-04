@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {dataBase as data} from "../../dataBase";
 
 import Profile from "../../assets/img/MyPersonalLogo.png"
-import branding from "../../assets/img/iconMusiky.png"
+import branding from "../../assets/img/branding_Musiky.png"
 import { HeaderBranding, HeaderContainer, OptionsBox, Links, ProfileImg} from "../header/headerStyles";
 
 function Header() {
