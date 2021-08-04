@@ -18,7 +18,7 @@ export default () => {
             <ViewPort>
                 {playListsResume.map((playList, index) => {
                     return (
-                        <PlayList to={`playList/${playList.keyInPlaylistDetails}`} key={index}>
+                        <PlayList to={`/playList/${playList.keyInPlaylistDetails}`} key={index}>
                         	<PlayListImg src={playList.playListImg} alt='playList img'/>
                         	<section>
                         		<PlayListTitle>{playList.playListTitle}</PlayListTitle>
