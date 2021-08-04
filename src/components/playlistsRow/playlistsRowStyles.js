@@ -32,7 +32,8 @@ export const PlayList = Styled(Link)`
 `
 export const PlayListImg = Styled.img`
 	border-radius: 10px;
-	width: 100%;
+	width: 150px;
+    height: 150px;
 `
 
 export const PlayListTitle = Styled.h1`
