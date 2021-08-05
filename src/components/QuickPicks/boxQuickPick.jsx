@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { quickPicks } from "../../../api";
-import iconPlay from "../../../assets/icons/play_arrow_black_24dp.svg";
-import icon_playing from '../../../assets/icons/AnimatedSvg/playing.svg';
+import { quickPicks } from "../../api";
+import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg";
+import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg';
 
 import {TitleSection, BoxIconPLayHover, BoxQuickPicks, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from "./boxQuickPickStyles";

@@ -9,7 +9,7 @@ class local_db {
         if (local[key] === undefined) { local[key] = value; return };
         //throw new Error(`Storage: ${key} has already been defined`);
     }
-    
+
 
     setFunction(key, value){
         this.setToBase( key, value, this._functionsStorage)
@@ -27,15 +27,6 @@ class local_db {
     getData(key){
         return this._dataStorage[key]
     }
-
-
-    setState(key, value){ 
-        this.setToBase( key, value, this._stateStorage)
-    }
-
-    getState(key){
-        return this._stateStorage[key]
-    }
 }
 
 export const db = new local_db()
@@ -50,19 +41,14 @@ class Playing {
     }
 
     subscribe(func){
-        console.log('inscreveu')
-        console.log(func)
         this._subscribes.push(func)
     }
 
     unsubscribe(func){
-        console.log('desincreveu')
-        console.log(func)
         this._subscribes = this._subscribes.filter(f => f !== func)
     }
 
     notify(){
-        console.log('executando notify')
         this._subscribes.forEach(func =>{
             func(this.musicIndex, this.musicList)
         } );
@@ -70,7 +56,6 @@ class Playing {
 
 
     nextAndBack_Music(action){
-        console.log(this.musicList)
         if (this.musicIndex === this.musicList.length -1){
             this.musicIndex = 0;
             this.notify()
@@ -81,19 +66,17 @@ class Playing {
     }
 
     startNewList(targetIndex, targetList, local=''){
-        console.log(targetIndex)
-        console.log(targetList)
         this.musicIndex = targetIndex
         this.musicList = targetList
         this.playlistId = local;
         this.notify()
     }
 
-    playlistActive(){
+    get playlistActive(){
         return this.playlistId
     }
 
-    playingIndex(){
+    get playingIndex(){
         return this.musicIndex
     }
 }

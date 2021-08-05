@@ -35,7 +35,7 @@ export default ({playingNow}) => {
     }
 
     const updateIndex = (targetIndex, targetList) => {
-        if (id === playingNow.playlistActive()){
+        if (id === playingNow.playlistActive){
             setPLayingIndex(targetIndex)
         }
     }
@@ -48,8 +48,8 @@ export default ({playingNow}) => {
 
         playingNow.subscribe(updateIndex)
 
-        if (id === playingNow.playlistActive()){
-            setPLayingIndex(playingNow.playingIndex())
+        if (id === playingNow.playlistActive){
+            setPLayingIndex(playingNow.playingIndex)
         }
 
         return () => {

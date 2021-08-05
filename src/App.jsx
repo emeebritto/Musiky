@@ -4,18 +4,17 @@ import { GlobalStyle } from "./components/GlobalStyle";
 import styled from "styled-components";
 import { BrowserRouter as Router, useRouteMatch, Route, Switch } from 'react-router-dom'
 
-import Header from "./components/header/header";
-import Home from "./components/home/home";
-import Explore from "./components/explore/explore"
-import PlayList from "./components/playlist/playlist"
-import PlayerControl from "./components/playerControl/playerControl";
-import Player from "./components/player/player";
+import Header from "./components/header";
+import Home from "./components/home";
+import Explore from "./components/explore"
+import PlayList from "./components/playlist"
+import PlayerControl from "./components/playerControl";
+import Player from "./components/player";
 
 const Background = styled.section`
     position: fixed;
 `
 const Blur = styled.div`
-
 `
 const ViewPort = styled.section` 
     background-color: rgb(0 0 0 /95%);
@@ -26,12 +25,10 @@ const ViewPort = styled.section`
 	    height: 0px;
 	}
 `
-
 const Centralize = styled.section`
 	display: flex;
     justify-content: center; 
 `
-
 function App() {
 
 	const [background, setBackground] = useState('')
@@ -74,7 +71,7 @@ function App() {
 	                            </Route>
 							</Switch>
 						</Centralize>
-		                
+
 						<PlayerControl playingNow={PlayingNow} db={db}/>
 					</ViewPort>
 				</Blur>

@@ -1,7 +1,7 @@
 import React from "react";
 import Styled from "styled-components";
 
-import BoxQuickPicks from "./QuickPicks";
+import BoxQuickPicks from "../QuickPicks";
 import PlaylistsRow from "../playlistsRow"
 const RandomMusic = PlaylistsRow;
 

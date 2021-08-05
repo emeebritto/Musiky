@@ -52,7 +52,6 @@ function Player({playingNow, db}) {
 
     const onEnded = () => {
         playingNow.nextAndBack_Music(1)
-        //db.getFunction('nextAndBack_Music')()
     }
 
     useEffect(()=>{
@@ -61,7 +60,7 @@ function Player({playingNow, db}) {
     },[])
 
     const ref = player => {
-        db.setData('videoPlayer', player)
+        db.setData('player', player)
         db.setFunction('playerLoop', playerLoop)
         db.setFunction('play_Pause', play_Pause)
         db.setFunction('lyricsScreen', lyricsScreen)

@@ -79,7 +79,7 @@ function PlayerControl({playingNow, db}) {
 
     const handleSeekMouseUp = e => {
         setSeeking(false);
-        db.getData("videoPlayer").seekTo(parseFloat(e.target.value));
+        db.getData("player").seekTo(parseFloat(e.target.value));
     }
 
     const handleSeekChange = e => {
