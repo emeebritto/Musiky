@@ -19,7 +19,7 @@ VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from "./playerStyles"
 function PlayerControl({ player }) {
 
     const [ controlProp, setControlProp ] = useState({})
-    const [visibility, setVisibility] = useState('none')
+    const [ visibility, setVisibility ] = useState('none')
 
 
     const updatePlayerControl = props => {
@@ -44,11 +44,13 @@ function PlayerControl({ player }) {
     }
 
     const handleSeekMouseUp = e => {
+        player.setSeekingStatesTo(false)
+        player.setCurrentTimeTo(parseFloat(e.target.value))
         player.seekTo(e.target.value)
     }
 
     const handleSeekChange = e => {
-        player.setCurrentTimeTo(parseFloat(e.target.value))
+        setControlProp({...controlProp, currentTime: parseFloat(e.target.value)})
     }
 
     const handleSeekMouseDown = () => {

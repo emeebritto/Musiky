@@ -8,7 +8,6 @@ function ReactPlayer({ player }) {
 
 
     const UpdatePlayerState = props => {
-        console.log(props)
         setPlayerProp({...props})
     }
 
@@ -45,7 +44,7 @@ function ReactPlayer({ player }) {
                 onDuration={duration => { handleDuration(duration) }}
                 onBuffer={() => onBuffer(true)}
                 onBufferEnd={() => onBuffer(false)}
-                onEnded={()=>{ onEnded() }}
+                onEnded={() => { onEnded() }}
                 url={`https://www.youtube-nocookie.com/embed/${playerProp.musicId}`}
                 width='100vw'
                 height='100vh'

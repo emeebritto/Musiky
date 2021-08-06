@@ -13,7 +13,7 @@ class playerModule {
 
 		this.musicId = null
 		this.indexOnPlaylist = 0
-		this.playlistId = null
+		this.playlistId = 'hhhhh'
 		this.musicList = []
 		this.playing = false
 		this.volume = 1
@@ -52,10 +52,10 @@ class playerModule {
 
     notify(){
         this._playerSubscribe({ musicId: this.musicId, playing: this.playing, volume: this.volume, showLyrics: this.showLyrics, loop: this.loop })
-        this._playerControlSubscribe({ indexOnPlaylist: this.indexOnPlaylist, playing: this.playing, musicList: this.musicList, currentTime: this.currentTime, volume: this.volume, lyricMode: this.showLyrics, buffer: this.buffer, muted: this.muted })
-        //this._headerSubscribe(this.showLyrics)
-        //this._playlistSubscribe(this.indexOnPlaylist)
-        //this._backgroundSubscribe( this.indexOnPlaylist, this.musicList )
+        this._playerControlSubscribe({ indexOnPlaylist: this.indexOnPlaylist, playing: this.playing, loop: this.loop, musicList: this.musicList, currentTime: this.currentTime, volume: this.volume, lyricMode: this.showLyrics, buffer: this.buffer, muted: this.muted })
+        this._headerSubscribe(this.showLyrics)
+        this._playlistSubscribe(this.indexOnPlaylist)
+        this._backgroundSubscribe( this.indexOnPlaylist, this.musicList )
     }
 
 
@@ -74,13 +74,13 @@ class playerModule {
     }
 
     nextMusic(action) {
-        if (this.indexOnPlaylist === this.musicList.length -1){
-            this.indexOnPlaylist = 0;
-            this.notify()
-            return
-        }
 	    this.indexOnPlaylist = this.indexOnPlaylist + action
-	    this.playing = true
+        if (this.indexOnPlaylist === this.musicList.length){
+            this.indexOnPlaylist = 0
+        }
+
+        this.playing = true
+        this.musicId = this.musicList[this.indexOnPlaylist].id
         this.notify()
     }
 
@@ -105,7 +105,6 @@ class playerModule {
     }
 
     seekTo(value) {
-        this.seeking = false
         this._playerComponent.seekTo(parseFloat(value));
     }
 
@@ -114,9 +113,7 @@ class playerModule {
     }
 
     setCurrentTimeTo(played) {
-        console.log(played)
     	if (!this.seeking) {
-            console.log(played)
             this.currentTime = played
             this.notify()
         }
@@ -145,6 +142,14 @@ class playerModule {
         this.volume = 0
         this.muted = true
         this.notify()
+    }
+
+    get playingInplaylist() {
+        return this.playlistId
+    }
+
+    get playingIndex() {
+        return this.indexOnPlaylist
     }
 }
 

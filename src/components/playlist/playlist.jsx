@@ -30,13 +30,13 @@ export default ({ player }) => {
     })
 
     const clickOnMusic = (targetIndex, targetList, playlistId) => {
-        player.load(targetIndex, targetList)
+        player.load(targetIndex, targetList, playlistId)
         setPLayingIndex(targetIndex)
     }
 
-    const updateIndex = () => {
-        if (id === player.playlistId){
-            setPLayingIndex(player.indexOnPlaylist)
+    const updateIndex = index => {
+        if (id === player.playingInplaylist){
+            setPLayingIndex(index)
         }
     }
 
@@ -48,8 +48,10 @@ export default ({ player }) => {
 
         player.setPlaylistFunction(updateIndex)
 
-        if (id === player.playlistId){
-            setPLayingIndex(player.indexOnPlaylist)
+        console.log(player.playingInplaylist)
+
+        if (id === player.playingInplaylist){
+            setPLayingIndex(player.playingIndex)
         }
 
     }, [])
