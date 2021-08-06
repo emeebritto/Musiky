@@ -2,85 +2,51 @@ import React, { useState, useEffect } from "react";
 
 import { ViewPort, VideoPlayer, Blocker } from "./playerStyles";
 
-function Player({playingNow, db}) {
-    const [playing, setPlaying] = useState(false);
-    const [volume, setVolume] = useState(1);
-    const [lyrics, setLyrics] = useState(false);
-    const [loop, setLoop] = useState(false);
-    const [music, setMusic] = useState('');
-    const [playerProp, setPlayerProp] = useState({
-        currentTime: 0,
-        duration: 0
-    })
+function ReactPlayer({ player }) {
 
-    const loadPlayer = (targetIndex, targetList) => {
-        setMusic(targetList[targetIndex].id)
-        setPlaying(true)
+    const [ playerProp, setPlayerProp ] = useState({})
+
+
+    const UpdatePlayerState = props => {
+        console.log(props)
+        setPlayerProp({...props})
     }
 
-    const lyricsScreen = () => {
-        setLyrics(lyrics => !lyrics)
-    }
-
-    const closeLyrics = () => {
-        setLyrics(false)
-    }
-
-    const playerLoop = () => {
-        setLoop(loop => !loop)
-    }
-
-    const play_Pause = () => {
-        setPlaying(playing => !playing)
-    }
-
-    const VolumeChange = value => {
-        setVolume(value)
-    }
-
-    const handleProgress = state => {
-        db.getFunction('slideBarProgress')(state)
+    const handleProgress = time => {
+        player.setCurrentTimeTo(time.played)
     }
 
     const handleDuration = duration => {
-        setPlayerProp({...playerProp, duration: duration })
+        player.setDuration = duration
     }
 
     const onBuffer = status => {
-        db.getFunction('loadingStatus')(status)
+        player.changeBufferStatusTo = status
     }
 
     const onEnded = () => {
-        playingNow.nextAndBack_Music(1)
+        player.nextMusic(1)
     }
 
-    useEffect(()=>{
-        playingNow.subscribe(loadPlayer)
-        return ()=>{ playingNow.unsubscribe(loadPlayer)}
-    },[])
 
-    const ref = player => {
-        db.setData('player', player)
-        db.setFunction('playerLoop', playerLoop)
-        db.setFunction('play_Pause', play_Pause)
-        db.setFunction('lyricsScreen', lyricsScreen)
-        db.setFunction('closeLyrics', closeLyrics)
-        db.setFunction('VolumeChange', VolumeChange)
+    const ref = reactPlayer => {
+        player.setPlayerComponent(reactPlayer, UpdatePlayerState)
     }
+
 
     return (
-        <ViewPort style={{ width: lyrics? '100vw': '0vw' }}>
+        <ViewPort style={{ width: playerProp.showLyrics? '100vw': '0vw' }}>
             <VideoPlayer
-                ref={player => { ref(player) }}
-                playing={playing}
-                volume={volume}
-                loop={loop}
-                onProgress={e =>{ handleProgress(e) }}
-                onDuration={e => { handleDuration(e) }}
+                ref={reactPlayer => { ref(reactPlayer) }}
+                playing={playerProp.playing}
+                volume={playerProp.volume}
+                loop={playerProp.loop}
+                onProgress={time =>{ handleProgress(time) }}
+                onDuration={duration => { handleDuration(duration) }}
                 onBuffer={() => onBuffer(true)}
                 onBufferEnd={() => onBuffer(false)}
                 onEnded={()=>{ onEnded() }}
-                url={`https://www.youtube-nocookie.com/embed/${music}`}
+                url={`https://www.youtube-nocookie.com/embed/${playerProp.musicId}`}
                 width='100vw'
                 height='100vh'
                 config={{
@@ -94,4 +60,4 @@ function Player({playingNow, db}) {
     )
 }
 
-export default Player;
+export default ReactPlayer;

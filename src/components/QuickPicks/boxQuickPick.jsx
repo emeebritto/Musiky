@@ -8,30 +8,24 @@ import {TitleSection, BoxIconPLayHover, BoxQuickPicks, MusicOptionBox, BoxImgMus
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from "./boxQuickPickStyles";
 
 
-export default ({playingNow}) => {
+export default ({ player }) => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
     const [musicList, setMusicList] = useState([])
 
 
     const clickOnMusic = (targetIndex, targetList) => {
-        playingNow.startNewList(targetIndex, targetList)
-        setPLayingIndex(targetIndex)
+        player.load(targetIndex, targetList)
     }
 
-    const updateIndex = (targetIndex, targetList) => {
+    const updateIndex = targetIndex => {
         setPLayingIndex(targetIndex)
     }
 
     useEffect(() => {
         quickPicks(setMusicList);
 
-        playingNow.subscribe(updateIndex)
-
-        return () => {
-            playingNow.unsubscribe(updateIndex)
-        };
-
+        player.setPlaylistFunction(updateIndex)
     }, [])
 
 

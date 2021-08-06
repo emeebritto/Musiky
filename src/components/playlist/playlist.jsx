@@ -17,7 +17,7 @@ const ViewPort = Styled.section`
     margin: 20vh 0vw 20vh 0vw;
 `
 
-export default ({playingNow}) => {
+export default ({ player }) => {
 
     const { id } = useParams()
 
@@ -29,14 +29,14 @@ export default ({playingNow}) => {
         musicList: []
     })
 
-    const clickOnMusic = (targetIndex, targetList, local) => {
-        playingNow.startNewList(targetIndex, targetList, local)
+    const clickOnMusic = (targetIndex, targetList, playlistId) => {
+        player.load(targetIndex, targetList)
         setPLayingIndex(targetIndex)
     }
 
-    const updateIndex = (targetIndex, targetList) => {
-        if (id === playingNow.playlistActive){
-            setPLayingIndex(targetIndex)
+    const updateIndex = () => {
+        if (id === player.playlistId){
+            setPLayingIndex(player.indexOnPlaylist)
         }
     }
 
@@ -46,15 +46,11 @@ export default ({playingNow}) => {
         let playListTarget = playLists[`${id}`]
         setPlaylist(playListTarget)
 
-        playingNow.subscribe(updateIndex)
+        player.setPlaylistFunction(updateIndex)
 
-        if (id === playingNow.playlistActive){
-            setPLayingIndex(playingNow.playingIndex)
+        if (id === player.playlistId){
+            setPLayingIndex(player.indexOnPlaylist)
         }
-
-        return () => {
-            playingNow.unsubscribe(updateIndex)
-        };
 
     }, [])
 

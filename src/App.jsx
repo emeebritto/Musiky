@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { db, PlayingNow } from "./dataBase";
+import { player } from "./controllers/player";
 import { GlobalStyle } from "./components/GlobalStyle";
 import styled from "styled-components";
 import { BrowserRouter as Router, useRouteMatch, Route, Switch } from 'react-router-dom'
@@ -9,7 +9,7 @@ import Home from "./components/home";
 import Explore from "./components/explore"
 import PlayList from "./components/playlist"
 import PlayerControl from "./components/playerControl";
-import Player from "./components/player";
+import ReactPlayer from "./components/player";
 
 const Background = styled.section`
     position: fixed;
@@ -38,12 +38,7 @@ function App() {
 	}
 
     useEffect(()=>{
-        PlayingNow.subscribe(updateBackground)
-
-        return ()=> {
-        	PlayingNow.unsubscribe(updateBackground)
-        }
-
+        player.setBackgroundFunction(updateBackground)
     },[])
 
 	return (
@@ -52,13 +47,13 @@ function App() {
 				<Blur>
 					<ViewPort>
 						<GlobalStyle />
-						<Player playingNow={PlayingNow} db={db}/>
-						<Header db={db}/>
+						<ReactPlayer player={player}/>
+						<Header player={player}/>
 
 						<Centralize>
 							<Switch>
 								<Route exact path={"/"}>
-									<Home playingNow={PlayingNow}/>
+									<Home player={player}/>
 								</Route>
 								<Route path={"/explore/"}>
 									<Explore/>
@@ -67,12 +62,12 @@ function App() {
 									<Explore/>
 								</Route>
 					            <Route path={`/playList/:id`}>
-	                                <PlayList playingNow={PlayingNow}/>
+	                                <PlayList player={player}/>
 	                            </Route>
 							</Switch>
 						</Centralize>
 
-						<PlayerControl playingNow={PlayingNow} db={db}/>
+						<PlayerControl player={player}/>
 					</ViewPort>
 				</Blur>
 			</Background>

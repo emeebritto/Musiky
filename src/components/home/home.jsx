@@ -11,11 +11,11 @@ const ViewPort = Styled.section`
     height: 100%;
     margin-bottom: 20vh;
 `
-export default ({playingNow}) => {
+export default ({ player }) => {
 
     return (
         <ViewPort>
-            <BoxQuickPicks playingNow={playingNow}/>
+            <BoxQuickPicks player={player}/>
             <RandomMusic/>
         </ViewPort>
     );

@@ -16,127 +16,75 @@ import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, Sect
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
 VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from "./playerStyles"
 
-function PlayerControl({playingNow, db}) {
+function PlayerControl({ player }) {
+
+    const [ controlProp, setControlProp ] = useState({})
     const [visibility, setVisibility] = useState('none')
-    const [currentTime, setCurrentTime] = useState(0)
-    const [lastVolume, setLastVolume] = useState(0)
-    const [musicList, setMusicList] = useState([])
-    const [playing, setPlaying] = useState(false)
-    const [seeking, setSeeking] = useState(false)
-    const [loading, setLoading] = useState(true)
-    const [lyrics, setLyrics] = useState(false)
-    const [muted, setMuted] = useState(false)
-    const [volume, setVolume] = useState(1)
-    const [loop, setLoop] = useState(false)
-    const [music, setMusic] = useState(0)
 
 
-    const loadPlayerControl = (targetIndex, targetList) => {
-        setMusic(targetIndex);
-        setMusicList(targetList);
-        setVisibility('');
-        setPlaying(true);
-    }
-
-    const nextAndBack_Music = action => {
-        playingNow.nextAndBack_Music(action)
-        setPlaying(true)
-    }
-
-    const loadingStatus = status => {
-        setLoading(status);
+    const updatePlayerControl = props => {
+        setControlProp(props)
+        setVisibility('')
     }
 
     const handlePlayPause = () => {
-        db.getFunction('play_Pause')();
-        setPlaying(playing => !playing);
+        player.play_Pause()
     }
 
-    const slideCurrentTime = time => {
-        setCurrentTime(time.played);
-    }
-
-    const slideBarProgress = state => {
-        if (!seeking) {
-            slideCurrentTime(state);
-        }
+    const nextAndBack_Music = action => {
+        player.nextMusic(action)
     }
 
     const handlelyrics = () => {
-        db.getFunction('lyricsScreen')();
-        db.getFunction('lyricsMode_header')();
-        setLyrics(lyrics => !lyrics)
-    }
-
-    const closeLyricsOnControl = () => {
-        setLyrics(false)
+        player.lyricsScreen()
     }
 
     const handleLoop = () => {
-        setLoop(loop => !loop);
-        db.getFunction('playerLoop')();
+        player.toggleLoop()
     }
 
     const handleSeekMouseUp = e => {
-        setSeeking(false);
-        db.getData("player").seekTo(parseFloat(e.target.value));
+        player.seekTo(e.target.value)
     }
 
     const handleSeekChange = e => {
-        setCurrentTime(parseFloat(e.target.value));
+        player.setCurrentTimeTo(parseFloat(e.target.value))
     }
 
-    const handleSeekMouseDown = e => {
-        setSeeking(true);
+    const handleSeekMouseDown = () => {
+        player.setSeekingStatesTo(true)
     }
 
     const handleVolumeChange = e => {
         let volume = parseFloat(e.target.value)
-        if(muted){ setMuted(false)}
-        if(volume === 0){ setMuted(true)}
-        setVolume(volume)
-        db.getFunction("VolumeChange")(volume);
+        player.setVolumeTo = volume
     }
 
     const handleToggleMuted = () => {
-        if(muted){
-            setVolume(lastVolume); 
-            db.getFunction("VolumeChange")(lastVolume); 
-            setMuted(false)
-            return
-        }
-        setLastVolume(volume);
-        setVolume(0); setMuted(true);
-        db.getFunction("VolumeChange")(0);
+        player.toggleMuted()
     }
 
     useEffect(()=>{
-        playingNow.subscribe(loadPlayerControl)
-         return ()=>{ playingNow.unsubscribe(loadPlayerControl)}
+        player.setPlayerControlFunction(updatePlayerControl)
     },[])
 
-    useEffect(()=>{
-        db.setFunction('slideBarProgress', slideBarProgress)
-        db.setFunction('loadingStatus', loadingStatus)
-        db.setFunction('closeLyricsOnControl', closeLyricsOnControl)
-    }, [])
 
     //component:
     function Btn_PlayAndPause() {
         return(
             <BtnPlayerControl play onClick={() => {handlePlayPause()}}>
-                <IconPlay src={playing? iconPause : iconPlay} alt="Play or Pause" />
+                <IconPlay src={controlProp.playing? iconPause : iconPlay} alt="Play or Pause" />
             </BtnPlayerControl>
         )
     }
 
     return (
-        <ViewPort lyrics={lyrics} style={{ display: `${visibility}`}}>
+        <ViewPort lyrics={controlProp.lyrics} style={{ display: `${visibility}`}} >
             <MusicInfor>
-                {musicList.length && <MusicImg src={musicList[music].snippet.thumbnails.medium.url} alt="musicImg"/>}
+                {Object.keys(controlProp).length && <MusicImg src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} alt="musicImg"/>}
                 <SectionTitles>
-                    {musicList.length && <MusicTitleInControl>{musicList[music].snippet.title}</MusicTitleInControl>}
-                    {musicList.length && <MusicSubTitle>{musicList[music].snippet.channelTitle}</MusicSubTitle>}
+                    {Object.keys(controlProp).length && <MusicTitleInControl>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}</MusicTitleInControl>}
+                    {Object.keys(controlProp).length && <MusicSubTitle>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.channelTitle}</MusicSubTitle>}
                 </SectionTitles>
             </MusicInfor>
 
@@ -147,7 +95,7 @@ function PlayerControl({playingNow, db}) {
                         <IconPlay src={iconBack} alt="Back Music" />
                     </BtnPlayerControl>
 
-                    {loading ? <Loading src={musicLoading} alt='loading'/> : <Btn_PlayAndPause/>}
+                    {controlProp.buffer ? <Loading src={musicLoading} alt='loading'/> : <Btn_PlayAndPause/>}
 
                     <BtnPlayerControl onClick={()=>{nextAndBack_Music(1)}}>
                         <IconPlay src={iconNext} alt="Next Music" />
@@ -156,26 +104,26 @@ function PlayerControl({playingNow, db}) {
                 
                 <DurationSlider
                     type='range' min={0} max={0.999999} step='any' 
-                    value={currentTime}
+                    value={controlProp.currentTime}
                     onChange={e => {handleSeekChange(e)}}
-                    onMouseDown={e => {handleSeekMouseDown(e)}}
+                    onMouseDown={() => {handleSeekMouseDown()}}
                     onMouseUp={e => {handleSeekMouseUp(e)}}
                 />
             </PlayerControlPainel>
 
             <OtherSetting>
-                <BtnLyrics lyrics={lyrics} onClick={()=>{handlelyrics()}}>
+                <BtnLyrics lyrics={controlProp.lyrics} onClick={()=>{handlelyrics()}}>
                     <img src={iconLyric} alt="Lyric" />
                 </BtnLyrics>
-                <BtnRepeat loop={loop} onClick={()=>{handleLoop()}}>
+                <BtnRepeat loop={controlProp.loop} onClick={()=>{handleLoop()}}>
                     <img src={iconRepeat} alt="Repeat" />
                 </BtnRepeat>
                 <VolumeControl type='range' min={0} max={1} step='any'
-                    value={volume}
+                    value={controlProp.volume}
                     onChange={e => {handleVolumeChange(e)}}
                 />
                 <BtnIconVolume onClick={()=>{handleToggleMuted()}}>
-                    <img src={muted? iconVolumeOff : iconVolume} alt="Volume Icon" />
+                    <img src={controlProp.muted? iconVolumeOff : iconVolume} alt="Volume Icon" />
                 </BtnIconVolume>
             </OtherSetting>
         </ViewPort>
