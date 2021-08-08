@@ -90,8 +90,10 @@ class playerModule {
     }
 
     closeLyrics() {
-        this.showLyrics = false
-        this.notify()
+        if(this.showLyrics) {
+            this.showLyrics = false
+            this.notify()            
+        }
     }
 
     toggleLoop() {

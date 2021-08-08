@@ -67,6 +67,7 @@ function PlayerControl({ player }) {
     }
 
     useEffect(()=>{
+        console.log(controlProp)
         player.setPlayerControlFunction(updatePlayerControl)
     },[])
 
@@ -83,10 +84,10 @@ function PlayerControl({ player }) {
     return (
         <ViewPort lyrics={controlProp.lyricMode} style={{ display: `${visibility}`}} >
             <MusicInfor>
-                {Object.keys(controlProp).length && <MusicImg src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} alt="musicImg"/>}
+                {!visibility && <MusicImg src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} alt="musicImg"/>}
                 <SectionTitles>
-                    {Object.keys(controlProp).length && <MusicTitleInControl>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}</MusicTitleInControl>}
-                    {Object.keys(controlProp).length && <MusicSubTitle>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.channelTitle}</MusicSubTitle>}
+                    {!visibility && <MusicTitleInControl>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}</MusicTitleInControl>}
+                    {!visibility && <MusicSubTitle>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.channelTitle}</MusicSubTitle>}
                 </SectionTitles>
             </MusicInfor>
 
