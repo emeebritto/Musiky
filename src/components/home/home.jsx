@@ -1,7 +1,7 @@
 import React from "react";
 import Styled from "styled-components";
 
-import BoxQuickPicks from "../QuickPicks";
+import BoxQuickPicks from "../quickPicks";
 import PlaylistsRow from "../playlistsRow"
 const RandomMusic = PlaylistsRow;
 
@@ -16,7 +16,7 @@ export default ({ player }) => {
     return (
         <ViewPort>
             <BoxQuickPicks player={player}/>
-            <RandomMusic/>
+            <RandomMusic name='MIXs'/>
         </ViewPort>
     );
 }

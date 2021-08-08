@@ -7,7 +7,7 @@ import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
 import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg,
  PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
-export default () => {
+export default ({ name }) => {
 
     const [playListsResume, setPlaylistsResume] = useState([])
 
@@ -18,7 +18,7 @@ export default () => {
 
     return (
         <>
-            <TitleSection>MIXs</TitleSection>
+            <TitleSection>{name}</TitleSection>
             <ViewPort>
                 {playListsResume.map((playList, index) => {
                     return (

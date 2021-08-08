@@ -3,7 +3,7 @@ import Styled from "styled-components";
 
 import Search from '../search'
 import PlaylistsRow from "../playlistsRow"
-const RandomList = PlaylistsRow;
+import DiskLibrarie from '../diskLibrarie'
 
 const ViewPort = Styled.section`
     padding-top: 18vh;
@@ -16,8 +16,8 @@ function PlayList() {
     return (
         <ViewPort>
             <Search/>
-            <RandomList/>
-            <RandomList/>
+            <DiskLibrarie name='long Songs | Ambient'/>
+            <PlaylistsRow name='Mashup Songs'/>
         </ViewPort>
     )
 }
