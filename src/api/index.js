@@ -1,7 +1,7 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
 
-const randomSongs = `${musikyAPI_Base}/RandomSongs?totalResult=10`
-const uri_Mixs = `${musikyAPI_Base}/mixsGenerator?totalPlayList=5&totalPerList=12`
+const randomSongs = `${musikyAPI_Base}/randomSongs?totalList=1&totalPerList=10&valueExact=true`
+const uri_Mixs = `${musikyAPI_Base}/randomSongs?totalList=5&totalPerList=12&valueExact=false`
 
 
 const api = async (uri, options = {}) => {
@@ -13,13 +13,12 @@ const api = async (uri, options = {}) => {
 }
 
 var lastQuickPicks =[];
-export const quickPicks = setMusicList => api(randomSongs)
-    .then(response => {
-        if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
-        lastQuickPicks = response;
-        console.log(response);
-        setMusicList(response);
-});
+export const quickPicks = async (setMusicList) => {
+    if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
+    let list = await api(randomSongs)
+    lastQuickPicks = list['playListDetails'].mix1msk.musicList;
+    setMusicList(lastQuickPicks);
+};
 
 var playLists ={};
 export const getPLaylists = async (filter) => {

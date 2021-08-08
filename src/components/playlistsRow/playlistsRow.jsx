@@ -13,7 +13,7 @@ export default () => {
 
     useEffect(async() => {
     	let resume = await getPLaylists('playListResume')
-    	setPlaylistsResume(resume)    		
+    	setPlaylistsResume(resume)
     }, [])
 
     return (
