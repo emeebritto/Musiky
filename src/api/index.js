@@ -16,7 +16,7 @@ var lastQuickPicks =[];
 export const quickPicks = async (setMusicList) => {
     if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
     let list = await api(randomSongs)
-    lastQuickPicks = list['playListDetails'].mix1msk.musicList;
+    lastQuickPicks = list['playListDetails']['mix01eMeb-msk-mU51ky4'].musicList;
     setMusicList(lastQuickPicks);
 };
 
