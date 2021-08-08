@@ -81,7 +81,7 @@ function PlayerControl({ player }) {
     }
 
     return (
-        <ViewPort lyrics={controlProp.lyrics} style={{ display: `${visibility}`}} >
+        <ViewPort lyrics={controlProp.lyricMode} style={{ display: `${visibility}`}} >
             <MusicInfor>
                 {Object.keys(controlProp).length && <MusicImg src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} alt="musicImg"/>}
                 <SectionTitles>
@@ -114,7 +114,7 @@ function PlayerControl({ player }) {
             </PlayerControlPainel>
 
             <OtherSetting>
-                <BtnLyrics lyrics={controlProp.lyrics} onClick={()=>{handlelyrics()}}>
+                <BtnLyrics lyrics={controlProp.lyricMode} onClick={()=>{handlelyrics()}}>
                     <img src={iconLyric} alt="Lyric" />
                 </BtnLyrics>
                 <BtnRepeat loop={controlProp.loop} onClick={()=>{handleLoop()}}>

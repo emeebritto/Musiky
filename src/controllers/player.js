@@ -13,7 +13,7 @@ class playerModule {
 
 		this.musicId = null
 		this.indexOnPlaylist = 0
-		this.playlistId = 'hhhhh'
+		this.playlistId = ''
 		this.musicList = []
 		this.playing = false
 		this.volume = 1

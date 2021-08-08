@@ -13,13 +13,17 @@ export default ({ player }) => {
     const [playingIndex, setPLayingIndex] = useState(null)
     const [musicList, setMusicList] = useState([])
 
+    const id = 'quickPicksHmsk'
 
-    const clickOnMusic = (targetIndex, targetList) => {
-        player.load(targetIndex, targetList)
+
+    const clickOnMusic = (targetIndex, targetList, playlistId) => {
+        player.load(targetIndex, targetList, playlistId)
     }
 
     const updateIndex = targetIndex => {
-        setPLayingIndex(targetIndex)
+        if(player.playingInplaylist === id) {
+            setPLayingIndex(targetIndex)
+        }
     }
 
     useEffect(() => {
@@ -46,7 +50,7 @@ export default ({ player }) => {
             <BoxQuickPicks>
                 {musicList.map((music, index) => {
                     return (
-                        <MusicOptionBox hoverOff={playingIndex === index} onClick={() => { clickOnMusic(index, musicList) }} key={index}>
+                        <MusicOptionBox hoverOff={playingIndex === index} onClick={() => { clickOnMusic(index, musicList, id) }} key={index}>
                             <BoxNumMusic>
                                 <NumMusic>{index + 1}.</NumMusic>
                             </BoxNumMusic>
