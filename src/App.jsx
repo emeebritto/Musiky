@@ -56,7 +56,7 @@ function App() {
 									<Home player={player}/>
 								</Route>
 								<Route path={"/explore/"}>
-									<Explore/>
+									<Explore player={player}/>
 								</Route>
 								<Route path={"/library/"}>
 									<Explore/>

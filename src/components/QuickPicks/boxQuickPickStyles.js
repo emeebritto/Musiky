@@ -69,10 +69,14 @@ export const DataMusic = Styled(MusicOptionBox)`
 `
 export const MusicTitle = Styled.p`
     font-size: 1.1em;
+    width: 360px;
     color: white;
     -webkit-text-stroke-width: 0.0px;
     -webkit-text-stroke-color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     margin-bottom: 5px;
 `
 export const MusicTime = Styled(ChannelName)`

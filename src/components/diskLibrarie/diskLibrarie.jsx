@@ -18,18 +18,41 @@ const TitleSection = Styled.h2`
 `
 const Disk = Styled.section`
     display: flex;
-    background-color: ;
     flex-direction: column;
     width: 150px;
-    height: 220px;
-    transition: 100ms;
+    height: 230px;
 
+    :hover {
+    	cursor: pointer;
+    }
+
+    :hover #diskImg {
+    	transform: rotate(360deg);
+    }
 `
-const DiskImg = Styled.img`
+const DiskImg = Styled.section`
+    position: relative;
 	border-radius: 360px;
 	width: 150px;
     height: 150px;
     margin-bottom: 15px;
+    transition: 400ms;
+    animation: ${(props)=> (props.playing ? "spin infinite 30s linear" : '')};
+
+    @keyframes spin {
+	  to {
+	    transform: rotate(360deg);
+	  }
+    }
+`
+const CenterHole = Styled.section`
+    position: absolute;
+	border-radius: 360px;
+	width: 20px;
+    height: 20px;
+    background-color: black;
+    top: 65px;
+    left: 65px;
 `
 const DiskTitle = Styled.h1`
 	color: white;
@@ -49,13 +72,40 @@ const DiskTotalTime = Styled.p`
 	margin-left: 5px;
 `
 
-export default ({ name }) => {
+export default ({ name, player }) => {
 
+    const [playingIndex, setPLayingIndex] = useState(null)
 	const [disksList, setDisksList] = useState([])
+
+    const id = 'diskList-LongSongsHmsk'
+
+    const clickOnMusic = (targetIndex, targetList, playlistId) => {
+    	setPLayingIndex(targetIndex);
+        player.load(targetIndex, targetList, playlistId)
+    }
 
     useEffect(() => {
         getDiskList(setDisksList);
     }, [])
+
+
+
+    //Component:
+    function DiskImgComponent({disk, index}){
+
+    	var playing = playingIndex === index;
+
+    	return(
+            <DiskImg 
+                playing={playing} 
+                id={playing ? '' : 'diskImg'}
+                style={{ background: `url(${disk.snippet.thumbnails.medium.url}) no-repeat center/175%`}} 
+                alt='disk image'
+                >
+        		<CenterHole/>
+        	</DiskImg>
+    	)
+    }
 
 	return(
 		<>
@@ -63,8 +113,8 @@ export default ({ name }) => {
 			<ViewPort>
                 {disksList.map((disk, index) => {
                     return (
-                        <Disk key={index}>
-                        	<DiskImg id="PlayListImg" src={disk.snippet.thumbnails.medium.url} alt='disk image'/>
+                        <Disk onClick={() => { clickOnMusic(index, disksList, id) }} key={index}>
+                            <DiskImgComponent disk={disk} index={index}/>
                         	<section>
                         		<DiskTitle>{disk.snippet.title}</DiskTitle>
                         		<DiskTotalTime>{disk.contentDetails.duration}</DiskTotalTime>
