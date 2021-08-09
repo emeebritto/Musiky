@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 import Styled from "styled-components";
 import search_Icon from '../../assets/icons/search_white_24dp.svg'
@@ -86,12 +86,24 @@ const Suggestion = Styled.p`
 
 export default () => {
 
+	const [inputSearch, setInputSearch] = useState('')
+
 	const demoSuggestion = ['Artistffs001', 'Artistdfdfs002', 'Arti003', 'Artfgfists004', 'Artiffsts001', 'Artists0fdfdf02', 'Artidfddsts002', 'Arists002', 'Artists00ddfd2']
+
+	useEffect(() => {
+		console.log(inputSearch)
+	},[inputSearch])
 
 	return(
 		<ViewPort>
 			<SearchBar>
-				<InputSearchBar type="text" name="seach" placeholder="Artists & Songs"/>
+				<InputSearchBar 
+					type="text" 
+					name="seach" 
+					value={inputSearch} 
+					onInput={(e)=>{setInputSearch(e.target.value)}} 
+					placeholder="Artists & Songs"
+					/>
 				<BtnSearch>
 					<SearchIcon src={search_Icon} alt="search icon"/>
 				</BtnSearch>

@@ -50,7 +50,11 @@ export default ({ player }) => {
             <BoxQuickPicks>
                 {musicList.map((music, index) => {
                     return (
-                        <MusicOptionBox hoverOff={playingIndex === index} onClick={() => { clickOnMusic(index, musicList, id) }} key={index}>
+                        <MusicOptionBox 
+                            hoverOff={playingIndex === index} 
+                            onClick={() => { clickOnMusic(index, musicList, id) }} 
+                            key={index}
+                            >
                             <BoxNumMusic>
                                 <NumMusic>{index + 1}.</NumMusic>
                             </BoxNumMusic>
@@ -58,7 +62,7 @@ export default ({ player }) => {
                                 <BoxImgMusic src={music.snippet.thumbnails.medium.url} alt="imgMusic" />
                                 <section>
                                     <MusicTitle>{music.snippet.title}</MusicTitle>
-                                    <ChannelName>{music.snippet.channelTitle}</ChannelName>
+                                    <ChannelName to={`/artist/${music.snippet.channelTitle.replaceAll(' ', '_')}`}>{music.snippet.channelTitle}</ChannelName>
                                 </section>
                             </DataMusic>
                             <MusicTime>

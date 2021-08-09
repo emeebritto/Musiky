@@ -84,8 +84,16 @@ export default ({ name, player }) => {
         player.load(targetIndex, targetList, playlistId)
     }
 
+    const updateIndex = targetIndex => {
+        if(player.playingInplaylist === id) {
+            setPLayingIndex(targetIndex)
+        }
+    }
+
     useEffect(() => {
         getDiskList(setDisksList);
+
+        player.setPlaylistFunction(updateIndex)
     }, [])
 
 

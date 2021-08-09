@@ -1,4 +1,5 @@
 import Styled from "styled-components";
+import { Link } from 'react-router-dom'
 
 export const TitleSection = Styled.h2`
     color: white;
@@ -45,12 +46,25 @@ export const BoxNumMusic = Styled(BoxQuickPicks)`
     width: 18px;
     height: 100%;
 `
-export const ChannelName = Styled.p`
+
+const FontStyles = Styled.p`
     font-size: 0.9em;
     color: rgb(255 255 255/ 70%);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
-export const NumMusic = Styled(ChannelName)`
+
+export const ChannelName = Styled(Link)`
+    text-decoration: none;
+    font-size: 0.9em;
+    color: rgb(255 255 255/ 70%);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    :hover {
+        color: rgb(255 255 255/ 90%);
+    }
+`
+export const NumMusic = Styled(FontStyles)`
+
 `
 export const BoxImgMusic = Styled.img`
     width: 53px;
@@ -79,5 +93,5 @@ export const MusicTitle = Styled.p`
     text-overflow: ellipsis;
     margin-bottom: 5px;
 `
-export const MusicTime = Styled(ChannelName)`
+export const MusicTime = Styled(FontStyles)`
 `
