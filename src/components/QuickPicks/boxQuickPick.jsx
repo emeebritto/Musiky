@@ -4,11 +4,11 @@ import { quickPicks } from "../../api";
 import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg";
 import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg';
 
-import {TitleSection, BoxIconPLayHover, BoxQuickPicks, MusicOptionBox, BoxImgMusic, 
+import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from "./boxQuickPickStyles";
 
 
-export default ({ player }) => {
+const BoxQuickPicks = ({ player }) => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
     const [musicList, setMusicList] = useState([])
@@ -27,9 +27,10 @@ export default ({ player }) => {
     }
 
     useEffect(() => {
-        quickPicks(setMusicList);
 
+        quickPicks(setMusicList);
         player.setPlaylistFunction(updateIndex)
+
     }, [])
 
 
@@ -47,7 +48,7 @@ export default ({ player }) => {
     return (
         <>
             <TitleSection>Quick Picks</TitleSection>
-            <BoxQuickPicks>
+            <BoxQuickPicksView>
                 {musicList.map((music, index) => {
                     return (
                         <MusicOptionBox 
@@ -85,7 +86,9 @@ export default ({ player }) => {
                         </MusicOptionBox>
                     )
                 })}
-            </BoxQuickPicks>
+            </BoxQuickPicksView>
         </>
     )
 }
+
+export default BoxQuickPicks

@@ -17,7 +17,7 @@ const ViewPort = Styled.section`
     margin: 20vh 0vw 20vh 0vw;
 `
 
-export default ({ player }) => {
+const Playlist = ({ player }) => {
 
     const { id } = useParams()
 
@@ -40,11 +40,14 @@ export default ({ player }) => {
         }
     }
 
-    useEffect(async() => {
-        
-        let playLists = await getPLaylists('playListDetails')
-        let playListTarget = playLists[`${id}`]
-        setPlaylist(playListTarget)
+    useEffect(() => {
+
+        async function getData() {
+            let playLists = await getPLaylists('playListDetails')
+            let playListTarget = playLists[`${id}`]
+            setPlaylist(playListTarget)
+        }
+        getData()
 
         player.setPlaylistFunction(updateIndex)
 
@@ -119,3 +122,4 @@ export default ({ player }) => {
     )
 }
 
+export default Playlist

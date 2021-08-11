@@ -84,7 +84,7 @@ const Suggestion = Styled.p`
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 
-export default () => {
+const Search = () => {
 
 	const [inputSearch, setInputSearch] = useState('')
 
@@ -120,3 +120,5 @@ export default () => {
 		</ViewPort>
 	)
 }
+
+export default Search

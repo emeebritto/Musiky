@@ -11,7 +11,7 @@ export const BoxIconPLayHover = Styled.img`
     display: none;
     filter: invert(100%);
 `
-export const BoxQuickPicks = Styled.section`
+export const BoxQuickPicksView = Styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +41,7 @@ export const MusicOptionBox = Styled.section`
         display: none;
     }
 `
-export const BoxNumMusic = Styled(BoxQuickPicks)`
+export const BoxNumMusic = Styled(BoxQuickPicksView)`
     margin-bottom: 4px;
     width: 18px;
     height: 100%;

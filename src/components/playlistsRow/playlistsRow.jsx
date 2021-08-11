@@ -7,13 +7,18 @@ import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
 import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg,
  PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
-export default ({ name }) => {
+const PlayListRow = ({ name }) => {
 
     const [playListsResume, setPlaylistsResume] = useState([])
 
-    useEffect(async() => {
-    	let resume = await getPLaylists('playListResume')
-    	setPlaylistsResume(resume)
+    useEffect(() => {
+
+        async function getData() {
+            let resume = await getPLaylists('playListResume')
+            setPlaylistsResume(resume)
+        }
+        getData()
+
     }, [])
 
     return (
@@ -39,3 +44,4 @@ export default ({ name }) => {
     )
 }
 
+export default PlayListRow

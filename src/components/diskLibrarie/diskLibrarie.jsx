@@ -72,7 +72,8 @@ const DiskTotalTime = Styled.p`
 	margin-left: 5px;
 `
 
-export default ({ name, player }) => {
+
+const DiskLibrarie = ({ name, player }) => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
 	const [disksList, setDisksList] = useState([])
@@ -134,3 +135,5 @@ export default ({ name, player }) => {
 		</>
 	)
 }
+
+export default DiskLibrarie

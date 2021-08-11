@@ -16,7 +16,7 @@ import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, Sect
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
 VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from "./playerStyles"
 
-function PlayerControl({ player }) {
+const PlayerControl = ({ player }) => {
 
     const [ controlProp, setControlProp ] = useState({})
     const [ visibility, setVisibility ] = useState('none')
@@ -73,7 +73,7 @@ function PlayerControl({ player }) {
 
 
     //component:
-    function Btn_PlayAndPause() {
+    function BtnPlayAndPause() {
         return(
             <BtnPlayerControl play onClick={() => {handlePlayPause()}}>
                 <IconPlay src={controlProp.playing? iconPause : iconPlay} alt="Play or Pause" />
@@ -81,13 +81,30 @@ function PlayerControl({ player }) {
         )
     }
 
+    function getVolumeIconStatus() {
+        if(controlProp.muted){ return iconVolumeOff }
+        if(controlProp.volume < 0.4) { return iconVolumeDown }
+        return iconVolume
+    }
+
     return (
         <ViewPort lyrics={controlProp.lyricMode} style={{ display: `${visibility}`}} >
             <MusicInfor>
-                {!visibility && <MusicImg src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} alt="musicImg"/>}
+                {!visibility && <MusicImg 
+                    src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} 
+                    alt="musicImg"
+                    />}
+
                 <SectionTitles>
-                    {!visibility && <MusicTitleInControl>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}</MusicTitleInControl>}
-                    {!visibility && <MusicSubTitle>{controlProp.musicList[controlProp.indexOnPlaylist].snippet.channelTitle}</MusicSubTitle>}
+
+                    {!visibility && <MusicTitleInControl>
+                        {controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}
+                    </MusicTitleInControl>}
+
+                    {!visibility && <MusicSubTitle>
+                        {controlProp.musicList[controlProp.indexOnPlaylist].snippet.channelTitle}
+                    </MusicSubTitle>}
+
                 </SectionTitles>
             </MusicInfor>
 
@@ -98,7 +115,7 @@ function PlayerControl({ player }) {
                         <IconPlay src={iconBack} alt="Back Music" />
                     </BtnPlayerControl>
 
-                    {controlProp.buffer ? <Loading src={musicLoading} alt='loading'/> : <Btn_PlayAndPause/>}
+                    {controlProp.buffer ? <Loading src={musicLoading} alt='loading'/> : <BtnPlayAndPause/>}
 
                     <BtnPlayerControl onClick={()=>{nextAndBack_Music(1)}}>
                         <IconPlay src={iconNext} alt="Next Music" />
@@ -115,19 +132,28 @@ function PlayerControl({ player }) {
             </PlayerControlPainel>
 
             <OtherSetting>
+
                 <BtnLyrics lyrics={controlProp.lyricMode} onClick={()=>{handlelyrics()}}>
                     <img src={iconLyric} alt="Lyric" />
                 </BtnLyrics>
+
                 <BtnRepeat loop={controlProp.loop} onClick={()=>{handleLoop()}}>
                     <img src={iconRepeat} alt="Repeat" />
                 </BtnRepeat>
-                <VolumeControl type='range' min={0} max={1} step='any'
+
+                <VolumeControl 
+                    type='range' 
+                    min={0} 
+                    max={1} 
+                    step='any'
                     value={controlProp.volume}
                     onChange={e => {handleVolumeChange(e)}}
                 />
+
                 <BtnIconVolume onClick={()=>{handleToggleMuted()}}>
-                    <img src={controlProp.muted? iconVolumeOff : iconVolume} alt="Volume Icon" />
-                </BtnIconVolume>
+                    <img src={getVolumeIconStatus()} alt="Volume Icon" />
+                </BtnIconVolume> 
+
             </OtherSetting>
         </ViewPort>
     )

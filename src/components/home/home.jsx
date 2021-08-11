@@ -11,7 +11,7 @@ const ViewPort = Styled.section`
     height: 100%;
     margin-bottom: 20vh;
 `
-export default ({ player }) => {
+const Home = ({ player }) => {
 
     return (
         <ViewPort>
@@ -20,3 +20,5 @@ export default ({ player }) => {
         </ViewPort>
     );
 }
+
+export default Home

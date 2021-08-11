@@ -1,8 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { ViewPort, VideoPlayer, Blocker } from "./playerStyles";
+import ReactPlayer from 'react-player'
+import Styled from "styled-components";
 
-function ReactPlayer({ player }) {
+const ViewPort = Styled.section`
+    position: absolute;
+    background-color: transparent;
+    padding-top: 16vh;
+    overflow: hidden;
+    height: 84vh;
+    z-index: 2;
+`
+const VideoPlayer = Styled(ReactPlayer)`
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+`
+
+const Blocker = Styled.section`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+`
+
+const ReactPlayerComp = ({ player }) => {
 
     const [ playerProp, setPlayerProp ] = useState({})
 
@@ -20,7 +44,7 @@ function ReactPlayer({ player }) {
     }
 
     const onBuffer = status => {
-        player.changeBufferStatusTo = status
+        player.changeBufferStatusTo(status)
     }
 
     const onEnded = () => {
@@ -59,4 +83,4 @@ function ReactPlayer({ player }) {
     )
 }
 
-export default ReactPlayer;
+export default ReactPlayerComp;

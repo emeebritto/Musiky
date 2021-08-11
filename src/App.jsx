@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from "react";
 import { player } from "./controllers/player";
-import { GlobalStyle } from "./components/GlobalStyle";
-import styled from "styled-components";
-import { BrowserRouter as Router, useRouteMatch, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Header from "./components/header";
 import Home from "./components/home";
 import Explore from "./components/explore"
 import PlayList from "./components/playlist"
 import PlayerControl from "./components/playerControl";
-import ReactPlayer from "./components/player";
+import ReactPlayerComp from "./components/player";
+
+import { GlobalStyle } from "./components/GlobalStyle";
+import styled from "styled-components";
+
 
 const Background = styled.section`
     position: fixed;
@@ -29,7 +31,9 @@ const Centralize = styled.section`
 	display: flex;
     justify-content: center; 
 `
-function App() {
+
+
+const App = () => {
 
 	const [background, setBackground] = useState('')
 
@@ -47,7 +51,7 @@ function App() {
 				<Blur>
 					<ViewPort>
 						<GlobalStyle />
-						<ReactPlayer player={player}/>
+						<ReactPlayerComp player={player}/>
 						<Header player={player}/>
 
 						<Centralize>

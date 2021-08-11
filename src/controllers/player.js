@@ -68,8 +68,8 @@ class playerModule {
         this.notify()
     }
 
-    set changeBufferStatusTo(status) {
-        this.Buffer = status
+    changeBufferStatusTo(status) {
+        this.buffer = status
         this.notify()
     }
 
