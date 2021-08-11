@@ -1,8 +1,7 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
 
-const randomSongs = `${musikyAPI_Base}/randomSongs?totalList=1&totalPerList=10&valueExact=true`
-const uri_Mixs = `${musikyAPI_Base}/randomSongs?totalList=5&totalPerList=12&valueExact=false`
-const diskList = `${musikyAPI_Base}/diskList?totalDisk=5`
+const randomPlaylists = `${musikyAPI_Base}/randomPlaylists?totalList=1&totalPerList=10&valueExact=true`
+const uri_Mixs = `${musikyAPI_Base}/randomPlaylists?totalList=5&totalPerList=12&valueExact=false`
 
 
 const api = async (uri, options = {}) => {
@@ -16,7 +15,7 @@ const api = async (uri, options = {}) => {
 var lastQuickPicks =[];
 export const quickPicks = async (setMusicList) => {
     if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
-    let list = await api(randomSongs)
+    let list = await api(randomPlaylists)
     lastQuickPicks = list['playListDetails']['mix01eMeb-msk-mU51ky4'].musicList;
     setMusicList(lastQuickPicks);
 };
@@ -28,10 +27,9 @@ export const getPLaylists = async (filter) => {
     return playLists[`${filter}`];
 };
 
-var ambienceSongs =[];
-export const getDiskList = async (setDiskList) => {
-    if(ambienceSongs.length !== 0){ setDiskList(ambienceSongs); return}
-    ambienceSongs = await api(diskList);
-    console.log(ambienceSongs)
-    setDiskList(ambienceSongs);
+var ambienceSongs ={};
+export const getSongsList = async (totalSong, listType) => {
+    if(ambienceSongs[listType] !== undefined){ return ambienceSongs[listType] }
+    ambienceSongs[listType] = await api(`${musikyAPI_Base}/randomSongs?totalSong=${totalSong}&listType=${listType}`);
+    return ambienceSongs[listType];
 };

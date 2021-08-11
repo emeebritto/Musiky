@@ -3,7 +3,7 @@ import Styled from "styled-components";
 
 import Search from '../search'
 import PlaylistsRow from "../playlistsRow"
-import DiskLibrarie from '../diskLibrarie'
+import DiskLibrary from '../diskLibrary'
 
 const ViewPort = Styled.section`
     padding-top: 18vh;
@@ -16,8 +16,9 @@ function PlayList({ player }) {
     return (
         <ViewPort>
             <Search/>
-            <DiskLibrarie name='long Songs | Ambient' player={player}/>
+            <DiskLibrary name='long Songs | Ambient' totalSongs={6} listType='ambienceSong' player={player}/>
             <PlaylistsRow name='Mashup Songs'/>
+            <DiskLibrary name='Mashup Songs' totalSongs={6} listType='mashupSongs' player={player}/>
         </ViewPort>
     )
 }

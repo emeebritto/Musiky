@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import Styled from 'styled-components'
 
-import { getDiskList } from "../../api";
+import { getSongsList } from "../../api";
 
 const ViewPort = Styled.section`
 	display: flex;
@@ -73,7 +73,7 @@ const DiskTotalTime = Styled.p`
 `
 
 
-const DiskLibrarie = ({ name, player }) => {
+const DiskLibrary = ({ name, totalSongs, listType, player }) => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
 	const [disksList, setDisksList] = useState([])
@@ -92,7 +92,11 @@ const DiskLibrarie = ({ name, player }) => {
     }
 
     useEffect(() => {
-        getDiskList(setDisksList);
+
+        async function getData() {
+            setDisksList(await getSongsList(totalSongs, listType))
+        }
+        getData()
 
         player.setPlaylistFunction(updateIndex)
     }, [])
@@ -136,4 +140,4 @@ const DiskLibrarie = ({ name, player }) => {
 	)
 }
 
-export default DiskLibrarie
+export default DiskLibrary
