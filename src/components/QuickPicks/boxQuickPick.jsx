@@ -62,7 +62,20 @@ export default ({ player }) => {
                                 <BoxImgMusic src={music.snippet.thumbnails.medium.url} alt="imgMusic" />
                                 <section>
                                     <MusicTitle>{music.snippet.title}</MusicTitle>
-                                    <ChannelName to={`/artist/${music.snippet.channelTitle.replaceAll(' ', '_')}`}>{music.snippet.channelTitle}</ChannelName>
+                                    <section>
+                                        {music.Artist.map((artist, index) => {
+                                            let space='';
+                                            if(index > 0){ space = ',  ' }
+                                            return(
+                                                <ChannelName 
+                                                    to={`/artist/${artist.replaceAll(' ', '_')}`}
+                                                    onClick={(e)=>{e.stopPropagation()}}
+                                                    >
+                                                    {space + artist}
+                                                </ChannelName>
+                                            )
+                                        })}
+                                    </section>
                                 </section>
                             </DataMusic>
                             <MusicTime>

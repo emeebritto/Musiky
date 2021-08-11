@@ -1,4 +1,5 @@
 import Styled from "styled-components";
+import { Link } from 'react-router-dom'
 
 export const S = {
     PlaylistInfor: Styled.section`
@@ -85,10 +86,16 @@ export const Ss = {
         color: #C4C4C4;
         font-size: 1.1em;
     `,
-    ChannelName: Styled(S.NumMusic)`
+    ChannelName: Styled(Link)`
+        text-decoration: none;
         margin-top: 5px;
         font-size: 0.9em;
+        color: rgb(255 255 255/ 70%);
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+        :hover {
+            color: rgb(255 255 255/ 90%);
+        }
     `,
     MusicTime: Styled(S.NumMusic)`
     `,

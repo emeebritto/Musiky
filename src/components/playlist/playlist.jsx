@@ -90,7 +90,20 @@ export default ({ player }) => {
 
                         <S.MusicInfor>
                             <S.MusicTitle>{music.snippet.title}</S.MusicTitle>
-                            <Ss.ChannelName>{music.snippet.channelTitle}</Ss.ChannelName>
+                            <section>
+                                {music.Artist.map((artist, index) => {
+                                    let space='';
+                                    if(index > 0){ space = ',  ' }
+                                    return(
+                                        <Ss.ChannelName 
+                                            to={`/artist/${artist.replaceAll(' ', '_')}`}
+                                            onClick={(e)=>{e.stopPropagation()}}
+                                            >
+                                            {space + artist}
+                                        </Ss.ChannelName>
+                                    )
+                                })}
+                            </section>
                         </S.MusicInfor>
 
                         <Ss.MusicTime>
