@@ -51,6 +51,12 @@ const ReactPlayerComp = ({ player }) => {
         player.nextMusic(1)
     }
 
+    const onError = () => {
+        if(playerProp.length){
+            onEnded()
+        }
+    }
+
 
     const ref = reactPlayer => {
         player.setPlayerComponent(reactPlayer, UpdatePlayerState)
@@ -64,11 +70,12 @@ const ReactPlayerComp = ({ player }) => {
                 playing={playerProp.playing}
                 volume={playerProp.volume}
                 loop={playerProp.loop}
-                onProgress={time =>{ handleProgress(time) }}
-                onDuration={duration => { handleDuration(duration) }}
+                onProgress={time => handleProgress(time) }
+                onDuration={duration =>  handleDuration(duration) }
                 onBuffer={() => onBuffer(true)}
                 onBufferEnd={() => onBuffer(false)}
-                onEnded={() => { onEnded() }}
+                onEnded={() =>  onEnded() }
+                onError={() => onError() }
                 url={`https://www.youtube-nocookie.com/embed/${playerProp.musicId}`}
                 width='100vw'
                 height='100vh'

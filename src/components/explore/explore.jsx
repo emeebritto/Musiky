@@ -17,7 +17,7 @@ function PlayList({ player }) {
         <ViewPort>
             <Search/>
             <DiskLibrary name='long Songs | Ambient' totalSongs={6} listType='ambienceSong' player={player}/>
-            <PlaylistsRow name='Mashup Songs'/>
+            <PlaylistsRow name='Other Mixs' viewMode='Resume' listType='othersMixs'/>
             <DiskLibrary name='Mashup Songs' totalSongs={6} listType='mashupSongs' player={player}/>
         </ViewPort>
     )

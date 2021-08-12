@@ -1,7 +1,6 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
 
 const randomPlaylists = `${musikyAPI_Base}/randomPlaylists?totalList=1&totalPerList=10&valueExact=true`
-const uri_Mixs = `${musikyAPI_Base}/randomPlaylists?totalList=5&totalPerList=12&valueExact=false`
 
 
 const api = async (uri, options = {}) => {
@@ -16,15 +15,15 @@ var lastQuickPicks =[];
 export const quickPicks = async (setMusicList) => {
     if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
     let list = await api(randomPlaylists)
-    lastQuickPicks = list['playListDetails']['mix01eMeb-msk-mU51ky4'].musicList;
+    lastQuickPicks = list['playListDetails']['mixcs5001eMeb-msk-mU51ky4'].musicList;
     setMusicList(lastQuickPicks);
 };
 
 var playLists ={};
-export const getPLaylists = async (filter) => {
-    if(Object.keys(playLists).length !== 0){return playLists[`${filter}`]}
-    playLists = await api(uri_Mixs);
-    return playLists[`${filter}`];
+export const getPLaylists = async (viewMode, listType, totalList=6, totalPerList=15, valueExact=false) => {
+    if(playLists[listType] !== undefined){ return playLists[listType][`playList${viewMode}`] }
+    playLists[listType] = await api(`${musikyAPI_Base}/randomPlaylists?totalList=${totalList}&totalPerList=${totalPerList}&listPrefix=${listType}&valueExact=${valueExact}`);
+    return playLists[listType][`playList${viewMode}`];
 };
 
 var ambienceSongs ={};

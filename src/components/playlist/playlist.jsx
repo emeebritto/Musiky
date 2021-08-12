@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import Styled from "styled-components";
 import {S, Ss} from "./playlistStyles"
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 
 import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg";
 import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg';
@@ -18,6 +18,8 @@ const ViewPort = Styled.section`
 `
 
 const Playlist = ({ player }) => {
+
+    let history = useHistory()
 
     const { id } = useParams()
 
@@ -43,15 +45,14 @@ const Playlist = ({ player }) => {
     useEffect(() => {
 
         async function getData() {
-            let playLists = await getPLaylists('playListDetails')
-            let playListTarget = playLists[`${id}`]
-            setPlaylist(playListTarget)
+            let listType = id.split('cs50', 1)
+            let data = await getPLaylists('Details', listType[0])
+            console.log(data)
+            setPlaylist(data[id])
         }
         getData()
 
         player.setPlaylistFunction(updateIndex)
-
-        console.log(player.playingInplaylist)
 
         if (id === player.playingInplaylist){
             setPLayingIndex(player.playingIndex)
@@ -73,7 +74,7 @@ const Playlist = ({ player }) => {
     return (
         <ViewPort>
             <S.PlaylistInfor>
-                <S.BackIcon src={iconBack} alt='back'/>
+                <S.BackIcon onClick={()=> {history.go(-1)}} src={iconBack} alt='back'/>
                 <S.PlayListImg src={playlist.playListImg} alt="PlayList Img"/>
                 <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
                 <Ss.PlaySubTitle>{playlist.totalMusic} Musics</Ss.PlaySubTitle>                    

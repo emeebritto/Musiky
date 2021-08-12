@@ -7,15 +7,14 @@ import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
 import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg,
  PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
-const PlayListRow = ({ name }) => {
+const PlayListRow = ({ name, viewMode, listType }) => {
 
     const [playListsResume, setPlaylistsResume] = useState([])
 
     useEffect(() => {
 
         async function getData() {
-            let resume = await getPLaylists('playListResume')
-            setPlaylistsResume(resume)
+            setPlaylistsResume(await getPLaylists(viewMode, listType))
         }
         getData()
 
