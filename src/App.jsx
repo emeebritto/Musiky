@@ -8,6 +8,7 @@ import Explore from "./components/explore"
 import PlayList from "./components/playlist"
 import PlayerControl from "./components/playerControl";
 import ReactPlayerComp from "./components/player";
+import NotFound404 from "./components/noFound404";
 
 import { GlobalStyle } from "./components/GlobalStyle";
 import styled from "styled-components";
@@ -67,6 +68,9 @@ const App = () => {
 								</Route>
 					            <Route path={`/playList/:id`}>
 	                                <PlayList player={player}/>
+	                            </Route>
+	                            <Route>
+	                            	<NotFound404/>
 	                            </Route>
 							</Switch>
 						</Centralize>
