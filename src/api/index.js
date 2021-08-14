@@ -43,3 +43,8 @@ export const getSuggestionArtists = async (total) => {
     suggestions = await api(`${musikyAPI_Base}/gSuggestions?total=${total}`);
     return suggestions
 };
+
+export const completeInput = async (input) => {
+    let result = await api(`${musikyAPI_Base}/auto-complete?input=${input}`);
+    return result
+};

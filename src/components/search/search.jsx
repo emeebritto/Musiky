@@ -4,6 +4,7 @@ import Styled from "styled-components";
 import search_Icon from '../../assets/icons/search_white_24dp.svg'
 
 import {getSuggestionArtists} from "../../api";
+import {completeInput} from "../../api";
 
 const ViewPort = Styled.section`
     display: flex;
@@ -12,6 +13,7 @@ const ViewPort = Styled.section`
 `
 const SearchBar = Styled.section`
 	display: flex;
+	position: relative;
 	align-items: center;
 	width: 500px;
 	height: 40px;
@@ -61,6 +63,33 @@ const BtnSearch = Styled.button`
 const SearchIcon = Styled.img`
 	filter invert(100%);
 `
+const OptionsCompleteSearch = Styled.section`
+	position: absolute;
+	z-index: 5;
+	color: white;
+	overflow: hidden;
+	background-color: #000005;
+	border: 1px solid #191D1F;
+	border-radius: 10px;
+	box-shadow: 1px 1px 30px black;
+	top: 50px;
+	width: 465px;
+	height: auto;
+`
+
+const Option = Styled.p`
+	width: 98%;
+	cursor: pointer;
+	padding: 4px 10px 4px 10px;
+	overflow: hidden;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+
+	:hover {
+		background-color: #0D0A0A;
+	}
+`
+
 const Suggestions = Styled.section`
 	display: flex;
 	align-items: center;
@@ -90,8 +119,18 @@ const Search = () => {
 
 	const [inputSearch, setInputSearch] = useState('')
 	const [suggestions, setSuggestions] = useState([])
+	const [autoComplete, setAutoComplete] = useState([])
 
-	const demoSuggestion = ['Artistffs001', 'Artistdfdfs002', 'Arti003', 'Artfgfists004', 'Artiffsts001', 'Artists0fdfdf02', 'Artidfddsts002', 'Arists002', 'Artists00ddfd2']
+
+    const filterSearch = async (value) => {
+    	var selected = []
+
+	    if (value.length > 1) {
+	    	setAutoComplete(await completeInput(value))
+	    } else {
+	    	setAutoComplete([])
+	    }
+    }
 
 	useEffect(() => {
 		async function getData(){
@@ -101,6 +140,18 @@ const Search = () => {
 
 	},[])
 
+	function OptionsAutoComplete(){
+		return(
+			<OptionsCompleteSearch>
+				{autoComplete.map((option, index) =>{
+					return(
+						<Option>{option}</Option>
+					)
+				})}
+			</OptionsCompleteSearch>
+		)
+	}
+
 	return(
 		<ViewPort>
 			<SearchBar>
@@ -108,12 +159,16 @@ const Search = () => {
 					type="text" 
 					name="seach" 
 					value={inputSearch} 
-					onInput={(e)=>{setInputSearch(e.target.value)}} 
+					onInput={e => {
+						setInputSearch(e.target.value)
+						filterSearch(e.target.value)
+					}} 
 					placeholder="Artists & Songs"
 					/>
 				<BtnSearch>
 					<SearchIcon src={search_Icon} alt="search icon"/>
 				</BtnSearch>
+				{autoComplete.length && <OptionsAutoComplete/>}
 			</SearchBar>
 			<Suggestions>
 				{suggestions.map((suggestion, index) => {
