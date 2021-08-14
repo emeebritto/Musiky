@@ -74,6 +74,7 @@ export const S = {
         color: white;
         font-size: 1.1em;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin-bottom: 3px;
     `,
     BoxIconPLayHover: Styled.img`
         display: none;
@@ -88,7 +89,6 @@ export const Ss = {
     `,
     ChannelName: Styled(Link)`
         text-decoration: none;
-        margin-top: 5px;
         font-size: 0.9em;
         color: rgb(255 255 255/ 70%);
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;

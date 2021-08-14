@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import Styled from "styled-components";
 import search_Icon from '../../assets/icons/search_white_24dp.svg'
 
+import {getSuggestionArtists} from "../../api";
+
 const ViewPort = Styled.section`
     display: flex;
     align-items: center;
@@ -87,12 +89,17 @@ const Suggestion = Styled.p`
 const Search = () => {
 
 	const [inputSearch, setInputSearch] = useState('')
+	const [suggestions, setSuggestions] = useState([])
 
 	const demoSuggestion = ['Artistffs001', 'Artistdfdfs002', 'Arti003', 'Artfgfists004', 'Artiffsts001', 'Artists0fdfdf02', 'Artidfddsts002', 'Arists002', 'Artists00ddfd2']
 
 	useEffect(() => {
-		console.log(inputSearch)
-	},[inputSearch])
+		async function getData(){
+			setSuggestions(await getSuggestionArtists(11))			
+		}
+		getData()
+
+	},[])
 
 	return(
 		<ViewPort>
@@ -109,7 +116,7 @@ const Search = () => {
 				</BtnSearch>
 			</SearchBar>
 			<Suggestions>
-				{demoSuggestion.map((suggestion, index) => {
+				{suggestions.map((suggestion, index) => {
                     return (
                         <SuggestionBox key={index}>
                         	<Suggestion>{suggestion}</Suggestion>

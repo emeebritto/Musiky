@@ -11,6 +11,7 @@ const api = async (uri, options = {}) => {
     }).catch((rej)=> console.log(rej))
 }
 
+
 var lastQuickPicks =[];
 export const quickPicks = async (setMusicList) => {
     if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
@@ -19,6 +20,7 @@ export const quickPicks = async (setMusicList) => {
     setMusicList(lastQuickPicks);
 };
 
+
 var playLists ={};
 export const getPLaylists = async (viewMode, listType, totalList=6, totalPerList=15, valueExact=false) => {
     if(playLists[listType] !== undefined){ return playLists[listType][`playList${viewMode}`] }
@@ -26,9 +28,18 @@ export const getPLaylists = async (viewMode, listType, totalList=6, totalPerList
     return playLists[listType][`playList${viewMode}`];
 };
 
+
 var ambienceSongs ={};
 export const getSongsList = async (totalSong, listType) => {
     if(ambienceSongs[listType] !== undefined){ return ambienceSongs[listType] }
     ambienceSongs[listType] = await api(`${musikyAPI_Base}/randomSongs?totalSong=${totalSong}&listType=${listType}`);
     return ambienceSongs[listType];
+};
+
+
+var suggestions =[]
+export const getSuggestionArtists = async (total) => {
+    if(suggestions.length){ return suggestions }
+    suggestions = await api(`${musikyAPI_Base}/gSuggestions?total=${total}`);
+    return suggestions
 };

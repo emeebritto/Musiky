@@ -102,7 +102,7 @@ const PlayerControl = ({ player }) => {
                     </MusicTitleInControl>}
 
                     {!visibility && <MusicSubTitle>
-                        {controlProp.musicList[controlProp.indexOnPlaylist].snippet.channelTitle}
+                        {controlProp.musicList[controlProp.indexOnPlaylist].Artist}
                     </MusicSubTitle>}
 
                 </SectionTitles>
