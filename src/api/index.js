@@ -1,4 +1,5 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
+const local = 'http://localhost:8877'
 
 const randomPlaylists = `${musikyAPI_Base}/randomPlaylists?totalList=1&totalPerList=10&valueExact=true`
 
@@ -44,7 +45,8 @@ export const getSuggestionArtists = async (total) => {
     return suggestions
 };
 
-export const completeInput = async (input) => {
-    let result = await api(`${musikyAPI_Base}/auto-complete?input=${input}`);
+
+export const completeInput = async (input, maxResult) => {
+    let result = await api(`${musikyAPI_Base}/auto-complete?input=${input}&maxResult=${maxResult}`);
     return result
 };

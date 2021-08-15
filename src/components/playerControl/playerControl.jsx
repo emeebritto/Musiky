@@ -67,7 +67,6 @@ const PlayerControl = ({ player }) => {
     }
 
     useEffect(()=>{
-        console.log(controlProp)
         player.setPlayerControlFunction(updatePlayerControl)
     },[])
 

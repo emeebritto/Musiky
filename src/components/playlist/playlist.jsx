@@ -47,7 +47,7 @@ const Playlist = ({ player }) => {
         async function getData() {
             let listType = id.split('cs50', 1)
             let data = await getPLaylists('Details', listType[0])
-            console.log(data)
+            if(data[id] == undefined){history.push('/404')}
             setPlaylist(data[id])
         }
         getData()

@@ -123,10 +123,9 @@ const Search = () => {
 
 
     const filterSearch = async (value) => {
-    	var selected = []
 
 	    if (value.length > 1) {
-	    	setAutoComplete(await completeInput(value))
+	    	setAutoComplete(await completeInput(value, 10))
 	    } else {
 	    	setAutoComplete([])
 	    }
