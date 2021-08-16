@@ -80,7 +80,7 @@ const App = () => {
 									<Explore/>
 								</Route>
 					            <Route path={`/playList/:id`}>
-	                                <PlayList player={player}/>
+	                                <PlayList player={player} loadingStates={loadingStates}/>
 	                            </Route>
 	                            <Route>
 	                            	<NotFound404/>

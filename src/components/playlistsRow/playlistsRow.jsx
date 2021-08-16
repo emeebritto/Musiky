@@ -4,14 +4,25 @@ import {getPLaylists} from "../../api";
 
 import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
 
-import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg,
+import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowHover,
  PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
-const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
+
+const PlayListRow = ({ name, player, viewMode, listType, loadingStates }) => {
 
     const [playListsResume, setPlaylistsResume] = useState([])
 
-    const loadList = ()=> loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
+    const loadListView = ()=> {
+        if(loadingStates != undefined){
+            loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
+        }
+    }
+
+    const startList = async(playListsKey) => {
+        let listType = playListsKey.split('cs50', 1)
+        let data = await getPLaylists('Details', listType[0])
+        player.load(0, data[playListsKey].musicList, playListsKey)
+    }
 
     useEffect(() => {
 
@@ -33,12 +44,20 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
                 {playListsResume.map((playList, index) => {
                     return (
                         <PlayList 
-                            onClick={()=> loadList()} 
+                            onClick={()=> loadListView()} 
                             to={`/playList/${playList.keyInPlaylistDetails}`} 
                             key={index}
                             >
-                            <BtnPLayHover id="BtnPLayHover">
+                            <BtnPLayHover 
+                                onClick={e => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    startList(playList.keyInPlaylistDetails)
+                                }}
+                                id="BtnPLayHover"
+                                >
                             	<BtnPLayHoverImg src={iconPlay} alt="play icon"/>
+                                <ShadowHover></ShadowHover>
                             </BtnPLayHover>
                         	<PlayListImg id="PlayListImg" src={playList.playListImg} alt='playList img'/>
                         	<section>

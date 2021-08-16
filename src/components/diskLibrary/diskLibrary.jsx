@@ -78,7 +78,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
     const [playingIndex, setPLayingIndex] = useState(null)
 	const [disksList, setDisksList] = useState([])
 
-    const id = 'diskList-LongSongsHmsk'
+    const id = listType
 
     const clickOnMusic = (targetIndex, targetList, playlistId) => {
     	setPLayingIndex(targetIndex);
@@ -116,7 +116,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
             <DiskImg 
                 playing={playing} 
                 id={playing ? '' : 'diskImg'}
-                style={{ background: `url(${disk.snippet.thumbnails.medium.url}) no-repeat center/175%`}} 
+                style={{ background: `url(${disk.snippet.thumbnails.medium.url}) no-repeat center/177.5%`}} 
                 alt='disk image'
                 >
         		<CenterHole/>

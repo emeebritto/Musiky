@@ -17,7 +17,7 @@ const ViewPort = Styled.section`
     margin: 20vh 0vw 20vh 0vw;
 `
 
-const Playlist = ({ player }) => {
+const Playlist = ({ player, loadingStates }) => {
 
     let history = useHistory()
 
@@ -47,8 +47,14 @@ const Playlist = ({ player }) => {
         async function getData() {
             let listType = id.split('cs50', 1)
             let data = await getPLaylists('Details', listType[0])
+
             if(data[id] == undefined){history.push('/404')}
+
             setPlaylist(data[id])
+
+            if(loadingStates!=undefined){
+                loadingStates.appLoading(false)
+            }
         }
         getData()
 

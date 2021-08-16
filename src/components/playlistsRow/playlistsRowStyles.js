@@ -40,6 +40,8 @@ export const BtnPLayHover = Styled.button`
     border: none;
     position: absolute;
     background-color: #131313;
+    cursor: pointer;
+    z-index: 2;
     width: 40px;
     height: 40px;
     top: 105px;
@@ -47,6 +49,22 @@ export const BtnPLayHover = Styled.button`
     border-radius: 19px;
     box-shadow: 5px 5px 30px black;
 `
+export const ShadowHover = Styled.section`
+    position: absolute;
+    top: 0px;
+    left: -1px;
+    width: 40px;
+    height: 40px;
+    z-index: 0;
+    border-radius: 60px;
+    background-color: rgb(0 0 0 / 30%);
+    transition: 400ms;
+
+    :hover {
+        transform: scale(3.7);
+    }
+`
+
 export const BtnPLayHoverImg = Styled.img`
     width: 100%;
     margin-top: 2px;
@@ -55,7 +73,6 @@ export const BtnPLayHoverImg = Styled.img`
 
 export const PlayListImg = Styled.img`
 	border-radius: 10px;
-    background-color: gray;
 	width: 150px;
     height: 150px;
 `

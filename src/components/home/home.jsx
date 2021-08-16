@@ -15,7 +15,7 @@ const Home = ({ player, loadingStates }) => {
     return (
         <ViewPort>
             <BoxQuickPicks player={player}/>
-            <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
+            <PlaylistsRow name='MIXs' player={player} viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
         </ViewPort>
     );
 }

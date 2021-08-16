@@ -30,7 +30,7 @@ export const Links = styled(Link)`
     text-decoration: none;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 1.4em;
-    background-color: rgb(0 0 0 /30%);
+    background-color: rgb(0 0 0 /25%);
     box-shadow: 0px 0px 25px rgb(0 0 0 /60%);
     color: #A1A1A1;
     

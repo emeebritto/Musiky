@@ -17,7 +17,7 @@ function PlayList({ player, loadingStates }) {
         <ViewPort>
             <Search/>
             <DiskLibrary name='long Songs | Ambient' totalSongs={6} listType='ambienceSong' player={player}/>
-            <PlaylistsRow name='Other Mixs' viewMode='Resume' listType='othersMixs'/>
+            <PlaylistsRow name='Other Mixs' player={player} viewMode='Resume' listType='othersMixs'/>
             <DiskLibrary 
                 name='Mashup Songs' 
                 totalSongs={6} 
