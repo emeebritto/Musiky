@@ -73,7 +73,7 @@ const DiskTotalTime = Styled.p`
 `
 
 
-const DiskLibrary = ({ name, totalSongs, listType, player }) => {
+const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
 	const [disksList, setDisksList] = useState([])
@@ -95,6 +95,10 @@ const DiskLibrary = ({ name, totalSongs, listType, player }) => {
 
         async function getData() {
             setDisksList(await getSongsList(totalSongs, listType))
+            if(loadingStates!=undefined){
+                loadingStates.appLoading(false)
+                loadingStates.pagLoading({loadingBar: true, contentLoaded: true})
+            }
         }
         getData()
 

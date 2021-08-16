@@ -7,14 +7,20 @@ import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
 import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg,
  PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
 
-const PlayListRow = ({ name, viewMode, listType }) => {
+const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
 
     const [playListsResume, setPlaylistsResume] = useState([])
+
+    const loadList = ()=> loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
 
     useEffect(() => {
 
         async function getData() {
             setPlaylistsResume(await getPLaylists(viewMode, listType))
+            if(loadingStates != undefined){
+                loadingStates.appLoading(false)
+                loadingStates.pagLoading({loadingBar: true, contentLoaded: true})
+            }
         }
         getData()
 
@@ -26,7 +32,11 @@ const PlayListRow = ({ name, viewMode, listType }) => {
             <ViewPort>
                 {playListsResume.map((playList, index) => {
                     return (
-                        <PlayList to={`/playList/${playList.keyInPlaylistDetails}`} key={index}>
+                        <PlayList 
+                            onClick={()=> loadList()} 
+                            to={`/playList/${playList.keyInPlaylistDetails}`} 
+                            key={index}
+                            >
                             <BtnPLayHover id="BtnPLayHover">
                             	<BtnPLayHoverImg src={iconPlay} alt="play icon"/>
                             </BtnPLayHover>

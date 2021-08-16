@@ -11,14 +11,20 @@ const ViewPort = Styled.section`
     height: 100%;
     padding-bottom: 20vh;
 `
-function PlayList({ player }) {
+function PlayList({ player, loadingStates }) {
 
     return (
         <ViewPort>
             <Search/>
             <DiskLibrary name='long Songs | Ambient' totalSongs={6} listType='ambienceSong' player={player}/>
             <PlaylistsRow name='Other Mixs' viewMode='Resume' listType='othersMixs'/>
-            <DiskLibrary name='Mashup Songs' totalSongs={6} listType='mashupSongs' player={player}/>
+            <DiskLibrary 
+                name='Mashup Songs' 
+                totalSongs={6} 
+                listType='mashupSongs' 
+                player={player}
+                loadingStates={loadingStates}
+            />
         </ViewPort>
     )
 }

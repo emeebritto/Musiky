@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import { player } from "./controllers/player";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+import Splashscreen from './components/splashscreen'
+import TransitionLoadingBar from './components/transitionLoadingBar'
+
 import Header from "./components/header";
 import Home from "./components/home";
 import Explore from "./components/explore"
@@ -37,6 +40,14 @@ const Centralize = styled.section`
 const App = () => {
 
 	const [background, setBackground] = useState('')
+	const [appLoading, setAppLoading] = useState(true)
+	const [pagLoading, setPagLoading] = useState({loadingBar: false, contentLoaded: false})
+
+	const loadingStates = {
+		appLoading: status => setAppLoading(status),
+		pagLoading: status => setPagLoading(status),
+		values: pagLoading
+	}
 
 	const updateBackground = (targetIndex, targetList) => {
 		setBackground(targetList[targetIndex].snippet.thumbnails.medium.url)
@@ -51,17 +62,19 @@ const App = () => {
 			<Background style={{ background: `url(${background}) no-repeat center/100%`}}>
 				<Blur>
 					<ViewPort>
+						{appLoading && <Splashscreen/>}
+						{pagLoading.loadingBar && <TransitionLoadingBar loadingStates={loadingStates}/>}
 						<GlobalStyle />
 						<ReactPlayerComp player={player}/>
-						<Header player={player}/>
+						<Header player={player} loadingStates={loadingStates}/>
 
 						<Centralize>
 							<Switch>
 								<Route exact path={"/"}>
-									<Home player={player}/>
+									<Home player={player} loadingStates={loadingStates}/>
 								</Route>
 								<Route path={"/explore/"}>
-									<Explore player={player}/>
+									<Explore player={player} loadingStates={loadingStates}/>
 								</Route>
 								<Route path={"/library/"}>
 									<Explore/>

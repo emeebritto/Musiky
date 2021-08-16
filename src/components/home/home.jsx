@@ -10,12 +10,12 @@ const ViewPort = Styled.section`
     height: 100%;
     margin-bottom: 20vh;
 `
-const Home = ({ player }) => {
+const Home = ({ player, loadingStates }) => {
 
     return (
         <ViewPort>
             <BoxQuickPicks player={player}/>
-            <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs'/>
+            <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
         </ViewPort>
     );
 }
