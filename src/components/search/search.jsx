@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
+import { Link } from 'react-router-dom'
+
 import Styled from "styled-components";
 import search_Icon from '../../assets/icons/search_white_24dp.svg'
 
@@ -77,10 +79,14 @@ const OptionsCompleteSearch = Styled.section`
 	height: auto;
 `
 
-const Option = Styled.p`
+const Option = Styled(Link)`
+    display: inline-block;
+    text-decoration: none;
+    color: white;
 	width: 98%;
 	cursor: pointer;
 	padding: 4px 10px 4px 10px;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	overflow: hidden;
 	white-space: nowrap;
     text-overflow: ellipsis;
@@ -98,7 +104,8 @@ const Suggestions = Styled.section`
 	justify-content: space-around;
 	margin-left: 20px;
 `
-const SuggestionBox = Styled.section`
+const SuggestionBox = Styled(Link)`
+    text-decoration: none;
 	background-color: #1E1E1E;
 	border-radius: 10px;
 	margin: 2px 4px;
@@ -131,6 +138,11 @@ const Search = () => {
 	    }
     }
 
+    const updateField = option => {
+    	setInputSearch(option)
+    	setAutoComplete([])
+    }
+
 	useEffect(() => {
 		async function getData(){
 			setSuggestions(await getSuggestionArtists(11))			
@@ -144,7 +156,7 @@ const Search = () => {
 			<OptionsCompleteSearch>
 				{autoComplete.map((option, index) =>{
 					return(
-						<Option>{option}</Option>
+						<Option onClick={()=> updateField(option)} to={`/explore/search/${option.replaceAll(' ', '-')}`}>{option}</Option>
 					)
 				})}
 			</OptionsCompleteSearch>
@@ -172,7 +184,10 @@ const Search = () => {
 			<Suggestions>
 				{suggestions.map((suggestion, index) => {
                     return (
-                        <SuggestionBox key={index}>
+                        <SuggestionBox 
+                        	onClick={()=>{updateField(suggestion)}}
+                        	to={`/explore/search/${suggestion.replaceAll(' ', '-')}`}
+                        	key={index}>
                         	<Suggestion>{suggestion}</Suggestion>
                         </SuggestionBox>
                     )
