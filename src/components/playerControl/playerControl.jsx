@@ -89,21 +89,21 @@ const PlayerControl = ({ player }) => {
     return (
         <ViewPort lyrics={controlProp.lyricMode} style={{ display: `${visibility}`}} >
             <MusicInfor>
-                {!visibility && <MusicImg 
-                    src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} 
-                    alt="musicImg"
-                    />}
-
+                {!visibility 
+                    && <MusicImg 
+                            src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} 
+                            alt="musicImg"
+                            />}
                 <SectionTitles>
+                    {!visibility 
+                        && <MusicTitleInControl>
+                                {controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}
+                            </MusicTitleInControl>}
 
-                    {!visibility && <MusicTitleInControl>
-                        {controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}
-                    </MusicTitleInControl>}
-
-                    {!visibility && <MusicSubTitle>
-                        {controlProp.musicList[controlProp.indexOnPlaylist].Artist}
-                    </MusicSubTitle>}
-
+                    {!visibility 
+                        && <MusicSubTitle>
+                                {controlProp.musicList[controlProp.indexOnPlaylist].Artist}
+                            </MusicSubTitle>}
                 </SectionTitles>
             </MusicInfor>
 
@@ -114,7 +114,9 @@ const PlayerControl = ({ player }) => {
                         <IconPlay src={iconBack} alt="Back Music" />
                     </BtnPlayerControl>
 
-                    {controlProp.buffer ? <Loading src={musicLoading} alt='loading'/> : <BtnPlayAndPause/>}
+                    {controlProp.buffer 
+                        ? <Loading src={musicLoading} alt='loading'/> 
+                        : <BtnPlayAndPause/>}
 
                     <BtnPlayerControl onClick={()=>{nextAndBack_Music(1)}}>
                         <IconPlay src={iconNext} alt="Next Music" />

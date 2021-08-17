@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import ReactPlayer from 'react-player'
 import Styled from "styled-components";
@@ -56,6 +56,15 @@ const ReactPlayerComp = ({ player }) => {
             onEnded()
         }
     }
+
+    const handleContextMenu = e => {
+        e.preventDefault();
+    }
+
+    useEffect(()=>{
+        document.addEventListener("contextmenu", (e)=> handleContextMenu(e));
+        return ()=> document.removeEventListener("contextmenu", (e)=> handleContextMenu(e))
+    },[])
 
 
     const ref = reactPlayer => {
