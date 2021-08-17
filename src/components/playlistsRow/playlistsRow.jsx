@@ -13,7 +13,7 @@ const PlayListRow = ({ name, player, viewMode, listType, loadingStates }) => {
     const [playListsResume, setPlaylistsResume] = useState([])
 
     const loadListView = ()=> {
-        if(loadingStates != undefined){
+        if(loadingStates !== undefined){
             loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
         }
     }
@@ -28,15 +28,15 @@ const PlayListRow = ({ name, player, viewMode, listType, loadingStates }) => {
 
         async function getData() {
             setPlaylistsResume(await getPLaylists(viewMode, listType))
-            if(loadingStates != undefined){
+            if(loadingStates !== undefined){
                 loadingStates.appLoading(false)
                 loadingStates.pagLoading({loadingBar: true, contentLoaded: true})
             }
         }
         getData()
 
-    }, [])
-
+    },[])
+    
     return (
         <>
             <TitleSection>{name}</TitleSection>

@@ -95,7 +95,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
 
         async function getData() {
             setDisksList(await getSongsList(totalSongs, listType))
-            if(loadingStates!=undefined){
+            if(loadingStates!==undefined){
                 loadingStates.appLoading(false)
                 loadingStates.pagLoading({loadingBar: true, contentLoaded: true})
             }
@@ -103,7 +103,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
         getData()
 
         player.setPlaylistFunction(updateIndex)
-    }, [])
+    },[])
 
 
 

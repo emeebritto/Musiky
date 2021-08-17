@@ -31,7 +31,7 @@ const BoxQuickPicks = ({ player }) => {
         quickPicks(setMusicList);
         player.setPlaylistFunction(updateIndex)
 
-    }, [])
+    },[])
 
 
     //Component:

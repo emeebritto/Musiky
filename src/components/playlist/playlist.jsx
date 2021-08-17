@@ -48,11 +48,11 @@ const Playlist = ({ player, loadingStates }) => {
             let listType = id.split('cs50', 1)
             let data = await getPLaylists('Details', listType[0])
 
-            if(data[id] == undefined){history.push('/404')}
+            if(data[id] === undefined){history.push('/404')}
 
             setPlaylist(data[id])
 
-            if(loadingStates!=undefined){
+            if(loadingStates!==undefined){
                 loadingStates.appLoading(false)
             }
         }
@@ -64,7 +64,7 @@ const Playlist = ({ player, loadingStates }) => {
             setPLayingIndex(player.playingIndex)
         }
 
-    }, [])
+    },[])
 
     //Component:
     function BoxDurationOrPLayingNow({music, index}){

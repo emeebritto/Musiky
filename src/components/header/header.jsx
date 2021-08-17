@@ -18,7 +18,7 @@ function Header({ player, loadingStates }) {
 
     useEffect (()=>{
         player.setHeaderFunction(lyricsMode_header)
-    }, [])
+    },[])
 
 
     return(

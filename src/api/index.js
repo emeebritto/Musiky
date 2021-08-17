@@ -1,5 +1,4 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
-const local = 'http://localhost:8877'
 
 const randomPlaylists = `${musikyAPI_Base}/randomPlaylists?totalList=1&totalPerList=10&valueExact=true`
 
@@ -7,7 +6,6 @@ const randomPlaylists = `${musikyAPI_Base}/randomPlaylists?totalList=1&totalPerL
 const api = async (uri, options = {}) => {
     return await fetch(uri, options).then(async(res) =>{
         var response = await res.json();
-        console.log(response);
         return response;
     }).catch((rej)=> console.log(rej))
 }
