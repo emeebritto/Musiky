@@ -25,7 +25,8 @@ export const S = {
         }
     `,
     PlayListImg: Styled.img`
-        width: 75%;
+        width: 210px;
+        height: 210px;
         border-radius: 10px;
         box-shadow: 1px 1px 30px rgb(0 0 0 / 35%);
         margin-bottom: 15px;

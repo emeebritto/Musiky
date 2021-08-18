@@ -9,6 +9,7 @@ import Header from "./components/header";
 import Home from "./components/home";
 import Explore from "./components/explore"
 import PlayList from "./components/playlist"
+import ArtistsList from './components/artistsList'
 import PlayerControl from "./components/playerControl";
 import ReactPlayerComp from "./components/player";
 import NotFound404 from "./components/noFound404";
@@ -81,6 +82,9 @@ const App = () => {
 								</Route>
 					            <Route path={`/playList/:id`}>
 	                                <PlayList player={player} loadingStates={loadingStates}/>
+	                            </Route>
+					            <Route path={`/artists/`}>
+	                                <ArtistsList/>
 	                            </Route>
 	                            <Route>
 	                            	<NotFound404/>

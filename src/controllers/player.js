@@ -65,7 +65,7 @@ class playerModule {
         this.playlistId = playlistId
 		this.musicId = targetList[targetIndex].id
 		this.playing = true
-        this.notify()
+        this.changeBufferStatusTo(true)
     }
 
     changeBufferStatusTo(status) {

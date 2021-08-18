@@ -3,6 +3,7 @@ import Styled from "styled-components";
 
 import BoxQuickPicks from "../quickPicks";
 import PlaylistsRow from "../playlistsRow"
+import ArtistsRow from "../artistsRow"
 
 const ViewPort = Styled.section`
     margin-top: 18vh;
@@ -16,6 +17,7 @@ const Home = ({ player, loadingStates }) => {
         <ViewPort>
             <BoxQuickPicks player={player}/>
             <PlaylistsRow name='MIXs' player={player} viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
+            <ArtistsRow/>
         </ViewPort>
     );
 }

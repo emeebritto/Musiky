@@ -12,7 +12,7 @@ export const ViewPort = Styled.section`
     justify-content: space-around;
     align-items: center;
     height: 250px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 `
 export const PlayList = Styled(Link)`
     position: relative;
