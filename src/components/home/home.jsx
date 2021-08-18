@@ -1,7 +1,8 @@
 import React from "react";
 import Styled from "styled-components";
 
-import BoxQuickPicks from "../quickPicks";
+import BoxGreeting from "../boxGreeting"
+import BoxQuickPicks from "../quickPicks"
 import PlaylistsRow from "../playlistsRow"
 import ArtistsRow from "../artistsRow"
 
@@ -15,6 +16,7 @@ const Home = ({ player, loadingStates }) => {
 
     return (
         <ViewPort>
+            <BoxGreeting/>
             <BoxQuickPicks player={player}/>
             <PlaylistsRow name='MIXs' player={player} viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
             <ArtistsRow/>

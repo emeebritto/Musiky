@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react"
 
 import Profile from "../../assets/img/MyPersonalLogo.png"
-import branding from "../../assets/img/branding_Musiky.png"
 import { HeaderBranding, HeaderContainer, OptionsBox, Links, ProfileImg} from "../header/headerStyles";
 
 function Header({ player, loadingStates }) {
@@ -23,7 +22,7 @@ function Header({ player, loadingStates }) {
 
     return(
         <HeaderContainer lyrics={lyricsMode}>
-            <HeaderBranding src={branding} alt="musiky_logo"/>
+            <HeaderBranding to='/' alt="musiky branding"/>
             <OptionsBox>
                 <Links onClick={()=>{redirect()}} to={"/"}>Home</Links>
                 <Links onClick={()=>{redirect()}} to={"/explore"}>Explore</Links>

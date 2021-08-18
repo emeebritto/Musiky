@@ -10,12 +10,12 @@ import Home from "./components/home";
 import Explore from "./components/explore"
 import PlayList from "./components/playlist"
 import ArtistsList from './components/artistsList'
-import PlayerControl from "./components/playerControl";
-import ReactPlayerComp from "./components/player";
-import NotFound404 from "./components/noFound404";
+import PlayerControl from "./components/playerControl"
+import ReactPlayerComp from "./components/player"
+import NotFound404 from "./components/noFound404"
 
-import { GlobalStyle } from "./components/GlobalStyle";
-import styled from "styled-components";
+import { GlobalStyle } from "./components/GlobalStyle"
+import styled from "styled-components"
 
 
 const Background = styled.section`
@@ -87,7 +87,7 @@ const App = () => {
 	                                <ArtistsList/>
 	                            </Route>
 	                            <Route>
-	                            	<NotFound404/>
+	                            	<NotFound404 loadingStates={loadingStates}/>
 	                            </Route>
 							</Switch>
 						</Centralize>

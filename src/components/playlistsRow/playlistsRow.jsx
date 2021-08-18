@@ -46,20 +46,20 @@ const PlayListRow = ({ name, player, viewMode, listType, loadingStates }) => {
                         <PlayList 
                             onClick={()=> loadListView()} 
                             to={`/playList/${playList.keyInPlaylistDetails}`} 
-                            key={index}
-                            >
+                            key={index}>
                             <BtnPLayHover 
                                 onClick={e => {
                                     e.preventDefault()
                                     e.stopPropagation()
                                     startList(playList.keyInPlaylistDetails)
                                 }}
-                                id="BtnPLayHover"
-                                >
+                                id="BtnPLayHover">
                             	<BtnPLayHoverImg src={iconPlay} alt="play icon"/>
                                 <ShadowHover></ShadowHover>
                             </BtnPLayHover>
-                        	<PlayListImg id="PlayListImg" src={playList.playListImg} alt='playList img'/>
+                        	<PlayListImg 
+                                id="PlayListImg" 
+                                src={playList.playListImg}/>
                         	<section>
                         		<PlayListTitle>{playList.playListTitle}</PlayListTitle>
                         		<Description>{playList.totalMusic} Musics</Description>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Styled from "styled-components";
 import { useHistory } from 'react-router-dom'
 
@@ -39,6 +39,28 @@ const LightScattering = Styled.div`
     height: 65vh;
     top: 7em;
     left: 17.5em;
+    animation: wave 400ms infinite alternate, lightOff 5s infinite alternate;
+
+    @keyframes wave {
+        0% {
+            opacity: 80%;
+        }
+        100% {
+            opacity: 100%
+        }
+    }
+
+    @keyframes lightOff {
+        0% {
+            opacity: 0%;
+        }
+        14% {
+            opacity: 0%;
+        }
+        15% {
+            opacity: 100%
+        }
+    }
 `
 const BtnHome = Styled.button`
     margin-top: 5vh;
@@ -59,9 +81,13 @@ const BtnHome = Styled.button`
     }
 `
 
-const NotFound404 = () => {
+const NotFound404 = ({ loadingStates }) => {
 
     let history = useHistory()
+
+    useEffect(()=>{
+        setTimeout(function(){loadingStates.appLoading(false)}, 5000)
+    },[])
 
     return (
         <ViewPort style={{ background: `url(${city}) no-repeat center/100%`}}>

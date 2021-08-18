@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom'
 
-export const HeaderBranding = styled.img`
+import branding from "../../assets/img/branding_Musiky.png"
+
+export const HeaderBranding = styled(Link)`
     width: 120px;
+    height: 35px;
+    background: url(${branding}) no-repeat center/100%;
     margin-left: 10px;
     margin-bottom: 5px;
 `
