@@ -104,6 +104,7 @@ const ArtistsList = () => {
     useEffect(() => {
 
         async function getData() {
+
             //setArtists(await getAllArtists())
         }
         getData()

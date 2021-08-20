@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 //import {getArtistsRow} from '../../api'
 
+import { scroll } from '../../controllers'
+
 import ArtistCard from '../artistCard'
 
 import Styled from "styled-components";
@@ -94,7 +96,10 @@ const ArtistsRow = () => {
             <TitleAndBtnExplore>
                 <TitleSection>Artists</TitleSection>
                 <BtnField>
-                    <BtnFindOthers tabIndex='1' to='/artists'>Find Others</BtnFindOthers>
+                    <BtnFindOthers 
+                        tabIndex='1' 
+                        onClick={()=> scroll.toTop()} 
+                        to='/artists'>Find Others</BtnFindOthers>
                     <BtnHoverLine id='hoverLine'/>
                 </BtnField>
             </TitleAndBtnExplore>
