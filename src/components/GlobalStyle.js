@@ -61,4 +61,13 @@ table {
 ::-webkit-scrollbar-thumb {
     background: #343434;
 }
+
+::selection {
+    color: white;
+    background-color: #6033FF;
+}
+::-moz-selection {
+    color: white;
+    background-color: #6033FF;
+}
 `

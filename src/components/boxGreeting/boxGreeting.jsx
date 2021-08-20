@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Styled from "styled-components"
+import Styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 
+const GreetingText = Styled.h1`
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: white;
+    font-size: 1.6em;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+`
 const ViewPort = Styled.section`
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
     align-items: center;
     border-radius: 14px;
     width: 100%;
-    height: 250px;
+    height: 220px;
     margin-bottom: 50px;
     background: url(https://www.enjpg.com/img/2020/aesthetic-desktop-3.png) no-repeat center/100% black;
     background-position: 0% 75%;
@@ -18,22 +25,12 @@ const ViewPort = Styled.section`
     box-shadow: inset -365px -60px 160px black;
     overflow: hidden;
 `
-const GreetingText = Styled.h1`
-    position: relative;
-    top: -68px;
-    left: -89px;
-    color: white;
-    font-size: 1.6em;
-    margin-left: 50px;
-    background-color: rgb(0 0 0 / 30%);
-    
-    padding: 5px 10px;
-`
 const Featured = Styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
+    margin-right: 5%;
     height: 100%;
     width: 30%;
     color: white;
@@ -50,10 +47,6 @@ export const ArtistName = Styled.p`
     display: inline-block;
     font-size: 0.9em;
     color: rgb(255 255 255/ 70%);
-
-    :hover {
-        color: rgb(255 255 255/ 90%);
-    }
 `
 const BtnListenNow = Styled.button`
     background-color: rgb(0 0 0 /30%);
@@ -90,7 +83,7 @@ const BoxGreeting = () => {
             {'SunRise': time == 5},
             {'Good Morning': time >= 6 && time < 12},
             {'Good Afternoon': time >= 12 && time < 18},
-            {'Good Evening': time >= 18 && time < 23}
+            {'Good Evening': time >= 18 && time <= 23}
         ]
 
         const firstIndexSameTrue = period.findIndex(value => Object.values(value)[0] == true);
@@ -99,8 +92,9 @@ const BoxGreeting = () => {
 
     return (
         <>
+            <GreetingText>{setGreeting()}, {nameUser}</GreetingText>
             <ViewPort>
-                <GreetingText>{setGreeting()}, {nameUser}</GreetingText>
+                
                 <Featured>
                     <MusicInfor>
                         <MusicTitle>Music long Name Test</MusicTitle>
