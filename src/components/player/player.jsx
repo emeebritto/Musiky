@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
+
+import { player } from '../../controllers'
 
 import ReactPlayer from 'react-player'
-import Styled from "styled-components";
+import Styled from 'styled-components'
 
 const ViewPort = Styled.section`
     position: absolute;
@@ -26,7 +28,7 @@ const Blocker = Styled.section`
     height: 100%;
 `
 
-const ReactPlayerComp = ({ player }) => {
+const ReactPlayerComp = () => {
 
     const [ playerProp, setPlayerProp ] = useState({})
 

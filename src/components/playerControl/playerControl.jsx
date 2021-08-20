@@ -1,22 +1,24 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from 'react'
+
+import { player } from '../../controllers'
 
 import musicLoading from '../../assets/icons/AnimatedSvg/loading.svg'
-import iconBack from "../../assets/icons/skip_previous_white_24dp.svg"
-import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
-import iconPause from "../../assets/icons/pause_black_24dp.svg"
-import iconNext from "../../assets/icons/skip_next_white_24dp.svg"
+import iconBack from '../../assets/icons/skip_previous_white_24dp.svg'
+import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
+import iconPause from '../../assets/icons/pause_black_24dp.svg'
+import iconNext from '../../assets/icons/skip_next_white_24dp.svg'
 
-import iconLyric from "../../assets/icons/mic_external_on_white_24dp.svg"
-import iconRepeat from "../../assets/icons/repeat_white_24dp.svg"
-import iconVolume from "../../assets/icons/volume_up_white_24dp.svg"
-import iconVolumeDown from "../../assets/icons/volume_down_white_24dp.svg"
-import iconVolumeOff from "../../assets/icons/volume_off_white_24dp.svg"
+import iconLyric from '../../assets/icons/mic_external_on_white_24dp.svg'
+import iconRepeat from '../../assets/icons/repeat_white_24dp.svg'
+import iconVolume from '../../assets/icons/volume_up_white_24dp.svg'
+import iconVolumeDown from '../../assets/icons/volume_down_white_24dp.svg'
+import iconVolumeOff from '../../assets/icons/volume_off_white_24dp.svg'
 
 import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, SectionTitles, MusicTitleInControl, 
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
-VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from "./playerStyles"
+VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from './playerStyles'
 
-const PlayerControl = ({ player }) => {
+const PlayerControl = () => {
 
     const [ controlProp, setControlProp ] = useState({})
     const [ visibility, setVisibility ] = useState('none')

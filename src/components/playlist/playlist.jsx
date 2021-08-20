@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from "react"
-import Styled from "styled-components";
-import {S, Ss} from "./playlistStyles"
+import React, {useState, useEffect} from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import Styled from 'styled-components'
 
-import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg";
-import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg';
+import {S, Ss} from './playlistStyles'
 
-import {getPLaylists} from "../../api";
+import {getPLaylists} from '../../api'
+
+import { player } from '../../controllers'
+
+import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
+import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg'
 import iconBack from '../../assets/icons/back_icon.svg'
 
 
@@ -17,7 +20,7 @@ const ViewPort = Styled.section`
     margin: 20vh 0vw 20vh 0vw;
 `
 
-const Playlist = ({ player, loadingStates }) => {
+const Playlist = ({ loadingStates }) => {
 
     let history = useHistory()
 

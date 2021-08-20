@@ -1,14 +1,16 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from 'react'
 
-import {getPLaylists} from "../../api";
+import {getPLaylists} from '../../api'
 
-import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg"
+import { player } from '../../controllers'
+
+import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
 
 import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowHover,
- PlayListImg, PlayListTitle, Description} from "./playlistsRowStyles";
+ PlayListImg, PlayListTitle, Description} from './playlistsRowStyles'
 
 
-const PlayListRow = ({ name, player, viewMode, listType, loadingStates }) => {
+const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
 
     const [playListsResume, setPlaylistsResume] = useState([])
 

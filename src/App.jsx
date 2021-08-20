@@ -1,29 +1,31 @@
-import React, {useState, useEffect} from "react";
-import { player } from "./controllers/player";
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Splashscreen from './components/splashscreen'
-import TransitionLoadingBar from './components/transitionLoadingBar'
+import { player, scroll } from './controllers'
 
-import Header from "./components/header";
-import Home from "./components/home";
-import Explore from "./components/explore"
-import PlayList from "./components/playlist"
-import ArtistsList from './components/artistsList'
-import PlayerControl from "./components/playerControl"
-import ReactPlayerComp from "./components/player"
-import NotFound404 from "./components/noFound404"
+import {
+	Splashscreen,
+	TransitionLoadingBar,
+	Header,
+	Home,
+	Explore,
+	PlayList,
+	ArtistsList,
+	PlayerControl,
+	ReactPlayerComp,
+	NotFound404
+} from './components'
 
-import { GlobalStyle } from "./components/GlobalStyle"
-import styled from "styled-components"
+import { GlobalStyle } from './components/GlobalStyle'
+import Styled from 'styled-components'
 
 
-const Background = styled.section`
+const Background = Styled.section`
     position: fixed;
 `
-const Blur = styled.div`
+const Blur = Styled.div`
 `
-const ViewPort = styled.section` 
+const ViewPort = Styled.section` 
     background-color: rgb(0 0 0 /95%);
     overflow: scroll;
     width: 100vw;
@@ -32,7 +34,7 @@ const ViewPort = styled.section`
 	    height: 0px;
 	}
 `
-const Centralize = styled.section`
+const Centralize = Styled.section`
 	display: flex;
     justify-content: center; 
 `
@@ -41,8 +43,9 @@ const Centralize = styled.section`
 const App = () => {
 
 	const [background, setBackground] = useState('')
-	const [appLoading, setAppLoading] = useState(true)
-	const [pagLoading, setPagLoading] = useState({loadingBar: false, contentLoaded: false})
+	const [viewPortRef, setViewPortRef] = useState(null)
+	const [appLoading, setAppLoading] = useState(true) // Splash
+	const [pagLoading, setPagLoading] = useState({loadingBar: false, contentLoaded: false}) //Loading Bar
 
 	const loadingStates = {
 		appLoading: status => setAppLoading(status),
@@ -58,30 +61,35 @@ const App = () => {
         player.setBackgroundFunction(updateBackground)
     },[])
 
+
+    const ref = viewScroll => {
+    	scroll.setViewRef(viewScroll)
+    }
+
 	return (
 		<Router>
 			<Background style={{ background: `url(${background}) no-repeat center/100%`}}>
 				<Blur>
-					<ViewPort>
+					<ViewPort ref={viewScroll => ref(viewScroll)}>
 						{appLoading && <Splashscreen/>}
 						{pagLoading.loadingBar && <TransitionLoadingBar loadingStates={loadingStates}/>}
 						<GlobalStyle />
-						<ReactPlayerComp player={player}/>
-						<Header player={player} loadingStates={loadingStates}/>
+						<ReactPlayerComp/>
+						<Header loadingStates={loadingStates}/>
 
 						<Centralize>
 							<Switch>
 								<Route exact path={"/"}>
-									<Home player={player} loadingStates={loadingStates}/>
+									<Home loadingStates={loadingStates}/>
 								</Route>
 								<Route path={"/explore/"}>
-									<Explore player={player} loadingStates={loadingStates}/>
+									<Explore loadingStates={loadingStates}/>
 								</Route>
 								<Route path={"/library/"}>
 									<Explore/>
 								</Route>
 					            <Route path={`/playList/:id`}>
-	                                <PlayList player={player} loadingStates={loadingStates}/>
+	                                <PlayList loadingStates={loadingStates}/>
 	                            </Route>
 					            <Route path={`/artists/`}>
 	                                <ArtistsList/>
@@ -92,7 +100,7 @@ const App = () => {
 							</Switch>
 						</Centralize>
 
-						<PlayerControl player={player}/>
+						<PlayerControl/>
 					</ViewPort>
 				</Blur>
 			</Background>

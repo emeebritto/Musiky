@@ -1,7 +1,8 @@
 import React from "react";
 import Styled from "styled-components";
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import { player, scroll } from '../../controllers'
 
 import Search from '../search'
 import PlaylistsRow from "../playlistsRow"
@@ -13,7 +14,7 @@ const ViewPort = Styled.section`
     height: 100%;
     padding-bottom: 20vh;
 `
-function PlayList({ player, loadingStates }) {
+function PlayList({ loadingStates }) {
 
     return (
         <ViewPort>

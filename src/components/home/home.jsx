@@ -12,13 +12,13 @@ const ViewPort = Styled.section`
     height: 100%;
     margin-bottom: 20vh;
 `
-const Home = ({ player, loadingStates }) => {
+const Home = ({ loadingStates }) => {
 
     return (
         <ViewPort>
             <BoxGreeting/>
-            <BoxQuickPicks player={player}/>
-            <PlaylistsRow name='MIXs' player={player} viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
+            <BoxQuickPicks/>
+            <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
             <ArtistsRow/>
         </ViewPort>
     );

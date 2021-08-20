@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react"
 
+import { player, scroll } from '../../controllers'
+
 import Profile from "../../assets/img/MyPersonalLogo.png"
 import { HeaderBranding, HeaderContainer, OptionsBox, Links, ProfileImg} from "../header/headerStyles";
 
-function Header({ player, loadingStates }) {
+function Header({ loadingStates }) {
     const [lyricsMode, setLyricsMode] = useState(false);
 
     const lyricsMode_header = (prop) => {
@@ -11,6 +13,7 @@ function Header({ player, loadingStates }) {
     }
 
     const redirect = () => {
+        scroll.toTop()
         loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
         player.closeLyrics()
     }

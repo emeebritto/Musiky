@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react'
-
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import Styled from "styled-components";
+import { getSuggestionArtists } from '../../api'
+import { completeInput } from '../../api'
+
+import Styled from 'styled-components'
 import search_Icon from '../../assets/icons/search_white_24dp.svg'
 
-import {getSuggestionArtists} from "../../api";
-import {completeInput} from "../../api";
 
 const ViewPort = Styled.section`
     display: flex;

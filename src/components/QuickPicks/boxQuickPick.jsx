@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react'
 
-import { quickPicks } from "../../api";
-import iconPlay from "../../assets/icons/play_arrow_black_24dp.svg";
-import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg';
+import { quickPicks } from '../../api'
+
+import { player } from '../../controllers'
+
+import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
+import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg'
 
 import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
-BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from "./boxQuickPickStyles";
+BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './boxQuickPickStyles'
 
 
-const BoxQuickPicks = ({ player }) => {
+const BoxQuickPicks = () => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
     const [musicList, setMusicList] = useState([])
