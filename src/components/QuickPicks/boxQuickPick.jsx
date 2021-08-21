@@ -5,6 +5,7 @@ import { quickPicks } from '../../api'
 import { player } from '../../controllers'
 
 import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
+import PausedAnim from '../../assets/icons/AnimatedSvg/playingCompAnim'
 import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg'
 
 import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
@@ -14,6 +15,7 @@ BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './bo
 const BoxQuickPicks = () => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
+    const [status, setStatus] = useState(false)
     const [musicList, setMusicList] = useState([])
 
     const id = 'quickPicksHmsk'
@@ -23,9 +25,10 @@ const BoxQuickPicks = () => {
         player.load(targetIndex, targetList, playlistId)
     }
 
-    const updateIndex = targetIndex => {
+    const updateIndex = ({index, playing}) => {
         if(player.playingInplaylist === id) {
-            setPLayingIndex(targetIndex)
+            setPLayingIndex(index)
+            setStatus(playing)
         }
     }
 
@@ -43,9 +46,12 @@ const BoxQuickPicks = () => {
         var iconPlaying = <img src={icon_playing} alt="playingNow"/>
         var duration = <p className="MusicTime">{music.contentDetails.duration}</p>
 
-        var playing = playingIndex === index;
+        var match = playingIndex === index;
+        var playing = status
 
-        return playing ? iconPlaying : duration
+        if(!playing && match){return <PausedAnim/>}
+
+        return match ? iconPlaying : duration
     }
 
     return (

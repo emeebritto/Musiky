@@ -57,7 +57,7 @@ const BlackBackground = Styled.section`
     position: absolute;
     background-color: #000;
     transform: rotate(10deg);
-    box-shadow: -65px 40px 80px #000;
+    box-shadow: -65px 25px 70px #000;
     left: 75%;
     z-index: 1;
     width: 35%;

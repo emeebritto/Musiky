@@ -9,6 +9,7 @@ import {getPLaylists} from '../../api'
 import { player } from '../../controllers'
 
 import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
+import PausedAnim from '../../assets/icons/AnimatedSvg/playingCompAnim'
 import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg'
 import iconBack from '../../assets/icons/back_icon.svg'
 
@@ -27,6 +28,7 @@ const Playlist = ({ loadingStates }) => {
     const { id } = useParams()
 
     const [playingIndex, setPLayingIndex] = useState(null)
+    const [status, setStatus] = useState(false)
     const [playlist, setPlaylist] = useState({
         img: null,
         title: null,
@@ -39,9 +41,10 @@ const Playlist = ({ loadingStates }) => {
         setPLayingIndex(targetIndex)
     }
 
-    const updateIndex = index => {
+    const updateIndex = ({index, playing}) => {
         if (id === player.playingInplaylist){
             setPLayingIndex(index)
+            setStatus(playing)
         }
     }
 
@@ -75,9 +78,12 @@ const Playlist = ({ loadingStates }) => {
         var iconPlaying = <img src={icon_playing} alt="playingNow"/>
         var duration = <p className="MusicTime">{music.contentDetails.duration}</p>
 
-        var playing = playingIndex === index;
+        var match = playingIndex === index;
+        var playing = status
 
-        return playing ? iconPlaying : duration
+        if(!playing && match){return <PausedAnim/>}
+
+        return match ? iconPlaying : duration
     }
 
     return (

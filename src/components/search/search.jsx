@@ -126,7 +126,7 @@ const Search = () => {
 
 	const [inputSearch, setInputSearch] = useState('')
 	const [suggestions, setSuggestions] = useState([])
-	const [autoComplete, setAutoComplete] = useState([])
+	const [autoComplete, setAutoComplete] = useState(null)
 
 
     const filterSearch = async (value) => {
@@ -179,7 +179,7 @@ const Search = () => {
 				<BtnSearch>
 					<SearchIcon src={search_Icon} alt="search icon"/>
 				</BtnSearch>
-				{autoComplete.length && <OptionsAutoComplete/>}
+				{autoComplete && <OptionsAutoComplete/>}
 			</SearchBar>
 			<Suggestions>
 				{suggestions.map((suggestion, index) => {

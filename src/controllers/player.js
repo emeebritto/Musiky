@@ -54,7 +54,7 @@ class playerModule {
         this._playerSubscribe({ musicId: this.musicId, playing: this.playing, volume: this.volume, showLyrics: this.showLyrics, loop: this.loop })
         this._playerControlSubscribe({ indexOnPlaylist: this.indexOnPlaylist, playing: this.playing, loop: this.loop, musicList: this.musicList, currentTime: this.currentTime, volume: this.volume, lyricMode: this.showLyrics, buffer: this.buffer, muted: this.muted })
         this._headerSubscribe(this.showLyrics)
-        this._playlistSubscribe(this.indexOnPlaylist)
+        this._playlistSubscribe({index: this.indexOnPlaylist, playing: this.playing})
         this._backgroundSubscribe( this.indexOnPlaylist, this.musicList )
     }
 
@@ -64,7 +64,7 @@ class playerModule {
 		this.indexOnPlaylist = targetIndex
         this.playlistId = playlistId
 		this.musicId = targetList[targetIndex].id
-		this.playing = true
+        this.playing = true
         this.changeBufferStatusTo(true)
     }
 
@@ -144,6 +144,10 @@ class playerModule {
         this.volume = 0
         this.muted = true
         this.notify()
+    }
+
+    get status() {
+        return this.playing;
     }
 
     get playingInplaylist() {

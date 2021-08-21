@@ -51,7 +51,7 @@ table {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: black;
+    background-color: transparent;
 }
 ::-webkit-scrollbar {
     width: 5px;
