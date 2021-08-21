@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
+
+import { getGreeting } from '../../api'
 
 import Styled from 'styled-components'
-import { Link } from 'react-router-dom'
 
 
 const GreetingText = Styled.h1`
@@ -19,8 +21,6 @@ const ViewPort = Styled.section`
     width: 100%;
     height: 220px;
     margin-bottom: 50px;
-    background: url(https://www.enjpg.com/img/2020/aesthetic-desktop-3.png) no-repeat center/100% black;
-    background-position: 0% 75%;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     box-shadow: inset -365px -60px 160px black;
     overflow: hidden;
@@ -69,31 +69,21 @@ const BoxGreeting = () => {
 
     var nameUser = 'Emerson Britto'
 
+    const [greeting, setGreeting] = useState({})
     const [music, setMusic] = useState({Artist: ['none', 'none']})
 
-    const getTime = () => {
-        return new Date().getHours();
-    }
+    useEffect(()=> {
 
-    const setGreeting = () => {
-        var time = getTime()
-
-        const period = [
-            {'Good Night': time >= 0 && time < 5},
-            {'SunRise': time == 5},
-            {'Good Morning': time >= 6 && time < 12},
-            {'Good Afternoon': time >= 12 && time < 18},
-            {'Good Evening': time >= 18 && time <= 23}
-        ]
-
-        const firstIndexSameTrue = period.findIndex(value => Object.values(value)[0] == true);
-        return Object.keys(period[firstIndexSameTrue])[0]
-    }
+        async function getData() {
+            setGreeting(await getGreeting())
+        }
+        getData()
+    },[])
 
     return (
         <>
-            <GreetingText>{setGreeting()}, {nameUser}</GreetingText>
-            <ViewPort>
+            <GreetingText>{greeting.greetingText}, {nameUser}</GreetingText>
+            <ViewPort style={{ background: `url(${greeting.greetingImg}) no-repeat 0% 80%/100% black`}}>
                 
                 <Featured>
                     <MusicInfor>

@@ -48,3 +48,10 @@ export const completeInput = async (input, maxResult) => {
     let result = await api(`${musikyAPI_Base}/auto-complete?input=${input}&maxResult=${maxResult}`);
     return result
 };
+
+var greeting ={}
+export const getGreeting = async () => {
+    if(Object.keys(greeting).length){ return greeting }
+    greeting = await api(`${musikyAPI_Base}/getGreeting`);
+    return greeting
+};
