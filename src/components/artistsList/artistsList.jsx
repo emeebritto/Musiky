@@ -12,11 +12,21 @@ export const TitleSection = Styled.h2`
     font-size: 1.6em;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-bottom: 45px;
+
+    @media(max-width: 545px) {
+        margin-left: 20px;
+        width: 95%;
+    }
 `
 const ViewPort = Styled.section`
     margin-top: 17vh;
     width: 80%;
     margin-bottom: 17vh;
+
+    @media(max-width: 545px) {
+        margin-top: 15vh;
+        width: 95%;
+    }
 `
 
 export const Artists = Styled.section`

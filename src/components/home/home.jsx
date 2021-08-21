@@ -11,6 +11,11 @@ const ViewPort = Styled.section`
     width: 80%;
     height: 100%;
     margin-bottom: 20vh;
+
+    @media(max-width: 690px) {
+        margin-top: 16vh;
+        width: 100%;
+    }
 `
 const Home = ({ loadingStates }) => {
 

@@ -31,8 +31,14 @@ const ViewPort = Styled.section`
     width: 100vw;
     height: 100vh;
     ::-webkit-scrollbar {
-	    height: 0px;
+	    height: 0;
 	}
+
+    @media(max-width: 500px) {
+	    ::-webkit-scrollbar {
+		    width: 0;
+		}
+    }
 `
 const Centralize = Styled.section`
 	display: flex;

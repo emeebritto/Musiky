@@ -11,7 +11,17 @@ const GreetingText = Styled.h1`
     color: white;
     font-size: 1.6em;
     padding: 5px 10px;
-    margin-bottom: 20px;
+    border-left: 2px solid blue;
+    margin-bottom: 25px;
+
+    @media(max-width: 690px) {
+        margin-left: 30px;
+    }
+
+    @media(max-width: 545px) {
+        font-size: 1.3em;
+        margin-bottom: 40px;
+    }
 `
 const ViewPort = Styled.section`
     position: relative;
@@ -24,6 +34,13 @@ const ViewPort = Styled.section`
     margin-bottom: 50px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     overflow: hidden;
+
+    @media(max-width: 800px) {
+        height: 180px;
+    }
+    @media(max-width: 690px) {
+        display: none;
+    }
 `
 const Featured = Styled.section`
     display: flex;

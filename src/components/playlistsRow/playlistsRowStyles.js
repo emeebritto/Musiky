@@ -5,14 +5,27 @@ export const TitleSection = Styled.h2`
     color: white;
     font-size: 1.6em;
     margin-bottom: 16px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    @media(max-width: 690px) {
+        margin-left: 18px;
+        margin-bottom: 23px;
+    }
+
+    @media(max-width: 545px) {
+        font-size: 1.4em;
+    }
 `
 export const ViewPort = Styled.section`
     display: flex;
-    justify-content: space-around;
     align-items: center;
     height: 250px;
+    overflow: scroll;
     margin-bottom: 30px;
+
+    ::-webkit-scrollbar {
+        width: 0;
+    }   
 `
 export const PlayList = Styled(Link)`
     position: relative;
@@ -23,6 +36,7 @@ export const PlayList = Styled(Link)`
     flex-direction: column;
     width: 150px;
     height: 220px;
+    margin: 0 15px;
     transition: 100ms;
 
     :hover {
