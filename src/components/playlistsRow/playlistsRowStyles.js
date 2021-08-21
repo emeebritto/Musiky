@@ -72,6 +72,7 @@ export const BtnPLayHoverImg = Styled.img`
 `
 
 export const PlayListImg = Styled.img`
+    position: relative;
 	border-radius: 10px;
 	width: 150px;
     height: 150px;

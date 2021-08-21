@@ -14,6 +14,7 @@ const GreetingText = Styled.h1`
     margin-bottom: 20px;
 `
 const ViewPort = Styled.section`
+    position: relative;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -22,7 +23,6 @@ const ViewPort = Styled.section`
     height: 220px;
     margin-bottom: 50px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    box-shadow: inset -365px -60px 160px black;
     overflow: hidden;
 `
 const Featured = Styled.section`
@@ -30,10 +30,21 @@ const Featured = Styled.section`
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
+    z-index: 2;
     margin-right: 5%;
     height: 100%;
     width: 30%;
     color: white;
+`
+const BlackBackground = Styled.section`
+    position: absolute;
+    background-color: #000;
+    transform: rotate(10deg);
+    box-shadow: -65px 40px 80px #000;
+    left: 75%;
+    z-index: 1;
+    width: 35%;
+    height: 150%;
 `
 const MusicInfor = Styled.section`
     text-align: right;
@@ -60,7 +71,7 @@ const BtnListenNow = Styled.button`
 
     :hover {
         background-color: white;
-        color: black;
+        color: #000;
     }
 `
 
@@ -84,8 +95,9 @@ const BoxGreeting = () => {
         <>
             <GreetingText>{greeting.greetingText}, {nameUser}</GreetingText>
             <ViewPort style={{ background: `url(${greeting.greetingImg}) no-repeat 0% 80%/100% black`}}>
-                
+                <BlackBackground/>
                 <Featured>
+                    
                     <MusicInfor>
                         <MusicTitle>Music long Name Test</MusicTitle>
                         {music.Artist.map((artist, index) => {

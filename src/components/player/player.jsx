@@ -11,7 +11,7 @@ const ViewPort = Styled.section`
     padding-top: 16vh;
     overflow: hidden;
     height: 84vh;
-    z-index: 2;
+    z-index: 3;
 `
 const VideoPlayer = Styled(ReactPlayer)`
     border-radius: 10px;
