@@ -85,7 +85,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
         player.load(targetIndex, targetList, playlistId)
     }
 
-    const updateIndex = targetIndex => {
+    const updateDiskLibrarie = targetIndex => {
         if(player.playingInplaylist === id) {
             setPLayingIndex(targetIndex)
         }
@@ -102,7 +102,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
         }
         getData()
 
-        player.setPlaylistFunction(updateIndex)
+        player.subscribe(updateDiskLibrarie)
     },[])
 
 

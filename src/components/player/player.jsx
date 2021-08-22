@@ -64,13 +64,14 @@ const ReactPlayerComp = () => {
     }
 
     useEffect(()=>{
+        player.subscribe(UpdatePlayerState)
         document.addEventListener("contextmenu", (e)=> handleContextMenu(e));
         return ()=> document.removeEventListener("contextmenu", (e)=> handleContextMenu(e))
-    },[])
+    },[UpdatePlayerState])
 
 
     const ref = reactPlayer => {
-        player.setPlayerComponent(reactPlayer, UpdatePlayerState)
+        player.setPlayerComponentRef(reactPlayer)
     }
 
 

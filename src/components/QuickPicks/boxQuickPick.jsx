@@ -25,9 +25,11 @@ const BoxQuickPicks = () => {
         player.load(targetIndex, targetList, playlistId)
     }
 
-    const updateIndex = ({index, playing}) => {
-        if(player.playingInplaylist === id) {
-            setPLayingIndex(index)
+    const updateIndexQuickPicks = ({indexOnPlaylist, playing}) => {
+        if(player.props.playlistId === id) {
+            console.log('o id funciona')
+            console.log('prop playlistId ' +player.props.playlistId)
+            setPLayingIndex(indexOnPlaylist)
             setStatus(playing)
         }
     }
@@ -35,7 +37,7 @@ const BoxQuickPicks = () => {
     useEffect(() => {
 
         quickPicks(setMusicList);
-        player.setPlaylistFunction(updateIndex)
+        player.subscribe(updateIndexQuickPicks)
 
     },[])
 
@@ -47,9 +49,15 @@ const BoxQuickPicks = () => {
         var duration = <p className="MusicTime">{music.contentDetails.duration}</p>
 
         var match = playingIndex === index;
+        console.log('index ' + index)
+        console.log('playingIndex ' + playingIndex) 
+        console.log('match ' + match)
         var playing = status
+        console.log('playing ' + playing)
 
         if(!playing && match){return <PausedAnim/>}
+
+        console.log('não executou a condição')
 
         return match ? iconPlaying : duration
     }

@@ -94,8 +94,8 @@ const NotFound404 = ({ loadingStates }) => {
             <Light src={cellingLight} alt="celling Light"/>
             <LightScattering/>
             <NumHTTP>404</NumHTTP>
-            <Msg>Pag Not Found</Msg>
-            <BtnHome onClick={()=>{history.push('/')}}>Home</BtnHome>
+            <Msg>We can't find the page you're looking for</Msg>
+            <BtnHome onClick={()=>{history.push('/')}}>Take me home</BtnHome>
         </ViewPort>
     );
 }

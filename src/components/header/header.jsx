@@ -8,8 +8,8 @@ import { HeaderBranding, HeaderContainer, OptionsBox, Links, ProfileImg} from ".
 function Header({ loadingStates }) {
     const [lyricsMode, setLyricsMode] = useState(false);
 
-    const lyricsMode_header = (prop) => {
-        setLyricsMode(prop);
+    const lyricsMode_header = ({showLyrics}) => {
+        setLyricsMode(showLyrics);
     }
 
     const redirect = () => {
@@ -19,7 +19,7 @@ function Header({ loadingStates }) {
     }
 
     useEffect (()=>{
-        player.setHeaderFunction(lyricsMode_header)
+        player.subscribe(lyricsMode_header)
     },[])
 
 

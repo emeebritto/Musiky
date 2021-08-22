@@ -25,7 +25,7 @@ const PlayerControl = () => {
 
 
     const updatePlayerControl = props => {
-        setControlProp(props)
+        setControlProp({...props})
         setVisibility('')
     }
 
@@ -69,7 +69,7 @@ const PlayerControl = () => {
     }
 
     useEffect(()=>{
-        player.setPlayerControlFunction(updatePlayerControl)
+        player.subscribe(updatePlayerControl)
     },[])
 
 
@@ -89,7 +89,7 @@ const PlayerControl = () => {
     }
 
     return (
-        <ViewPort lyrics={controlProp.lyricMode} style={{ display: `${visibility}`}} >
+        <ViewPort lyrics={controlProp.showLyrics} style={{ display: `${visibility}`}} >
             <MusicInfor>
                 {!visibility 
                     && <MusicImg 
@@ -136,7 +136,7 @@ const PlayerControl = () => {
 
             <OtherSetting>
 
-                <BtnLyrics lyrics={controlProp.lyricMode} onClick={()=>{handlelyrics()}}>
+                <BtnLyrics lyrics={controlProp.showLyrics} onClick={()=>{handlelyrics()}}>
                     <img src={iconLyric} alt="Lyric" />
                 </BtnLyrics>
 

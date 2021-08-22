@@ -49,22 +49,25 @@ const Centralize = Styled.section`
 const App = () => {
 
 	const [background, setBackground] = useState('')
-	const [viewPortRef, setViewPortRef] = useState(null)
 	const [appLoading, setAppLoading] = useState(true) // Splash
 	const [pagLoading, setPagLoading] = useState({loadingBar: false, contentLoaded: false}) //Loading Bar
 
 	const loadingStates = {
-		appLoading: status => setAppLoading(status),
-		pagLoading: status => setPagLoading(status),
+		appLoading: status => {
+			setAppLoading(status)
+		},
+		pagLoading: status => {
+			setPagLoading(status)
+		},
 		values: pagLoading
 	}
 
-	const updateBackground = (targetIndex, targetList) => {
-		setBackground(targetList[targetIndex].snippet.thumbnails.medium.url)
+	const updateBackground = (indexOnPlaylist, musicList) => {
+		setBackground(musicList[indexOnPlaylist].snippet.thumbnails.medium.url)
 	}
 
     useEffect(()=>{
-        player.setBackgroundFunction(updateBackground)
+        player.setBackgroundObserver(updateBackground)
     },[])
 
 

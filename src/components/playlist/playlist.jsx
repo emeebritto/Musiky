@@ -41,9 +41,9 @@ const Playlist = ({ loadingStates }) => {
         setPLayingIndex(targetIndex)
     }
 
-    const updateIndex = ({index, playing}) => {
-        if (id === player.playingInplaylist){
-            setPLayingIndex(index)
+    const updateIndexPlaylist = ({indexOnPlaylist, playing}) => {
+        if (id === player.props.playlistId){
+            setPLayingIndex(indexOnPlaylist)
             setStatus(playing)
         }
     }
@@ -64,10 +64,10 @@ const Playlist = ({ loadingStates }) => {
         }
         getData()
 
-        player.setPlaylistFunction(updateIndex)
+        player.subscribe(updateIndexPlaylist)
 
-        if (id === player.playingInplaylist){
-            setPLayingIndex(player.playingIndex)
+        if (id === player.props.playlistId){
+            setPLayingIndex(player.props.indexOnPlaylist)
         }
 
     },[])
