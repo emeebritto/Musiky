@@ -33,6 +33,10 @@ const AppBranding = Styled.img`
 			transform: translateY(-25px);
 		}
 	}
+
+    @media(max-width: 550px) {
+        width: 180px;
+    }
 `
 
 const Author = Styled.h1`
@@ -41,6 +45,10 @@ const Author = Styled.h1`
 	font-size: 1.6em;
 	opacity: 25%;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+    @media(max-width: 550px) {
+        font-size: 1.4em;
+    }
 `
 
 const Splashscreen = () => {
