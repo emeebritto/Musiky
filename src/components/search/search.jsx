@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 
 import { getSuggestionArtists } from '../../api'
 import { completeInput } from '../../api'
@@ -128,6 +128,9 @@ const Search = () => {
 	const [suggestions, setSuggestions] = useState([])
 	const [autoComplete, setAutoComplete] = useState(null)
 
+	let { path, url } = useRouteMatch();
+	let history = useHistory()
+
 
     const filterSearch = async (value) => {
 
@@ -135,6 +138,7 @@ const Search = () => {
 	    	setAutoComplete(await completeInput(value, 10))
 	    } else {
 	    	setAutoComplete([])
+	    	history.push('/explore')
 	    }
     }
 
@@ -156,7 +160,11 @@ const Search = () => {
 			<OptionsCompleteSearch>
 				{autoComplete.map((option, index) =>{
 					return(
-						<Option onClick={()=> updateField(option)} to={`/explore/search/${option.replaceAll(' ', '-')}`}>{option}</Option>
+						<Option 
+							onClick={()=> updateField(option)} 
+							to={`${url}/search/${option.replaceAll(' ', '-')}`}>
+							{option}
+						</Option>
 					)
 				})}
 			</OptionsCompleteSearch>
@@ -174,19 +182,21 @@ const Search = () => {
 						setInputSearch(e.target.value)
 						filterSearch(e.target.value)
 					}} 
-					placeholder="Artists & Songs"
-					/>
-				<BtnSearch>
+					placeholder="Artists & Songs"/>
+
+				<BtnSearch onClick={e=> history.push(`${url}/search/${inputSearch.replaceAll(' ', '-')}`)}>
 					<SearchIcon src={search_Icon} alt="search icon"/>
 				</BtnSearch>
+
 				{autoComplete && <OptionsAutoComplete/>}
+				
 			</SearchBar>
 			<Suggestions>
 				{suggestions.map((suggestion, index) => {
                     return (
                         <SuggestionBox 
                         	onClick={()=>{updateField(suggestion)}}
-                        	to={`/explore/search/${suggestion.replaceAll(' ', '-')}`}
+                        	to={`${url}/search/${suggestion.replaceAll(' ', '-')}`}
                         	key={index}>
                         	<Suggestion>{suggestion}</Suggestion>
                         </SuggestionBox>

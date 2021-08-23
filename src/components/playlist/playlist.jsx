@@ -113,6 +113,7 @@ const Playlist = ({ loadingStates }) => {
                                 {music.Artist.map((artist, index) => {
                                     let space='';
                                     if(index > 0){ space = ',  ' }
+                                        
                                     return(
                                         <Ss.ChannelName 
                                             to={`/artist/${artist.replaceAll(' ', '_')}`}

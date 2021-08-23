@@ -47,7 +47,7 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
                     return (
                         <PlayList 
                             onClick={()=> loadListView()} 
-                            to={`/playList/${playList.keyInPlaylistDetails}`} 
+                            to={`/playlist/${playList.keyInPlaylistDetails}`} 
                             key={index}>
                         	<PlayListImg 
                                 id="PlayListImg" 

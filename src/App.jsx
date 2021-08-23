@@ -75,38 +75,60 @@ const App = () => {
     	scroll.setViewRef(viewScroll)
     }
 
+
+    const sharedProps = {
+    	loadingStates,
+    }
+
+	const routes = [
+		{
+			path: '/',
+			exact: true,
+			component: Home,
+		},
+		{
+			path: '/explore',
+			component: Explore,
+		},
+		{
+			path: '/library',
+			component: Explore,
+		},
+		{
+			path: '/playlist/:id',
+			component: PlayList,
+		},
+		{
+			path: '/artists',
+			component: ArtistsList,
+		},
+		{
+			path: '*',
+			component: NotFound404,
+		},
+	];
+
 	return (
 		<Router>
 			<Background style={{ background: `url(${background}) no-repeat center/100%`}}>
 				<Blur>
 					<ViewPort ref={viewScroll => ref(viewScroll)}>
+
 						{appLoading && <Splashscreen/>}
 						{pagLoading.loadingBar && <TransitionLoadingBar loadingStates={loadingStates}/>}
+
 						<GlobalStyle />
 						<ReactPlayerComp/>
 						<Header loadingStates={loadingStates}/>
 
 						<Centralize>
-							<Switch>
-								<Route exact path={"/"}>
-									<Home loadingStates={loadingStates}/>
-								</Route>
-								<Route path={"/explore/"}>
-									<Explore loadingStates={loadingStates}/>
-								</Route>
-								<Route path={"/library/"}>
-									<Explore/>
-								</Route>
-					            <Route path={`/playList/:id`}>
-	                                <PlayList loadingStates={loadingStates}/>
-	                            </Route>
-					            <Route path={`/artists/`}>
-	                                <ArtistsList/>
-	                            </Route>
-	                            <Route>
-	                            	<NotFound404 loadingStates={loadingStates}/>
-	                            </Route>
-							</Switch>
+						    <Switch>
+								{routes.map(route => (
+									<Route exact={route.exact} path={route.path}>
+								    	<route.component {...sharedProps}/>
+								    </Route>
+								))}
+        					</Switch>
 						</Centralize>
 
 						<PlayerControl/>
