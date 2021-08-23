@@ -4,17 +4,20 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { player, scroll } from './controllers'
 
 import {
-	Splashscreen,
 	TransitionLoadingBar,
 	Header,
+	PlayerControl,
+	ReactPlayerComp
+} from './components'
+
+import {
+	Splashscreen,
 	Home,
 	Explore,
 	PlayList,
 	ArtistsList,
-	PlayerControl,
-	ReactPlayerComp,
 	NotFound404
-} from './components'
+} from './screens'
 
 import { GlobalStyle } from './components/GlobalStyle'
 import Styled from 'styled-components'

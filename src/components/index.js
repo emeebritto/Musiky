@@ -1,24 +1,12 @@
-import Splashscreen from './splashscreen'
-import TransitionLoadingBar from './transitionLoadingBar'
+export { default as TransitionLoadingBar } from './transitionLoadingBar'
 
-import Header from './header'
-import Home from './home'
-import Explore from './explore'
-import PlayList from './playlist'
-import ArtistsList from './artistsList'
-import PlayerControl from './playerControl'
-import ReactPlayerComp from './player'
-import NotFound404 from './noFound404'
-
-export {
-	Splashscreen,
-	TransitionLoadingBar,
-	Header,
-	Home,
-	Explore,
-	PlayList,
-	ArtistsList,
-	PlayerControl,
-	ReactPlayerComp,
-	NotFound404
-}
+export { default as Header } from './header'
+export { default as PlayerControl } from './playerControl'
+export { default as ReactPlayerComp } from './player'
+export { default as ArtistCard } from './artistCard'
+export { default as BoxGreeting } from './boxGreeting'
+export { default as BoxQuickPicks } from './quickPicks'
+export { default as PlaylistsRow } from './playlistsRow'
+export { default as ArtistsRow } from './artistsRow'
+export { default as Search } from './search'
+export { default as DiskLibrary } from './diskLibrary'

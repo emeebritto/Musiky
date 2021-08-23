@@ -4,9 +4,7 @@ import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
 import { player, scroll } from '../../controllers'
 
-import Search from '../search'
-import PlaylistsRow from "../playlistsRow"
-import DiskLibrary from '../diskLibrary'
+const { Search, PlaylistsRow, DiskLibrary } = require('../../components')
 
 const ViewPort = Styled.section`
     padding-top: 18vh;
