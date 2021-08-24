@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 
-import { getSuggestionArtists } from '../../api'
-import { completeInput } from '../../api'
+import { getSuggestionArtists } from 'api'
+import { completeInput } from 'api'
 
 import Styled from 'styled-components'
-import search_Icon from '../../assets/icons/search_white_24dp.svg'
+import search_Icon from 'assets/icons/search_white_24dp.svg'
 
 
 const ViewPort = Styled.section`

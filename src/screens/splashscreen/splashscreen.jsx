@@ -1,6 +1,6 @@
 import React from 'react'
 
-import branding from "../../assets/img/branding_Musiky.png"
+import branding from "assets/img/branding_Musiky.png"
 
 import Styled from "styled-components";
 

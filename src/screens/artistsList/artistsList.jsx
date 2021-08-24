@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-//import { getAllArtists } from "../../api";
+//import { getAllArtists } from "api";
 
-import { ArtistCard } from '../../components'
+import { ArtistCard } from 'components'
 
 import Styled from "styled-components";
 import { Link } from 'react-router-dom'

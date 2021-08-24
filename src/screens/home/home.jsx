@@ -1,7 +1,7 @@
 import React from "react";
 import Styled from "styled-components";
 
-const { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } = require('../../components')
+import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components'
 
 const ViewPort = Styled.section`
     margin-top: 18vh;
@@ -9,7 +9,7 @@ const ViewPort = Styled.section`
     height: 100%;
     margin-bottom: 20vh;
 
-    @media(max-width: 690px) {
+    @media(max-width: 900px) {
         margin-top: 16vh;
         width: 100%;
     }

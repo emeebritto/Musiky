@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 
-import { getGreeting } from '../../api'
+import { getGreeting } from 'api'
 
 import Styled from 'styled-components'
 
@@ -14,7 +14,7 @@ const GreetingText = Styled.h1`
     border-left: 2px solid blue;
     margin-bottom: 25px;
 
-    @media(max-width: 690px) {
+    @media(max-width: 900px) {
         margin-left: 30px;
     }
 
@@ -34,6 +34,10 @@ const ViewPort = Styled.section`
     margin-bottom: 50px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     overflow: hidden;
+
+    @media(max-width: 900px) {
+        border-radius: 0px;
+    }
 
     @media(max-width: 800px) {
         height: 180px;

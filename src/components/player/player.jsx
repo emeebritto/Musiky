@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { player } from '../../controllers'
+import { player } from 'controllers'
 
 import ReactPlayer from 'react-player'
 import Styled from 'styled-components'
@@ -37,6 +37,10 @@ const ReactPlayerComp = () => {
         setPlayerProp({...props})
     }
 
+    const onPlayAndPause = status => {
+        player.changePlayingTo(status)
+    }
+
     const handleProgress = time => {
         player.setCurrentTimeTo(time.played)
     }
@@ -63,10 +67,13 @@ const ReactPlayerComp = () => {
         e.preventDefault();
     }
 
+
     useEffect(()=>{
+
         player.subscribe(UpdatePlayerState)
-        document.addEventListener("contextmenu", (e)=> handleContextMenu(e));
+        document.addEventListener("contextmenu", (e)=> handleContextMenu(e))
         return ()=> document.removeEventListener("contextmenu", (e)=> handleContextMenu(e))
+
     },[UpdatePlayerState])
 
 
@@ -82,6 +89,8 @@ const ReactPlayerComp = () => {
                 playing={playerProp.playing}
                 volume={playerProp.volume}
                 loop={playerProp.loop}
+                onPlay={() => onPlayAndPause(true)}
+                onPause={() => onPlayAndPause(false)}
                 onProgress={time => handleProgress(time) }
                 onDuration={duration =>  handleDuration(duration) }
                 onBuffer={() => onBuffer(true)}

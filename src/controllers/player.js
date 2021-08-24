@@ -57,7 +57,6 @@ class playerModule {
 		this.props.indexOnPlaylist = targetIndex
         this.props.playlistId = playlistId
 		this.props.musicId = targetList[targetIndex].id
-        this.props.playing = true
         this.changeBufferStatusTo(true)
         this.updateAppBackground()
     }
@@ -77,7 +76,6 @@ class playerModule {
             this.props.indexOnPlaylist = 0
         }
 
-        this.props.playing = true
         this.props.musicId = this.props.musicList[this.props.indexOnPlaylist].id
         this.updateAppBackground()
         this.notify()
@@ -103,6 +101,10 @@ class playerModule {
     play_Pause() {
     	this.props.playing = !this.props.playing
         this.notify()
+    }
+
+    changePlayingTo(status) {
+        this.props.playing = status
     }
 
     seekTo(value) {

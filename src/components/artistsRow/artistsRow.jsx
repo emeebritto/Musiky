@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-//import {getArtistsRow} from '../../api'
+//import {getArtistsRow} from 'api'
 
-import { scroll } from '../../controllers'
+import { scroll } from 'controllers'
 
 import ArtistCard from '../artistCard'
 
@@ -26,7 +26,7 @@ const TitleSection = Styled.h2`
     font-size: 1.6em;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
-    @media(max-width: 690px) {
+    @media(max-width: 900px) {
         margin-left: 18px;
     }
 
@@ -40,6 +40,10 @@ const BtnField = Styled.section`
     :hover #hoverLine {
         opacity: 100%;
         transform: scaleX(11);
+    }
+
+    @media(max-width: 900px) {
+        margin-right: 18px;
     }
 
     @media(max-width: 545px) {

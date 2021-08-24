@@ -1,8 +1,7 @@
-import Styled from "styled-components";
+import Styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-export const S = {
-    PlaylistInfor: Styled.section`
+export const PlaylistInfor = Styled.section`
         position: fixed;
         left: 17%;
         display: flex;
@@ -10,34 +9,34 @@ export const S = {
         flex-direction: column;
         align-items: center;
         width: 22%;
-    `,
-    MusicList: Styled.section`
+    `
+export const MusicList = Styled.section`
         display: flex;
         flex-direction: column;
         width: 60%;
-    `,
-    BackIcon: Styled.img`
+    `
+export const BackIcon = Styled.img`
         width: 35px;
         margin-bottom: 25px;
         :hover {
             cursor: pointer;
             background-color: rgb(255 255 255 /4%);
         }
-    `,
-    PlayListImg: Styled.img`
+    `
+export const PlayListImg = Styled.img`
         width: 210px;
         height: 210px;
         border-radius: 10px;
         box-shadow: 1px 1px 30px rgb(0 0 0 / 35%);
         margin-bottom: 15px;
-    `,
-    PlaylistTitle: Styled.p`
+    `
+export const PlaylistTitle = Styled.p`
         color: white;
         font-size: 1.4em;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         margin-bottom: 10px;
-    `,
-    BoxMusic: Styled.section`
+    `
+export const BoxMusic = Styled.section`
         display: flex;
         align-items: center;
         margin-bottom: 5px;
@@ -48,47 +47,45 @@ export const S = {
             background-color: rgb(255 255 255 / 4%);
         }
         :hover .iconPlayHover {
-            display: ${(props)=> (props.hoverOff ? "none" : "inline-block")};
+            display: ${(props)=> (props.hoverOff ? 'none' : 'inline-block')};
         }
         :hover .MusicTime {
             display: none;
         }
-    `,
-    BoxNumMusic: Styled.div`
+    `
+export const BoxNumMusic = Styled.div`
         text-align: center;
         margin: 35px 3px 0px 3px;
         width: 25px;
         height: 100%;
-    `,
-    NumMusic: Styled.p`
+    `
+export const NumMusic = Styled.p`
         color: rgb(255 255 255/ 70%);
-    `,
-    MusicImg: Styled.img`
+    `
+export const MusicImg = Styled.img`
         width: 15%;
         border-radius: 6px;
         margin-right: 14px;
-    `,
-    MusicInfor: Styled.section`
+    `
+export const MusicInfor = Styled.section`
         width: 70%;
-    `,
-    MusicTitle: Styled.p`
+    `
+export const MusicTitle = Styled.p`
         color: white;
         font-size: 1.1em;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         margin-bottom: 3px;
-    `,
-    BoxIconPLayHover: Styled.img`
+    `
+export const BoxIconPLayHover = Styled.img`
         display: none;
         filter: invert(100%);
     `
-}
 
-export const Ss = {
-    PlaySubTitle: Styled(S.PlaylistTitle)`
+export const PlaySubTitle = Styled(PlaylistTitle)`
         color: #C4C4C4;
         font-size: 1.1em;
-    `,
-    ChannelName: Styled(Link)`
+    `
+export const ChannelName = Styled(Link)`
         text-decoration: none;
         font-size: 0.9em;
         color: rgb(255 255 255/ 70%);
@@ -97,7 +94,6 @@ export const Ss = {
         :hover {
             color: rgb(255 255 255/ 90%);
         }
-    `,
-    MusicTime: Styled(S.NumMusic)`
-    `,
-}
+    `
+export const MusicTime = Styled(NumMusic)`
+    `

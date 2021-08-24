@@ -7,7 +7,7 @@ export const TitleSection = Styled.h2`
     margin-bottom: 16px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
-    @media(max-width: 690px) {
+    @media(max-width: 900px) {
         margin-left: 18px;
         margin-bottom: 23px;
     }

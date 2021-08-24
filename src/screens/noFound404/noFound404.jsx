@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import Styled from "styled-components";
 import { useHistory } from 'react-router-dom'
 
-import city from '../../assets/img/city.svg'
-import cellingLight from '../../assets/img/cellingLight.png'
+import city from 'assets/img/city.svg'
+import cellingLight from 'assets/img/cellingLight.png'
 
 const ViewPort = Styled.section`
     position: relative;

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import Styled from 'styled-components'
 
-import { getSongsList } from "../../api";
+import { getSongsList } from "api";
 
 const ViewPort = Styled.section`
 	display: flex;

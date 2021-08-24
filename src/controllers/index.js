@@ -1,7 +1,2 @@
-import {player} from './player'
-import {scroll} from './pagScroll'
-
-export {
-	player,
-	scroll
-}
+export { player } from './player'
+export { scroll } from './pagScroll'

@@ -2,9 +2,9 @@ import React from "react";
 import Styled from "styled-components";
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
-import { player, scroll } from '../../controllers'
+import { player, scroll } from 'controllers'
 
-const { Search, PlaylistsRow, DiskLibrary } = require('../../components')
+import { Search, PlaylistsRow, DiskLibrary } from 'components'
 
 const ViewPort = Styled.section`
     padding-top: 18vh;

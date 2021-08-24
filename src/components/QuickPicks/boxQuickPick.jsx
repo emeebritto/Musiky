@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
-import { quickPicks } from '../../api'
+import { quickPicks } from 'api'
 
-import { player } from '../../controllers'
+import { player } from 'controllers'
 
-import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
-import PausedAnim from '../../assets/icons/AnimatedSvg/playingCompAnim'
-import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg'
+import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
+import PausedAnim from 'assets/icons/AnimatedSvg/playingCompAnim'
+import icon_playing from 'assets/icons/AnimatedSvg/playing.svg'
 
 import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './boxQuickPickStyles'
@@ -27,8 +27,6 @@ const BoxQuickPicks = () => {
 
     const updateIndexQuickPicks = ({indexOnPlaylist, playing}) => {
         if(player.props.playlistId === id) {
-            console.log('o id funciona')
-            console.log('prop playlistId ' +player.props.playlistId)
             setPLayingIndex(indexOnPlaylist)
             setStatus(playing)
         }
@@ -49,15 +47,9 @@ const BoxQuickPicks = () => {
         var duration = <p className="MusicTime">{music.contentDetails.duration}</p>
 
         var match = playingIndex === index;
-        console.log('index ' + index)
-        console.log('playingIndex ' + playingIndex) 
-        console.log('match ' + match)
         var playing = status
-        console.log('playing ' + playing)
 
         if(!playing && match){return <PausedAnim/>}
-
-        console.log('não executou a condição')
 
         return match ? iconPlaying : duration
     }

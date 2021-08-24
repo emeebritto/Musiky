@@ -2,16 +2,16 @@ import React, {useState, useEffect} from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import Styled from 'styled-components'
 
-import {S, Ss} from './playlistStyles'
+import * as S from './playlistStyles'
 
-import {getPLaylists} from '../../api'
+import {getPLaylists} from 'api'
 
-import { player } from '../../controllers'
+import { player } from 'controllers'
 
-import iconPlay from '../../assets/icons/play_arrow_black_24dp.svg'
-import PausedAnim from '../../assets/icons/AnimatedSvg/playingCompAnim'
-import icon_playing from '../../assets/icons/AnimatedSvg/playing.svg'
-import iconBack from '../../assets/icons/back_icon.svg'
+import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
+import PausedAnim from 'assets/icons/AnimatedSvg/playingCompAnim'
+import icon_playing from 'assets/icons/AnimatedSvg/playing.svg'
+import iconBack from 'assets/icons/back_icon.svg'
 
 
 const ViewPort = Styled.section`
@@ -92,17 +92,17 @@ const Playlist = ({ loadingStates }) => {
                 <S.BackIcon onClick={()=> {history.go(-1)}} src={iconBack} alt='back'/>
                 <S.PlayListImg src={playlist.playListImg} alt="PlayList Img"/>
                 <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
-                <Ss.PlaySubTitle>{playlist.totalMusic} Musics</Ss.PlaySubTitle>                    
+                <S.PlaySubTitle>{playlist.totalMusic} Musics</S.PlaySubTitle>                    
             </S.PlaylistInfor>
             <S.MusicList>
-            {playlist.musicList.map((music, index) => {
+            {playlist.musicList.map((music, i) => {
                 return (
-                    <S.BoxMusic hoverOff={playingIndex === index} 
-                                onClick={() => { clickOnMusic(index, playlist.musicList, id) }} 
-                                key={index}
+                    <S.BoxMusic hoverOff={playingIndex === i} 
+                                onClick={() => { clickOnMusic(i, playlist.musicList, id) }} 
+                                key={i}
                                 >
                         <S.BoxNumMusic>
-                            <S.NumMusic>{index + 1}.</S.NumMusic>
+                            <S.NumMusic>{i + 1}.</S.NumMusic>
                         </S.BoxNumMusic>
 
                         <S.MusicImg src={music.snippet.thumbnails.medium.url} alt="Music img"/>
@@ -110,26 +110,26 @@ const Playlist = ({ loadingStates }) => {
                         <S.MusicInfor>
                             <S.MusicTitle>{music.snippet.title}</S.MusicTitle>
                             <section>
-                                {music.Artist.map((artist, index) => {
+                                {music.Artist.map((artist, i) => {
                                     let space='';
-                                    if(index > 0){ space = ',  ' }
+                                    if(i > 0){ space = ',  ' }
                                         
                                     return(
-                                        <Ss.ChannelName 
+                                        <S.ChannelName 
                                             to={`/artist/${artist.replaceAll(' ', '_')}`}
                                             onClick={(e)=>{e.stopPropagation()}}
                                             >
                                             {space + artist}
-                                        </Ss.ChannelName>
+                                        </S.ChannelName>
                                     )
                                 })}
                             </section>
                         </S.MusicInfor>
 
-                        <Ss.MusicTime>
-                            <BoxDurationOrPLayingNow music={music} index={index}/>
+                        <S.MusicTime>
+                            <BoxDurationOrPLayingNow music={music} index={i}/>
                             <S.BoxIconPLayHover className="iconPlayHover" src={iconPlay} alt="iconPlay" />
-                        </Ss.MusicTime>
+                        </S.MusicTime>
 
                     </S.BoxMusic>
                 )
