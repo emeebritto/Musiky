@@ -7,7 +7,6 @@ import { player, scroll } from 'controllers'
 
 import Profile from "assets/img/MyPersonalLogo.png"
 import branding from "assets/img/branding_Musiky.png"
-import shortBranding from 'assets/img/shortBranding.png'
 
 const HeaderBranding = Styled(Link)`
     width: 110px;

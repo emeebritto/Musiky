@@ -7,7 +7,8 @@ import {
 	TransitionLoadingBar,
 	Header,
 	PlayerControl,
-	ReactPlayerComp
+	ReactPlayerComp,
+	NavBar
 } from './components'
 
 import {
@@ -29,6 +30,7 @@ const Background = Styled.section`
 const Blur = Styled.div`
 `
 const ViewPort = Styled.section` 
+    position: relative;
     background-color: rgb(0 0 0 /95%);
     overflow: scroll;
     width: 100vw;
@@ -71,6 +73,7 @@ const App = () => {
 
     useEffect(()=>{
         player.setBackgroundObserver(updateBackground)
+
     },[])
 
 
@@ -122,6 +125,7 @@ const App = () => {
 
 						<GlobalStyle />
 						<ReactPlayerComp/>
+
 						<Header loadingStates={loadingStates}/>
 
 						<Centralize>
@@ -135,6 +139,8 @@ const App = () => {
 						</Centralize>
 
 						<PlayerControl/>
+
+						<NavBar loadingStates={loadingStates}/>
 					</ViewPort>
 				</Blur>
 			</Background>
