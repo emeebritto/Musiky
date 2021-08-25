@@ -15,18 +15,42 @@ export const PlaylistInfor = Styled.section`
     flex-direction: column;
     align-items: center;
     width: 22%;
+
+    @media(max-width: 1230px) { left: 12% }
+
+    @media(max-width: 1075px) { 
+        left: 0%;
+        position: relative;
+        flex-direction: row;
+        justify-content: center;
+        width: 95%;
+        margin-bottom: 50px;
+    }
 `
 export const MusicList = Styled.section`
     display: flex;
     flex-direction: column;
-    width: 580px;
+    width: 610px;
+
+    @media(max-width: 620px) { 
+        width: 95%;
+    }
 `
 export const BackIcon = Styled.img`
     width: 35px;
     margin-bottom: 25px;
+
     :hover {
         cursor: pointer;
         background-color: rgb(255 255 255 /4%);
+    }
+
+    @media(max-width: 1075px) { 
+        margin-bottom: 0px;
+    }
+
+    @media(max-width: 570px) { 
+        display: none;
     }
 `
 export const PlayListImg = Styled.img`
@@ -35,6 +59,21 @@ export const PlayListImg = Styled.img`
     border-radius: 10px;
     box-shadow: 1px 1px 30px rgb(0 0 0 / 35%);
     margin-bottom: 15px;
+
+    @media(max-width: 1075px) { 
+        margin: 0 50px 0 40px;
+    }
+
+    @media(max-width: 620px) { 
+        width: 190px;
+        height: 190px;
+    }
+
+    @media(max-width: 499px) {
+        width: 170px;
+        height: 170px;
+        margin: 0 15px 0 55px;
+    }
 `
 export const PlaylistTitle = Styled.p`
     color: white;
@@ -81,6 +120,10 @@ export const MusicTitle = Styled.p`
     font-size: 1.1em;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-bottom: 3px;
+
+    @media(max-width: 499px) {
+        font-size: 1em;
+    }
 `
 export const BoxIconPLayHover = Styled.img`
     display: none;
@@ -102,4 +145,7 @@ export const ChannelName = Styled(Link)`
     }
 `
 export const MusicTime = Styled(NumMusic)`
+    @media(max-width: 499px) {
+        font-size: 0.85em;
+    }
 `

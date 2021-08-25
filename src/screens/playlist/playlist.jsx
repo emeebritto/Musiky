@@ -21,18 +21,52 @@ import iconShare from 'assets/icons/share_white_24dp.svg'
 const ViewPort = Styled.section`
     display: flex;
     justify-content: flex-end;
-    width: 900px;
+    width: 71%;
     margin: 20vh 0vw 20vh 0vw;
+
+
+    @media(max-width: 1230px) { width: 85% }
+    @media(max-width: 1075px) { 
+        align-items: center;
+        flex-direction: column;
+    }
+
+    @media(max-width: 755px) { 
+        width: 100%;
+    }
+
+    @media(max-width: 570px) { 
+        margin-top: 17vh;
+    }
+
+    @media(max-width: 499px) {
+        margin-top: 14vh;
+    }
+`
+
+const PlaylistOptions = Styled.section`
+    display: none;
+    margin-top: 30px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 170px;
+
+    @media(max-width: 1075px) { display: flex }
 `
 
 const OptionsAside = Styled.aside`
     position: fixed;
-    left: 85%;
-    display: none;
+    top: 21vh;
+    right: 10%;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     width: 50px;
     height: 50%;
+
+    @media(max-width: 1230px) { right: 2.5% }
+    @media(max-width: 1075px) { display: none }
+
 `
 
 const CircleOption = Styled.img`
@@ -48,6 +82,11 @@ const CircleOption = Styled.img`
     :hover {
         background-color: rgb(255 255 255 / 20%);
     }
+`
+
+const OthersData = Styled.section`
+    text-align: center;
+    margin-right: 60px;
 `
 
 const Playlist = ({ loadingStates }) => {
@@ -116,12 +155,20 @@ const Playlist = ({ loadingStates }) => {
     }
 
     return (
+        <>
         <ViewPort>
             <S.PlaylistInfor>
                 <S.BackIcon onClick={()=> {history.go(-1)}} src={iconBack} alt='back'/>
                 <S.PlayListImg src={playlist.playListImg} alt="PlayList Img"/>
-                <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
-                <S.PlaySubTitle>{playlist.totalMusic} Musics</S.PlaySubTitle>                    
+                <OthersData>
+                    <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
+                    <S.PlaySubTitle>{playlist.totalMusic} Musics</S.PlaySubTitle>
+                    <PlaylistOptions>
+                        <CircleOption src={iconRandom} alt="Shuffle"/>
+                        <CircleOption src={iconLoop} alt="playlist loop"/>
+                        <CircleOption src={iconShare} alt="share playlist"/>
+                    </PlaylistOptions>
+                </OthersData>
             </S.PlaylistInfor>
             <S.MusicList>
             {playlist.musicList.map((music, i) => {
@@ -164,12 +211,13 @@ const Playlist = ({ loadingStates }) => {
                 )
             })}
             </S.MusicList>
-            <OptionsAside>
-                <CircleOption src={iconRandom} alt="Shuffle"/>
-                <CircleOption src={iconLoop} alt="playlist loop"/>
-                <CircleOption src={iconShare} alt="share playlist"/>
-            </OptionsAside>
         </ViewPort>
+        <OptionsAside>
+            <CircleOption src={iconRandom} alt="Shuffle"/>
+            <CircleOption src={iconLoop} alt="playlist loop"/>
+            <CircleOption src={iconShare} alt="share playlist"/>
+        </OptionsAside>
+        </>
     )
 }
 
