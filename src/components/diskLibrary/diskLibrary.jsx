@@ -4,23 +4,33 @@ import Styled from 'styled-components'
 import { getSongsList } from "api";
 
 const ViewPort = Styled.section`
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	margin-top: 30px;
-	margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    height: 260px;
+    overflow: scroll;
+    margin-bottom: 30px;
 `
 const TitleSection = Styled.h2`
     color: white;
     font-size: 1.6em;
     margin-bottom: 16px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    @media(max-width: 900px) {
+        margin-left: 18px;
+        margin-bottom: 23px;
+    }
+
+    @media(max-width: 545px) {
+        font-size: 1.4em;
+    }
 `
 const Disk = Styled.section`
     display: flex;
     flex-direction: column;
     width: 150px;
     height: 230px;
+    margin: 0 15px;
 
     :hover {
     	cursor: pointer;

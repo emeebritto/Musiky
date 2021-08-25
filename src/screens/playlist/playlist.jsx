@@ -13,12 +13,41 @@ import PausedAnim from 'assets/icons/AnimatedSvg/playingCompAnim'
 import icon_playing from 'assets/icons/AnimatedSvg/playing.svg'
 import iconBack from 'assets/icons/back_icon.svg'
 
+import iconRandom from 'assets/icons/shuffle_white_24dp.svg'
+import iconLoop from 'assets/icons/loop_white_24dp.svg'
+import iconShare from 'assets/icons/share_white_24dp.svg'
+
 
 const ViewPort = Styled.section`
     display: flex;
     justify-content: flex-end;
-    width: 66%;
+    width: 900px;
     margin: 20vh 0vw 20vh 0vw;
+`
+
+const OptionsAside = Styled.aside`
+    position: fixed;
+    left: 85%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 50px;
+    height: 50%;
+`
+
+const CircleOption = Styled.img`
+    border-radius: 70px;
+    width: 25px;
+    height: 25px;
+    padding: 12px;
+    background-color: rgb(255 255 255 / 10%);
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 300ms;
+
+    :hover {
+        background-color: rgb(255 255 255 / 20%);
+    }
 `
 
 const Playlist = ({ loadingStates }) => {
@@ -135,6 +164,11 @@ const Playlist = ({ loadingStates }) => {
                 )
             })}
             </S.MusicList>
+            <OptionsAside>
+                <CircleOption src={iconRandom} alt="Shuffle"/>
+                <CircleOption src={iconLoop} alt="playlist loop"/>
+                <CircleOption src={iconShare} alt="share playlist"/>
+            </OptionsAside>
         </ViewPort>
     )
 }

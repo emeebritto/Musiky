@@ -12,6 +12,10 @@ const ViewPort = Styled.section`
     display: flex;
     align-items: center;
 	margin: 0px 0px 60px 0px;
+
+    @media(max-width: 1000px) {
+        flex-direction: column;
+    }
 `
 const SearchBar = Styled.section`
 	display: flex;
@@ -19,6 +23,12 @@ const SearchBar = Styled.section`
 	align-items: center;
 	width: 500px;
 	height: 40px;
+
+    @media(max-width: 1000px) {
+        width: 90%;
+        margin-bottom: 25px;
+    }
+
 `
 const InputSearchBar = Styled.input`
     background-color: transparent;
@@ -77,6 +87,10 @@ const OptionsCompleteSearch = Styled.section`
 	top: 50px;
 	width: 465px;
 	height: auto;
+
+    @media(max-width: 1000px) {
+        width: 100%;
+    }
 `
 
 const Option = Styled(Link)`
@@ -103,6 +117,11 @@ const Suggestions = Styled.section`
 	width: 60%;
 	justify-content: space-around;
 	margin-left: 20px;
+
+    @media(max-width: 1000px) {
+        width: 95%;
+        margin-left: 0px;
+    }
 `
 const SuggestionBox = Styled(Link)`
     text-decoration: none;

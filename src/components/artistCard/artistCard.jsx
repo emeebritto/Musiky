@@ -34,7 +34,7 @@ const ArtistName = Styled.h1`
     margin: 0px 0px 15px 5px;
 
     @media(max-width: 545px) {
-        font-size: 0.8em;
+        font-size: 1.0em;
     }
 `
 const BrnFollow = Styled.button`
@@ -54,7 +54,7 @@ const BrnFollow = Styled.button`
     }
 
     @media(max-width: 545px) {
-        font-size: 0.7em;
+        font-size: 0.9em;
     }
 `
 

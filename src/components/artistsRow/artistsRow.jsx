@@ -80,9 +80,6 @@ const ViewPort = Styled.section`
         width: 0;
     }  
 
-    @media(max-width: 545px) {
-        font-size: 1.4em;
-    }
 `
 
 

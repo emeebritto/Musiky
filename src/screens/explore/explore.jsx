@@ -11,6 +11,11 @@ const ViewPort = Styled.section`
     width: 80%;
     height: 100%;
     padding-bottom: 20vh;
+
+    @media(max-width: 900px) {
+        padding-top: 16vh;
+        width: 100%;
+    }
 `
 function PlayList({ loadingStates }) {
 
