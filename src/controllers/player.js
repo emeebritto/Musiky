@@ -13,10 +13,13 @@ class playerModule {
             indexOnPlaylist: 0,
             playlistId: '',
             musicList: [],
+            playedMusic: [],
             playing: false,
             volume: 1,
             lastVolume: 0,
             showLyrics: false,
+            playlistLoop: false,
+            playListShuffle: false,
             loop: false,
             currentTime: 0,
             duration: 0,
@@ -71,9 +74,19 @@ class playerModule {
     }
 
     nextMusic(action) {
-	    this.props.indexOnPlaylist = this.props.indexOnPlaylist + action
+	    this.props.indexOnPlaylist = this.props.playListShuffle 
+                ? ~~(Math.random() * this.props.musicList.length - 1) 
+                : this.props.indexOnPlaylist + action
+
         if (this.props.indexOnPlaylist === this.props.musicList.length){
-            this.props.indexOnPlaylist = 0
+
+            if(this.props.playlistLoop){
+                this.props.indexOnPlaylist = 0
+            } else {
+                this.props.indexOnPlaylist = this.props.musicList.length - 1
+                this.props.playing = false
+            }
+            
         }
 
         this.props.musicId = this.props.musicList[this.props.indexOnPlaylist].id
@@ -96,6 +109,16 @@ class playerModule {
     toggleLoop() {
     	this.props.loop = !this.props.loop
         this.notify()
+    }
+
+    toggleShuffle() {
+        this.props.playListShuffle = !this.props.playListShuffle
+        this.props.musicList.length && this.notify()
+    }
+
+    togglePlaylistLoop() {
+        this.props.playlistLoop = !this.props.playlistLoop
+        this.props.musicList.length && this.notify()
     }
 
     play_Pause() {

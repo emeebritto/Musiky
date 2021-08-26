@@ -74,7 +74,8 @@ const CircleOption = Styled.img`
     width: 25px;
     height: 25px;
     padding: 12px;
-    background-color: rgb(255 255 255 / 10%);
+    background-color: ${(props)=> (props.active ? "rgb(255 255 255 / 30%)" : "rgb(255 255 255 / 10%)")};
+    border: ${(props)=> (props.active ? "1px" : "0px")} solid gray;
     cursor: pointer;
     margin-bottom: 15px;
     transition: 300ms;
@@ -86,7 +87,10 @@ const CircleOption = Styled.img`
 
 const OthersData = Styled.section`
     text-align: center;
-    margin-right: 60px;
+
+    @media(max-width: 1075px) { 
+        margin-right: 60px;
+    }
 `
 
 const Playlist = ({ loadingStates }) => {
@@ -97,6 +101,8 @@ const Playlist = ({ loadingStates }) => {
 
     const [playingIndex, setPLayingIndex] = useState(null)
     const [status, setStatus] = useState(false)
+    const [shuffle, setShuffle] = useState(false)
+    const [loop, setLoop] = useState(false)
     const [playlist, setPlaylist] = useState({
         img: null,
         title: null,
@@ -107,6 +113,16 @@ const Playlist = ({ loadingStates }) => {
     const clickOnMusic = (targetIndex, targetList, playlistId) => {
         player.load(targetIndex, targetList, playlistId)
         setPLayingIndex(targetIndex)
+    }
+
+    const handlePlaylistLoop = () => {
+        player.togglePlaylistLoop();
+        setLoop(loop => !loop)
+    }
+
+    const handleshuffle = () => {
+        player.toggleShuffle();
+        setShuffle(shuffle => !shuffle)
     }
 
     const updateIndexPlaylist = ({indexOnPlaylist, playing}) => {
@@ -140,6 +156,18 @@ const Playlist = ({ loadingStates }) => {
 
     },[])
 
+
+    //Component:
+    function CircleOptionComponent(){
+        return(
+            <>
+                <CircleOption active={shuffle} onClick={() => handleshuffle()} src={iconRandom} alt="Shuffle"/>
+                <CircleOption active={loop} onClick={() => handlePlaylistLoop()} src={iconLoop} alt="playlist loop"/>
+                <CircleOption src={iconShare} alt="share playlist"/>
+            </>
+        )
+    }
+
     //Component:
     function BoxDurationOrPLayingNow({music, index}){
 
@@ -164,9 +192,7 @@ const Playlist = ({ loadingStates }) => {
                     <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
                     <S.PlaySubTitle>{playlist.totalMusic} Musics</S.PlaySubTitle>
                     <PlaylistOptions>
-                        <CircleOption src={iconRandom} alt="Shuffle"/>
-                        <CircleOption src={iconLoop} alt="playlist loop"/>
-                        <CircleOption src={iconShare} alt="share playlist"/>
+                        <CircleOptionComponent/>
                     </PlaylistOptions>
                 </OthersData>
             </S.PlaylistInfor>
@@ -213,9 +239,7 @@ const Playlist = ({ loadingStates }) => {
             </S.MusicList>
         </ViewPort>
         <OptionsAside>
-            <CircleOption src={iconRandom} alt="Shuffle"/>
-            <CircleOption src={iconLoop} alt="playlist loop"/>
-            <CircleOption src={iconShare} alt="share playlist"/>
+            <CircleOptionComponent/>
         </OptionsAside>
         </>
     )

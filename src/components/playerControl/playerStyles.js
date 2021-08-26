@@ -10,28 +10,73 @@ export const ViewPort = styled.main`
     align-items: center;
     position: fixed;
     z-index: 3;
-    top: 90vh;
-    justify-content: space-between;
-    width: 100%;
+    bottom: 0vh;
+    justify-content: space-around;
+    width: 100vw;
     height: 10vh;
     box-shadow: inset 0px ${(props)=> (props.lyrics ? "-40px 50px" : "-50px 40px")} rgb(0 0 0 /75%);
     backdrop-filter: blur( ${(props)=> (props.lyrics ? "3.5px" : "0px")});
     -webkitBackdrop-filter: blur( ${(props)=> (props.lyrics ? "3.5px" : "0px")});
+
+    @media(max-width: 570px) {
+        height: 8vh;
+        bottom: 7vh;
+        box-shadow: inset 0px -50px 40px rgb(0 0 0 /55%);
+        backdrop-filter: blur( 0px );
+        -webkitBackdrop-filter: blur( 0px );
+    }
 `
 //------ part - left ------------------------------------------------------
 
 export const MusicInfor = styled(flex_Section)`
     width: 30%;
+
+    @media(max-width: 1070px) {
+        width: 35%;
+    }
+
+    @media(max-width: 780px) {
+        width: 45%;
+    }
+
+    @media(max-width: 700px) {
+        width: 65%;
+    }
+
+    @media(max-width: 570px) {
+        width: 50%;
+    }
 `
 export const PlayerControlPainel = styled(flex_Section)`
     justify-content: center;
-    width: 40%;
+    width: 20%;
     flex-direction: column;
+
+    @media(max-width: 1070px) {
+        flex-direction: row;
+        width: 25%;
+    }
+
+    @media(max-width: 780px) {
+        width: 20%;
+    }
+
+    @media(max-width: 780px) {
+        width: 30%;
+    }
 `
 export const OtherSetting = styled(flex_Section)`
     justify-content: flex-end;
     width: 30%;
     margin-right: 15px;
+
+    @media(max-width: 780px) {
+        width: 35%;
+    }
+
+    @media(max-width: 570px) {
+        display: none;
+    }
 `
 export const MusicImg = styled.img`
     margin-left: 10px;
@@ -39,6 +84,10 @@ export const MusicImg = styled.img`
     width: 85px;
     height: 55px;
     border-radius: 5px;
+
+    @media(max-width: 700px) {
+        display: none;
+    }
 `
 export const SectionTitles = styled.section`
     display: flex;
@@ -54,6 +103,10 @@ export const MusicTitle = styled.p`
     -webkit-text-stroke-color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-bottom: 5px;
+
+    @media(max-width: 499px) {
+        font-size: 1em;
+    }
 `
 export const MusicTitleInControl = styled(MusicTitle)`
     background-color: rgb(0 0 0 /40%);
@@ -73,7 +126,15 @@ export const MusicSubTitle = styled.p`
 export const BtnsBackPlayNext = styled.section`
     display:flex;
     justify-content: space-between;
-    width: 23%;
+    width: 26%;
+
+    @media(max-width: 1070px) {
+        width: 54%;
+    }
+
+    @media(max-width: 780px) {
+        width: 97%;
+    }
 `
 
 export const BtnPlayerControl = styled.button`
@@ -88,6 +149,10 @@ export const BtnPlayerControl = styled.button`
     :hover {
         cursor: pointer;
         background-color: rgb(255 255 255/${(props)=> (props.play ? "70%" : "0%")});
+    }
+
+    @media(max-width: 1070px) {
+        margin: 0px 5px 0px 5px;
     }
 `
 export const IconPlay = styled.img`
@@ -117,6 +182,24 @@ export const DurationSlider = styled.input`
         cursor: pointer;
         box-shadow: 0px 1px 20px black;
     }
+
+    @media(max-width: 1070px) {
+        position: fixed;
+        width: 95%;
+        margin-right: 2.5%;
+        left: 0;
+        bottom: 10vh;
+    }
+
+    @media(max-width: 570px) {
+        bottom: 8vh;
+
+        ::-webkit-slider-thumb{
+            height: 12px;
+            width: 12px;
+            top: 0px;
+        }
+    }
 `
 
 export const VolumeControl = styled(DurationSlider)`
@@ -128,6 +211,22 @@ export const VolumeControl = styled(DurationSlider)`
         width: 12px;
         top: 0px;
     }
+
+    @media(max-width: 1070px) {
+        position: relative;
+        margin-right: 0%;
+        width: 30%;
+        bottom: 0vh;
+    }
+
+    @media(max-width: 780px) {
+        width: 35%;
+    }
+
+    @media(max-width: 700px) {
+        display: none;
+    }
+
 `
 export const BtnIconVolume = styled(BtnPlayerControl)`
     width:30px;

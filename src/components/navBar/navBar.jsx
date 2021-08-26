@@ -16,9 +16,10 @@ const NavBarContainer = Styled.aside`
     top: 93vh;
     display: ${(props) => (props.disabled ? "none" : "flex")};
     justify-content: center;
+    z-index: 3;
     width: 100vw;
     height: 7vh;
-    box-shadow: inset 0px 60px 60px rgb(0 0 0 /50%);
+    box-shadow: inset 0px 60px 60px rgb(0 0 0 /70%);
     backdrop-filter: blur( 0px );
     -webkitBackdrop-filter: blur( 0px );
 `

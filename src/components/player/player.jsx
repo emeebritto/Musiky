@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player'
 import Styled from 'styled-components'
 
 const ViewPort = Styled.section`
-    position: absolute;
+    position: fixed;
     background-color: transparent;
     padding-top: 16vh;
     overflow: hidden;

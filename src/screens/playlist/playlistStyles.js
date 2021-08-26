@@ -108,7 +108,7 @@ export const NumMusic = Styled.p`
     color: rgb(255 255 255/ 70%);
 `
 export const MusicImg = Styled.img`
-    width: 15%;
+    width: 13%;
     border-radius: 6px;
     margin-right: 14px;
 `

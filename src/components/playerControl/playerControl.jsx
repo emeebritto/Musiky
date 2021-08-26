@@ -29,16 +29,24 @@ const PlayerControl = () => {
         setVisibility('')
     }
 
-    const handlePlayPause = () => {
+    const handlePlayPause = e => {
+        e.stopPropagation()
         player.play_Pause()
     }
 
-    const nextAndBack_Music = action => {
+    const nextAndBack_Music = (e, action) => {
+        e.stopPropagation()
         player.nextMusic(action)
     }
 
     const handlelyrics = () => {
         player.lyricsScreen()
+    }
+
+    const handlelyricsMobile = e => {
+        if(window.innerWidth < 570){
+            player.lyricsScreen()
+        }
     }
 
     const handleLoop = () => {
@@ -77,7 +85,7 @@ const PlayerControl = () => {
     //component:
     function BtnPlayAndPause() {
         return(
-            <BtnPlayerControl play onClick={() => {handlePlayPause()}}>
+            <BtnPlayerControl play onClick={e => {handlePlayPause(e)}}>
                 <IconPlay src={controlProp.playing? iconPause : iconPlay} alt="Play or Pause" />
             </BtnPlayerControl>
         )
@@ -90,15 +98,18 @@ const PlayerControl = () => {
     }
 
     return (
-        <ViewPort lyrics={controlProp.showLyrics} style={{ display: `${visibility}`}} >
+        <ViewPort 
+            lyrics={controlProp.showLyrics}
+            onClick={e =>{handlelyricsMobile(e)}}
+            style={{ display: `${visibility}`}}>
             <MusicInfor>
                 {!visibility 
                     && <MusicImg 
-                            src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url} 
+                            src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url}
                             alt="musicImg"
                             />}
                 <SectionTitles>
-                    {!visibility 
+                    {!visibility
                         && <MusicTitleInControl>
                                 {controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}
                             </MusicTitleInControl>}
@@ -113,7 +124,7 @@ const PlayerControl = () => {
             <PlayerControlPainel>
 
                 <BtnsBackPlayNext>
-                    <BtnPlayerControl onClick={()=>{nextAndBack_Music(-1)}}>
+                    <BtnPlayerControl onClick={e => {nextAndBack_Music(e, -1)}}>
                         <IconPlay src={iconBack} alt="Back Music" />
                     </BtnPlayerControl>
 
@@ -121,7 +132,7 @@ const PlayerControl = () => {
                         ? <Loading src={musicLoading} alt='loading'/> 
                         : <BtnPlayAndPause/>}
 
-                    <BtnPlayerControl onClick={()=>{nextAndBack_Music(1)}}>
+                    <BtnPlayerControl onClick={e => {nextAndBack_Music(e, 1)}}>
                         <IconPlay src={iconNext} alt="Next Music" />
                     </BtnPlayerControl>
                 </BtnsBackPlayNext>
