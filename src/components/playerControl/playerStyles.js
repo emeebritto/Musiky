@@ -49,7 +49,7 @@ export const MusicInfor = styled(flex_Section)`
 `
 export const PlayerControlPainel = styled(flex_Section)`
     justify-content: center;
-    width: 20%;
+    width: 40%;
     flex-direction: column;
 
     @media(max-width: 1070px) {
@@ -186,6 +186,8 @@ export const DurationSlider = styled.input`
     @media(max-width: 1070px) {
         position: fixed;
         width: 95%;
+        height: 3px;
+        opacity: 80%;
         margin-right: 2.5%;
         left: 0;
         bottom: 10vh;

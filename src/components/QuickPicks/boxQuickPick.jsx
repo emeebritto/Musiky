@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { quickPicks } from 'api'
+import { getQuickPicks } from 'api'
 
 import { player } from 'controllers'
 
@@ -34,7 +34,7 @@ const BoxQuickPicks = () => {
 
     useEffect(() => {
 
-        quickPicks(setMusicList);
+        getQuickPicks(setMusicList);
         player.subscribe(updateIndexQuickPicks)
 
     },[])

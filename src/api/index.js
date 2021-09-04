@@ -1,7 +1,14 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
 
-const randomPlaylists = `${musikyAPI_Base}/randomPlaylists?totalList=1&totalPerList=10&valueExact=true`
+const randomPlaylists = `${musikyAPI_Base}/msk/random-content/playlists?totalList=1&totalPerList=10&valueExact=true`
 
+let cache = {
+    quickPicks: [],
+    playLists: {},
+    ambienceSongs: {},
+    suggestions: [],
+    greeting: {}
+}
 
 const api = async (uri, options = {}) => {
     return await fetch(uri, options).then(async(res) =>{
@@ -10,48 +17,39 @@ const api = async (uri, options = {}) => {
     }).catch((rej)=> console.log(rej))
 }
 
-
-var lastQuickPicks =[];
-export const quickPicks = async (setMusicList) => {
-    if(lastQuickPicks.length !== 0){ setMusicList(lastQuickPicks); return}
+export const getQuickPicks = async (setMusicList) => {
+    if(cache.quickPicks.length !== 0){ setMusicList(cache.quickPicks); return}
     let list = await api(randomPlaylists)
-    lastQuickPicks = list['playListDetails']['mixcs5001eMeb-msk-mU51ky4'].musicList;
-    setMusicList(lastQuickPicks);
+    cache.quickPicks = list['playListDetails']['mixcs5001eMeb-msk-mU51ky4'].musicList;
+    setMusicList(cache.quickPicks);
 };
 
-
-var playLists ={};
 export const getPLaylists = async (viewMode, listType, totalList=6, totalPerList=15, valueExact=false) => {
-    if(playLists[listType] !== undefined){ return playLists[listType][`playList${viewMode}`] }
-    playLists[listType] = await api(`${musikyAPI_Base}/randomPlaylists?totalList=${totalList}&totalPerList=${totalPerList}&listPrefix=${listType}&valueExact=${valueExact}`);
-    return playLists[listType][`playList${viewMode}`];
+    if(cache.playLists[listType] !== undefined){ return cache.playLists[listType][`playList${viewMode}`] }
+    cache.playLists[listType] = await api(`${musikyAPI_Base}/msk/random-content/playlists?totalList=${totalList}&totalPerList=${totalPerList}&listPrefix=${listType}&valueExact=${valueExact}`);
+    return cache.playLists[listType][`playList${viewMode}`];
 };
 
-
-var ambienceSongs ={};
 export const getSongsList = async (totalSong, listType) => {
-    if(ambienceSongs[listType] !== undefined){ return ambienceSongs[listType] }
-    ambienceSongs[listType] = await api(`${musikyAPI_Base}/randomSongs?totalSong=${totalSong}&listType=${listType}`);
-    return ambienceSongs[listType];
+    if(cache.ambienceSongs[listType] !== undefined){ return cache.ambienceSongs[listType] }
+    cache.ambienceSongs[listType] = await api(`${musikyAPI_Base}/msk/random-content/songs?totalSong=${totalSong}&listType=${listType}`);
+    return cache.ambienceSongs[listType];
 };
 
-
-var suggestions =[]
 export const getSuggestionArtists = async (total) => {
-    if(suggestions.length){ return suggestions }
-    suggestions = await api(`${musikyAPI_Base}/gSuggestions?total=${total}`);
-    return suggestions
+    if(cache.suggestions.length){ return cache.suggestions }
+    cache.suggestions = await api(`${musikyAPI_Base}/msk/search/search-suggestions?total=${total}`);
+    return cache.suggestions
 };
 
 
 export const completeInput = async (input, maxResult) => {
-    let result = await api(`${musikyAPI_Base}/auto-complete?input=${input}&maxResult=${maxResult}`);
+    let result = await api(`${musikyAPI_Base}/msk/search/auto-complete?input=${input}&maxResult=${maxResult}`);
     return result
 };
 
-var greeting ={}
 export const getGreeting = async () => {
-    if(Object.keys(greeting).length){ return greeting }
-    greeting = await api(`${musikyAPI_Base}/getGreeting`);
-    return greeting
+    if(Object.keys(cache.greeting).length){ return cache.greeting }
+    cache.greeting = await api(`${musikyAPI_Base}/greeting`);
+    return cache.greeting
 };
