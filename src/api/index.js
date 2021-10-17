@@ -1,4 +1,5 @@
 const musikyAPI_Base = 'https://api-musiky.herokuapp.com'
+const local_API = 'http://localhost:8877'
 
 const randomPlaylists = `${musikyAPI_Base}/msk/random-content/playlists?totalList=1&totalPerList=10&valueExact=true`
 

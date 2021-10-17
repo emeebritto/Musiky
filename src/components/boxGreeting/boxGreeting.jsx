@@ -102,7 +102,7 @@ const BoxGreeting = () => {
     var nameUser = 'Emerson Britto'
 
     const [greeting, setGreeting] = useState({})
-    const [music, setMusic] = useState({Artist: ['none', 'none']})
+    const [music, setMusic] = useState({Artist: ['By', 'Emerson_Britto']})
 
     useEffect(()=> {
 
@@ -120,7 +120,7 @@ const BoxGreeting = () => {
                 <Featured>
                     
                     <MusicInfor>
-                        <MusicTitle>Music long Name Test</MusicTitle>
+                        <MusicTitle>Nighteen Songs</MusicTitle>
                         {music.Artist.map((artist, index) => {
                             let space='';
                             if(index > 0){ space = ',  ' }

@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.js": "/static/js/main.89338583.chunk.js",
+    "main.js.map": "/static/js/main.89338583.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c3ae5551.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c3ae5551.js.map",
+    "static/js/2.6ee1c290.chunk.js": "/static/js/2.6ee1c290.chunk.js",
+    "static/js/2.6ee1c290.chunk.js.map": "/static/js/2.6ee1c290.chunk.js.map",
+    "index.html": "/index.html",
+    "static/js/2.6ee1c290.chunk.js.LICENSE.txt": "/static/js/2.6ee1c290.chunk.js.LICENSE.txt",
+    "static/media/back_icon.a20f7a0e.svg": "/static/media/back_icon.a20f7a0e.svg",
+    "static/media/branding_Musiky.179fdfd4.png": "/static/media/branding_Musiky.179fdfd4.png",
+    "static/media/cellingLight.6a183806.png": "/static/media/cellingLight.6a183806.png",
+    "static/media/city.4edb1c5f.svg": "/static/media/city.4edb1c5f.svg",
+    "static/media/explore_white_24dp.214d319c.svg": "/static/media/explore_white_24dp.214d319c.svg",
+    "static/media/home_white_24dp.1955fac8.svg": "/static/media/home_white_24dp.1955fac8.svg",
+    "static/media/loading.203d8395.svg": "/static/media/loading.203d8395.svg",
+    "static/media/loop_white_24dp.7d4eee1f.svg": "/static/media/loop_white_24dp.7d4eee1f.svg",
+    "static/media/mic_external_on_white_24dp.813acc75.svg": "/static/media/mic_external_on_white_24dp.813acc75.svg",
+    "static/media/pause_black_24dp.95877413.svg": "/static/media/pause_black_24dp.95877413.svg",
+    "static/media/play_arrow_black_24dp.222a0afb.svg": "/static/media/play_arrow_black_24dp.222a0afb.svg",
+    "static/media/playing.866f00b0.svg": "/static/media/playing.866f00b0.svg",
+    "static/media/repeat_white_24dp.6b3fd19a.svg": "/static/media/repeat_white_24dp.6b3fd19a.svg",
+    "static/media/search_white_24dp.66ea5ec3.svg": "/static/media/search_white_24dp.66ea5ec3.svg",
+    "static/media/share_white_24dp.c5e662ae.svg": "/static/media/share_white_24dp.c5e662ae.svg",
+    "static/media/shuffle_white_24dp.d595e57d.svg": "/static/media/shuffle_white_24dp.d595e57d.svg",
+    "static/media/skip_next_white_24dp.7af92369.svg": "/static/media/skip_next_white_24dp.7af92369.svg",
+    "static/media/skip_previous_white_24dp.932625e3.svg": "/static/media/skip_previous_white_24dp.932625e3.svg",
+    "static/media/trending_up_white_24dp.4b8a4a14.svg": "/static/media/trending_up_white_24dp.4b8a4a14.svg",
+    "static/media/video_library_white_24dp.f4fffd07.svg": "/static/media/video_library_white_24dp.f4fffd07.svg",
+    "static/media/volume_down_white_24dp.7de55979.svg": "/static/media/volume_down_white_24dp.7de55979.svg",
+    "static/media/volume_off_white_24dp.11497865.svg": "/static/media/volume_off_white_24dp.11497865.svg",
+    "static/media/volume_up_white_24dp.30de055e.svg": "/static/media/volume_up_white_24dp.30de055e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c3ae5551.js",
+    "static/js/2.6ee1c290.chunk.js",
+    "static/js/main.89338583.chunk.js"
+  ]
+}
