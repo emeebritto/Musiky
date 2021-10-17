@@ -4,7 +4,7 @@ import Styled from 'styled-components'
 
 import * as S from './playlistStyles'
 
-import {getPLaylists} from 'api'
+import { msk_get } from 'api'
 
 import { player } from 'controllers'
 
@@ -136,7 +136,7 @@ const Playlist = ({ loadingStates }) => {
 
         async function getData() {
             let listType = id.split('cs50', 1)
-            let data = await getPLaylists('Details', listType[0])
+            let data = await msk_get.playlists('Details', { listType: listType[0] })
 
             if(data[id] === undefined){history.push('/404')}
 

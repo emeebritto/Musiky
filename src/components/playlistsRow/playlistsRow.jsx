@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import {getPLaylists} from 'api'
+import { msk_get } from 'api'
 
 import { player } from 'controllers'
 
@@ -22,14 +22,14 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
 
     const startList = async(playListsKey) => {
         let listType = playListsKey.split('cs50', 1)
-        let data = await getPLaylists('Details', listType[0])
+        let data = await msk_get.playlists('Details', { listType: listType[0] })
         player.load(0, data[playListsKey].musicList, playListsKey)
     }
 
     useEffect(() => {
 
         async function getData() {
-            setPlaylistsResume(await getPLaylists(viewMode, listType))
+            setPlaylistsResume(await msk_get.playlists(viewMode, { listType: listType[0] }))
             if(loadingStates !== undefined){
                 loadingStates.appLoading(false)
                 loadingStates.pagLoading({loadingBar: true, contentLoaded: true})

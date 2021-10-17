@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import Styled from 'styled-components'
 
-import { getSongsList } from "api";
+import { msk_get } from "api";
 
 const ViewPort = Styled.section`
     display: flex;
@@ -104,7 +104,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
     useEffect(() => {
 
         async function getData() {
-            setDisksList(await getSongsList(totalSongs, listType))
+            setDisksList(await msk_get.songsList({ totalSongs, listType }))
             if(loadingStates!==undefined){
                 loadingStates.appLoading(false)
                 loadingStates.pagLoading({loadingBar: true, contentLoaded: true})

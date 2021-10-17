@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 
-import { getGreeting } from 'api'
+import { msk_get } from 'api'
 
 import Styled from 'styled-components'
 
@@ -107,7 +107,7 @@ const BoxGreeting = () => {
     useEffect(()=> {
 
         async function getData() {
-            setGreeting(await getGreeting())
+            setGreeting(await msk_get.greeting())
         }
         getData()
     },[])

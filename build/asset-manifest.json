@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.89338583.chunk.js",
-    "main.js.map": "/static/js/main.89338583.chunk.js.map",
+    "main.js": "/static/js/main.c4889989.chunk.js",
+    "main.js.map": "/static/js/main.c4889989.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.c3ae5551.js",
     "runtime-main.js.map": "/static/js/runtime-main.c3ae5551.js.map",
-    "static/js/2.6ee1c290.chunk.js": "/static/js/2.6ee1c290.chunk.js",
-    "static/js/2.6ee1c290.chunk.js.map": "/static/js/2.6ee1c290.chunk.js.map",
+    "static/js/2.7f6f1961.chunk.js": "/static/js/2.7f6f1961.chunk.js",
+    "static/js/2.7f6f1961.chunk.js.map": "/static/js/2.7f6f1961.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.6ee1c290.chunk.js.LICENSE.txt": "/static/js/2.6ee1c290.chunk.js.LICENSE.txt",
+    "static/js/2.7f6f1961.chunk.js.LICENSE.txt": "/static/js/2.7f6f1961.chunk.js.LICENSE.txt",
     "static/media/back_icon.a20f7a0e.svg": "/static/media/back_icon.a20f7a0e.svg",
     "static/media/branding_Musiky.179fdfd4.png": "/static/media/branding_Musiky.179fdfd4.png",
     "static/media/cellingLight.6a183806.png": "/static/media/cellingLight.6a183806.png",
@@ -34,7 +34,7 @@
   },
   "entrypoints": [
     "static/js/runtime-main.c3ae5551.js",
-    "static/js/2.6ee1c290.chunk.js",
-    "static/js/main.89338583.chunk.js"
+    "static/js/2.7f6f1961.chunk.js",
+    "static/js/main.c4889989.chunk.js"
   ]
 }

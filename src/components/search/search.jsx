@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 
 import { getSuggestionArtists } from 'api'
-import { completeInput } from 'api'
+import { msk_get } from 'api'
 
 import Styled from 'styled-components'
 import search_Icon from 'assets/icons/search_white_24dp.svg'
@@ -154,7 +154,7 @@ const Search = () => {
     const filterSearch = async (value) => {
 
 	    if (value.length > 1) {
-	    	setAutoComplete(await completeInput(value, 10))
+	    	setAutoComplete(await msk_get.completeInput(value, 10))
 	    } else {
 	    	setAutoComplete([])
 	    	history.push('/explore')
@@ -168,7 +168,7 @@ const Search = () => {
 
 	useEffect(() => {
 		async function getData(){
-			setSuggestions(await getSuggestionArtists(11))			
+			setSuggestions(await msk_get.suggestionArtists({ maxResult: 11 }))			
 		}
 		getData()
 
