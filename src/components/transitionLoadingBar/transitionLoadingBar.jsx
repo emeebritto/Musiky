@@ -8,7 +8,7 @@ const ViewPort = Styled.section`
 	height: 0.3vh;
 	background-color: white;
 	transition: 800ms;
-    animation: start-loading ${(props) => (props.loadingOn ? "10s" : "1s")};
+    animation: ${(props) => (props.loading ? "start-loading 15s forwards" : "end-loading 1s")};
 
 	@keyframes start-loading {
 		0% {
@@ -20,18 +20,34 @@ const ViewPort = Styled.section`
 		}
 
 		100% {
-			width: 100vw;
+			width: 60vw;
+		}
+	}
+
+	@keyframes end-loading {
+		0% {
+			width: 60vw;
+		}
+
+		100% {
+			width: 99vw;
 		}
 	}
 `
 
-const TransitionLoadingBar = ({loadingStates}) => {
+const TransitionLoadingBar = ({ loadingStates }) => {
+
+	const [splash, pageLoadingBar] = loadingStates.values
 
 	var loadingOn = true
 
-	if(loadingStates.values.contentLoaded){
+	if(pageLoadingBar.contentLoaded){
+
 		loadingOn = false
-		loadingStates.pagLoading({loadingBar: false, contentLoaded: false})
+
+		setTimeout(()=> {
+			loadingStates.setPageLoadingBar({loadingBar: false, contentLoaded: false}) // reset to default
+		}, 1000)
 	}
 
 	return(

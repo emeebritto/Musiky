@@ -16,26 +16,26 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
 
     const loadListView = ()=> {
         if(loadingStates !== undefined){
-            loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
+            loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: false})
         }
     }
 
     const startList = async(playListsKey) => {
-        let listType = playListsKey.split('cs50', 1)
-        let data = await msk_get.playlists('Details', { listType: listType[0] })
-        player.load(0, data[playListsKey].musicList, playListsKey)
+        let listType = playListsKey.split('cs50', 1);
+        let data = await msk_get('playLists', { listType: listType[0] }).then(data=> data['playListDetails']);
+        player.load(0, data[playListsKey].musicList, playListsKey);
     }
 
     useEffect(() => {
 
         async function getData() {
-            setPlaylistsResume(await msk_get.playlists(viewMode, { listType: listType[0] }))
+            setPlaylistsResume(await msk_get('playLists', { listType: listType[0] }).then(data=> data[`playList${viewMode}`]));
             if(loadingStates !== undefined){
-                loadingStates.appLoading(false)
-                loadingStates.pagLoading({loadingBar: true, contentLoaded: true})
-            }
+                loadingStates.setSplash(false);
+                loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true});
+            };
         }
-        getData()
+        getData();
 
     },[])
     

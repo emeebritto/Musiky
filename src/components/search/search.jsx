@@ -141,6 +141,7 @@ const Suggestion = Styled.p`
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 
+
 const Search = () => {
 
 	const [inputSearch, setInputSearch] = useState('')
@@ -154,7 +155,7 @@ const Search = () => {
     const filterSearch = async (value) => {
 
 	    if (value.length > 1) {
-	    	setAutoComplete(await msk_get.completeInput(value, 10))
+	    	setAutoComplete(await msk_get('inputAutoComplete', {input: value, maxResult: 10}))
 	    } else {
 	    	setAutoComplete([])
 	    	history.push('/explore')
@@ -168,7 +169,7 @@ const Search = () => {
 
 	useEffect(() => {
 		async function getData(){
-			setSuggestions(await msk_get.suggestionArtists({ maxResult: 11 }))			
+			setSuggestions(await msk_get('suggestionArtists', { maxResult: 11 }))			
 		}
 		getData()
 

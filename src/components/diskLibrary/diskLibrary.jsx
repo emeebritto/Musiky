@@ -104,10 +104,10 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
     useEffect(() => {
 
         async function getData() {
-            setDisksList(await msk_get.songsList({ totalSongs, listType }))
+            setDisksList(await msk_get('songsList', { totalSongs, listType }))
             if(loadingStates!==undefined){
-                loadingStates.appLoading(false)
-                loadingStates.pagLoading({loadingBar: true, contentLoaded: true})
+                loadingStates.setSplash(false)
+                loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true})
             }
         }
         getData()
@@ -140,7 +140,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
 			<ViewPort>
                 {disksList.map((disk, index) => {
                     return (
-                        <Disk onClick={() => { clickOnMusic(index, disksList, id) }} key={index}>
+                        <Disk onClick={() => { clickOnMusic(index, disksList, id) }} key={disk.id}>
                             <DiskImgComponent disk={disk} index={index}/>
                         	<section>
                         		<DiskTitle>{disk.snippet.title}</DiskTitle>

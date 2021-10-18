@@ -19,13 +19,14 @@ const ViewPort = Styled.section`
 `
 function PlayList({ loadingStates }) {
 
-    let { path, url } = useRouteMatch();
+    let match = useRouteMatch();
+
 
     return (
         <ViewPort>
             <Search/>
             <Switch>
-                <Route exact path={url}>
+                <Route path={match.url}>
                     <DiskLibrary name='long Songs | Ambient' totalSongs={6} listType='ambienceSong' player={player}/>
                     <PlaylistsRow name='Other Mixs' player={player} viewMode='Resume' listType='othersMixs'/>
                     <DiskLibrary 
@@ -36,7 +37,7 @@ function PlayList({ loadingStates }) {
                         loadingStates={loadingStates}
                     />                     
                 </Route>
-                <Route path={`${url}/search/:input`}>
+                <Route path={`${match.path}/search/:input`}>
                     <h1 style={{color: 'white'}}>IN PROGRESS</h1>
                 </Route>
                 <Route path={"/explore/*"}>

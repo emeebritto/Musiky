@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-
-//import {getArtistsRow} from 'api'
-
-import { scroll } from 'controllers'
-
-import ArtistCard from '../artistCard'
-
 import Styled from "styled-components";
-import { Link } from 'react-router-dom'
+
+import ArtistCard from '../artistCard';
+
+import { scroll } from 'controllers';
+import { Link } from 'react-router-dom';
+
 
 const TitleAndBtnExplore = Styled.section`
     display: flex;
@@ -132,7 +130,7 @@ const ArtistsRow = () => {
             <ViewPort>
                 {artists.map((artist, index) => {
                     return (
-                        <ArtistCard artist={artist} index={index}/>
+                        <ArtistCard artist={artist} index={index} key={index}/>
                     )
                 })}
             </ViewPort>

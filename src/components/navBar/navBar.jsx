@@ -56,7 +56,7 @@ function NavBar({ loadingStates }) {
 
     const redirect = () => {
         scroll.toTop()
-        loadingStates.pagLoading({loadingBar: true, contentLoaded: false})
+        loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: false})
     }
 
 

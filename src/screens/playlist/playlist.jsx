@@ -135,23 +135,24 @@ const Playlist = ({ loadingStates }) => {
     useEffect(() => {
 
         async function getData() {
-            let listType = id.split('cs50', 1)
-            let data = await msk_get.playlists('Details', { listType: listType[0] })
+            let listType = id.split('cs50', 1);
+            let data = await msk_get('playLists', { listType: listType[0] }).then(data=> data['playListDetails']);
 
-            if(data[id] === undefined){history.push('/404')}
+            if(data[id] === undefined) history.push('/404')
 
             setPlaylist(data[id])
 
-            if(loadingStates!==undefined){
-                loadingStates.appLoading(false)
+            if(loadingStates !== undefined){
+                loadingStates.setSplash(false);
+                loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true});
             }
         }
         getData()
 
-        player.subscribe(updateIndexPlaylist)
+        player.subscribe(updateIndexPlaylist);
 
         if (id === player.props.playlistId){
-            setPLayingIndex(player.props.indexOnPlaylist)
+            setPLayingIndex(player.props.indexOnPlaylist);
         }
 
     },[])
@@ -201,7 +202,7 @@ const Playlist = ({ loadingStates }) => {
                 return (
                     <S.BoxMusic hoverOff={playingIndex === i} 
                                 onClick={() => { clickOnMusic(i, playlist.musicList, id) }} 
-                                key={i}
+                                key={music.id}
                                 >
                         <S.BoxNumMusic>
                             <S.NumMusic>{i + 1}.</S.NumMusic>

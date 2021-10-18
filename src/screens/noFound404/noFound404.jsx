@@ -103,7 +103,7 @@ const NotFound404 = ({ loadingStates }) => {
     let history = useHistory()
 
     useEffect(()=>{
-        setTimeout(function(){loadingStates.appLoading(false)}, 5000)
+        setTimeout(function(){loadingStates.setSplash(false)}, 5000)
     },[])
 
     return (

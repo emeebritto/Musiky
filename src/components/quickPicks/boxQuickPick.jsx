@@ -35,7 +35,9 @@ const BoxQuickPicks = () => {
     useEffect(() => {
 
         async function getData() {
-            setMusicList(await msk_get.quickPicks())
+            setMusicList(await msk_get('quickPicks')
+                .then(({playListDetails})=> playListDetails['mixcs5001eMeb-msk-mU51ky4'].musicList)
+            )
         }
         getData()
 
@@ -66,7 +68,7 @@ const BoxQuickPicks = () => {
                         <MusicOptionBox 
                             hoverOff={playingIndex === index} 
                             onClick={() => { clickOnMusic(index, musicList, id) }} 
-                            key={index}
+                            key={music.id}
                             >
                             <BoxNumMusic>
                                 <NumMusic>{index + 1}.</NumMusic>
@@ -83,6 +85,7 @@ const BoxQuickPicks = () => {
                                                 <ChannelName 
                                                     to={`/artist/${artist.replaceAll(' ', '_')}`}
                                                     onClick={(e)=>{e.stopPropagation()}}
+                                                    key={index}
                                                     >
                                                     {space + artist}
                                                 </ChannelName>

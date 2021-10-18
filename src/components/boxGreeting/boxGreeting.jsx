@@ -107,7 +107,7 @@ const BoxGreeting = () => {
     useEffect(()=> {
 
         async function getData() {
-            setGreeting(await msk_get.greeting())
+            setGreeting(await msk_get('greeting'))
         }
         getData()
     },[])
@@ -122,12 +122,15 @@ const BoxGreeting = () => {
                     <MusicInfor>
                         <MusicTitle>Nighteen Songs</MusicTitle>
                         {music.Artist.map((artist, index) => {
+
                             let space='';
                             if(index > 0){ space = ',  ' }
+
                             return(
                                 <ArtistName 
                                     to={`/artist/${artist.replaceAll(' ', '_')}`}
                                     onClick={(e)=>{e.stopPropagation()}}
+                                    key={index}
                                     >
                                     {space + artist}
                                 </ArtistName>
