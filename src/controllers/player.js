@@ -13,23 +13,23 @@ class playerModule {
 
         this.props = {
 
-            musicId: null,
-            indexOnPlaylist: 0,
-            playlistId: '',
-            musicList: [],
-            playedMusic: [],
-            playing: false,
-            volume: 1,
-            lastVolume: 0,
-            showLyrics: false,
-            playlistLoop: false,
-            playListShuffle: false,
-            loop: false,
-            currentTime: 0,
-            duration: 0,
-            seeking: false,
-            buffer: false,
-            muted: false            
+            musicId: null, // get
+            indexOnPlaylist: 0,// get
+            playlistId: '',// get
+            musicList: [],// get
+            playedMusic: [],// null
+            playing: false,// get
+            volume: 1,// get
+            lastVolume: 0, // get
+            showLyrics: false, // get
+            playlistLoop: false, // get
+            playListShuffle: false, // get
+            loop: false, // get
+            currentTime: 0, // get
+            duration: 0, // get
+            seeking: false, // get
+            buffer: false, // get
+            muted: false // get
         }
 	}
 
