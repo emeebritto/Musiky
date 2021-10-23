@@ -2,7 +2,7 @@ import React from "react";
 import Styled from "styled-components";
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
-import { player, scroll } from 'controllers'
+import { player } from 'controllers'
 
 import { Search, PlaylistsRow, DiskLibrary } from 'components'
 

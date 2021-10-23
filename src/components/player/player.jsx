@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react';
 
-import { player } from 'controllers'
+import { usePlayerContext } from 'common/contexts/Player';
 
-import ReactPlayer from 'react-player'
-import Styled from 'styled-components'
+import ReactPlayer from 'react-player';
+import Styled from 'styled-components';
 
 const ViewPort = Styled.section`
     position: fixed;
@@ -30,74 +30,42 @@ const Blocker = Styled.section`
 
 const ReactPlayerComp = () => {
 
-    const [ playerProp, setPlayerProp ] = useState({})
-
-
-    const UpdatePlayerState = props => {
-        setPlayerProp({...props})
-    }
-
-    const onPlayAndPause = status => {
-        player.changePlayingTo(status)
-    }
-
-    const handleProgress = time => {
-        player.setCurrentTimeTo(time.played)
-    }
-
-    const handleDuration = duration => {
-        player.setDuration = duration
-    }
-
-    const onBuffer = status => {
-        player.changeBufferStatusTo(status)
-    }
-
-    const onEnded = () => {
-        player.nextMusic(1)
-    }
-
-    const onError = () => {
-        if(playerProp.length){
-            onEnded()
-        }
-    }
-
-    const handleContextMenu = e => {
-        e.preventDefault();
-    }
+    const {
+        ref,
+        prop,
+        onBuffer,
+        onPlayAndPause,
+        nextMusic,
+        changeCurrentTimeTo,
+        handleDuration
+    } = usePlayerContext();
 
 
     useEffect(()=>{
 
-        player.subscribe(UpdatePlayerState)
-        document.addEventListener("contextmenu", (e)=> handleContextMenu(e))
-        return ()=> document.removeEventListener("contextmenu", (e)=> handleContextMenu(e))
+        document.addEventListener("contextmenu", e => e.preventDefault());
+        return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
 
-    },[UpdatePlayerState])
+    },[])
 
-
-    const ref = reactPlayer => {
-        player.setPlayerComponentRef(reactPlayer)
-    }
 
 
     return (
-        <ViewPort style={{ width: playerProp.showLyrics? '100vw': '0vw' }}>
+        <ViewPort style={{ width: prop.showLyrics? '100vw': '0vw' }}>
             <VideoPlayer
-                ref={reactPlayer => { ref(reactPlayer) }}
-                playing={playerProp.playing}
-                volume={playerProp.volume}
-                loop={playerProp.loop}
+                ref={reactPlayer => ref.playerRef = reactPlayer}
+                playing={prop.playing}
+                volume={prop.volume}
+                loop={prop.loop}
                 onPlay={() => onPlayAndPause(true)}
                 onPause={() => onPlayAndPause(false)}
-                onProgress={time => handleProgress(time) }
-                onDuration={duration =>  handleDuration(duration) }
+                onProgress={time => changeCurrentTimeTo(time.played)}
+                onDuration={duration =>  handleDuration(duration)}
                 onBuffer={() => onBuffer(true)}
                 onBufferEnd={() => onBuffer(false)}
-                onEnded={() =>  onEnded() }
-                onError={() => onError() }
-                url={`https://www.youtube-nocookie.com/embed/${playerProp.musicId}`}
+                onEnded={() => nextMusic(1)}
+                onError={() => nextMusic(1)}
+                url={`https://www.youtube-nocookie.com/embed/${prop.music ? prop.music.id : ''}`}
                 width='100vw'
                 height='100vh'
                 config={{

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 
-import { msk_get } from 'api'
+import { msk_get } from 'api';
 
-import Styled from 'styled-components'
+import Styled from 'styled-components';
 
 
 const GreetingText = Styled.h1`
@@ -99,18 +98,19 @@ const BtnListenNow = Styled.button`
 
 const BoxGreeting = () => {
 
-    var nameUser = 'Emerson Britto'
+    var nameUser = 'Emerson Britto';
 
-    const [greeting, setGreeting] = useState({})
-    const [music, setMusic] = useState({Artist: ['By', 'Emerson_Britto']})
+    const [greeting, setGreeting] = useState({});
 
     useEffect(()=> {
 
         async function getData() {
-            setGreeting(await msk_get('greeting'))
+            setGreeting(await msk_get('greeting'));
         }
-        getData()
-    },[])
+        getData();
+
+    },[]);
+
 
     return (
         <>
@@ -121,21 +121,6 @@ const BoxGreeting = () => {
                     
                     <MusicInfor>
                         <MusicTitle>Nighteen Songs</MusicTitle>
-                        {music.Artist.map((artist, index) => {
-
-                            let space='';
-                            if(index > 0){ space = ',  ' }
-
-                            return(
-                                <ArtistName 
-                                    to={`/artist/${artist.replaceAll(' ', '_')}`}
-                                    onClick={(e)=>{e.stopPropagation()}}
-                                    key={index}
-                                    >
-                                    {space + artist}
-                                </ArtistName>
-                            )
-                        })}
                     </MusicInfor>
 
                     <BtnListenNow>Listen Now</BtnListenNow>

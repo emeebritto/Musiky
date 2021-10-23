@@ -1,21 +1,15 @@
-import React, {useState, useEffect} from 'react'
-import { useParams, useHistory } from 'react-router-dom'
-import Styled from 'styled-components'
+import React, {useState, useEffect} from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import Styled from 'styled-components';
 
-import * as S from './playlistStyles'
+import * as S from './playlistStyles';
 
-import { msk_get } from 'api'
+import { msk_get } from 'api';
 
-import { player } from 'controllers'
+import { usePlayerContext } from 'common/contexts/Player';
+import { usePlaylistContext } from 'common/contexts/Playlist';
 
-import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
-import PausedAnim from 'assets/icons/AnimatedSvg/playingCompAnim'
-import icon_playing from 'assets/icons/AnimatedSvg/playing.svg'
-import iconBack from 'assets/icons/back_icon.svg'
-
-import iconRandom from 'assets/icons/shuffle_white_24dp.svg'
-import iconLoop from 'assets/icons/loop_white_24dp.svg'
-import iconShare from 'assets/icons/share_white_24dp.svg'
+import * as icons from 'common/iconsImports';
 
 
 const ViewPort = Styled.section`
@@ -95,14 +89,19 @@ const OthersData = Styled.section`
 
 const Playlist = ({ loadingStates }) => {
 
-    let history = useHistory()
+    const { prop, load } = usePlayerContext();
 
-    const { id } = useParams()
+    const { 
+        playlistInfor, 
+        isPlayingIndex,
+        togglePlaylistShuffle,
+        togglePlaylistLoop 
+    } = usePlaylistContext();
 
-    const [playingIndex, setPLayingIndex] = useState(null)
-    const [status, setStatus] = useState(false)
-    const [shuffle, setShuffle] = useState(false)
-    const [loop, setLoop] = useState(false)
+    let history = useHistory();
+
+    const { id } = useParams();
+
     const [playlist, setPlaylist] = useState({
         img: null,
         title: null,
@@ -110,37 +109,17 @@ const Playlist = ({ loadingStates }) => {
         musicList: []
     })
 
-    const clickOnMusic = (targetIndex, targetList, playlistId) => {
-        player.load(targetIndex, targetList, playlistId)
-        setPLayingIndex(targetIndex)
-    }
-
-    const handlePlaylistLoop = () => {
-        player.togglePlaylistLoop();
-        setLoop(loop => !loop)
-    }
-
-    const handleshuffle = () => {
-        player.toggleShuffle();
-        setShuffle(shuffle => !shuffle)
-    }
-
-    const updateIndexPlaylist = ({indexOnPlaylist, playing}) => {
-        if (id === player.props.playlistId){
-            setPLayingIndex(indexOnPlaylist)
-            setStatus(playing)
-        }
-    }
 
     useEffect(() => {
 
         async function getData() {
             let listType = id.split('cs50', 1);
-            let data = await msk_get('playLists', { listType: listType[0] }).then(data=> data['playListDetails']);
+            let data = await msk_get('playLists', { listType: listType[0] })
+                .then(data=> data['playListDetails']);
 
-            if(data[id] === undefined) history.push('/404')
+            if(data[id] === undefined) history.push('/404');
 
-            setPlaylist(data[id])
+            setPlaylist(data[id]);
 
             if(loadingStates !== undefined){
                 loadingStates.setSplash(false);
@@ -149,12 +128,6 @@ const Playlist = ({ loadingStates }) => {
         }
         getData()
 
-        player.subscribe(updateIndexPlaylist);
-
-        if (id === player.props.playlistId){
-            setPLayingIndex(player.props.indexOnPlaylist);
-        }
-
     },[])
 
 
@@ -162,9 +135,17 @@ const Playlist = ({ loadingStates }) => {
     function CircleOptionComponent(){
         return(
             <>
-                <CircleOption active={shuffle} onClick={() => handleshuffle()} src={iconRandom} alt="Shuffle"/>
-                <CircleOption active={loop} onClick={() => handlePlaylistLoop()} src={iconLoop} alt="playlist loop"/>
-                <CircleOption src={iconShare} alt="share playlist"/>
+                <CircleOption active={playlistInfor.playListShuffle} 
+                    onClick={() => togglePlaylistShuffle()} 
+                    src={icons.iconRandom} 
+                    alt="Shuffle"/>
+                <CircleOption active={playlistInfor.playlistLoop} 
+                    onClick={() => togglePlaylistLoop()} 
+                    src={icons.iconLoop} 
+                    alt="playlist loop"/>
+                <CircleOption 
+                    src={icons.iconShare} 
+                    alt="share playlist"/>
             </>
         )
     }
@@ -172,13 +153,12 @@ const Playlist = ({ loadingStates }) => {
     //Component:
     function BoxDurationOrPLayingNow({music, index}){
 
-        var iconPlaying = <img src={icon_playing} alt="playingNow"/>
-        var duration = <p className="MusicTime">{music.contentDetails.duration}</p>
+        let iconPlaying = <img src={icons.icon_playing} alt="playingNow"/>
+        let duration = <p className="MusicTime">{music.contentDetails.duration}</p>
 
-        var match = playingIndex === index;
-        var playing = status
+        let match = isPlayingIndex(id, index);
 
-        if(!playing && match){return <PausedAnim/>}
+        if(!prop.playing && match) return <icons.PausedAnim/>
 
         return match ? iconPlaying : duration
     }
@@ -187,7 +167,7 @@ const Playlist = ({ loadingStates }) => {
         <>
         <ViewPort>
             <S.PlaylistInfor>
-                <S.BackIcon onClick={()=> {history.go(-1)}} src={iconBack} alt='back'/>
+                <S.BackIcon onClick={()=> history.go(-1)} src={icons.iconBack} alt='back'/>
                 <S.PlayListImg src={playlist.playListImg} alt="PlayList Img"/>
                 <OthersData>
                     <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
@@ -200,8 +180,8 @@ const Playlist = ({ loadingStates }) => {
             <S.MusicList>
             {playlist.musicList.map((music, i) => {
                 return (
-                    <S.BoxMusic hoverOff={playingIndex === i} 
-                                onClick={() => { clickOnMusic(i, playlist.musicList, id) }} 
+                    <S.BoxMusic hoverOff={isPlayingIndex(id, i)} 
+                                onClick={() => load(i, playlist.musicList, id)} 
                                 key={music.id}
                                 >
                         <S.BoxNumMusic>
@@ -220,7 +200,7 @@ const Playlist = ({ loadingStates }) => {
                                     return(
                                         <S.ChannelName 
                                             to={`/artist/${artist.replaceAll(' ', '_')}`}
-                                            onClick={(e)=>{e.stopPropagation()}}
+                                            onClick={e => e.stopPropagation()}
                                             >
                                             {space + artist}
                                         </S.ChannelName>
@@ -231,7 +211,7 @@ const Playlist = ({ loadingStates }) => {
 
                         <S.MusicTime>
                             <BoxDurationOrPLayingNow music={music} index={i}/>
-                            <S.BoxIconPLayHover className="iconPlayHover" src={iconPlay} alt="iconPlay" />
+                            <S.BoxIconPLayHover className="iconPlayHover" src={icons.iconPlay} alt="iconPlay" />
                         </S.MusicTime>
 
                     </S.BoxMusic>

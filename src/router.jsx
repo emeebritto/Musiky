@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import PlayerProvider from './common/contexts/providers/Player-provider'
+import PlaylistProvider from './common/contexts/providers/Playlist-provider'
+
 import {
   TransitionLoadingBar,
   Header,
@@ -74,21 +77,27 @@ export default function Routes() {
       {splash && <Splashscreen/>}
       {pageLoadingBar.loadingBar && <TransitionLoadingBar loadingStates={loadingStates}/>}
 
-      <ReactPlayerComp/>
+      <PlaylistProvider>
+        <PlayerProvider>
 
-      <Header loadingStates={loadingStates}/>
+          <ReactPlayerComp/>
 
-      <Centralize>
-          <Switch>
-          {routes.map((route, index) => (
-            <Route exact={route.exact} path={route.path} key={index}>
+          <Header loadingStates={loadingStates}/>
+          
+          <Centralize>
+            <Switch>
+            {routes.map((route, index) => (
+              <Route exact={route.exact} path={route.path} key={index}>
                 <route.component {...sharedProps}/>
               </Route>
-          ))}
-          </Switch>
-      </Centralize>
+            ))}
+            </Switch>
+          </Centralize>
 
-      <PlayerControl/>
+          <PlayerControl/>
+
+        </PlayerProvider>
+      </PlaylistProvider>
 
       <NavBar loadingStates={loadingStates}/>
     </Router>

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 
 import { msk_get } from 'api'
 
-import { player } from 'controllers'
+import { usePlayerContext } from 'common/contexts/Player'
 
 import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
 
@@ -11,6 +11,8 @@ import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowH
 
 
 const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
+
+    const { load } = usePlayerContext()
 
     const [playListsResume, setPlaylistsResume] = useState([])
 
@@ -23,7 +25,7 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
     const startList = async(playListsKey) => {
         let listType = playListsKey.split('cs50', 1);
         let data = await msk_get('playLists', { listType: listType[0] }).then(data=> data['playListDetails']);
-        player.load(0, data[playListsKey].musicList, playListsKey);
+        load(0, data[playListsKey].musicList, playListsKey);
     }
 
     useEffect(() => {

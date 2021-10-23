@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 import { msk_get } from 'api'
 
-import { player } from 'controllers'
+import { usePlayerContext } from 'common/contexts/Player'
+import { usePlaylistContext } from 'common/contexts/Playlist'
 
-import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
-import PausedAnim from 'assets/icons/AnimatedSvg/playingCompAnim'
-import icon_playing from 'assets/icons/AnimatedSvg/playing.svg'
+import * as icons from 'common/iconsImports';
 
 import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './boxQuickPickStyles'
@@ -14,22 +13,17 @@ BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './bo
 
 const BoxQuickPicks = () => {
 
-    const [playingIndex, setPLayingIndex] = useState(null)
-    const [status, setStatus] = useState(false)
+    const { prop, load } = usePlayerContext()
+
+    const { isPlayingIndex } = usePlaylistContext()
+
     const [musicList, setMusicList] = useState([])
 
     const id = 'quickPicksHmsk'
 
 
     const clickOnMusic = (targetIndex, targetList, playlistId) => {
-        player.load(targetIndex, targetList, playlistId)
-    }
-
-    const updateIndexQuickPicks = ({indexOnPlaylist, playing}) => {
-        if(player.props.playlistId === id) {
-            setPLayingIndex(indexOnPlaylist)
-            setStatus(playing)
-        }
+        load(targetIndex, targetList, playlistId)
     }
 
     useEffect(() => {
@@ -41,20 +35,18 @@ const BoxQuickPicks = () => {
         }
         getData()
 
-        player.subscribe(updateIndexQuickPicks)
     },[])
 
 
     //Component:
     function BoxDurationOrPLayingNow({music, index}){
 
-        var iconPlaying = <img src={icon_playing} alt="playingNow"/>
-        var duration = <p className="MusicTime">{music.contentDetails.duration}</p>
+        var iconPlaying = <img src={icons.icon_playing} alt="playingNow"/>;
+        var duration = <p className="MusicTime">{music.contentDetails.duration}</p>;
 
-        var match = playingIndex === index;
-        var playing = status
+        let match = isPlayingIndex(id, index);
 
-        if(!playing && match){return <PausedAnim/>}
+        if(!prop.playing && match) return <icons.PausedAnim/>;
 
         return match ? iconPlaying : duration
     }
@@ -66,7 +58,7 @@ const BoxQuickPicks = () => {
                 {musicList.map((music, index) => {
                     return (
                         <MusicOptionBox 
-                            hoverOff={playingIndex === index} 
+                            hoverOff={isPlayingIndex(id, index)} 
                             onClick={() => { clickOnMusic(index, musicList, id) }} 
                             key={music.id}
                             >
@@ -96,7 +88,7 @@ const BoxQuickPicks = () => {
                             </DataMusic>
                             <MusicTime>
                                 <BoxDurationOrPLayingNow music={music} index={index}/>
-                                <BoxIconPLayHover className="iconPlayHover" src={iconPlay} alt="iconPlay" />
+                                <BoxIconPLayHover className="iconPlayHover" src={icons.iconPlay} alt="iconPlay" />
                             </MusicTime>
                         </MusicOptionBox>
                     )

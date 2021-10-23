@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react';
 
-const PlaylistContext = createContext()
+export const PlaylistContext = createContext()
 PlaylistContext.displayName = 'Playlist'
 
 export default function PlaylistProvider({ children }){
 	
-	const [playingIndex, setPlayingIndex] = useState(0);
+	const [playingIndex, setPlayingIndex] = useState(null);
 	const [playlistId, setPlaylistId] = useState('');
 	const [musiclist, setMusiclist] = useState('');
 	const [playlistLoop, setPlaylistLoop] = useState(false);

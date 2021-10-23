@@ -1,125 +1,109 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react';
 
-import { player } from 'controllers'
+import { usePlayerContext } from 'common/contexts/Player';
 
-import musicLoading from 'assets/icons/AnimatedSvg/loading.svg'
-import iconBack from 'assets/icons/skip_previous_white_24dp.svg'
-import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
-import iconPause from 'assets/icons/pause_black_24dp.svg'
-import iconNext from 'assets/icons/skip_next_white_24dp.svg'
+import musicLoading from 'assets/icons/AnimatedSvg/loading.svg';
+import iconBack from 'assets/icons/skip_previous_white_24dp.svg';
+import iconPlay from 'assets/icons/play_arrow_black_24dp.svg';
+import iconPause from 'assets/icons/pause_black_24dp.svg';
+import iconNext from 'assets/icons/skip_next_white_24dp.svg';
 
-import iconLyric from 'assets/icons/mic_external_on_white_24dp.svg'
-import iconRepeat from 'assets/icons/repeat_white_24dp.svg'
-import iconVolume from 'assets/icons/volume_up_white_24dp.svg'
-import iconVolumeDown from 'assets/icons/volume_down_white_24dp.svg'
-import iconVolumeOff from 'assets/icons/volume_off_white_24dp.svg'
+import iconLyric from 'assets/icons/mic_external_on_white_24dp.svg';
+import iconRepeat from 'assets/icons/repeat_white_24dp.svg';
+import iconVolume from 'assets/icons/volume_up_white_24dp.svg';
+import iconVolumeDown from 'assets/icons/volume_down_white_24dp.svg';
+import iconVolumeOff from 'assets/icons/volume_off_white_24dp.svg';
 
 import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, SectionTitles, MusicTitleInControl, 
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
-VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from './playerStyles'
+VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from './playerStyles';
 
 const PlayerControl = () => {
 
-    const [ controlProp, setControlProp ] = useState({})
-    const [ visibility, setVisibility ] = useState('none')
+    const {
+        prop,
+        onPlayAndPause,
+        nextMusic,
+        toggleLyrics,
+        toggleLoop,
+        handleSeekMouseUp,
+        handleSeekMouseDown,
+        handleSeekChange,
+        changeVolumeTo,
+        toggleMuted
+    } = usePlayerContext();
 
-
-    const updatePlayerControl = props => {
-        setControlProp({...props})
-        setVisibility('')
-    }
 
     const handlePlayPause = e => {
-        e.stopPropagation()
-        player.play_Pause()
+        e.stopPropagation();
+        onPlayAndPause();
     }
 
     const nextAndBack_Music = (e, action) => {
-        e.stopPropagation()
-        player.nextMusic(action)
+        e.stopPropagation();
+        nextMusic(action);
     }
 
     const handlelyrics = () => {
-        player.lyricsScreen()
+        toggleLyrics();
     }
 
     const handlelyricsMobile = e => {
         if(window.innerWidth < 570){
-            player.lyricsScreen()
+            toggleLyrics();
         }
     }
 
     const handleLoop = () => {
-        player.toggleLoop()
-    }
-
-    const handleSeekMouseUp = e => {
-        player.setSeekingStatesTo(false)
-        player.setCurrentTimeTo(parseFloat(e.target.value))
-        player.seekTo(e.target.value)
-    }
-
-    const handleSeekChange = e => {
-        setControlProp({...controlProp, currentTime: parseFloat(e.target.value)})
-    }
-
-    const handleSeekMouseDown = () => {
-        player.setSeekingStatesTo(true)
+        toggleLoop();
     }
 
     const handleVolumeChange = e => {
-        let volume = parseFloat(e.target.value)
-        player.setVolumeTo = volume
+        changeVolumeTo(parseFloat(e.target.value));
     }
 
     const handleToggleMuted = () => {
-        player.toggleMuted()
+        toggleMuted();
     }
-
-    useEffect(()=>{
-        player.subscribe(updatePlayerControl)
-
-    },[])
 
 
     //component:
     function BtnPlayAndPause() {
         return(
             <BtnPlayerControl play onClick={e => {handlePlayPause(e)}}>
-                <IconPlay src={controlProp.playing? iconPause : iconPlay} alt="Play or Pause" />
+                <IconPlay src={prop.playing? iconPause : iconPlay} alt="Play or Pause" />
             </BtnPlayerControl>
         )
     }
 
     function getVolumeIconStatus() {
-        if(controlProp.muted){ return iconVolumeOff }
-        if(controlProp.volume < 0.4) { return iconVolumeDown }
+        if(prop.muted) return iconVolumeOff
+        if(prop.volume < 0.4) return iconVolumeDown
         return iconVolume
     }
 
     return (
         <ViewPort 
-            lyrics={controlProp.showLyrics}
+            lyrics={prop.showLyrics}
             onClick={e =>{handlelyricsMobile(e)}}
-            style={{ display: `${visibility}`}}>
-            <MusicInfor>
-                {!visibility 
-                    && <MusicImg 
-                            src={controlProp.musicList[controlProp.indexOnPlaylist].snippet.thumbnails.medium.url}
-                            alt="musicImg"
-                            />}
+            style={{ display: `${prop.music ? '' : 'none'}`}}
+            >
+            {prop.music && <MusicInfor>
+                <MusicImg 
+                    src={prop.music.snippet.thumbnails.medium.url}
+                    alt="musicImg"
+                    />
                 <SectionTitles>
-                    {!visibility
-                        && <MusicTitleInControl>
-                                {controlProp.musicList[controlProp.indexOnPlaylist].snippet.title}
-                            </MusicTitleInControl>}
+                    <MusicTitleInControl>
+                        {prop.music.snippet.title}
+                    </MusicTitleInControl>
 
-                    {!visibility 
-                        && <MusicSubTitle>
-                                {controlProp.musicList[controlProp.indexOnPlaylist].Artist}
-                            </MusicSubTitle>}
-                </SectionTitles>
-            </MusicInfor>
+
+                    <MusicSubTitle>
+                        {prop.music.Artist}
+                    </MusicSubTitle>
+                </SectionTitles>}
+            </MusicInfor>}
 
             <PlayerControlPainel>
 
@@ -128,7 +112,7 @@ const PlayerControl = () => {
                         <IconPlay src={iconBack} alt="Back Music" />
                     </BtnPlayerControl>
 
-                    {controlProp.buffer 
+                    {prop.buffer 
                         ? <Loading src={musicLoading} alt='loading'/> 
                         : <BtnPlayAndPause/>}
 
@@ -139,7 +123,7 @@ const PlayerControl = () => {
                 
                 <DurationSlider
                     type='range' min={0} max={0.999999} step='any' 
-                    value={controlProp.currentTime}
+                    value={prop.currentTime}
                     onChange={e => {handleSeekChange(e)}}
                     onMouseDown={() => {handleSeekMouseDown()}}
                     onMouseUp={e => {handleSeekMouseUp(e)}}
@@ -148,11 +132,11 @@ const PlayerControl = () => {
 
             <OtherSetting>
 
-                <BtnLyrics lyrics={controlProp.showLyrics} onClick={()=>{handlelyrics()}}>
+                <BtnLyrics lyrics={prop.showLyrics} onClick={()=> handlelyrics()}>
                     <img src={iconLyric} alt="Lyric" />
                 </BtnLyrics>
 
-                <BtnRepeat loop={controlProp.loop} onClick={()=>{handleLoop()}}>
+                <BtnRepeat loop={prop.loop} onClick={()=>{handleLoop()}}>
                     <img src={iconRepeat} alt="Repeat" />
                 </BtnRepeat>
 
@@ -161,7 +145,7 @@ const PlayerControl = () => {
                     min={0} 
                     max={1} 
                     step='any'
-                    value={controlProp.volume}
+                    value={prop.volume}
                     onChange={e => {handleVolumeChange(e)}}
                 />
 

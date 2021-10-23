@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import { PlaylistContext } from './providers/Playlist-provider';
 
@@ -15,7 +15,7 @@ export function usePlaylistContext(){
 		playlistLoop,
 		setPlaylistLoop,
 		playListShuffle,
-		setPlayListShuffle	
+		setPlayListShuffle
 	} = useContext(PlaylistContext);
 
 
@@ -29,6 +29,9 @@ export function usePlaylistContext(){
 	}
 
 	const changeMusic = action => {
+
+		if(!musiclist) return false
+
 	    setPlayingIndex(playListShuffle
                 ? ~~(Math.random() * musiclist.length - 1)
                 : playingIndex + action
@@ -36,7 +39,7 @@ export function usePlaylistContext(){
 
         let playlistFinished = false;
 
-        if (playingIndex === musiclist.length){
+        if (playingIndex === (musiclist.length -1)){
 
             if(playlistLoop){
                 setPlayingIndex(0);
@@ -46,21 +49,34 @@ export function usePlaylistContext(){
             }
         }
 
-        return playlistFinished ? false : musiclist[playingIndex].id
+        return playlistFinished ? false : musiclist[playingIndex + action]
 	}
 
 
     const togglePlaylistShuffle = () => {
-        setPlayListShuffle(!playListShuffle => playListShuffle)
+        setPlayListShuffle(playListShuffle => !playListShuffle)
     }
 
     const togglePlaylistLoop = () => {
-        setPlaylistLoop(!playlistLoop => playlistLoop)
+        setPlaylistLoop(playlistLoop => !playlistLoop)
+    }
+
+    const isPlayingIndex = (id, index) => {
+    	return id === playlistId && index === playingIndex
     }
 
 
 	return {
+		playlistInfor: {
+			playingIndex,
+			musiclist,
+			playlistLoop,
+			playListShuffle
+		},
 		startPlaylist,
-		changeMusic
+		changeMusic,
+		togglePlaylistShuffle,
+		togglePlaylistLoop,
+		isPlayingIndex
 	}
 }

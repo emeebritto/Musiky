@@ -3,6 +3,8 @@ import Styled from 'styled-components'
 
 import { msk_get } from "api";
 
+import { usePlayerContext } from 'common/contexts/Player';
+
 const ViewPort = Styled.section`
     display: flex;
     align-items: center;
@@ -85,21 +87,10 @@ const DiskTotalTime = Styled.p`
 
 const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
 
-    const [playingIndex, setPLayingIndex] = useState(null)
-	const [disksList, setDisksList] = useState([])
+    const { load, isPlayingId } = usePlayerContext();
 
-    const id = listType
+	const [disksList, setDisksList] = useState([]);
 
-    const clickOnMusic = (targetIndex, targetList, playlistId) => {
-    	setPLayingIndex(targetIndex);
-        player.load(targetIndex, targetList, playlistId)
-    }
-
-    const updateDiskLibrarie = targetIndex => {
-        if(player.playingInplaylist === id) {
-            setPLayingIndex(targetIndex)
-        }
-    }
 
     useEffect(() => {
 
@@ -110,29 +101,10 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
                 loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true})
             }
         }
-        getData()
+        getData();
 
-        player.subscribe(updateDiskLibrarie)
-    },[])
+    },[]);
 
-
-
-    //Component:
-    function DiskImgComponent({disk, index}){
-
-    	var playing = playingIndex === index;
-
-    	return(
-            <DiskImg 
-                playing={playing} 
-                id={playing ? '' : 'diskImg'}
-                style={{ background: `url(${disk.snippet.thumbnails.medium.url}) no-repeat center/177.5%`}} 
-                alt='disk image'
-                >
-        		<CenterHole/>
-        	</DiskImg>
-    	)
-    }
 
 	return(
 		<>
@@ -140,8 +112,15 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
 			<ViewPort>
                 {disksList.map((disk, index) => {
                     return (
-                        <Disk onClick={() => { clickOnMusic(index, disksList, id) }} key={disk.id}>
-                            <DiskImgComponent disk={disk} index={index}/>
+                        <Disk onClick={() => load(index, disksList) } key={disk.id}>
+                            <DiskImg 
+                                playing={isPlayingId(disk.id)} 
+                                id={isPlayingId(disk.id) ? '' : 'diskImg'}
+                                style={{ background: `url(${disk.snippet.thumbnails.medium.url}) no-repeat center/177.5%`}} 
+                                alt='disk image'
+                                >
+                                <CenterHole/>
+                            </DiskImg>
                         	<section>
                         		<DiskTitle>{disk.snippet.title}</DiskTitle>
                         		<DiskTotalTime>{disk.contentDetails.duration}</DiskTotalTime>

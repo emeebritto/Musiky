@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
 
-import { getSuggestionArtists } from 'api'
 import { msk_get } from 'api'
 
 import Styled from 'styled-components'
@@ -148,7 +147,7 @@ const Search = () => {
 	const [suggestions, setSuggestions] = useState([])
 	const [autoComplete, setAutoComplete] = useState(null)
 
-	let { path, url } = useRouteMatch();
+	let { url } = useRouteMatch();
 	let history = useHistory()
 
 

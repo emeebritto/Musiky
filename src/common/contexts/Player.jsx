@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import { PlayerContext } from './providers/Player-provider';
 import { usePlaylistContext } from './Playlist';
@@ -7,9 +7,9 @@ import { usePlaylistContext } from './Playlist';
 export function usePlayerContext(){
 
 	const {
-		playerRef,
-		musicId,
-		setMusicId,
+        ref,
+		music,
+		setMusic,
 		playing,
 		setPlaying,
 		volume,
@@ -47,20 +47,22 @@ export function usePlayerContext(){
         	startPlaylist(playIndex, playlistId, list);
         }
 
-		setMusicId(list[playIndex].id);
+		setMusic(list[playIndex]);
         setBuffer(true);
-    }
-
-    const seekTo = value => {
-        playerRef.seekTo(parseFloat(value));
     }
 
     const onBuffer = status => {
         setBuffer(status);
     }
 
-    const onPlayAndPause = status => {
-        setPlaying(status);
+    const onPlayAndPause = (status=undefined) => {
+
+        if(status !== undefined) {
+            setPlaying(status);
+            return
+        };
+
+        setPlaying(status => !status);
     }
 
     const nextMusic = action => {
@@ -72,23 +74,21 @@ export function usePlayerContext(){
     		return
     	}
 
-        setMusicId(hasMusic);
+        setMusic(hasMusic);
     }
 
-    const lyricsScreen = () => {
-    	setShowLyrics(showLyrics => showLyrics);
-    }
+    const toggleLyrics = (changeTo=false) => {
 
-    const closeLyrics = () => {
-        if(showLyrics) setShowLyrics(false);
+        if(changeTo) {
+            setShowLyrics(changeTo);
+            return
+        };
+
+        setShowLyrics(showLyrics => !showLyrics);
     }
 
     const toggleLoop = () => {
-    	setLoop(loop => loop);
-    }
-
-    const changeSeekingStatesTo = states => {
-    	setSeeking(states);
+    	setLoop(loop => !loop);
     }
 
     const changeCurrentTimeTo = value => {
@@ -116,19 +116,48 @@ export function usePlayerContext(){
         setMuted(true);
     }
 
+    const handleSeekMouseUp = e => {
+        setSeeking(false);
+        ref.playerRef.seekTo(parseFloat(e.target.value));
+    }
+
+    const handleSeekMouseDown = () => {
+        setSeeking(true);
+    }
+
+    const handleSeekChange = e => {
+        setCurrentTime(parseFloat(e.target.value));
+    }
+
+    const isPlayingId = id => {
+        return music && id === music.id
+    }
+
     return {
+        ref,
+        prop: {
+            music,
+            loop,
+            volume,
+            muted,
+            buffer,
+            playing,
+            currentTime,
+            showLyrics
+        },
     	load,
-    	seekTo,
     	onBuffer,
     	onPlayAndPause,
     	nextMusic,
-    	lyricsScreen,
-    	closeLyrics,
+    	toggleLyrics,
     	toggleLoop,
-    	changeSeekingStatesTo,
+        handleSeekMouseUp,
+        handleSeekMouseDown,
+        handleSeekChange,
     	changeCurrentTimeTo,
     	handleDuration,
     	changeVolumeTo,
-    	toggleMuted
+    	toggleMuted,
+        isPlayingId
     }
 }

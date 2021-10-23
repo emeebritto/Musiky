@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react';
 
-const PlayerContext = createContext()
-PlayerContext.displayName = 'Player'
+export const PlayerContext = createContext();
+PlayerContext.displayName = 'Player';
 
 export default function PlayerProvider({ children }){
 	
-	const [musicId, setMusicId] = useState(null);
+	const [music, setMusic] = useState(null);
 	const [playing, setPlaying] = useState(false);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
@@ -21,9 +21,11 @@ export default function PlayerProvider({ children }){
 
 	return (
 		<PlayerContext.Provider value={{
-			playerRef,
-			musicId,
-			setMusicId,
+			ref: {
+				playerRef
+			},
+			music,
+			setMusic,
 			playing,
 			setPlaying,
 			volume,

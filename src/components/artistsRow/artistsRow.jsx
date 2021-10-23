@@ -83,33 +83,32 @@ const ViewPort = Styled.section`
 
 const ArtistsRow = () => {
 
-    const [artists, setArtists] = useState([
-        {
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F17%2F0a%2F81%2F170a815040a32fcc2f596c59c9284c15.jpg&f=1&nofb=1',
-            name: 'julito nevezz'
-        },{
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.primerosenlaquinta.cl%2Fwp-content%2Fuploads%2F2019%2F08%2Fnoticia-1565209229-instagram-redes-sociales-el-gato-del-meme-en-la-mesa-viral-facebook-manda-panda.png&f=1&nofb=1',
-            name: 'none do nono'
-        },{
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F3d%2Ff7%2F04%2F3df70452f84bbf7da54212ade74f9433.jpg&f=1&nofb=1',
-            name: 'none'
-        },{
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F17%2F0a%2F81%2F170a815040a32fcc2f596c59c9284c15.jpg&f=1&nofb=1',
-            name: 'julito'
-        },{
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.primerosenlaquinta.cl%2Fwp-content%2Fuploads%2F2019%2F08%2Fnoticia-1565209229-instagram-redes-sociales-el-gato-del-meme-en-la-mesa-viral-facebook-manda-panda.png&f=1&nofb=1',
-            name: 'none'
-        },{
-            img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F3d%2Ff7%2F04%2F3df70452f84bbf7da54212ade74f9433.jpg&f=1&nofb=1',
-            name: 'none'
-        }
-
-    ])
+    const [artists, setArtists] = useState([])
 
     useEffect(() => {
 
         async function getData() {
-            //setArtists(await getArtistsRow())
+            setArtists([
+                {
+                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F17%2F0a%2F81%2F170a815040a32fcc2f596c59c9284c15.jpg&f=1&nofb=1',
+                    name: 'julito nevezz'
+                },{
+                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.primerosenlaquinta.cl%2Fwp-content%2Fuploads%2F2019%2F08%2Fnoticia-1565209229-instagram-redes-sociales-el-gato-del-meme-en-la-mesa-viral-facebook-manda-panda.png&f=1&nofb=1',
+                    name: 'none do nono'
+                },{
+                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F3d%2Ff7%2F04%2F3df70452f84bbf7da54212ade74f9433.jpg&f=1&nofb=1',
+                    name: 'none'
+                },{
+                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F17%2F0a%2F81%2F170a815040a32fcc2f596c59c9284c15.jpg&f=1&nofb=1',
+                    name: 'julito'
+                },{
+                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.primerosenlaquinta.cl%2Fwp-content%2Fuploads%2F2019%2F08%2Fnoticia-1565209229-instagram-redes-sociales-el-gato-del-meme-en-la-mesa-viral-facebook-manda-panda.png&f=1&nofb=1',
+                    name: 'none'
+                },{
+                    img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F3d%2Ff7%2F04%2F3df70452f84bbf7da54212ade74f9433.jpg&f=1&nofb=1',
+                    name: 'none'
+                }
+            ])
         }
         getData()
 
