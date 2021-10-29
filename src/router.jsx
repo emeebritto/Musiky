@@ -74,8 +74,8 @@ export default function Routes() {
 
   return (
     <Router>
-      {/*splash && <Splashscreen/>*/}
-      {/*pageLoadingBar.loadingBar && <TransitionLoadingBar loadingStates={loadingStates}/>*/}
+      {splash && <Splashscreen/>}
+      {pageLoadingBar.loadingBar && <TransitionLoadingBar loadingStates={loadingStates}/>}
 
       <PlaylistProvider>
         <PlayerProvider>
