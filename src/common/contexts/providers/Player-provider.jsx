@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const PlayerContext = createContext();
 PlayerContext.displayName = 'Player';
@@ -6,7 +6,7 @@ PlayerContext.displayName = 'Player';
 export default function PlayerProvider({ children }){
 	
 	const [music, setMusic] = useState(null);
-	const [playing, setPlaying] = useState(false);
+	const [playing, setPlaying] = useState(true);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
 	const [showLyrics, setShowLyrics] = useState(false);

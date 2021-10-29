@@ -32,15 +32,14 @@ const ViewPort = Styled.section`
 
 const App = () => {
 
-	const [background, setBackground] = useState('')
-
+	const [background, setBackground] = useState('');
 
 	const updateBackground = (indexOnPlaylist, musicList) => {
-		setBackground(musicList[indexOnPlaylist].snippet.thumbnails.medium.url)
+		setBackground(musicList[indexOnPlaylist].snippet.thumbnails.medium.url);
 	}
 
     useEffect(()=>{
-        player.setBackgroundObserver(updateBackground)
+        player.setBackgroundObserver(updateBackground);
 
     },[])
 

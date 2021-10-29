@@ -102,24 +102,18 @@ const Playlist = ({ loadingStates }) => {
 
     const { id } = useParams();
 
-    const [playlist, setPlaylist] = useState({
-        img: null,
-        title: null,
-        totalMusic: null,
-        musicList: []
-    })
+    const [playlist, setList] = useState({});
 
 
-    useEffect(() => {
+    useEffect(()=>{
 
         async function getData() {
-            let listType = id.split('cs50', 1);
-            let data = await msk_get('playLists', { listType: listType[0] })
-                .then(data=> data['playListDetails']);
 
-            if(data[id] === undefined) history.push('/404');
+            let musicList = await msk_get('playlist', { id });
 
-            setPlaylist(data[id]);
+            if(!musicList.list) history.push('/404');
+
+            setList(musicList);
 
             if(loadingStates !== undefined){
                 loadingStates.setSplash(false);
@@ -129,6 +123,7 @@ const Playlist = ({ loadingStates }) => {
         getData()
 
     },[])
+
 
 
     //Component:
@@ -165,23 +160,25 @@ const Playlist = ({ loadingStates }) => {
 
     return (
         <>
+        {playlist.infors &&
         <ViewPort>
             <S.PlaylistInfor>
                 <S.BackIcon onClick={()=> history.go(-1)} src={icons.iconBack} alt='back'/>
-                <S.PlayListImg src={playlist.playListImg} alt="PlayList Img"/>
+
+                <S.PlayListImg src={playlist.infors.img} alt="PlayList Img"/>
                 <OthersData>
-                    <S.PlaylistTitle>{playlist.playListTitle}</S.PlaylistTitle>
-                    <S.PlaySubTitle>{playlist.totalMusic} Musics</S.PlaySubTitle>
+                    <S.PlaylistTitle>{playlist.infors.title}</S.PlaylistTitle>
+                    <S.PlaySubTitle>{playlist.infors.length} Musics</S.PlaySubTitle>
                     <PlaylistOptions>
                         <CircleOptionComponent/>
                     </PlaylistOptions>
                 </OthersData>
             </S.PlaylistInfor>
             <S.MusicList>
-            {playlist.musicList.map((music, i) => {
+            {playlist.list.map((music, i) => {
                 return (
                     <S.BoxMusic hoverOff={isPlayingIndex(id, i)} 
-                                onClick={() => load(i, playlist.musicList, id)} 
+                                onClick={() => load(i, playlist.list, id)} 
                                 key={music.id}
                                 >
                         <S.BoxNumMusic>
@@ -218,10 +215,11 @@ const Playlist = ({ loadingStates }) => {
                 )
             })}
             </S.MusicList>
+            <OptionsAside>
+                <CircleOptionComponent/>
+            </OptionsAside>
         </ViewPort>
-        <OptionsAside>
-            <CircleOptionComponent/>
-        </OptionsAside>
+        }
         </>
     )
 }

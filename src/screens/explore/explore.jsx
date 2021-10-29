@@ -27,15 +27,13 @@ function PlayList({ loadingStates }) {
             <Search/>
             <Switch>
                 <Route path={match.url}>
-                    <DiskLibrary name='long Songs | Ambient' totalSongs={6} listType='ambienceSong' player={player}/>
-                    <PlaylistsRow name='Other Mixs' player={player} viewMode='Resume' listType='othersMixs'/>
                     <DiskLibrary 
-                        name='Mashup Songs' 
+                        name='long Songs | Ambient' 
                         totalSongs={6} 
-                        listType='mashupSongs' 
-                        player={player}
-                        loadingStates={loadingStates}
-                    />                     
+                        type='ambienceSongs'/>
+                    <PlaylistsRow 
+                        name='Other Mixs' 
+                        type='othersMixs'/>                   
                 </Route>
                 <Route path={`${match.path}/search/:input`}>
                     <h1 style={{color: 'white'}}>IN PROGRESS</h1>

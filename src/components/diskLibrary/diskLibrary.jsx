@@ -85,7 +85,7 @@ const DiskTotalTime = Styled.p`
 `
 
 
-const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
+const DiskLibrary = ({ name, totalSongs, type, player, loadingStates }) => {
 
     const { load, isPlayingId } = usePlayerContext();
 
@@ -95,7 +95,7 @@ const DiskLibrary = ({ name, totalSongs, listType, player, loadingStates }) => {
     useEffect(() => {
 
         async function getData() {
-            setDisksList(await msk_get('songsList', { totalSongs, listType }))
+            setDisksList(await msk_get('songsList', { maxResult: totalSongs, type }))
             if(loadingStates!==undefined){
                 loadingStates.setSplash(false)
                 loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true})

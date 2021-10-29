@@ -29,9 +29,11 @@ const BoxQuickPicks = () => {
     useEffect(() => {
 
         async function getData() {
-            setMusicList(await msk_get('quickPicks')
-                .then(({playListDetails})=> playListDetails['mixcs5001eMeb-msk-mU51ky4'].musicList)
-            )
+            let { items } = await msk_get('quickPicks');
+            console.log(items);
+            let { list } = await msk_get('playlist', { id: items[0].infors.playlistId });
+            console.log(list);
+            setMusicList(list);
         }
         getData()
 

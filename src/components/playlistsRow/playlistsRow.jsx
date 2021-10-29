@@ -10,7 +10,7 @@ import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowH
  PlayListImg, PlayListTitle, Description} from './playlistsRowStyles'
 
 
-const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
+const PlayListRow = ({ name, type, loadingStates }) => {
 
     const { load } = usePlayerContext()
 
@@ -22,16 +22,17 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
         }
     }
 
-    const startList = async(playListsKey) => {
-        let listType = playListsKey.split('cs50', 1);
-        let data = await msk_get('playLists', { listType: listType[0] }).then(data=> data['playListDetails']);
-        load(0, data[playListsKey].musicList, playListsKey);
+    const startList = async(playlistId) => {
+        let playlist = await msk_get('playlist', { id: playlistId });
+        load(0, playlist.list, playlistId);
     }
 
     useEffect(() => {
 
         async function getData() {
-            setPlaylistsResume(await msk_get('playLists', { listType: listType[0] }).then(data=> data[`playList${viewMode}`]));
+            let { items } = await msk_get('randomPlaylists', { type })
+            
+            setPlaylistsResume(items);
             if(loadingStates !== undefined){
                 loadingStates.setSplash(false);
                 loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true});
@@ -49,24 +50,24 @@ const PlayListRow = ({ name, viewMode, listType, loadingStates }) => {
                     return (
                         <PlayList 
                             onClick={()=> loadListView()} 
-                            to={`/playlist/${playList.keyInPlaylistDetails}`} 
+                            to={`/playlist/${playList.infors.playlistId}`} 
                             key={index}>
                         	<PlayListImg 
                                 id="PlayListImg" 
-                                src={playList.playListImg}/>
+                                src={playList.infors.img}/>
                             <BtnPLayHover 
                                 onClick={e => {
                                     e.preventDefault()
                                     e.stopPropagation()
-                                    startList(playList.keyInPlaylistDetails)
+                                    startList(playList.infors.playlistId)
                                 }}
                                 id="BtnPLayHover">
                                 <BtnPLayHoverImg src={iconPlay} alt="play icon"/>
                                 <ShadowHover></ShadowHover>
                             </BtnPLayHover>
                         	<section>
-                        		<PlayListTitle>{playList.playListTitle}</PlayListTitle>
-                        		<Description>{playList.totalMusic} Musics</Description>
+                        		<PlayListTitle>{playList.infors.title}</PlayListTitle>
+                        		<Description>{playList.infors.length} Musics</Description>
                         	</section>
                         </PlayList>
                     )
