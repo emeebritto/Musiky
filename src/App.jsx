@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import Styled from 'styled-components'
+import Styled from 'styled-components';
 
-import Routes from './router'
-import { GlobalStyle } from './components/GlobalStyle'
-import { player, scroll } from './controllers'
+import Routes from './router';
+import { GlobalStyle } from './components/GlobalStyle';
+import { player, scroll } from './controllers';
 
 
 const Background = Styled.section`
