@@ -2,17 +2,7 @@ import React from 'react';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
-import musicLoading from 'assets/icons/AnimatedSvg/loading.svg';
-import iconBack from 'assets/icons/skip_previous_white_24dp.svg';
-import iconPlay from 'assets/icons/play_arrow_black_24dp.svg';
-import iconPause from 'assets/icons/pause_black_24dp.svg';
-import iconNext from 'assets/icons/skip_next_white_24dp.svg';
-
-import iconLyric from 'assets/icons/mic_external_on_white_24dp.svg';
-import iconRepeat from 'assets/icons/repeat_white_24dp.svg';
-import iconVolume from 'assets/icons/volume_up_white_24dp.svg';
-import iconVolumeDown from 'assets/icons/volume_down_white_24dp.svg';
-import iconVolumeOff from 'assets/icons/volume_off_white_24dp.svg';
+import { istatic } from "api/istatic";
 
 import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, SectionTitles, MusicTitleInControl, 
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
@@ -71,15 +61,15 @@ const PlayerControl = () => {
     function BtnPlayAndPause() {
         return(
             <BtnPlayerControl play onClick={e => {handlePlayPause(e)}}>
-                <IconPlay src={prop.playing? iconPause : iconPlay} alt="Play or Pause" />
+                <IconPlay src={prop.playing? istatic.iconPause() : istatic.iconPlay()} alt="Play or Pause" />
             </BtnPlayerControl>
         )
     }
 
     function getVolumeIconStatus() {
-        if(prop.muted) return iconVolumeOff
-        if(prop.volume < 0.4) return iconVolumeDown
-        return iconVolume
+        if(prop.muted) return istatic.iconVolumeOff()
+        if(prop.volume < 0.4) return istatic.iconVolumeDown()
+        return istatic.iconVolume()
     }
 
     return (
@@ -109,15 +99,15 @@ const PlayerControl = () => {
 
                 <BtnsBackPlayNext>
                     <BtnPlayerControl onClick={e => {nextAndBack_Music(e, -1)}}>
-                        <IconPlay src={iconBack} alt="Back Music" />
+                        <IconPlay src={istatic.iconBack()} alt="Back Music" />
                     </BtnPlayerControl>
 
                     {prop.buffer 
-                        ? <Loading src={musicLoading} alt='loading'/> 
+                        ? <Loading src={istatic.musicLoading()} alt='loading'/> 
                         : <BtnPlayAndPause/>}
 
                     <BtnPlayerControl onClick={e => {nextAndBack_Music(e, 1)}}>
-                        <IconPlay src={iconNext} alt="Next Music" />
+                        <IconPlay src={istatic.iconNext()} alt="Next Music" />
                     </BtnPlayerControl>
                 </BtnsBackPlayNext>
                 
@@ -133,11 +123,11 @@ const PlayerControl = () => {
             <OtherSetting>
 
                 <BtnLyrics lyrics={prop.showLyrics} onClick={()=> handlelyrics()}>
-                    <img src={iconLyric} alt="Lyric" />
+                    <img src={istatic.iconLyric()} alt="Lyric" />
                 </BtnLyrics>
 
                 <BtnRepeat loop={prop.loop} onClick={()=>{handleLoop()}}>
-                    <img src={iconRepeat} alt="Repeat" />
+                    <img src={istatic.iconRepeat()} alt="Repeat" />
                 </BtnRepeat>
 
                 <VolumeControl 

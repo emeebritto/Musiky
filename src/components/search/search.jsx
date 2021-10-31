@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory, useRouteMatch } from 'react-router-dom'
+import Styled from 'styled-components'
 
 import { msk_get } from 'api'
 
-import Styled from 'styled-components'
-import search_Icon from 'assets/icons/search_white_24dp.svg'
+import { istatic } from "api/istatic";
 
 
 const ViewPort = Styled.section`
@@ -204,7 +204,7 @@ const Search = () => {
 					placeholder="Artists & Songs"/>
 
 				<BtnSearch onClick={e=> history.push(`${url}/search/${inputSearch.replaceAll(' ', '-')}`)}>
-					<SearchIcon src={search_Icon} alt="search icon"/>
+					<SearchIcon src={istatic.search_Icon()} alt="search icon"/>
 				</BtnSearch>
 
 				{autoComplete && <OptionsAutoComplete/>}

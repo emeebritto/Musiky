@@ -33,7 +33,8 @@ function PlayList({ loadingStates }) {
                         type='ambienceSongs'/>
                     <PlaylistsRow 
                         name='Other Mixs' 
-                        type='othersMixs'/>                   
+                        type='othersMixs'
+                        loadingStates={loadingStates}/>                   
                 </Route>
                 <Route path={`${match.path}/search/:input`}>
                     <h1 style={{color: 'white'}}>IN PROGRESS</h1>

@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Styled from "styled-components";
 import { useHistory } from 'react-router-dom'
 
-import city from 'assets/img/city.svg'
-import cellingLight from 'assets/img/cellingLight.png'
+import { istatic } from "api/istatic";
 
 const ViewPort = Styled.section`
     position: relative;
@@ -107,8 +106,8 @@ const NotFound404 = ({ loadingStates }) => {
     },[])
 
     return (
-        <ViewPort style={{ background: `url(${city}) no-repeat center/100%`}}>
-            <Light src={cellingLight} alt="celling Light"/>
+        <ViewPort style={{ background: `url(${istatic.city()}) no-repeat center/100%`}}>
+            <Light src={istatic.cellingLight()} alt="celling Light"/>
             <LightScattering/>
             <NumHTTP>404</NumHTTP>
             <Msg>We can't find the page you're looking for</Msg>

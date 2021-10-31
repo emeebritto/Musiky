@@ -5,10 +5,7 @@ import Styled from 'styled-components'
 
 import { scroll } from 'controllers'
 
-import homeIcon from 'assets/icons/home_white_24dp.svg'
-import exploreIcon from 'assets/icons/explore_white_24dp.svg'
-import libraryIcon from 'assets/icons/video_library_white_24dp.svg'
-import upgradeIcon from 'assets/icons/trending_up_white_24dp.svg'
+import { istatic } from "api/istatic";
 
 
 const NavBarContainer = Styled.aside`
@@ -94,19 +91,19 @@ function NavBar({ loadingStates }) {
         <NavBarContainer disabled={ screenWidth > 570 }>
             <OptionsBox>
                 <Option onClick={()=>{redirect()}} to={"/"}>
-                    <IconOption src={homeIcon} alt="Home Icon"/>
+                    <IconOption src={istatic.homeIcon} alt="Home Icon"/>
                     <p>Home</p>
                 </Option>
                 <Option onClick={()=>{redirect()}} to={"/explore"}>
-                    <IconOption src={exploreIcon} alt="Home Icon"/>
+                    <IconOption src={istatic.exploreIcon} alt="Home Icon"/>
                     <p>Explore</p>
                 </Option>
                 <Option onClick={()=>{redirect()}} to={"/libraryOff"}>
-                    <IconOption src={libraryIcon} alt="Home Icon"/>
+                    <IconOption src={istatic.libraryIcon} alt="Home Icon"/>
                     <p>Library</p>
                 </Option>
                 <Option onClick={()=>{redirect()}} to={"/upgradeOff"}>
-                    <IconOption src={upgradeIcon} alt="Home Icon"/>
+                    <IconOption src={istatic.upgradeIcon} alt="Home Icon"/>
                     <p>Upgrade</p>
                 </Option>
             </OptionsBox>

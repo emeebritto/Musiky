@@ -9,7 +9,9 @@ import { msk_get } from 'api';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 
-import * as icons from 'common/iconsImports';
+import { istatic } from "api/istatic";
+
+import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
 const ViewPort = Styled.section`
@@ -132,14 +134,14 @@ const Playlist = ({ loadingStates }) => {
             <>
                 <CircleOption active={playlistInfor.playListShuffle} 
                     onClick={() => togglePlaylistShuffle()} 
-                    src={icons.iconRandom} 
+                    src={istatic.iconRandom()} 
                     alt="Shuffle"/>
                 <CircleOption active={playlistInfor.playlistLoop} 
                     onClick={() => togglePlaylistLoop()} 
-                    src={icons.iconLoop} 
+                    src={istatic.iconLoop()} 
                     alt="playlist loop"/>
                 <CircleOption 
-                    src={icons.iconShare} 
+                    src={istatic.iconShare()} 
                     alt="share playlist"/>
             </>
         )
@@ -148,12 +150,12 @@ const Playlist = ({ loadingStates }) => {
     //Component:
     function BoxDurationOrPLayingNow({music, index}){
 
-        let iconPlaying = <img src={icons.icon_playing} alt="playingNow"/>
+        let iconPlaying = <img src={istatic.icon_playing()} alt="playingNow"/>
         let duration = <p className="MusicTime">{music.contentDetails.duration}</p>
 
         let match = isPlayingIndex(id, index);
 
-        if(!prop.playing && match) return <icons.PausedAnim/>
+        if(!prop.playing && match) return <PausedAnim/>
 
         return match ? iconPlaying : duration
     }
@@ -163,7 +165,7 @@ const Playlist = ({ loadingStates }) => {
         {playlist.infors &&
         <ViewPort>
             <S.PlaylistInfor>
-                <S.BackIcon onClick={()=> history.go(-1)} src={icons.iconBack} alt='back'/>
+                <S.BackIcon onClick={()=> history.go(-1)} src={istatic.backPage()} alt='back'/>
 
                 <S.PlayListImg src={playlist.infors.img} alt="PlayList Img"/>
                 <OthersData>
@@ -208,7 +210,7 @@ const Playlist = ({ loadingStates }) => {
 
                         <S.MusicTime>
                             <BoxDurationOrPLayingNow music={music} index={i}/>
-                            <S.BoxIconPLayHover className="iconPlayHover" src={icons.iconPlay} alt="iconPlay" />
+                            <S.BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
                         </S.MusicTime>
 
                     </S.BoxMusic>

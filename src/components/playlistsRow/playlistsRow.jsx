@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 
-import { msk_get } from 'api'
+import { msk_get } from 'api';
 
-import { usePlayerContext } from 'common/contexts/Player'
+import { usePlayerContext } from 'common/contexts/Player';
 
-import iconPlay from 'assets/icons/play_arrow_black_24dp.svg'
+import { istatic } from "api/istatic";
 
 import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowHover,
  PlayListImg, PlayListTitle, Description} from './playlistsRowStyles'
@@ -62,7 +62,7 @@ const PlayListRow = ({ name, type, loadingStates }) => {
                                     startList(playList.infors.playlistId)
                                 }}
                                 id="BtnPLayHover">
-                                <BtnPLayHoverImg src={iconPlay} alt="play icon"/>
+                                <BtnPLayHoverImg src={istatic.iconPlay()} alt="play icon"/>
                                 <ShadowHover></ShadowHover>
                             </BtnPLayHover>
                         	<section>

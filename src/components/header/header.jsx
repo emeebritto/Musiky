@@ -6,12 +6,12 @@ import Styled from 'styled-components'
 import { player, scroll } from 'controllers'
 
 import Profile from "assets/img/MyPersonalLogo.png"
-import branding from "assets/img/branding_Musiky.png"
+import { istatic } from "api/istatic";
 
 const HeaderBranding = Styled(Link)`
     width: 110px;
     height: 35px;
-    background: url(${branding}) no-repeat center/100%;
+    background: url(${istatic.branding}) no-repeat center/100%;
     margin-left: 10px;
     margin-bottom: 5px;
 

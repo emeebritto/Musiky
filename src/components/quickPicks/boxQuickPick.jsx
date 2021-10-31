@@ -5,7 +5,9 @@ import { msk_get } from 'api'
 import { usePlayerContext } from 'common/contexts/Player'
 import { usePlaylistContext } from 'common/contexts/Playlist'
 
-import * as icons from 'common/iconsImports';
+import { istatic } from "api/istatic";
+
+import PausedAnim from 'assets/playingCompAnim.jsx';
 
 import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './boxQuickPickStyles'
@@ -30,9 +32,7 @@ const BoxQuickPicks = () => {
 
         async function getData() {
             let { items } = await msk_get('quickPicks');
-            console.log(items);
             let { list } = await msk_get('playlist', { id: items[0].infors.playlistId });
-            console.log(list);
             setMusicList(list);
         }
         getData()
@@ -43,12 +43,12 @@ const BoxQuickPicks = () => {
     //Component:
     function BoxDurationOrPLayingNow({music, index}){
 
-        var iconPlaying = <img src={icons.icon_playing} alt="playingNow"/>;
+        var iconPlaying = <img src={istatic.icon_playing()} alt="playingNow"/>;
         var duration = <p className="MusicTime">{music.contentDetails.duration}</p>;
 
         let match = isPlayingIndex(id, index);
 
-        if(!prop.playing && match) return <icons.PausedAnim/>;
+        if(!prop.playing && match) return <PausedAnim/>;
 
         return match ? iconPlaying : duration
     }
@@ -90,7 +90,7 @@ const BoxQuickPicks = () => {
                             </DataMusic>
                             <MusicTime>
                                 <BoxDurationOrPLayingNow music={music} index={index}/>
-                                <BoxIconPLayHover className="iconPlayHover" src={icons.iconPlay} alt="iconPlay" />
+                                <BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
                             </MusicTime>
                         </MusicOptionBox>
                     )
