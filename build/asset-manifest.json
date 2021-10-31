@@ -1,42 +1,20 @@
 {
   "files": {
-    "main.js": "/static/js/main.dcf22fd9.chunk.js",
-    "main.js.map": "/static/js/main.dcf22fd9.chunk.js.map",
+    "main.js": "/static/js/main.c0a9b74b.chunk.js",
+    "main.js.map": "/static/js/main.c0a9b74b.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0e5944d6.js",
     "runtime-main.js.map": "/static/js/runtime-main.0e5944d6.js.map",
-    "static/js/2.81bec36c.chunk.js": "/static/js/2.81bec36c.chunk.js",
-    "static/js/2.81bec36c.chunk.js.map": "/static/js/2.81bec36c.chunk.js.map",
+    "static/js/2.46a7b5f1.chunk.js": "/static/js/2.46a7b5f1.chunk.js",
+    "static/js/2.46a7b5f1.chunk.js.map": "/static/js/2.46a7b5f1.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.d369536a90af7aa55610ed71ffe25f03.js": "/precache-manifest.d369536a90af7aa55610ed71ffe25f03.js",
+    "precache-manifest.2410560cc36cfcfa9009b752f25ce09e.js": "/precache-manifest.2410560cc36cfcfa9009b752f25ce09e.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.81bec36c.chunk.js.LICENSE.txt": "/static/js/2.81bec36c.chunk.js.LICENSE.txt",
-    "static/media/back_icon.svg": "/static/media/back_icon.e35a1310.svg",
-    "static/media/branding_Musiky.png": "/static/media/branding_Musiky.2c375ec3.png",
-    "static/media/cellingLight.png": "/static/media/cellingLight.3c698d30.png",
-    "static/media/city.svg": "/static/media/city.7ccccf90.svg",
-    "static/media/explore_white_24dp.svg": "/static/media/explore_white_24dp.8c5f3815.svg",
-    "static/media/home_white_24dp.svg": "/static/media/home_white_24dp.bb56ec93.svg",
-    "static/media/loading.svg": "/static/media/loading.0f8da685.svg",
-    "static/media/loop_white_24dp.svg": "/static/media/loop_white_24dp.712a66f9.svg",
-    "static/media/mic_external_on_white_24dp.svg": "/static/media/mic_external_on_white_24dp.82ae5825.svg",
-    "static/media/pause_black_24dp.svg": "/static/media/pause_black_24dp.c937a44c.svg",
-    "static/media/play_arrow_black_24dp.svg": "/static/media/play_arrow_black_24dp.8f7c7bb7.svg",
-    "static/media/playing.svg": "/static/media/playing.1adad65d.svg",
-    "static/media/repeat_white_24dp.svg": "/static/media/repeat_white_24dp.e47f08f4.svg",
-    "static/media/search_white_24dp.svg": "/static/media/search_white_24dp.cd99745b.svg",
-    "static/media/share_white_24dp.svg": "/static/media/share_white_24dp.2e7673bb.svg",
-    "static/media/shuffle_white_24dp.svg": "/static/media/shuffle_white_24dp.c4685bdf.svg",
-    "static/media/skip_next_white_24dp.svg": "/static/media/skip_next_white_24dp.3a0a32be.svg",
-    "static/media/skip_previous_white_24dp.svg": "/static/media/skip_previous_white_24dp.61e0d4e6.svg",
-    "static/media/trending_up_white_24dp.svg": "/static/media/trending_up_white_24dp.0c45c1bd.svg",
-    "static/media/video_library_white_24dp.svg": "/static/media/video_library_white_24dp.588c3e57.svg",
-    "static/media/volume_down_white_24dp.svg": "/static/media/volume_down_white_24dp.a74e1898.svg",
-    "static/media/volume_off_white_24dp.svg": "/static/media/volume_off_white_24dp.fceb24de.svg",
-    "static/media/volume_up_white_24dp.svg": "/static/media/volume_up_white_24dp.8b974db0.svg"
+    "static/js/2.46a7b5f1.chunk.js.LICENSE.txt": "/static/js/2.46a7b5f1.chunk.js.LICENSE.txt",
+    "static/media/branding_Musiky.png": "/static/media/branding_Musiky.2c375ec3.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0e5944d6.js",
-    "static/js/2.81bec36c.chunk.js",
-    "static/js/main.dcf22fd9.chunk.js"
+    "static/js/2.46a7b5f1.chunk.js",
+    "static/js/main.c0a9b74b.chunk.js"
   ]
 }
