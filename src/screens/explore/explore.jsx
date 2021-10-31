@@ -17,7 +17,7 @@ const ViewPort = Styled.section`
         width: 100%;
     }
 `
-function PlayList({ loadingStates }) {
+function Explore({ loadingStates }) {
 
     let match = useRouteMatch();
 
@@ -47,4 +47,4 @@ function PlayList({ loadingStates }) {
     )
 }
 
-export default PlayList;
+export default Explore;

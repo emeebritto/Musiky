@@ -23,6 +23,11 @@ import {
 
 import Styled from 'styled-components';
 
+
+const Main = Styled.section`
+  margin-left: 50px;
+`
+
 const Centralize = Styled.section`
   display: flex;
   justify-content: center; 
@@ -80,26 +85,28 @@ export default function Routes() {
       <PlaylistProvider>
         <PlayerProvider>
 
-          <ReactPlayerComp/>
+          <NavBar loadingStates={loadingStates}/>
 
-          <Header loadingStates={loadingStates}/>
-          
-          <Centralize>
-            <Switch>
-            {routes.map((route, index) => (
-              <Route exact={route.exact} path={route.path} key={index}>
-                <route.component {...sharedProps}/>
-              </Route>
-            ))}
-            </Switch>
-          </Centralize>
+          <Main>
+            <ReactPlayerComp/>
 
-          <PlayerControl/>
+            <Header loadingStates={loadingStates}/>
+            
+            <Centralize>
+              <Switch>
+              {routes.map((route, index) => (
+                <Route exact={route.exact} path={route.path} key={index}>
+                  <route.component {...sharedProps}/>
+                </Route>
+              ))}
+              </Switch>
+            </Centralize>
+
+            <PlayerControl/>              
+          </Main>
 
         </PlayerProvider>
       </PlaylistProvider>
-
-      <NavBar loadingStates={loadingStates}/>
     </Router>
   )
 };

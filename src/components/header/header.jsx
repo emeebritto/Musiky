@@ -25,7 +25,7 @@ const HeaderContainer = Styled.header`
     z-index: 3;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 97vw;
     height: 9vh;
     box-shadow: ${(props) => (props.lyrics ? "inset 0px 40px 40px rgb(0 0 0 /75%)" : "inset 0px 60px 60px rgb(0 0 0 /50%)")};
     backdrop-filter: ${(props) => (props.lyrics ? "blur( 3.5px )" : "blur( 0px )")};
@@ -66,9 +66,18 @@ const Links = Styled(Link)`
         color:white
     }
 `
+
+const ProfileField = Styled.section`
+    display: flex;
+    align-items: center;
+    color: #fff;
+    margin-right: 30px;
+    border-radius: 18px;
+    background-color: #0A090E;
+`
+
 const ProfileImg = Styled.img`
     border-radius: 50px;
-    margin: 0px 25px 0px 25px;
     width: 40px;
     height: 40px;
 
@@ -76,6 +85,12 @@ const ProfileImg = Styled.img`
         width: 35px;
         height: 35px;
     }
+`
+
+const UserName = Styled.p`
+    margin: 0 14px;
+    font-size: 0.9em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `
 
 
@@ -100,12 +115,10 @@ function Header({ loadingStates }) {
     return(
         <HeaderContainer lyrics={lyricsMode}>
             <HeaderBranding to='/' alt="musiky branding"/>
-            <OptionsBox>
-                <Links onClick={()=>{redirect()}} to={"/"}>Home</Links>
-                <Links onClick={()=>{redirect()}} to={"/explore"}>Explore</Links>
-                <Links onClick={()=>{redirect()}} to={"/libraryOff"}>Library</Links>
-            </OptionsBox>
-            <ProfileImg src={Profile} alt="perfilePhoto"/>
+            <ProfileField>
+                <ProfileImg src={Profile} alt="perfilePhoto"/>
+                <UserName>Emerson_Britto</UserName>
+            </ProfileField>
         </HeaderContainer>
     )
 }
