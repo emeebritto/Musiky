@@ -1,6 +1,10 @@
 import Styled from "styled-components";
 import { Link } from 'react-router-dom'
 
+export const ViewPort = Styled.section`
+    width: 80%;
+`
+
 export const TitleSection = Styled.h2`
     color: white;
     font-size: 1.6em;
@@ -20,7 +24,7 @@ export const BoxIconPLayHover = Styled.img`
     display: none;
     filter: invert(100%);
 `
-export const BoxQuickPicksView = Styled.section`
+export const QuickPicksWrapper = Styled.section`
     display: flex;
     justify-content: center;
     align-items: center;

@@ -6,6 +6,9 @@ import { msk_get } from "api";
 import { usePlayerContext } from 'common/contexts/Player';
 
 const ViewPort = Styled.section`
+`
+
+const DiskWrapper = Styled.section`
     display: flex;
     align-items: center;
     height: 260px;
@@ -15,7 +18,7 @@ const ViewPort = Styled.section`
 const TitleSection = Styled.h2`
     color: white;
     font-size: 1.6em;
-    margin-bottom: 16px;
+    margin: 0 0 16px 18px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
     @media(max-width: 900px) {
@@ -107,9 +110,9 @@ const DiskLibrary = ({ name, totalSongs, type, player, loadingStates }) => {
 
 
 	return(
-		<>
+		<ViewPort>
 			<TitleSection>{name}</TitleSection>
-			<ViewPort>
+			<DiskWrapper>
                 {disksList.map((disk, index) => {
                     return (
                         <Disk onClick={() => load(index, disksList) } key={disk.id}>
@@ -128,8 +131,8 @@ const DiskLibrary = ({ name, totalSongs, type, player, loadingStates }) => {
                         </Disk>
                     )
                 })}
-			</ViewPort>
-		</>
+			</DiskWrapper>
+		</ViewPort>
 	)
 }
 

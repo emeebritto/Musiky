@@ -12,7 +12,7 @@ const Artist = Styled(Link)`
     justify-content: space-around;
     flex-direction: column;
     width: 150px;
-    margin: 10px 15px;
+    margin: 10px 12px;
 `
 const ArtistImg = Styled.img`
     border-radius: 100px;

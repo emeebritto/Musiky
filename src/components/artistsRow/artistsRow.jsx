@@ -7,10 +7,16 @@ import { scroll } from 'controllers';
 import { Link } from 'react-router-dom';
 
 
+const ViewPort = Styled.section`
+    width: 80%;
+    margin-bottom: 30px;
+`
+
 const TitleAndBtnExplore = Styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     height: 50px;
     border-bottom: 1px solid #100F0F;
     margin-bottom: 25px;
@@ -67,7 +73,7 @@ const BtnHoverLine = Styled.section`
     width: 5px;
     transition: 500ms;
 `
-const ViewPort = Styled.section`
+const ArtistsProfile = Styled.section`
     display: flex;
     align-items: center;
     overflow: scroll;
@@ -115,7 +121,7 @@ const ArtistsRow = () => {
     },[])
     
     return (
-        <>  
+        <ViewPort>  
             <TitleAndBtnExplore>
                 <TitleSection>Artists</TitleSection>
                 <BtnField>
@@ -126,14 +132,14 @@ const ArtistsRow = () => {
                     <BtnHoverLine id='hoverLine'/>
                 </BtnField>
             </TitleAndBtnExplore>
-            <ViewPort>
+            <ArtistsProfile>
                 {artists.map((artist, index) => {
                     return (
                         <ArtistCard artist={artist} index={index} key={index}/>
                     )
                 })}
-            </ViewPort>
-        </>
+            </ArtistsProfile>
+        </ViewPort>
     )
 }
 

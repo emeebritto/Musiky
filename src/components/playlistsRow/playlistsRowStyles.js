@@ -1,10 +1,13 @@
 import Styled from "styled-components";
 import { Link } from 'react-router-dom'
 
+export const ViewPort = Styled.section`
+`
+
 export const TitleSection = Styled.h2`
     color: white;
     font-size: 1.6em;
-    margin-bottom: 16px;
+    margin: 0 0 16px 18px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
     @media(max-width: 900px) {
@@ -16,7 +19,7 @@ export const TitleSection = Styled.h2`
         font-size: 1.4em;
     }
 `
-export const ViewPort = Styled.section`
+export const PlaylistWrapper = Styled.section`
     display: flex;
     align-items: center;
     height: 250px;

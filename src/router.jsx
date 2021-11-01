@@ -17,6 +17,7 @@ import {
   Home,
   Explore,
   PlayList,
+  Search,
   ArtistsList,
   NotFound404
 } from './screens';
@@ -66,6 +67,10 @@ export default function Routes() {
     {
       path: '/playlist/:id',
       component: PlayList,
+    },
+    {
+      path: '/search',
+      component: Search,
     },
     {
       path: '/artists',

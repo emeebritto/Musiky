@@ -9,7 +9,7 @@ import { istatic } from "api/istatic";
 
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
-import {TitleSection, BoxIconPLayHover, BoxQuickPicksView, MusicOptionBox, BoxImgMusic, 
+import {ViewPort, TitleSection, BoxIconPLayHover, QuickPicksWrapper, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './boxQuickPickStyles'
 
 
@@ -54,9 +54,9 @@ const BoxQuickPicks = () => {
     }
 
     return (
-        <>
+        <ViewPort>
             <TitleSection>Quick Picks</TitleSection>
-            <BoxQuickPicksView>
+            <QuickPicksWrapper>
                 {musicList.map((music, index) => {
                     return (
                         <MusicOptionBox 
@@ -95,8 +95,8 @@ const BoxQuickPicks = () => {
                         </MusicOptionBox>
                     )
                 })}
-            </BoxQuickPicksView>
-        </>
+            </QuickPicksWrapper>
+        </ViewPort>
     )
 }
 

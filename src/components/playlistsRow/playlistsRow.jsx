@@ -6,7 +6,7 @@ import { usePlayerContext } from 'common/contexts/Player';
 
 import { istatic } from "api/istatic";
 
-import {TitleSection, ViewPort, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowHover,
+import {ViewPort, TitleSection, PlaylistWrapper, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowHover,
  PlayListImg, PlayListTitle, Description} from './playlistsRowStyles'
 
 
@@ -43,9 +43,9 @@ const PlayListRow = ({ name, type, loadingStates }) => {
     },[])
     
     return (
-        <>
+        <ViewPort>
             <TitleSection>{name}</TitleSection>
-            <ViewPort>
+            <PlaylistWrapper>
                 {playListsResume.map((playList, index) => {
                     return (
                         <PlayList 
@@ -72,8 +72,8 @@ const PlayListRow = ({ name, type, loadingStates }) => {
                         </PlayList>
                     )
                 })}
-            </ViewPort>
-        </>
+            </PlaylistWrapper>
+        </ViewPort>
     )
 }
 

@@ -5,6 +5,10 @@ import { msk_get } from 'api';
 import Styled from 'styled-components';
 
 
+const ViewPort = Styled.section`
+    width: 80%;
+`
+
 const GreetingText = Styled.h1`
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
@@ -22,7 +26,7 @@ const GreetingText = Styled.h1`
         margin-bottom: 40px;
     }
 `
-const ViewPort = Styled.section`
+const FeaturedWrapper = Styled.section`
     position: relative;
     display: flex;
     justify-content: flex-end;
@@ -113,9 +117,9 @@ const BoxGreeting = () => {
 
 
     return (
-        <>
+        <ViewPort>
             <GreetingText>{greeting.greetingText}, {nameUser}</GreetingText>
-            <ViewPort style={{ background: `url(${greeting.greetingImg}) no-repeat 0% 80%/100% black`}}>
+            <FeaturedWrapper style={{ background: `url(${greeting.greetingImg}) no-repeat 0% 80%/100% black`}}>
                 <BlackBackground/>
                 <Featured>
                     
@@ -125,8 +129,8 @@ const BoxGreeting = () => {
 
                     <BtnListenNow>Listen Now</BtnListenNow>
                 </Featured>
-            </ViewPort>
-        </>
+            </FeaturedWrapper>
+        </ViewPort>
     )
 }
 

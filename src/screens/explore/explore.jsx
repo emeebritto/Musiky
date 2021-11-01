@@ -4,11 +4,14 @@ import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
 import { player } from 'controllers'
 
-import { Search, PlaylistsRow, DiskLibrary } from 'components'
+import { PlaylistsRow, DiskLibrary } from 'components'
 
 const ViewPort = Styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-top: 18vh;
-    width: 80%;
+    width: 100%;
     height: 100%;
     padding-bottom: 20vh;
 
@@ -24,9 +27,13 @@ function Explore({ loadingStates }) {
 
     return (
         <ViewPort>
-            <Search/>
             <Switch>
                 <Route path={match.url}>
+                    <PlaylistsRow 
+                        name='Explore List' 
+                        viewMode='Resume' 
+                        listType='MIXs' 
+                        loadingStates={loadingStates}/>
                     <DiskLibrary 
                         name='long Songs | Ambient' 
                         totalSongs={6} 

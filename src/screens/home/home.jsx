@@ -4,8 +4,11 @@ import Styled from "styled-components";
 import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components'
 
 const ViewPort = Styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 18vh;
-    width: 80%;
+    width: 100%;
     height: 100%;
     margin-bottom: 20vh;
 
@@ -22,6 +25,8 @@ const Home = ({ loadingStates }) => {
             <BoxQuickPicks/>
             <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
             <ArtistsRow/>
+            <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
+            <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
         </ViewPort>
     );
 }
