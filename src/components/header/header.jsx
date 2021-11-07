@@ -74,6 +74,7 @@ const ProfileField = Styled.section`
     margin-right: 30px;
     border-radius: 18px;
     background-color: #0A090E;
+    cursor: pointer;
 `
 
 const ProfileImg = Styled.img`

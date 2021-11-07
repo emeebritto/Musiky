@@ -2,7 +2,7 @@ import Styled from "styled-components";
 import { Link } from 'react-router-dom'
 
 export const ViewPort = Styled.section`
-    width: 80%;
+    width: 81%;
 `
 
 export const TitleSection = Styled.h2`

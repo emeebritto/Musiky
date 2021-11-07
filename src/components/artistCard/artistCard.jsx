@@ -38,15 +38,16 @@ const ArtistName = Styled.h1`
     }
 `
 const BrnFollow = Styled.button`
+    border: none;
     background-color: rgb(0 0 0 /30%);
     border-radius: 16px;
-    border: 1px solid white;
+    border: 1px solid #fff;
     cursor: pointer;
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.2em;
-    padding: 5px 15px;
-    transition: 500ms;
+    padding: 5px 30px;
+    transition: 300ms;
 
     :hover {
         background-color: white;
@@ -59,13 +60,14 @@ const BrnFollow = Styled.button`
 `
 
 
-const ArtistCard = ({ artist, index }) => {
+const ArtistCard = ({ artist, index=0 }) => {
 
     return (
-        <Artist to={`/404`} key={index}>
+        <Artist to={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`} 
+                key={index}>
             <ArtistImg
                 src={artist.img}
-                alt='artist img'
+                alt={`${artist.name} img`}
                 />
                 <ArtistName>{artist.name}</ArtistName>
                 <BrnFollow>Follow</BrnFollow>

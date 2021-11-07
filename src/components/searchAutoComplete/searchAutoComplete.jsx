@@ -49,7 +49,7 @@ const SearchAutoComplete = ({ autoComplete, updateField }) => {
 				return(
 					<Option 
 						onClick={()=> updateField(option)} 
-						to={`${url}/search/${option.replaceAll(' ', '-')}`}>
+						to={`${url}/${option.replaceAll(' ', '-')}`}>
 						{option}
 					</Option>
 				)

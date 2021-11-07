@@ -1,7 +1,7 @@
 import React from "react";
 import Styled from "styled-components";
 
-import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components'
+import { BoxGreeting, MusicList, PlaylistsRow, ArtistsRow } from 'components'
 
 const ViewPort = Styled.section`
     display: flex;
@@ -22,7 +22,7 @@ const Home = ({ loadingStates }) => {
     return (
         <ViewPort>
             <BoxGreeting/>
-            <BoxQuickPicks/>
+            <MusicList/>
             <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
             <ArtistsRow/>
             <PlaylistsRow name='MIXs' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>

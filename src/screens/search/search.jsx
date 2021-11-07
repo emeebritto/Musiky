@@ -9,7 +9,8 @@ import { istatic } from "api/istatic";
 import { 
 	PlaylistsRow, 
 	ArtistsRow, 
-	SearchAutoComplete
+	SearchAutoComplete,
+	ResultSearch
 } from 'components';
 
 import viewportBackground from 'assets/img/background-musiky-search.png';
@@ -207,6 +208,7 @@ const Search = ({ loadingStates }) => {
 			</SearchField>
             <Route path={`${match.path}/:input`}>
                 <h1 style={{color: 'white'}}>COMING SOON..</h1>
+                <ResultSearch/>
             </Route>
 			<ArtistsRow/>
 			<PlaylistsRow name='Playlists' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>

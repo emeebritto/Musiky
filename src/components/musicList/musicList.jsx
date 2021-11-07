@@ -10,22 +10,20 @@ import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
 import {ViewPort, TitleSection, BoxIconPLayHover, QuickPicksWrapper, MusicOptionBox, BoxImgMusic, 
-BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './boxQuickPickStyles'
+BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './musicListStyles'
 
 
-const BoxQuickPicks = () => {
+const MusicList = () => {
 
-    const { prop, load } = usePlayerContext()
+    const { prop, load } = usePlayerContext();
+    const { isPlayingIndex } = usePlaylistContext();
+    const [musicList, setMusicList] = useState([]);
 
-    const { isPlayingIndex } = usePlaylistContext()
-
-    const [musicList, setMusicList] = useState([])
-
-    const id = 'quickPicksHmsk'
+    const id = 'quickPicksHmsk';
 
 
     const clickOnMusic = (targetIndex, targetList, playlistId) => {
-        load(targetIndex, targetList, playlistId)
+        load(targetIndex, targetList, playlistId);
     }
 
     useEffect(() => {
@@ -33,6 +31,7 @@ const BoxQuickPicks = () => {
         async function getData() {
             let { items } = await msk_get('quickPicks');
             let { list } = await msk_get('playlist', { id: items[0].infors.playlistId });
+            list.length = 10; // TEMP
             setMusicList(list);
         }
         getData()
@@ -100,4 +99,4 @@ const BoxQuickPicks = () => {
     )
 }
 
-export default BoxQuickPicks
+export default MusicList
