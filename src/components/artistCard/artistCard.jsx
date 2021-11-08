@@ -62,11 +62,13 @@ const BrnFollow = Styled.button`
 
 const ArtistCard = ({ artist, index=0 }) => {
 
+    console.log(artist);
+
     return (
         <Artist to={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`} 
                 key={index}>
             <ArtistImg
-                src={artist.img}
+                src={artist.images[1].url}
                 alt={`${artist.name} img`}
                 />
                 <ArtistName>{artist.name}</ArtistName>

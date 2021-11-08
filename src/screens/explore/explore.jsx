@@ -2,8 +2,6 @@ import React from "react";
 import Styled from "styled-components";
 import { Route, Switch, Redirect, useRouteMatch } from 'react-router-dom'
 
-import { player } from 'controllers'
-
 import { PlaylistsRow, DiskLibrary } from 'components'
 
 const ViewPort = Styled.section`
@@ -31,16 +29,13 @@ function Explore({ loadingStates }) {
                 <Route path={match.url}>
                     <PlaylistsRow 
                         name='Explore List' 
-                        viewMode='Resume' 
-                        listType='MIXs' 
                         loadingStates={loadingStates}/>
                     <DiskLibrary 
                         name='long Songs | Ambient' 
                         totalSongs={6} 
                         type='ambienceSongs'/>
                     <PlaylistsRow 
-                        name='Other Mixs' 
-                        type='othersMixs'
+                        name='Explore new Sets' 
                         loadingStates={loadingStates}/>                   
                 </Route>
                 <Route path={`${match.path}/search/:input`}>

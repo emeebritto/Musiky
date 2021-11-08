@@ -2,6 +2,7 @@ import Styled from "styled-components";
 import { Link } from 'react-router-dom'
 
 export const ViewPort = Styled.section`
+    margin: 40px 0;
 `
 
 export const TitleSection = Styled.h2`
@@ -24,7 +25,7 @@ export const PlaylistWrapper = Styled.section`
     align-items: center;
     height: 250px;
     overflow: scroll;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 
     ::-webkit-scrollbar {
         width: 0;

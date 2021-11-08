@@ -10,7 +10,7 @@ import {ViewPort, TitleSection, PlaylistWrapper, PlayList, BtnPLayHover, BtnPLay
  PlayListImg, PlayListTitle, Description} from './playlistsRowStyles'
 
 
-const PlayListRow = ({ name, type, loadingStates }) => {
+const PlayListRow = ({ name, loadingStates }) => {
 
     const { load } = usePlayerContext()
 
@@ -30,7 +30,7 @@ const PlayListRow = ({ name, type, loadingStates }) => {
     useEffect(() => {
 
         async function getData() {
-            let { items } = await msk_get('randomPlaylists', { type })
+            let { items } = await msk_get('randomPlaylists', { label: name })
             
             setPlaylistsResume(items);
             if(loadingStates !== undefined){

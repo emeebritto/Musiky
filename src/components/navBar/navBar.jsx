@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useLocation, Link } from 'react-router-dom';
 
 import Styled from 'styled-components';
@@ -65,40 +65,31 @@ function NavBar({ loadingStates }) {
         loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: false})
     }
 
-    const activePath = path => {
-        return path == pathname;
-    };
-
-
-    useEffect(()=>{
-
-    },[])
-
 
     return(
         <NavBarContainer>
             <OptionsBox>
                 <Option onClick={()=>{redirect()}} to={"/"}>
                     <IconOption 
-                        active={'/' == pathname} 
+                        active={'/' === pathname} 
                         src={istatic.homeIcon()} 
                         alt="Home Icon"/>
                 </Option>
                 <Option onClick={()=>{redirect()}} to={"/explore"}>
                     <IconOption
-                        active={'/explore' == pathname} 
+                        active={'/explore' === pathname} 
                         src={istatic.exploreIcon()}
                         alt="explore Icon"/>
                 </Option>
                 <Option onClick={()=>{redirect()}} to={"/community"}>
                     <IconOption 
-                        active={'/community' == pathname} 
+                        active={'/community' === pathname} 
                         src={istatic.iconCommunity()} 
                         alt="Community Icon"/>
                 </Option>
                 <Option onClick={()=>{redirect()}} to={"/library"}>
                     <IconOption 
-                        active={'/library' == pathname} 
+                        active={'/library' === pathname} 
                         src={istatic.libraryIcon()} 
                         alt="library Icon"/>
                 </Option>
@@ -106,7 +97,7 @@ function NavBar({ loadingStates }) {
             <Bottom>
                 <Option onClick={()=>{redirect()}} to={"/search"}>
                     <IconOption 
-                        active={'/search' == pathname}
+                        active={'/search' === pathname}
                         src={istatic.search_Icon()} 
                         alt="search Icon"/>
                 </Option>

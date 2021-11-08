@@ -12,7 +12,7 @@ export const ViewPort = styled.main`
     z-index: 3;
     bottom: 0vh;
     justify-content: space-around;
-    width: 100vw;
+    width: 96vw;
     height: 10vh;
     box-shadow: inset 0px ${(props)=> (props.lyrics ? "-40px 50px" : "-50px 40px")} rgb(0 0 0 /75%);
     backdrop-filter: blur( ${(props)=> (props.lyrics ? "3.5px" : "0px")});
@@ -231,7 +231,7 @@ export const VolumeControl = styled(DurationSlider)`
 
 `
 export const BtnIconVolume = styled(BtnPlayerControl)`
-    width:30px;
+    width: 30px;
     height: 30px;
     margin: 0px 5px;
     margin-bottom: 0px;

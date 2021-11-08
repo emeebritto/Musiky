@@ -8,11 +8,14 @@ let cache = {};
 
 const pathsList = {
     quickPicks: () => `/random/playlists?totalList=1`,
-    randomPlaylists: ({type, totalList=6})=> `/random/playlists?totalList=${totalList}&type=${type}`,
+    randomPlaylists: ({label, totalList=6})=> `/random/playlists?totalList=${totalList}&label=${label}`,
+    randomArtists: ({maxResult})=> `/random/artists?maxResult=${maxResult}`,
+    getArtists: ({maxResult})=> `/artist/getArtistsPerPage?page=20`,
     playlist: ({ id })=> `/playlist/${id}`,
     songsList: ({type, maxResult})=> `/random/songs?maxResult=${maxResult}&listType=${type}`,
     suggestionArtists: ({maxResult})=> `/search/search-suggestions?total=${maxResult}`,
     inputAutoComplete: ({input, maxResult})=> `/search/auto-complete?input=${input}&maxResult=${maxResult}`,
+    search: ({input})=> `/search/${input}`,
     greeting: ()=> `/greeting`
 };
 

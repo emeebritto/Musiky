@@ -22,7 +22,7 @@ export function usePlayerContext(){
 		setLoop,
 		currentTime,
 		setCurrentTime,
-		duration,
+//		duration,
 		setDuration,
 		seeking,
 		setSeeking,

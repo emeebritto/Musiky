@@ -80,17 +80,17 @@ const PlayerControl = () => {
             >
             {prop.music && <MusicInfor>
                 <MusicImg 
-                    src={prop.music.snippet.thumbnails.medium.url}
+                    src={prop.music.thumbnails.medium.url}
                     alt="musicImg"
                     />
                 <SectionTitles>
                     <MusicTitleInControl>
-                        {prop.music.snippet.title}
+                        {prop.music.title}
                     </MusicTitleInControl>
 
 
                     <MusicSubTitle>
-                        {prop.music.Artist}
+                        {prop.artist}
                     </MusicSubTitle>
                 </SectionTitles>}
             </MusicInfor>}
@@ -140,8 +140,8 @@ const PlayerControl = () => {
                 />
 
                 <BtnIconVolume onClick={()=>{handleToggleMuted()}}>
-                    <img src={getVolumeIconStatus()} alt="Volume Icon" />
-                </BtnIconVolume> 
+                    <img src={getVolumeIconStatus()} alt="Volume Icon"/>
+                </BtnIconVolume>
 
             </OtherSetting>
         </ViewPort>

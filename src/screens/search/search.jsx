@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory, useRouteMatch, Switch, Route } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch, Route } from 'react-router-dom';
 import Styled from 'styled-components';
 
 import { msk_get } from 'api';
@@ -22,6 +22,7 @@ const ViewPort = Styled.section`
 	align-items: center;
 	justify-content: center;
     width: 96vw;
+    margin-bottom: 8vh;
 
     @media(max-width: 1000px) {
         flex-direction: column;
@@ -207,11 +208,12 @@ const Search = ({ loadingStates }) => {
 				</Suggestions>
 			</SearchField>
             <Route path={`${match.path}/:input`}>
-                <h1 style={{color: 'white'}}>COMING SOON..</h1>
                 <ResultSearch/>
             </Route>
-			<ArtistsRow/>
-			<PlaylistsRow name='Playlists' viewMode='Resume' listType='MIXs' loadingStates={loadingStates}/>
+			<PlaylistsRow 
+				name='Others lists'
+				loadingStates={loadingStates}/>
+			<ArtistsRow maxResult={6}/>
 		</ViewPort>
 	)
 }

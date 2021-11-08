@@ -148,16 +148,16 @@ const Playlist = ({ loadingStates }) => {
     }
 
     //Component:
-    function BoxDurationOrPLayingNow({music, index}){
+    function BoxDurationOrPLayingNow({duration, index}){
 
         let iconPlaying = <img src={istatic.icon_playing()} alt="playingNow"/>
-        let duration = <p className="MusicTime">{music.contentDetails.duration}</p>
+        let durationComp = <p className="MusicTime">{duration}</p>
 
         let match = isPlayingIndex(id, index);
 
         if(!prop.playing && match) return <PausedAnim/>
 
-        return match ? iconPlaying : duration
+        return match ? iconPlaying : durationComp
     }
 
     return (
@@ -187,12 +187,12 @@ const Playlist = ({ loadingStates }) => {
                             <S.NumMusic>{i + 1}.</S.NumMusic>
                         </S.BoxNumMusic>
 
-                        <S.MusicImg src={music.snippet.thumbnails.medium.url} alt="Music img"/>
+                        <S.MusicImg src={music.thumbnails.medium.url} alt="Music img"/>
 
                         <S.MusicInfor>
-                            <S.MusicTitle>{music.snippet.title}</S.MusicTitle>
+                            <S.MusicTitle>{music.title}</S.MusicTitle>
                             <section>
-                                {music.Artist.map((artist, i) => {
+                                {music.artist.map((artist, i) => {
                                     let space='';
                                     if(i > 0){ space = ',  ' }
                                         
@@ -209,7 +209,7 @@ const Playlist = ({ loadingStates }) => {
                         </S.MusicInfor>
 
                         <S.MusicTime>
-                            <BoxDurationOrPLayingNow music={music} index={i}/>
+                            <BoxDurationOrPLayingNow music={music.duration} index={i}/>
                             <S.BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
                         </S.MusicTime>
 

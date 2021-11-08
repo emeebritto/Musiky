@@ -1,34 +1,85 @@
-import React/*, { useState, useEffect }*/ from 'react';
+import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+
+import { msk_get } from 'api';
 
 import { ArtistCard, MusicList } from 'components';
 
 const ViewPort = Styled.section`
 	width: 80%;
-	height: 500px;
-	background-color: red;
+	margin: 30px 0;
+`
+
+const Label = Styled.h1`
+	font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	margin: 0 0 40px 0;
+	font-size: 1.2em;
+	color: #fff;
 `
 
 const FirstSection = Styled.section`
-	background-color: green;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
+	align-items: center;
+`
+
+const MusicListWrapper = Styled.section`
+	width: 50vw;
+	margin-left: 80px;
+`
+
+const Hr = Styled.hr`
+	margin: 30px 0;
+	opacity: 20%;
 `
 
 const ResultSearch = () => {
 
-	const artistTest = {
-        img: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F3d%2Ff7%2F04%2F3df70452f84bbf7da54212ade74f9433.jpg&f=1&nofb=1',
-        name: 'none'
-    }
+	const [searchTop, setSearchTop] = useState({});
+	const [artists, setArtists] = useState([]);
+	const [musics, setMusics] = useState([]);
+
+	const [requestId, setRequestId] = useState('');
+
+	const { input } = useParams();
+
+
+    useEffect(() => {
+
+        async function getData() {
+            let res = await msk_get('search', { input });
+
+            console.log(res);
+
+            setSearchTop(res.searchTop);
+            setArtists(res.artists);
+
+            res.musics.length = 5;
+
+            setMusics(res.musics);
+            setRequestId(res.requestId);
+        }
+        getData()
+
+    },[input])
+
 
 	return (
-		<ViewPort>
-			<FirstSection>
-				<ArtistCard artist={artistTest}/>
-				<MusicList/>				
-			</FirstSection>
-		</ViewPort>
+		<>
+		{requestId &&
+			<ViewPort>
+				<Label>Resultado para: {input.replace(/-/g, ' ')}</Label>
+				<FirstSection>
+					<ArtistCard artist={searchTop}/>
+					<MusicListWrapper>
+						<MusicList list={musics} listId={requestId}/>
+					</MusicListWrapper>
+				</FirstSection>
+				<Hr/>
+			</ViewPort>
+		}
+		</>
 	);
 }
 

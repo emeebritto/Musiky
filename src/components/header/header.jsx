@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react"
-import { Link } from 'react-router-dom'
+import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 
-import Styled from 'styled-components'
+import Styled from 'styled-components';
 
-import { player, scroll } from 'controllers'
+import { player, scroll } from 'controllers';
 
-import Profile from "assets/img/MyPersonalLogo.png"
+import Profile from "assets/img/MyPersonalLogo.png";
 import { istatic } from "api/istatic";
 
 const HeaderBranding = Styled(Link)`
@@ -34,36 +34,6 @@ const HeaderContainer = Styled.header`
     @media(max-width: 670px) {
         padding-top: 0.5vh;
         height: 7vh;
-    }
-`
-const OptionsBox = Styled.section`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 400px;
-    height: 100%;
-
-
-    @media(max-width: 680px) {
-        font-size: 0.9em;
-        width: 360px;
-    }
-
-    @media(max-width: 570px) {
-        display: none;
-    }
-`
-const Links = Styled(Link)`
-    height: 24px;
-    text-decoration: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.4em;
-    background-color: rgb(0 0 0 /25%);
-    box-shadow: 0px 0px 25px rgb(0 0 0 /60%);
-    color: #A1A1A1;
-    
-    :hover{
-        color:white
     }
 `
 
@@ -100,12 +70,6 @@ function Header({ loadingStates }) {
 
     const lyricsMode_header = ({showLyrics}) => {
         setLyricsMode(showLyrics);
-    }
-
-    const redirect = () => {
-        scroll.toTop()
-        loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: false})
-        player.closeLyrics()
     }
 
     useEffect (()=>{

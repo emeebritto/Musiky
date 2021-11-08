@@ -1,49 +1,17 @@
 import Styled from "styled-components";
 import { Link } from 'react-router-dom'
 
-export const ViewPort = Styled.section`
-    width: 81%;
-`
 
-export const TitleSection = Styled.h2`
-    color: white;
-    font-size: 1.6em;
-    margin-bottom: 16px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-    @media(max-width: 900px) {
-        margin-left: 18px;
-        margin-bottom: 23px;
-    }
-
-    @media(max-width: 545px) {
-        font-size: 1.4em;
-    }
-`
 export const BoxIconPLayHover = Styled.img`
     display: none;
     filter: invert(100%);
 `
-export const QuickPicksWrapper = Styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 260px;
-    overflow: scroll;
-    margin-bottom: 30px;
-
-    ::-webkit-scrollbar {
-        width: 0;
-    } 
-`
+//510
 export const MusicOptionBox = Styled.section`
     display: flex;
     align-items: center;
-    width: 510px;
     height: 45px;
-    margin: 0 7.7px 5px 7.7px;
+    margin: 0 0 5px 0;
 
     ::-webkit-scrollbar {
         width: 0;
