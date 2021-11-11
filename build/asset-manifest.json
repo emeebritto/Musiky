@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/static/js/main.10b5b1e1.chunk.js",
-    "main.js.map": "/static/js/main.10b5b1e1.chunk.js.map",
+    "main.js": "/static/js/main.4d045b80.chunk.js",
+    "main.js.map": "/static/js/main.4d045b80.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0e5944d6.js",
     "runtime-main.js.map": "/static/js/runtime-main.0e5944d6.js.map",
     "static/js/2.96ae0a18.chunk.js": "/static/js/2.96ae0a18.chunk.js",
     "static/js/2.96ae0a18.chunk.js.map": "/static/js/2.96ae0a18.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.21cd5b104d07692101f8a21bc18f3220.js": "/precache-manifest.21cd5b104d07692101f8a21bc18f3220.js",
+    "precache-manifest.8f249e975161293c4601e7cad60c638c.js": "/precache-manifest.8f249e975161293c4601e7cad60c638c.js",
     "service-worker.js": "/service-worker.js",
     "static/js/2.96ae0a18.chunk.js.LICENSE.txt": "/static/js/2.96ae0a18.chunk.js.LICENSE.txt",
     "static/media/background-musiky-search.png": "/static/media/background-musiky-search.4426cdb4.png",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime-main.0e5944d6.js",
     "static/js/2.96ae0a18.chunk.js",
-    "static/js/main.10b5b1e1.chunk.js"
+    "static/js/main.4d045b80.chunk.js"
   ]
 }

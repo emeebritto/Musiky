@@ -7,7 +7,6 @@ import { msk_get } from 'api';
 import { ArtistCard, MusicList } from 'components';
 
 const ViewPort = Styled.section`
-	width: 80%;
 	margin: 30px 0;
 `
 

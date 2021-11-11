@@ -20,8 +20,9 @@ const ViewPort = Styled.section`
   width: 100vw;
   height: 100vh;
     ::-webkit-scrollbar {
+    	width: 0;
       height: 0;
-  }
+  	}
 
   @media(max-width: 500px) {
     ::-webkit-scrollbar {

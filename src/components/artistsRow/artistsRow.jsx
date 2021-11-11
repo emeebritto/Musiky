@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 
 const ViewPort = Styled.section`
-    width: 80%;
     margin-bottom: 30px;
 `
 

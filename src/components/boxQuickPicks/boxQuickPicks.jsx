@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Styled from "styled-components";
-import { Link } from 'react-router-dom'
 
 import { msk_get } from 'api';
 
-import { usePlayerContext } from 'common/contexts/Player';
-import { usePlaylistContext } from 'common/contexts/Playlist';
-
 import { MusicList } from 'components';
-
-import { istatic } from "api/istatic";
-
-import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
 const ViewPort = Styled.section`
@@ -53,16 +45,9 @@ const MusicListWrapper = Styled.section`
 
 const BoxQuickPicks = () => {
 
-    const { prop, load } = usePlayerContext();
-    const { isPlayingIndex } = usePlaylistContext();
-
     const [musicList, setMusicList] = useState([]);
     const [id, setId] = useState('');
 
-
-    const clickOnMusic = (targetIndex, targetList, playlistId) => {
-        load(targetIndex, targetList, playlistId);
-    }
 
     useEffect(() => {
 

@@ -21,8 +21,13 @@ const ViewPort = Styled.section`
 	flex-direction:column;
 	align-items: center;
 	justify-content: center;
-    width: 96vw;
-    margin-bottom: 8vh;
+    perspective: 1px;
+    transform-style: preserve-3d;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
 
     @media(max-width: 1000px) {
         flex-direction: column;
@@ -33,9 +38,42 @@ const SearchField = Styled.section`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    min-height: 80vh;
+    position: relative;
+    transform-style: inherit;
 	width: 96vw;
-	height: 70vh;
-	background: url(${viewportBackground}) no-repeat center;
+	background: 50% 50%;
+
+	:before {
+	    background: 50% 50%;
+	}
+
+	::before {
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    display: block;
+	    background: url(${viewportBackground}) center;
+	    transform-origin: center center 0;
+	    transform: translateZ(-1px) scale(2);
+	    z-index: -1;
+	    min-height: 80vh;
+	}
+`
+
+const ContentField = Styled.section`
+	z-index: 2;
+    position: absolute;
+    display: flex:
+    justify-content: center;
+    top: 80vh;
+    padding: 0 10vw 14vh 10vw;
+    background: black;
+    line-height: 30px;
 `
 
 const SearchBar = Styled.section`
@@ -172,6 +210,15 @@ const Search = ({ loadingStates }) => {
 
 	return(
 		<ViewPort>
+			<ContentField>
+	            <Route path={`${match.path}/:input`}>
+	                <ResultSearch/>
+	            </Route>
+				<PlaylistsRow 
+					name='Others lists'
+					loadingStates={loadingStates}/>
+				<ArtistsRow maxResult={6}/>
+			</ContentField>
 			<SearchField>
 				<SearchBar>
 					<InputSearchBar 
@@ -207,13 +254,6 @@ const Search = ({ loadingStates }) => {
 	                })}
 				</Suggestions>
 			</SearchField>
-            <Route path={`${match.path}/:input`}>
-                <ResultSearch/>
-            </Route>
-			<PlaylistsRow 
-				name='Others lists'
-				loadingStates={loadingStates}/>
-			<ArtistsRow maxResult={6}/>
 		</ViewPort>
 	)
 }

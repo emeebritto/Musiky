@@ -88,16 +88,22 @@ export const DataMusic = Styled.section`
     height: 100%;
     width: 85%;
     margin-right: 5%;
-    margin-bottom: 0px;
 
     :hover{
         border-left: 0px;
         border-right: 0px;
     }
 `
+export const Titles = Styled.section`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+`
+
 export const MusicTitle = Styled.p`
     font-size: 1.1em;
     width: 350px;
+    height: 23px;
     color: white;
     -webkit-text-stroke-width: 0.0px;
     -webkit-text-stroke-color: black;
@@ -105,7 +111,6 @@ export const MusicTitle = Styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 5px;
 
     @media(max-width: 545px) {
         font-size: 1.0em;

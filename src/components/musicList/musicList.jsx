@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
@@ -8,7 +8,7 @@ import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
 import { BoxIconPLayHover, MusicOptionBox, BoxImgMusic, 
-BoxNumMusic, NumMusic, DataMusic, MusicTitle, ChannelName, MusicTime} from './musicListStyles';
+BoxNumMusic, NumMusic, DataMusic, Titles, MusicTitle, ChannelName, MusicTime} from './musicListStyles';
 
 
 const MusicList = ({ list, listId }) => {
@@ -20,7 +20,6 @@ const MusicList = ({ list, listId }) => {
     const clickOnMusic = (targetIndex, targetList, playlistId) => {
         load(targetIndex, targetList, playlistId);
     }
-
 
     //Component:
     function BoxDurationOrPLayingNow({duration, index}){
@@ -49,7 +48,7 @@ const MusicList = ({ list, listId }) => {
                     </BoxNumMusic>
                     <DataMusic>
                         <BoxImgMusic src={music.thumbnails.medium.url} alt="imgMusic" />
-                        <section>
+                        <Titles>
                             <MusicTitle>{music.title}</MusicTitle>
                             <section>
                                 {music.artist.map((artist, index) => {
@@ -66,7 +65,7 @@ const MusicList = ({ list, listId }) => {
                                     )
                                 })}
                             </section>
-                        </section>
+                        </Titles>
                     </DataMusic>
                     <MusicTime>
                         <BoxDurationOrPLayingNow duration={music.duration} index={index}/>
@@ -75,7 +74,7 @@ const MusicList = ({ list, listId }) => {
                 </MusicOptionBox>
             )
         })}
-        {list && <p>Nothing</p>}
+        {!list.length && <p>Nothing</p>}
         </>
     )
 }

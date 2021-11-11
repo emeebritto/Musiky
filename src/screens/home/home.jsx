@@ -4,29 +4,35 @@ import Styled from "styled-components";
 import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components'
 
 const ViewPort = Styled.section`
+    overflow-y: scroll;
+    width: 100%;
+    height: 100vh;
+`
+const Wrapper = Styled.section`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 18vh;
     width: 100%;
-    height: 100%;
-    margin-bottom: 20vh;
+    margin: 20vh 0 10vh 0;
 
     @media(max-width: 900px) {
         margin-top: 16vh;
-        width: 100%;
     }
 `
+
 const Home = ({ loadingStates }) => {
 
     return (
         <ViewPort>
-            <BoxGreeting/>
-            <BoxQuickPicks/>
-            <PlaylistsRow name='MIXs' loadingStates={loadingStates}/>
-            <ArtistsRow maxResult={6}/>
-            <PlaylistsRow name='Others MIXs' loadingStates={loadingStates}/>
-            <PlaylistsRow name='Just Song' loadingStates={loadingStates}/>
+            <Wrapper>
+                <BoxGreeting/>
+                <BoxQuickPicks/>
+                <PlaylistsRow name='MIXs' loadingStates={loadingStates}/>
+                <ArtistsRow maxResult={6}/>
+                <PlaylistsRow name='Others MIXs' loadingStates={loadingStates}/>
+                <PlaylistsRow name='Just Song' loadingStates={loadingStates}/>
+            </Wrapper>
         </ViewPort>
     );
 }

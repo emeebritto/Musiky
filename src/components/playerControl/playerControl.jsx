@@ -90,9 +90,9 @@ const PlayerControl = () => {
 
 
                     <MusicSubTitle>
-                        {prop.artist}
+                        {prop.music.artist}
                     </MusicSubTitle>
-                </SectionTitles>}
+                </SectionTitles>
             </MusicInfor>}
 
             <PlayerControlPainel>
