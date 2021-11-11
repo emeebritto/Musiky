@@ -15,11 +15,16 @@ import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
 const ViewPort = Styled.section`
+    overflow-y: scroll;
+    width: 100%;
+    height: 100vh;
+`
+
+const Wrapper = Styled.section`
     display: flex;
     justify-content: flex-end;
-    width: 71%;
+    width: 84%;
     margin: 20vh 0vw 20vh 0vw;
-
 
     @media(max-width: 1230px) { width: 85% }
     @media(max-width: 1075px) { 
@@ -164,62 +169,64 @@ const Playlist = ({ loadingStates }) => {
         <>
         {playlist.infors &&
         <ViewPort>
-            <S.PlaylistInfor>
-                <S.BackIcon onClick={()=> history.go(-1)} src={istatic.backPage()} alt='back'/>
+            <Wrapper>
+                <S.PlaylistInfor>
+                    <S.BackIcon onClick={()=> history.go(-1)} src={istatic.backPage()} alt='back'/>
 
-                <S.PlayListImg src={playlist.infors.img} alt="PlayList Img"/>
-                <OthersData>
-                    <S.PlaylistTitle>{playlist.infors.title}</S.PlaylistTitle>
-                    <S.PlaySubTitle>{playlist.infors.length} Musics</S.PlaySubTitle>
-                    <PlaylistOptions>
-                        <CircleOptionComponent/>
-                    </PlaylistOptions>
-                </OthersData>
-            </S.PlaylistInfor>
-            <S.MusicList>
-            {playlist.list.map((music, i) => {
-                return (
-                    <S.BoxMusic hoverOff={isPlayingIndex(id, i)} 
-                                onClick={() => load(i, playlist.list, id)} 
-                                key={music.id}
-                                >
-                        <S.BoxNumMusic>
-                            <S.NumMusic>{i + 1}.</S.NumMusic>
-                        </S.BoxNumMusic>
+                    <S.PlayListImg src={playlist.infors.img} alt="PlayList Img"/>
+                    <OthersData>
+                        <S.PlaylistTitle>{playlist.infors.title}</S.PlaylistTitle>
+                        <S.PlaySubTitle>{playlist.infors.length} Musics</S.PlaySubTitle>
+                        <PlaylistOptions>
+                            <CircleOptionComponent/>
+                        </PlaylistOptions>
+                    </OthersData>
+                </S.PlaylistInfor>
+                <S.MusicList>
+                {playlist.list.map((music, i) => {
+                    return (
+                        <S.BoxMusic hoverOff={isPlayingIndex(id, i)} 
+                                    onClick={() => load(i, playlist.list, id)} 
+                                    key={music.id}
+                                    >
+                            <S.BoxNumMusic>
+                                <S.NumMusic>{i + 1}.</S.NumMusic>
+                            </S.BoxNumMusic>
 
-                        <S.MusicImg src={music.thumbnails.medium.url} alt="Music img"/>
+                            <S.MusicImg src={music.thumbnails.medium.url} alt="Music img"/>
 
-                        <S.MusicInfor>
-                            <S.MusicTitle>{music.title}</S.MusicTitle>
-                            <section>
-                                {music.artist.map((artist, i) => {
-                                    let space='';
-                                    if(i > 0){ space = ',  ' }
-                                        
-                                    return(
-                                        <S.ChannelName 
-                                            to={`/artist/${artist.replaceAll(' ', '_')}`}
-                                            onClick={e => e.stopPropagation()}
-                                            >
-                                            {space + artist}
-                                        </S.ChannelName>
-                                    )
-                                })}
-                            </section>
-                        </S.MusicInfor>
+                            <S.MusicInfor>
+                                <S.MusicTitle>{music.title}</S.MusicTitle>
+                                <section>
+                                    {music.artist.map((artist, i) => {
+                                        let space='';
+                                        if(i > 0){ space = ',  ' }
+                                            
+                                        return(
+                                            <S.ChannelName 
+                                                to={`/artist/${artist.replaceAll(' ', '_')}`}
+                                                onClick={e => e.stopPropagation()}
+                                                >
+                                                {space + artist}
+                                            </S.ChannelName>
+                                        )
+                                    })}
+                                </section>
+                            </S.MusicInfor>
 
-                        <S.MusicTime>
-                            <BoxDurationOrPLayingNow music={music.duration} index={i}/>
-                            <S.BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
-                        </S.MusicTime>
+                            <S.MusicTime>
+                                <BoxDurationOrPLayingNow music={music.duration} index={i}/>
+                                <S.BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
+                            </S.MusicTime>
 
-                    </S.BoxMusic>
-                )
-            })}
-            </S.MusicList>
-            <OptionsAside>
-                <CircleOptionComponent/>
-            </OptionsAside>
+                        </S.BoxMusic>
+                    )
+                })}
+                </S.MusicList>
+                <OptionsAside>
+                    <CircleOptionComponent/>
+                </OptionsAside>
+            </Wrapper>
         </ViewPort>
         }
         </>

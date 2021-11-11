@@ -19,8 +19,7 @@ export const MusicOptionBox = Styled.section`
 
     :hover{
         cursor: pointer;
-        border-left: 1px solid gray;
-        border-right: 1px solid gray;
+        background-color: rgb(255 255 255 / 2%);
     }
 
     :hover .iconPlayHover {
