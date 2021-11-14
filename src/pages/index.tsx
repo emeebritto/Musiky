@@ -26,6 +26,7 @@ const Wrapper = Styled.section`
 
 
 const Home: NextPage = () => {
+  
   return (
     <div>
       <Head>

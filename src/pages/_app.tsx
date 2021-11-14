@@ -20,12 +20,6 @@ const ViewPort = Styled.section`
       width: 0;
       height: 0;
     }
-
-  @media(max-width: 500px) {
-    ::-webkit-scrollbar {
-      width: 0;
-    }
-  }
 `
 
 const Main = Styled.section`

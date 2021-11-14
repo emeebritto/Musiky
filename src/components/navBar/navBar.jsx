@@ -1,5 +1,6 @@
 import React from "react";
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 
 import { istatic } from "api/istatic";
@@ -34,7 +35,7 @@ const IconOption = Styled.img`
     margin-bottom: 3px;
 `
 
-const Option = Styled(Link)`
+const Option = Styled.a`
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -46,6 +47,7 @@ const Option = Styled(Link)`
     background-color: rgb(0 0 0 /25%);
     box-shadow: 0px 0px 25px rgb(0 0 0 /60%);
     color: #fff;
+    cursor: pointer;
 `
 
 const Bottom = Styled.section`
@@ -55,50 +57,54 @@ const Bottom = Styled.section`
 
 function NavBar({ loadingStates }) {
 
-    //let { pathname } = useLocation();
-    let pathname= '/';
-
-    const redirect = () => {
-        scroll.toTop()
-        loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: false})
-    }
+    const { pathname } = useRouter();
 
 
     return(
         <NavBarContainer>
             <OptionsBox>
-                <Option onClick={()=>{redirect()}} href={"/"}>
-                    <IconOption 
-                        active={'/' === pathname} 
-                        src={istatic.homeIcon()} 
-                        alt="Home Icon"/>
-                </Option>
-                <Option onClick={()=>{redirect()}} href={"/explore"}>
-                    <IconOption
-                        active={'/explore' === pathname} 
-                        src={istatic.exploreIcon()}
-                        alt="explore Icon"/>
-                </Option>
-                <Option onClick={()=>{redirect()}} href={"/community"}>
-                    <IconOption 
-                        active={'/community' === pathname} 
-                        src={istatic.iconCommunity()} 
-                        alt="Community Icon"/>
-                </Option>
-                <Option onClick={()=>{redirect()}} href={"/library"}>
-                    <IconOption 
-                        active={'/library' === pathname} 
-                        src={istatic.libraryIcon()} 
-                        alt="library Icon"/>
-                </Option>
+                <Link href={"/"}>
+                    <Option>
+                        <IconOption 
+                            active={'/' === pathname} 
+                            src={istatic.homeIcon()} 
+                            alt="Home Icon"/>
+                    </Option>
+                </Link>
+                <Link href={"/explore"}>
+                    <Option>
+                        <IconOption
+                            active={'/explore' === pathname} 
+                            src={istatic.exploreIcon()}
+                            alt="explore Icon"/>
+                    </Option>
+                </Link>
+                <Link href={"/community"}>
+                    <Option>
+                        <IconOption 
+                            active={'/community' === pathname} 
+                            src={istatic.iconCommunity()} 
+                            alt="Community Icon"/>
+                    </Option>
+                </Link>
+                <Link href={"/library"}>
+                    <Option>
+                        <IconOption 
+                            active={'/library' === pathname} 
+                            src={istatic.libraryIcon()} 
+                            alt="library Icon"/>
+                    </Option>
+                </Link>
             </OptionsBox>
             <Bottom>
-                <Option onClick={()=>{redirect()}} href={"/search"}>
-                    <IconOption 
-                        active={'/search' === pathname}
-                        src={istatic.search_Icon()} 
-                        alt="search Icon"/>
-                </Option>
+                <Link href={"/search"}>
+                    <Option>
+                        <IconOption 
+                            active={'/search' === pathname}
+                            src={istatic.search_Icon()} 
+                            alt="search Icon"/>
+                    </Option>
+                </Link>
             </Bottom>
         </NavBarContainer>
     )
