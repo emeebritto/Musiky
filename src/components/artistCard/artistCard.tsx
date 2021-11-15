@@ -1,4 +1,5 @@
 import React from "react";
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 import Styled from "styled-components";
 
@@ -61,7 +62,7 @@ const BrnFollow = Styled.button`
 `
 
 
-const ArtistCard = ({ artist, index=0 }) => {
+const ArtistCard: React.FC<AppProps> = ({ artist, index=0 }) => {
 
     return (
         <Link 

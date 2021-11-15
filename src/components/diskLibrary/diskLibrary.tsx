@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import { AppProps } from 'next/app';
 import Styled from 'styled-components'
 
 import { msk_get } from "api";
@@ -88,7 +89,7 @@ const DiskTotalTime = Styled.p`
 `
 
 
-const DiskLibrary = ({ name, totalSongs, type, player, loadingStates }) => {
+const DiskLibrary: React.FC<AppProps> = ({ name, totalSongs, type }) => {
 
     const { load, isPlayingId } = usePlayerContext();
 
@@ -99,10 +100,6 @@ const DiskLibrary = ({ name, totalSongs, type, player, loadingStates }) => {
 
         async function getData() {
             setDisksList(await msk_get('songsList', { maxResult: totalSongs, type }))
-            if(loadingStates!==undefined){
-                loadingStates.setSplash(false)
-                loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true})
-            }
         }
         getData();
 

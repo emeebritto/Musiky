@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 
 import Styled from 'styled-components';
@@ -62,7 +63,7 @@ const UserName = Styled.p`
 `
 
 
-function Header({ loadingStates }) {
+const Header: React.FC<AppProps> = ({ loadingStates }) => {
     const [lyricsMode, setLyricsMode] = useState(false);
 
     const lyricsMode_header = ({showLyrics}) => {

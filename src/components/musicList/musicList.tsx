@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 
 import { usePlayerContext } from 'common/contexts/Player';
@@ -12,7 +13,7 @@ import { BoxIconPLayHover, MusicOptionBox, BoxImgMusic,
 BoxNumMusic, NumMusic, DataMusic, Titles, MusicTitle, ChannelName, MusicTime} from './musicListStyles';
 
 
-const MusicList = ({ list, listId }) => {
+const MusicList: React.FC<AppProps> = ({ list, listId }) => {
 
     const { prop, load } = usePlayerContext();
     const { isPlayingIndex } = usePlaylistContext();

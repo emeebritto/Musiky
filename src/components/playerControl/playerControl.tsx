@@ -1,4 +1,5 @@
 import React from 'react';
+import { AppProps } from 'next/app';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -8,7 +9,7 @@ import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, Sect
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
 VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from './playerStyles';
 
-const PlayerControl = () => {
+const PlayerControl: React.FC<AppProps> = () => {
 
     const {
         prop,

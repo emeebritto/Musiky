@@ -1,4 +1,5 @@
 import React from "react";
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
@@ -55,7 +56,7 @@ const Bottom = Styled.section`
 `
 
 
-function NavBar({ loadingStates }) {
+const NavBar: React.FC<AppProps> = ({ loadingStates }) => {
 
     const { pathname } = useRouter();
 

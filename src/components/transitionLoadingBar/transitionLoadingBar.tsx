@@ -1,4 +1,5 @@
 import React from 'react'
+import { AppProps } from 'next/app';
 
 import Styled from "styled-components";
 
@@ -35,7 +36,7 @@ const ViewPort = Styled.section`
 	}
 `
 
-const TransitionLoadingBar = ({ loadingStates }) => {
+const TransitionLoadingBar: React.FC<AppProps> = ({ loadingStates }) => {
 
 	const [splash, pageLoadingBar] = loadingStates.values
 

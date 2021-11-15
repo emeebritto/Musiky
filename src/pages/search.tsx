@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
@@ -167,14 +168,18 @@ const Suggestion = Styled.p`
 `
 
 
-const Search: NextPage = () => {
+const Search: NextPage = ({ suggestions }) => {
+
+
+    console.log(suggestions)
 
     const [inputSearch, setInputSearch] = useState('');
-    const [suggestions, setSuggestions] = useState([]);
     const [autoComplete, setAutoComplete] = useState(null);
 
 
     const router = useRouter();
+
+    let { q } = router.query;
 
 
     const updateField = option => {
@@ -185,27 +190,22 @@ const Search: NextPage = () => {
     const filterSearch = async (value) => {
 
         if (value.length > 1) {
-            setAutoComplete(await msk_get('inputAutoComplete', {input: value, maxResult: 10}))
+            setAutoComplete(await msk_get('inputAutoComplete', {input: value, maxResult: 8}))
         } else {
             setAutoComplete([])
             router.push('/search')
         }
     }
 
-
     useEffect(() => {
-        async function getData(){
-            setSuggestions(await msk_get('suggestionArtists', { maxResult: 11 }))
-        }
-        getData()
-
-    },[])
+    // The q changed!
+    }, [router.query.q])
   
 
     return (
         <ViewPort>
             <ContentField>
-                {router.route === `search/:input` && <ResultSearch/>}
+                {router.query.q && <ResultSearch/>}
                 <PlaylistsRow 
                     name='Others lists'/>
                 <ArtistsRow maxResult={6}/>
@@ -222,7 +222,9 @@ const Search: NextPage = () => {
                         }} 
                         placeholder="Artists & Songs"/>
 
-                    <BtnSearch onClick={e=> router.push(`${router.route}/${inputSearch.replaceAll(' ', '-')}`)}>
+
+
+                    <BtnSearch onClick={e=> router.push(`${router.route}/?q=${inputSearch.replaceAll(' ', '-')}`, undefined, { shallow: true })}>
                         <SearchIcon src={istatic.search_Icon()} alt="search icon"/>
                     </BtnSearch>
 
@@ -237,7 +239,7 @@ const Search: NextPage = () => {
                         return (
                             <Link
                                 onClick={()=>{updateField(suggestion)}}
-                                href={`${router.route}/${suggestion.replaceAll(' ', '-')}`}
+                                href={`${router.route}?q=${suggestion.replace(/ /g, '-')}`}
                                 key={index}>
                                 <Suggestion>
                                     {suggestion}
@@ -252,3 +254,12 @@ const Search: NextPage = () => {
 }
 
 export default Search
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+
+    let suggestions = await msk_get('suggestionArtists', { maxResult: 11 });
+
+    return {
+        props: { suggestions }, // will be passed to the page component as props
+    }
+}

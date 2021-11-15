@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
-import { msk_get } from 'api';
-
+import { AppProps } from 'next/app';
 import Styled from 'styled-components';
 
+import { msk_get } from 'api';
 
 const ViewPort = Styled.section`
     width: 80%;
@@ -100,7 +99,7 @@ const BtnListenNow = Styled.button`
 `
 
 
-const BoxGreeting = () => {
+const BoxGreeting: React.FC<AppProps> = () => {
 
     var nameUser = 'Emerson Britto';
 

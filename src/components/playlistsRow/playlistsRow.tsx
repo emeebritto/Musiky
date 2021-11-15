@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 
 import { msk_get } from 'api';
@@ -7,21 +8,25 @@ import { usePlayerContext } from 'common/contexts/Player';
 
 import { istatic } from "api/istatic";
 
-import {ViewPort, TitleSection, PlaylistWrapper, PlayList, BtnPLayHover, BtnPLayHoverImg, ShadowHover,
- PlayListImg, PlayListTitle, Description} from './playlistsRowStyles'
+import {
+    ViewPort, 
+    TitleSection, 
+    PlaylistWrapper, 
+    PlayList, 
+    BtnPLayHover, 
+    BtnPLayHoverImg, 
+    ShadowHover,
+    PlayListImg, 
+    PlayListTitle, 
+    Description
+} from './playlistsRowStyles';
 
 
-const PlayListRow = ({ name, loadingStates }) => {
+const PlayListRow: React.FC<AppProps> = ({ name }) => {
 
     const { load } = usePlayerContext()
 
     const [playListsResume, setPlaylistsResume] = useState([])
-
-    const loadListView = ()=> {
-        if(loadingStates !== undefined){
-            loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: false})
-        }
-    }
 
     const startList = async(playlistId) => {
         let playlist = await msk_get('playlist', { id: playlistId });
@@ -34,10 +39,6 @@ const PlayListRow = ({ name, loadingStates }) => {
             let { items } = await msk_get('randomPlaylists', { label: name })
             
             setPlaylistsResume(items);
-            if(loadingStates !== undefined){
-                loadingStates.setSplash(false);
-                loadingStates.setPageLoadingBar({loadingBar: true, contentLoaded: true});
-            };
         }
         getData();
 
@@ -50,7 +51,6 @@ const PlayListRow = ({ name, loadingStates }) => {
                 {playListsResume.map((playList, index) => {
                     return (
                         <Link 
-                            onClick={()=> loadListView()} 
                             href={`/playlist/${playList.infors.playlistId}`}
                             key={index}>
                             <PlayList>

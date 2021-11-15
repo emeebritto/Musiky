@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { AppProps } from 'next/app';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -28,7 +29,7 @@ const Blocker = Styled.section`
     height: 100%;
 `
 
-const ReactPlayerComp = () => {
+const ReactPlayerComp: React.FC<AppProps> = () => {
 
     const {
         ref,

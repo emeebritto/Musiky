@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 
 import { msk_get } from 'api';
@@ -32,7 +34,7 @@ const Hr = Styled.hr`
 	opacity: 20%;
 `
 
-const ResultSearch = () => {
+const ResultSearch: React.FC<AppProps> = () => {
 
 	const [searchTop, setSearchTop] = useState({});
 	const [artists, setArtists] = useState([]);
@@ -40,14 +42,14 @@ const ResultSearch = () => {
 
 	const [requestId, setRequestId] = useState('');
 
-	//const { input } = useParams();
-	let input = 'NONE';
+    const router = useRouter();
+    let { q } = router.query;
 
 
     useEffect(() => {
 
         async function getData() {
-            let res = await msk_get('search', { input });
+            let res = await msk_get('search', { q });
 
             console.log(res);
 
@@ -61,14 +63,14 @@ const ResultSearch = () => {
         }
         getData()
 
-    },[input])
+    },[q])
 
 
 	return (
 		<>
 		{requestId &&
 			<ViewPort>
-				<Label>Resultado para: {input.replace(/-/g, ' ')}</Label>
+				<Label>Resultado para: {q.replace(/-/g, ' ')}</Label>
 				<FirstSection>
 					<ArtistCard artist={searchTop}/>
 					<MusicListWrapper>

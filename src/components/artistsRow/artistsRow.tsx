@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 import Styled from "styled-components";
 
@@ -86,7 +87,7 @@ const ArtistsProfile = Styled.section`
 `
 
 
-const ArtistsRow = ({ maxResult }) => {
+const ArtistsRow: React.FC<AppProps> = ({ maxResult }) => {
 
     const [artists, setArtists] = useState([])
 

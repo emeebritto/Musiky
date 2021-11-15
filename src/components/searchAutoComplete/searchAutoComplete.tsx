@@ -1,12 +1,14 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import { AppProps } from 'next/app';
 import Link from 'next/link';
 
 import Styled from 'styled-components';
 
 const OptionsCompleteSearch = Styled.section`
 	position: absolute;
-	z-index: 5;
-	color: white;
+	z-index: 100;
+	color: #fff;
 	overflow: hidden;
 	background-color: #000005;
 	border: 1px solid #191D1F;
@@ -21,10 +23,10 @@ const OptionsCompleteSearch = Styled.section`
     }
 `
 
-const Option = Styled(Link)`
+const Option = Styled.a`
     display: inline-block;
     text-decoration: none;
-    color: white;
+    color: #fff;
 	width: 98%;
 	cursor: pointer;
 	padding: 4px 10px 4px 10px;
@@ -38,20 +40,21 @@ const Option = Styled(Link)`
 	}
 `
 
-const SearchAutoComplete = ({ autoComplete, updateField }) => {
+const SearchAutoComplete: React.FC<AppProps> = ({ autoComplete, updateField }) => {
 
-	//let { url } = useRouteMatch();
-	let url = 'gfkgffkvnfb';
+    const router = useRouter();
 
 	return(
 		<OptionsCompleteSearch>
 			{autoComplete.map((option, index) =>{
 				return(
-					<Option 
+					<Link
 						onClick={()=> updateField(option)} 
-						href={`${url}/${option.replaceAll(' ', '-')}`}>
-						{option}
-					</Option>
+						href={`${router.route}q=${option.replaceAll(' ', '-')}`}>
+						<Option>
+							{option}
+						</Option>
+					</Link>
 				)
 			})}
 		</OptionsCompleteSearch>

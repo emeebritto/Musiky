@@ -15,7 +15,7 @@ const pathsList = {
     songsList: ({type, maxResult})=> `/random/songs?maxResult=${maxResult}&listType=${type}`,
     suggestionArtists: ({maxResult})=> `/search/search-suggestions?total=${maxResult}`,
     inputAutoComplete: ({input, maxResult})=> `/search/auto-complete?input=${input}&maxResult=${maxResult}`,
-    search: ({input})=> `/search/${input}`,
+    search: ({q})=> `/search/${q}`,
     greeting: ()=> `/greeting`
 };
 
