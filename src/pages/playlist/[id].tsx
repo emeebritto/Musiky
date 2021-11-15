@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Styled from 'styled-components';
 
 import * as S from 'styles/pages/playlistStyles';
@@ -123,9 +124,10 @@ const Playlist: NextPage = () => {
 
             setList(musicList);
         }
-        getData()
 
-    },[])
+        if(id) getData();
+
+    },[router])
 
   
     //Component:
@@ -199,12 +201,13 @@ const Playlist: NextPage = () => {
                                         if(i > 0){ space = ',  ' }
                                             
                                         return(
-                                            <S.ChannelName 
+                                            <Link
                                                 href={`/artist/${artist.replaceAll(' ', '_')}`}
-                                                onClick={e => e.stopPropagation()}
-                                                >
-                                                {space + artist}
-                                            </S.ChannelName>
+                                                onClick={e => e.stopPropagation()}>
+                                                <S.ChannelName>
+                                                    {space + artist}
+                                                </S.ChannelName>
+                                            </Link>
                                         )
                                     })}
                                 </section>

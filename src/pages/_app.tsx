@@ -2,7 +2,12 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import Styled from 'styled-components';
 
-import { Header, NavBar } from 'components';
+import { 
+  Header, 
+  NavBar, 
+  PlayerControl,
+  ReactPlayerComp
+} from 'components';
 
 import PlayerProvider from 'common/contexts/providers/Player-provider';
 import PlaylistProvider from 'common/contexts/providers/Playlist-provider';
@@ -35,8 +40,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <GlobalStyle/>
           <NavBar/>
           <Main>
+            <ReactPlayerComp/>
             <Header/> 
             <Component {...pageProps} />
+            <PlayerControl/>
           </Main>
         </PlayerProvider>
       </PlaylistProvider>

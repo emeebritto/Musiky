@@ -150,22 +150,20 @@ const Suggestions = Styled.section`
         margin-left: 0px;
     }
 `
-const SuggestionBox = Styled(Link)`
-    text-decoration: none;
+
+const Suggestion = Styled.p`
+    color: #fff;
+    padding: 3px 10px;
+    margin: 2px 4px;
     background-color: #1E1E1E;
     border-radius: 10px;
-    margin: 2px 4px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition: 500ms;
 
     :hover {
         cursor: pointer;
         background-color: #111111;
     }
-`
-const Suggestion = Styled.p`
-    color: white;
-    padding: 3px 10px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 
 
@@ -237,12 +235,14 @@ const Search: NextPage = () => {
                 <Suggestions>
                     {suggestions.map((suggestion, index) => {
                         return (
-                            <SuggestionBox 
+                            <Link
                                 onClick={()=>{updateField(suggestion)}}
                                 href={`${router.route}/${suggestion.replaceAll(' ', '-')}`}
                                 key={index}>
-                                <Suggestion>{suggestion}</Suggestion>
-                            </SuggestionBox>
+                                <Suggestion>
+                                    {suggestion}
+                                </Suggestion>
+                            </Link>
                         )
                     })}
                 </Suggestions>

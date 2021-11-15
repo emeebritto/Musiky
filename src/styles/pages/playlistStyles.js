@@ -1,5 +1,4 @@
 import Styled from 'styled-components';
-import Link from 'next/link';
 
 
 export const PlaylistInfor = Styled.section`
@@ -129,7 +128,7 @@ export const PlaySubTitle = Styled(PlaylistTitle)`
     color: #C4C4C4;
     font-size: 1.1em;
 `
-export const ChannelName = Styled(Link)`
+export const ChannelName = Styled.a`
     text-decoration: none;
     font-size: 0.9em;
     color: rgb(255 255 255/ 70%);

@@ -32,8 +32,6 @@ const PlayListRow = ({ name, loadingStates }) => {
 
         async function getData() {
             let { items } = await msk_get('randomPlaylists', { label: name })
-
-            console.log(items);
             
             setPlaylistsResume(items);
             if(loadingStates !== undefined){
