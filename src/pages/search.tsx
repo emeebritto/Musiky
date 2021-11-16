@@ -171,8 +171,6 @@ const Suggestion = Styled.p`
 const Search: NextPage = ({ suggestions }) => {
 
 
-    console.log(suggestions)
-
     const [inputSearch, setInputSearch] = useState('');
     const [autoComplete, setAutoComplete] = useState(null);
 

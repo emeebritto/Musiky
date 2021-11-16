@@ -202,9 +202,8 @@ const Playlist: NextPage = () => {
                                             
                                         return(
                                             <Link
-                                                href={`/artist/${artist.replaceAll(' ', '_')}`}
-                                                onClick={e => e.stopPropagation()}>
-                                                <S.ChannelName>
+                                                href={`/artist/${artist.replaceAll(' ', '_')}`}>
+                                                <S.ChannelName onClick={e => e.stopPropagation()}>
                                                     {space + artist}
                                                 </S.ChannelName>
                                             </Link>

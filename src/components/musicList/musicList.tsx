@@ -58,10 +58,11 @@ const MusicList: React.FC<AppProps> = ({ list, listId }) => {
                                     if(index > 0){ space = ',  ' }
                                     return(
                                         <Link 
-                                            href={`/artist/${artist.replaceAll(' ', '_')}`}
-                                            onClick={(e)=>{e.stopPropagation()}}
+                                            href={`/artist/${artist.replace(/ /g, '-')}`}
                                             key={index}>
-                                            <ChannelName>{space + artist}</ChannelName>
+                                            <ChannelName onClick={(e)=>{e.stopPropagation()}}>
+                                                {space + artist}
+                                            </ChannelName>
                                         </Link>
                                     )
                                 })}

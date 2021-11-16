@@ -77,7 +77,7 @@ const ArtistsProfile = Styled.section`
     display: flex;
     align-items: center;
     overflow: scroll;
-    height: 275px;
+    height: 295px;
     margin-bottom: 15px;
 
     ::-webkit-scrollbar {
@@ -95,6 +95,7 @@ const ArtistsRow: React.FC<AppProps> = ({ maxResult }) => {
 
         async function getData() {
             let { artists } = await msk_get('randomArtists', { maxResult })
+            console.log(artists);
             setArtists(artists)
         }
         getData()
@@ -108,7 +109,6 @@ const ArtistsRow: React.FC<AppProps> = ({ maxResult }) => {
                 <BtnField>
                     <Link 
                         tabIndex='1' 
-                        onClick={()=> scroll.toTop()} 
                         href='/artists'>
                         <BtnFindOthers>Find Others</BtnFindOthers>
                     </Link>

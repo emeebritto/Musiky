@@ -11,6 +11,7 @@ const pathsList = {
     randomPlaylists: ({label, totalList=6})=> `/random/playlists?totalList=${totalList}&label=${label}`,
     randomArtists: ({maxResult})=> `/random/artists?maxResult=${maxResult}`,
     getArtists: ({maxResult})=> `/artist/getArtistsPerPage?page=20`,
+    artist: ({ q })=> `/artist/${q}`,
     playlist: ({ id })=> `/playlist/${id}`,
     songsList: ({type, maxResult})=> `/random/songs?maxResult=${maxResult}&listType=${type}`,
     suggestionArtists: ({maxResult})=> `/search/search-suggestions?total=${maxResult}`,

@@ -3,6 +3,8 @@ import { AppProps } from 'next/app';
 import Link from 'next/link';
 import Styled from "styled-components";
 
+import { formatValues } from 'common/scripts/formatNum';
+
 
 const Artist = Styled.a`
     position: relative;
@@ -29,11 +31,22 @@ const ArtistImg = Styled.img`
 `
 
 const ArtistName = Styled.h1`
-    color: white;
+    color: #fff;
     height: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.2em;
-    margin: 0px 0px 15px 5px;
+
+    @media(max-width: 545px) {
+        font-size: 1.0em;
+    }
+`
+
+const FollowesCounter = Styled.p`
+    color: #7B7D83;
+    height: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.2em;
+    margin: 10px 0;
 
     @media(max-width: 545px) {
         font-size: 1.0em;
@@ -45,14 +58,14 @@ const BrnFollow = Styled.button`
     border-radius: 16px;
     border: 1px solid #fff;
     cursor: pointer;
-    color: white;
+    color: #fff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.2em;
     padding: 5px 30px;
     transition: 300ms;
 
     :hover {
-        background-color: white;
+        background-color: #fff;
         color: black;
     }
 
@@ -66,13 +79,13 @@ const ArtistCard: React.FC<AppProps> = ({ artist, index=0 }) => {
 
     return (
         <Link 
-            href={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`} 
-            key={index}>
+            href={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`}>
             <Artist>
                 <ArtistImg
-                    src={artist.images[1].url}
+                    src={artist.images.length ? artist.images[1].url : false}
                     alt={`${artist.name} img`}/>
                 <ArtistName>{artist.name}</ArtistName>
+                <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
                 <BrnFollow>Follow</BrnFollow>
             </Artist>
         </Link>
