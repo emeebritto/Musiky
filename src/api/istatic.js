@@ -1,4 +1,4 @@
-const devENV = false;
+const devENV = true;
 
 const prodAPI = 'https://cdn-istatics.herokuapp.com/static/';
 const devAPI = 'http://localhost:9872/static/';
