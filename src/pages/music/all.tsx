@@ -55,20 +55,16 @@ const AllMusics: NextPage = () => {
         async function getData() {
             let res = await allMusic({ page });
             let firstPoint = res.items.length / 2;
-            console.log(firstPoint)
             let endPoint = res.items.length;
-            console.log(endPoint)
 
             let newList = [...res.items].splice(0, firstPoint);
             let newSecondColumn = [...res.items].splice(firstPoint, endPoint);
 
-            console.log(newSecondColumn)
 
             setMusicList((musicList) => [...musicList, ...newList]);
             setSecondColumn((secondColumn) => [...secondColumn, ...newSecondColumn]);
         }
         getData()
-
     },[page]);
 
     useEffect(() => {

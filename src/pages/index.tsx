@@ -7,21 +7,21 @@ import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components
 
 
 const ViewPort = Styled.section`
-    overflow-y: scroll;
-    width: 100%;
-    height: 100vh;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100vh;
 `
 const Wrapper = Styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 20vh 0 10vh 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20vh 0 10vh 0;
 
-    @media(max-width: 900px) {
-        margin-top: 16vh;
-    }
+  @media(max-width: 900px) {
+    margin-top: 16vh;
+  }
 `
 
 

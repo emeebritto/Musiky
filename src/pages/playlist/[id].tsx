@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
@@ -95,9 +96,7 @@ const OthersData = Styled.section`
 `
 
 
-const Playlist: NextPage = () => {
-
-    const [playlist, setList] = useState({});
+const Playlist: NextPage = ({ playlist }) => {
 
     const { prop, load } = usePlayerContext();
 
@@ -115,18 +114,7 @@ const Playlist: NextPage = () => {
 
 
     useEffect(()=>{
-
-        async function getData() {
-
-            let musicList = await msk_get('playlist', { id });
-
-            if(!musicList.list) router.push('/404');
-
-            setList(musicList);
-        }
-
-        if(id) getData();
-
+        if(!playlist) router.push('/404');
     },[router])
 
   
@@ -202,7 +190,8 @@ const Playlist: NextPage = () => {
                                             
                                         return(
                                             <Link
-                                                href={`/artist/${artist.replaceAll(' ', '_')}`}>
+                                                href={`/artist/${artist.replace(/ /g, '_')}`}
+                                                key={i}>
                                                 <S.ChannelName onClick={e => e.stopPropagation()}>
                                                     {space + artist}
                                                 </S.ChannelName>
@@ -213,7 +202,7 @@ const Playlist: NextPage = () => {
                             </S.MusicInfor>
 
                             <S.MusicTime>
-                                <BoxDurationOrPLayingNow music={music.duration} index={i}/>
+                                <BoxDurationOrPLayingNow duration={music.duration} index={i}/>
                                 <S.BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
                             </S.MusicTime>
 
@@ -232,3 +221,12 @@ const Playlist: NextPage = () => {
 }
 
 export default Playlist
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+
+    let playlist = await msk_get('playlist', { id: context.params.id });
+
+    return {
+        props: { playlist }, // will be passed to the page component as props
+    }
+}
