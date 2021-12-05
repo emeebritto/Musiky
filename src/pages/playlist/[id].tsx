@@ -184,7 +184,7 @@ const Playlist: NextPage = ({ playlist }) => {
                             <S.MusicInfor>
                                 <S.MusicTitle>{music.title}</S.MusicTitle>
                                 <section>
-                                    {music.artist.map((artist, i) => {
+                                    {music.artists.map((artist, i) => {
                                         let space='';
                                         if(i > 0){ space = ',  ' }
                                             

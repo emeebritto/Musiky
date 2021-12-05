@@ -59,6 +59,7 @@ const BoxQuickPicks: React.FC<AppProps> = () => {
 
             let { list } = await msk_get('playlist', { id: items[0].infors.playlistId });
             list.length = 10; // TEMP
+
             setMusicList(list);
         }
         getData()

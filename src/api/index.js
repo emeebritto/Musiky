@@ -1,4 +1,4 @@
-const devENV = true;
+const devENV = false;
 
 const prodAPI = 'https://api-musiky.herokuapp.com';
 const devAPI = 'http://localhost:9874';
@@ -32,8 +32,11 @@ export const msk_get = async (pathName, argsObj ={}, options ={})=> {
 
     console.log(`FAZENDO REQUESTE PARA ${BaseUrl}${path}`);
 
-    try { return fetch(BaseUrl + path, options).then(res=> cache[path] = res.json()) }
-    catch(error) { alert(error) }
+    try {
+        return fetch(BaseUrl + path, options).then(res=> cache[path] = res.json())
+    } catch(error) {
+        console.log(error);
+    }
 };
 
 export const allMusic = async ({ page }) => {

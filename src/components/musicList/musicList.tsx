@@ -53,7 +53,7 @@ const MusicList: React.FC<AppProps> = ({ list, listId }) => {
                         <Titles>
                             <MusicTitle>{music.title}</MusicTitle>
                             <section>
-                                {music.artist.map((artist, index) => {
+                                {music.artists.map((artist, index) => {
                                     let space='';
                                     if(index > 0){ space = ',  ' }
                                     return(
