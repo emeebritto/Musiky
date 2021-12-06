@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { AppProps } from 'next/app';
 import Styled from 'styled-components';
 
 import { msk_get } from 'api';
@@ -98,12 +97,14 @@ const BtnListenNow = Styled.button`
     }
 `
 
-
-const BoxGreeting: React.FC<AppProps> = () => {
+const BoxGreeting: React.FC = () => {
 
     var nameUser = 'Emerson Britto';
 
-    const [greeting, setGreeting] = useState({});
+    const [greeting, setGreeting] = useState({
+        greetingText: String,
+        greetingImg: String
+    });
 
     useEffect(()=> {
 

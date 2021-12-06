@@ -22,13 +22,16 @@ export function usePlaylistContext(){
 // ==================================================================
 
 
-	const startPlaylist = (playingIndex, playlistId, musicList) => {
+	const startPlaylist = (
+		playingIndex: number,
+		playlistId: string,musicList: Array<{}>
+	) => {
 		setPlayingIndex(playingIndex);
 		setPlaylistId(playlistId);
 		setMusiclist(musicList);
 	}
 
-	const changeMusic = action => {
+	const changeMusic = (action: number): null | {} => {
 
 		if(!musiclist) return false
 
@@ -49,19 +52,19 @@ export function usePlaylistContext(){
             }
         }
 
-        return playlistFinished ? false : musiclist[playingIndex + action]
+        return playlistFinished ? null : musiclist[playingIndex + action]
 	}
 
 
-    const togglePlaylistShuffle = () => {
-        setPlayListShuffle(playListShuffle => !playListShuffle)
+    const togglePlaylistShuffle = (): void => {
+        setPlayListShuffle((playListShuffle: boolean) => !playListShuffle)
     }
 
-    const togglePlaylistLoop = () => {
-        setPlaylistLoop(playlistLoop => !playlistLoop)
+    const togglePlaylistLoop = (): void => {
+        setPlaylistLoop((playlistLoop: boolean) => !playlistLoop)
     }
 
-    const isPlayingIndex = (id, index) => {
+    const isPlayingIndex = (id: string, index: number): boolean => {
     	return id === playlistId && index === playingIndex
     }
 

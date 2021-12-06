@@ -1,7 +1,29 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { PlayerContext } from './providers/Player-provider';
 import { usePlaylistContext } from './Playlist';
+
+
+interface EventTarget {
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+    dispatchEvent(evt: Event): boolean;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
+}
+
+interface SyntheticEvent {
+    bubbles: boolean;
+    cancelable: boolean;
+    currentTarget: EventTarget;
+    defaultPrevented: boolean;
+    eventPhase: number;
+    isTrusted: boolean;
+    nativeEvent: Event;
+    preventDefault(): void;
+    stopPropagation(): void;
+    target: EventTarget;
+    timeStamp: Date;
+    type: string;
+}
 
 
 export function usePlayerContext(){
@@ -41,7 +63,11 @@ export function usePlayerContext(){
 // ==================================================================
 
 
-	const load = (playIndex, list, playlistId=undefined) => {
+	const load = (
+        playIndex: number,
+        list: Array<{}>,
+        playlistId: string | undefined = undefined
+    ): void => {
 
         if(playlistId) {
         	startPlaylist(playIndex, playlistId, list);
@@ -51,21 +77,21 @@ export function usePlayerContext(){
         setBuffer(true);
     }
 
-    const onBuffer = status => {
+    const onBuffer = (status: boolean): void => {
         setBuffer(status);
     }
 
-    const onPlayAndPause = (status=undefined) => {
+    const onPlayAndPause = (status: boolean | undefined = undefined): void => {
 
         if(status !== undefined) {
             setPlaying(status);
             return
         };
 
-        setPlaying(status => !status);
+        setPlaying((status: boolean) => !status);
     }
 
-    const nextMusic = action => {
+    const nextMusic = (action: number): void => {
 
     	let hasMusic = changeMusic(action);
 
@@ -77,35 +103,35 @@ export function usePlayerContext(){
         setMusic(hasMusic);
     }
 
-    const toggleLyrics = (changeTo=false) => {
+    const toggleLyrics = (changeTo: boolean =false): void => {
 
         if(changeTo) {
             setShowLyrics(changeTo);
             return
         };
 
-        setShowLyrics(showLyrics => !showLyrics);
+        setShowLyrics((showLyrics: boolean) => !showLyrics);
     }
 
-    const toggleLoop = () => {
-    	setLoop(loop => !loop);
+    const toggleLoop = (): void => {
+    	setLoop((loop: boolean) => !loop);
     }
 
-    const changeCurrentTimeTo = value => {
+    const changeCurrentTimeTo = (value: number): void => {
     	if (!seeking) setCurrentTime(value);
     }
 
-    const handleDuration = duration => {
+    const handleDuration = (duration: number): void => {
         setDuration(duration);
     }
 
-    const changeVolumeTo = value => {
+    const changeVolumeTo = (value: number): void => {
     	if(muted) setMuted(false);
         if(value === 0) setMuted(true);
         setVolume(value);
     }
 
-    const toggleMuted = () => {
+    const toggleMuted = (): void => {
         if(muted){
             setVolume(lastVolume);
             setMuted(false);
@@ -116,21 +142,23 @@ export function usePlayerContext(){
         setMuted(true);
     }
 
-    const handleSeekMouseUp = e => {
+    const handleSeekMouseUp = (e: React.SyntheticEvent<EventTarget>): void => {
+        let target = e.target as HTMLInputElement;
         setSeeking(false);
-        ref.playerRef.seekTo(parseFloat(e.target.value));
+        ref.playerRef.seekTo(parseFloat(target.value));
     }
 
-    const handleSeekMouseDown = () => {
+    const handleSeekMouseDown = (): void => {
         setSeeking(true);
     }
 
-    const handleSeekChange = e => {
-        setCurrentTime(parseFloat(e.target.value));
+    const handleSeekChange = (e: React.SyntheticEvent<EventTarget>): void => {
+        let target = e.target as HTMLInputElement;
+        setCurrentTime(parseFloat(target.value));
     }
 
-    const isPlayingId = id => {
-        return music && id === music.id
+    const isPlayingId = (id: string): boolean | void => {
+        if(music) return id === music.id
     }
 
     return {

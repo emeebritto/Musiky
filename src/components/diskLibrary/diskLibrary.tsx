@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react"
-import { AppProps } from 'next/app';
 import Styled from 'styled-components'
 
 import { msk_get } from "api";
@@ -53,7 +52,9 @@ const DiskImg = Styled.section`
     height: 150px;
     margin-bottom: 15px;
     transition: 400ms;
-    animation: ${(props)=> (props.playing ? "spin infinite 30s linear" : '')};
+    animation: ${(props: { playing: boolean }) => (
+        props.playing ? "spin infinite 30s linear" : ''
+    )};
 
     @keyframes spin {
 	  to {
@@ -88,12 +89,29 @@ const DiskTotalTime = Styled.p`
 	margin-left: 5px;
 `
 
+interface DiskLibraryProps {
+    name: string;
+    totalSongs: number;
+    type: string;
+}
 
-const DiskLibrary: React.FC<AppProps> = ({ name, totalSongs, type }) => {
+interface DisksListProps {
+    id: string;
+    thumbnails: {
+        medium: {
+            url: string;
+        }
+    };
+    title: string;
+    duration: string;
+}
+
+
+const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, totalSongs, type }) => {
 
     const { load, isPlayingId } = usePlayerContext();
 
-	const [disksList, setDisksList] = useState([]);
+	const [disksList, setDisksList] = useState<Array<DisksListProps>>([]);
 
 
     useEffect(() => {
@@ -116,14 +134,15 @@ const DiskLibrary: React.FC<AppProps> = ({ name, totalSongs, type }) => {
                             <DiskImg 
                                 playing={isPlayingId(disk.id)} 
                                 id={isPlayingId(disk.id) ? '' : 'diskImg'}
-                                style={{ background: `url(${disk.snippet.thumbnails.medium.url}) no-repeat center/177.5%`}} 
-                                alt='disk image'
-                                >
+                                style={{ 
+                                    background: `url(${disk.thumbnails.medium.url}) no-repeat center/177.5%`
+                                }}
+                            >
                                 <CenterHole/>
                             </DiskImg>
                         	<section>
-                        		<DiskTitle>{disk.snippet.title}</DiskTitle>
-                        		<DiskTotalTime>{disk.contentDetails.duration}</DiskTotalTime>
+                        		<DiskTitle>{disk.title}</DiskTitle>
+                        		<DiskTotalTime>{disk.duration}</DiskTotalTime>
                         	</section>
                         </Disk>
                     )

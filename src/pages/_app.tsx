@@ -9,7 +9,7 @@ import {
   ReactPlayerComp
 } from 'components';
 
-import PlayerProvider from 'common/contexts/providers/Player-provider';
+import { PlayerProvider } from 'common/contexts/providers/Player-provider';
 import PlaylistProvider from 'common/contexts/providers/Playlist-provider';
 
 import { GlobalStyle } from '../styles/GlobalStyle';

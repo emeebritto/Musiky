@@ -1,5 +1,4 @@
 import React from 'react';
-import { AppProps } from 'next/app';
 import Link from 'next/link';
 
 import { usePlayerContext } from 'common/contexts/Player';
@@ -12,14 +11,32 @@ import PausedAnim from 'assets/playingCompAnim.jsx';
 import { BoxIconPLayHover, MusicOptionBox, BoxImgMusic, 
 BoxNumMusic, NumMusic, DataMusic, Titles, MusicTitle, ChannelName, MusicTime} from './musicListStyles';
 
+interface MusicListProps {
+    list: Array<{
+        id: string;
+        thumbnails: {
+            medium: {
+                url: string;
+            }
+        };
+        title: string;
+        artists: Array<string>;
+        duration: string;
+    }>;
+    listId: string;
+}
 
-const MusicList: React.FC<AppProps> = ({ list, listId }) => {
+const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
 
     const { prop, load } = usePlayerContext();
     const { isPlayingIndex } = usePlaylistContext();
 
 
-    const clickOnMusic = (targetIndex, targetList, playlistId) => {
+    const clickOnMusic = (
+        targetIndex: number,
+        targetList: Array<MusicListProps["list"]>,
+        playlistId: string
+    ): void => {
         load(targetIndex, targetList, playlistId);
     }
 

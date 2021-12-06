@@ -18,6 +18,7 @@ export const istatic = {
 
     search_Icon: ()=> `${BaseUrl}icons/search_white_24dp.svg`,
     branding: ()=> `${BaseUrl}imgs/branding/branding_Musiky.png`,
+    EME_branding: ()=> `${BaseUrl}imgs/branding/MyPersonalLogo.png`,
     homeIcon: ()=> `${BaseUrl}icons/home_white_24dp.svg`,
     exploreIcon: ()=> `${BaseUrl}icons/explore_white_24dp.svg`,
     libraryIcon: ()=> `${BaseUrl}icons/video_library_white_24dp.svg`,

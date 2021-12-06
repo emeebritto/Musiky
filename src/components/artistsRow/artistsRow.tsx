@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AppProps } from 'next/app';
 import Link from 'next/link';
 import Styled from "styled-components";
 
@@ -86,8 +85,11 @@ const ArtistsProfile = Styled.section`
 
 `
 
+interface ArtistRowProps {
+    maxResult: number;
+}
 
-const ArtistsRow: React.FC<AppProps> = ({ maxResult }) => {
+const ArtistsRow: React.FC<ArtistRowProps> = ({ maxResult }) => {
 
     const [artists, setArtists] = useState([])
 
@@ -107,8 +109,7 @@ const ArtistsRow: React.FC<AppProps> = ({ maxResult }) => {
             <TitleAndBtnExplore>
                 <TitleSection>Artists</TitleSection>
                 <BtnField>
-                    <Link 
-                        tabIndex='1' 
+                    <Link
                         href='/artists'>
                         <BtnFindOthers>Find Others</BtnFindOthers>
                     </Link>

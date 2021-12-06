@@ -1,5 +1,4 @@
 import React from "react";
-import { AppProps } from 'next/app';
 import Link from 'next/link';
 import Styled from "styled-components";
 
@@ -74,15 +73,28 @@ const BrnFollow = Styled.button`
     }
 `
 
+interface ArtistCardProps {
+    artist: {
+        name: string;
+        images: Array<{
+            url: string;
+        }>;
+        followers: {
+            total: number;
+        }
+    };
+    index: number;
+}
 
-const ArtistCard: React.FC<AppProps> = ({ artist, index=0 }) => {
+
+const ArtistCard: React.FC<ArtistCardProps> = ({ artist, index=0 }) => {
 
     return (
         <Link 
             href={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`}>
             <Artist>
                 <ArtistImg
-                    src={artist.images.length ? artist.images[1].url : false}
+                    src={artist.images.length ? artist.images[1].url : ''}
                     alt={`${artist.name} img`}/>
                 <ArtistName>{artist.name}</ArtistName>
                 <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>

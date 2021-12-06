@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { AppProps } from 'next/app';
 import Styled from "styled-components";
 
 import { msk_get } from 'api';
@@ -44,7 +43,7 @@ const MusicListWrapper = Styled.section`
 `
 
 
-const BoxQuickPicks: React.FC<AppProps> = () => {
+const BoxQuickPicks: React.FC = () => {
 
     const [musicList, setMusicList] = useState([]);
     const [id, setId] = useState('');

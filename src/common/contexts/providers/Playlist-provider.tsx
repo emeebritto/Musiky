@@ -1,6 +1,21 @@
 import React, { createContext, useState } from 'react';
 
-export const PlaylistContext = createContext()
+
+export interface PlaylistContextData {
+	playingIndex: number;
+	setPlayingIndex: (s: number) => void;
+	musiclist: Array<{}>;
+	setMusiclist: (s: Array<{}>) => void;
+	playlistId: string;
+	setPlaylistId: (s: string) => void;
+	playlistLoop: boolean;
+	setPlaylistLoop: (s: boolean | (s: boolean) => boolean) => void;
+	playListShuffle: boolean;
+	setPlayListShuffle: (s: boolean | (s: boolean) => boolean) => void;
+}
+
+
+export const PlaylistContext = createContext<PlaylistContextData>()
 PlaylistContext.displayName = 'Playlist'
 
 export default function PlaylistProvider({ children }){

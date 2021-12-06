@@ -1,9 +1,43 @@
 import React, { createContext, useState } from 'react';
 
-export const PlayerContext = createContext();
+
+export interface PlayerContextData {
+	ref: {
+		playerRef: any;
+	};
+	music: { id: string; } | null;
+	setMusic: (s: {} | null) => void;
+	playing: boolean;
+	setPlaying: (s: boolean | ((s: boolean) => boolean)) => void;
+	volume: number;
+	setVolume: (s: number) => void;
+	lastVolume: number;
+	setLastVolume: (s: number) => void;
+	showLyrics: boolean;
+	setShowLyrics: (s: boolean | ((s: boolean) => boolean)) => void;
+	loop: boolean;
+	setLoop: (s: boolean | ((s: boolean) => boolean)) => void;
+	currentTime: number;
+	setCurrentTime: (s: number) => void;
+	duration: number;
+	setDuration: (s: number) => void;
+	seeking : boolean;
+	setSeeking: (s: boolean) => void;
+	buffer: boolean;
+	setBuffer: (s: boolean) => void;
+	muted: boolean;
+	setMuted: (s: boolean) => void;
+}
+
+interface LayoutProps {
+	children: React.ReactNode;
+}
+
+
+export const PlayerContext = createContext<PlayerContextData>({} as PlayerContextData);
 PlayerContext.displayName = 'Player';
 
-export default function PlayerProvider({ children }){
+export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [music, setMusic] = useState(null);
 	const [playing, setPlaying] = useState(true);

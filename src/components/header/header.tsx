@@ -4,8 +4,7 @@ import Link from 'next/link';
 
 import Styled from 'styled-components';
 
-import Profile from "assets/img/MyPersonalLogo.png";
-import { istatic } from "api/istatic";
+import { istatic } from 'api/istatic';
 
 const HeaderBranding = Styled.img`
     width: 110px;
@@ -25,9 +24,17 @@ const HeaderContainer = Styled.header`
     align-items: center;
     width: 97vw;
     height: 9vh;
-    box-shadow: ${(props) => (props.lyrics ? "inset 0px 40px 40px rgb(0 0 0 /75%)" : "inset 0px 60px 60px rgb(0 0 0 /50%)")};
-    backdrop-filter: ${(props) => (props.lyrics ? "blur( 3.5px )" : "blur( 0px )")};
-    -webkitBackdrop-filter: ${(props) => (props.lyrics ? "blur( 3.5px )" : "blur( 0px )")};
+    box-shadow: ${(props: {lyrics: boolean}) => (
+        props.lyrics 
+            ? "inset 0px 40px 40px rgb(0 0 0 /75%)" 
+            : "inset 0px 60px 60px rgb(0 0 0 /50%)"
+    )};
+    backdrop-filter: ${(props: {lyrics: boolean}) => (
+        props.lyrics ? "blur( 3.5px )" : "blur( 0px )"
+    )};
+    -webkitBackdrop-filter: ${(props: {lyrics: boolean}) => (
+        props.lyrics ? "blur( 3.5px )" : "blur( 0px )"
+    )};
 
     @media(max-width: 670px) {
         padding-top: 0.5vh;
@@ -62,13 +69,8 @@ const UserName = Styled.p`
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `
 
-
-const Header: React.FC<AppProps> = ({ loadingStates }) => {
+const Header: React.FC<AppProps> = () => {
     const [lyricsMode, setLyricsMode] = useState(false);
-
-    const lyricsMode_header = ({showLyrics}) => {
-        setLyricsMode(showLyrics);
-    }
 
     return(
         <HeaderContainer lyrics={lyricsMode}>
@@ -76,7 +78,7 @@ const Header: React.FC<AppProps> = ({ loadingStates }) => {
                 <HeaderBranding src={istatic.branding()}  alt="musiky branding"/>
             </Link>
             <ProfileField>
-                <ProfileImg src={Profile} alt="perfilePhoto"/>
+                <ProfileImg src={istatic.EME_branding()} alt="perfilePhoto"/>
                 <UserName>Emerson_Britto</UserName>
             </ProfileField>
         </HeaderContainer>
