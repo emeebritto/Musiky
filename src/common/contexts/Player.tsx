@@ -1,29 +1,7 @@
 import React, { useContext } from 'react';
-
+import { EventTarget, SyntheticEvent, Music } from 'common/types';
 import { PlayerContext } from './providers/Player-provider';
 import { usePlaylistContext } from './Playlist';
-
-
-interface EventTarget {
-    addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-    dispatchEvent(evt: Event): boolean;
-    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
-}
-
-interface SyntheticEvent {
-    bubbles: boolean;
-    cancelable: boolean;
-    currentTarget: EventTarget;
-    defaultPrevented: boolean;
-    eventPhase: number;
-    isTrusted: boolean;
-    nativeEvent: Event;
-    preventDefault(): void;
-    stopPropagation(): void;
-    target: EventTarget;
-    timeStamp: Date;
-    type: string;
-}
 
 
 export function usePlayerContext(){
@@ -65,7 +43,7 @@ export function usePlayerContext(){
 
 	const load = (
         playIndex: number,
-        list: Array<{}>,
+        list: Array<Music>,
         playlistId: string | undefined = undefined
     ): void => {
 
@@ -93,7 +71,7 @@ export function usePlayerContext(){
 
     const nextMusic = (action: number): void => {
 
-    	let hasMusic = changeMusic(action);
+    	let hasMusic: Music | null = changeMusic(action);
 
     	if(!hasMusic){
     		setPlaying(false);
@@ -157,8 +135,9 @@ export function usePlayerContext(){
         setCurrentTime(parseFloat(target.value));
     }
 
-    const isPlayingId = (id: string): boolean | void => {
+    const isPlayingId = (id: string): boolean => {
         if(music) return id === music.id
+        return false;
     }
 
     return {

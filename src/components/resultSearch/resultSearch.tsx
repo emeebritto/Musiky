@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { AppProps } from 'next/app';
-import { useRouter } from 'next/router';
+import { withRouter, NextRouter } from 'next/router';
 import Styled from 'styled-components';
+import { ArtistDataProps } from 'common/types';
 
 import { msk_get } from 'api';
 
@@ -34,24 +35,25 @@ const Hr = Styled.hr`
 	opacity: 20%;
 `
 
-const ResultSearch: React.FC<AppProps> = () => {
+interface WithRouterProps {
+  router: NextRouter;
+}
 
-	const [searchTop, setSearchTop] = useState({});
+const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
+
+	const [searchTop, setSearchTop] = useState<ArtistDataProps>({} as ArtistDataProps);
 	const [artists, setArtists] = useState([]);
 	const [musics, setMusics] = useState([]);
 
 	const [requestId, setRequestId] = useState('');
 
-    const router = useRouter();
-    let { q } = router.query;
+    let q: string = String(router.query.q);
 
 
     useEffect(() => {
 
         async function getData() {
             let res = await msk_get('search', { q });
-
-            console.log(res);
 
             setSearchTop(res.searchTop);
             setArtists(res.artists);
@@ -84,4 +86,4 @@ const ResultSearch: React.FC<AppProps> = () => {
 	);
 }
 
-export default ResultSearch;
+export default withRouter(ResultSearch);

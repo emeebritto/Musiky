@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
+import { PlaylistProps } from 'common/types';
 
 import * as S from 'styles/pages/playlistStyles';
 
@@ -76,8 +78,10 @@ const CircleOption = Styled.img`
     width: 25px;
     height: 25px;
     padding: 12px;
-    background-color: ${(props)=> (props.active ? "rgb(255 255 255 / 30%)" : "rgb(255 255 255 / 10%)")};
-    border: ${(props)=> (props.active ? "1px" : "0px")} solid gray;
+    background-color: ${(props: {active?: boolean})=> (
+        props.active ? "rgb(255 255 255 / 30%)" : "rgb(255 255 255 / 10%)"
+    )};
+    border: ${(props: {active?: boolean})=> (props.active ? "1px" : "0px")} solid gray;
     cursor: pointer;
     margin-bottom: 15px;
     transition: 300ms;
@@ -95,8 +99,18 @@ const OthersData = Styled.section`
     }
 `
 
+interface PlaylistPageProp {
+    playlist: PlaylistProps;
+}
 
-const Playlist: NextPage = ({ playlist }) => {
+interface DurationOrPLaying {
+    duration: string;
+    index: number;
+}
+
+const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
+
+    const { infors, list=[] } = playlist;
 
     const { prop, load } = usePlayerContext();
 
@@ -110,11 +124,12 @@ const Playlist: NextPage = ({ playlist }) => {
 
     const router = useRouter();
     
-    let id = router.query.id;
+    let id: string = router.query.id ? String(router.query.id) : '';
 
 
     useEffect(()=>{
         if(!playlist) router.push('/404');
+        return
     },[router])
 
   
@@ -138,7 +153,7 @@ const Playlist: NextPage = ({ playlist }) => {
     }
 
     //Component:
-    function BoxDurationOrPLayingNow({duration, index}){
+    const BoxDurationOrPLayingNow: React.FC<DurationOrPLaying> = ({duration, index}) =>{
 
         let iconPlaying = <img src={istatic.icon_playing()} alt="playingNow"/>
         let durationComp = <p className="MusicTime">{duration}</p>
@@ -153,26 +168,26 @@ const Playlist: NextPage = ({ playlist }) => {
 
     return (
         <>
-        {playlist.infors &&
+        {infors &&
         <ViewPort>
             <Wrapper>
                 <S.PlaylistInfor>
                     <S.BackIcon onClick={()=> router.back()} src={istatic.backPage()} alt='back'/>
 
-                    <S.PlayListImg src={playlist.infors.img} alt="PlayList Img"/>
+                    <S.PlayListImg src={infors.img} alt="PlayList Img"/>
                     <OthersData>
-                        <S.PlaylistTitle>{playlist.infors.title}</S.PlaylistTitle>
-                        <S.PlaySubTitle>{playlist.infors.length} Musics</S.PlaySubTitle>
+                        <S.PlaylistTitle>{infors.title}</S.PlaylistTitle>
+                        <S.PlaySubTitle>{infors.length} Musics</S.PlaySubTitle>
                         <PlaylistOptions>
                             <CircleOptionComponent/>
                         </PlaylistOptions>
                     </OthersData>
                 </S.PlaylistInfor>
                 <S.MusicList>
-                {playlist.list.map((music, i) => {
+                {list.map((music, i) => {
                     return (
                         <S.BoxMusic hoverOff={isPlayingIndex(id, i)} 
-                                    onClick={() => load(i, playlist.list, id)} 
+                                    onClick={() => load(i, list, id)} 
                                     key={music.id}
                                     >
                             <S.BoxNumMusic>
@@ -224,7 +239,8 @@ export default Playlist
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
-    let playlist = await msk_get('playlist', { id: context.params.id });
+    let id: string | string[] | undefined = context?.params?.id;
+    let playlist = await msk_get('playlist', { id });
 
     return {
         props: { playlist }, // will be passed to the page component as props

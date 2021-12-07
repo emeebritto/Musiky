@@ -86,7 +86,9 @@ export const BoxMusic = Styled.section`
         background-color: rgb(255 255 255 / 4%);
     }
     :hover .iconPlayHover {
-        display: ${(props)=> (props.hoverOff ? 'none' : 'inline-block')};
+        display: ${(props: {hoverOff: boolean})=> (
+            props.hoverOff ? 'none' : 'inline-block'
+        )};
     }
     :hover .MusicTime {
         display: none;

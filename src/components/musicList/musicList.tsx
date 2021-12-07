@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Music } from 'common/types';
 
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
@@ -12,18 +13,13 @@ import { BoxIconPLayHover, MusicOptionBox, BoxImgMusic,
 BoxNumMusic, NumMusic, DataMusic, Titles, MusicTitle, ChannelName, MusicTime} from './musicListStyles';
 
 interface MusicListProps {
-    list: Array<{
-        id: string;
-        thumbnails: {
-            medium: {
-                url: string;
-            }
-        };
-        title: string;
-        artists: Array<string>;
-        duration: string;
-    }>;
+    list: Array<Music>;
     listId: string;
+}
+
+interface DurationOrPLaying {
+    duration: string;
+    index: number;
 }
 
 const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
@@ -34,14 +30,14 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
 
     const clickOnMusic = (
         targetIndex: number,
-        targetList: Array<MusicListProps["list"]>,
+        targetList: Array<Music>,
         playlistId: string
     ): void => {
         load(targetIndex, targetList, playlistId);
     }
 
     //Component:
-    function BoxDurationOrPLayingNow({duration, index}){
+    const BoxDurationOrPLayingNow: React.FC<DurationOrPLaying> = ({duration, index}) => {
 
         var iconPlaying = <img src={istatic.icon_playing()} alt="playingNow"/>;
         var durationComp = <p className="MusicTime">{duration}</p>;

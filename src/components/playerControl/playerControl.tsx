@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppProps } from 'next/app';
+import { EventTarget, SyntheticEvent } from 'common/types';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -9,7 +9,7 @@ import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, Sect
 MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
 VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from './playerStyles';
 
-const PlayerControl: React.FC<AppProps> = () => {
+const PlayerControl: React.FC = () => {
 
     const {
         prop,
@@ -25,35 +25,39 @@ const PlayerControl: React.FC<AppProps> = () => {
     } = usePlayerContext();
 
 
-    const handlePlayPause = e => {
+    const handlePlayPause = (e: React.SyntheticEvent<EventTarget>): void => {
         e.stopPropagation();
         onPlayAndPause();
     }
 
-    const nextAndBack_Music = (e, action) => {
+    const nextAndBack_Music = (
+        e: React.SyntheticEvent<EventTarget>,
+        action: number
+    ): void => {
         e.stopPropagation();
         nextMusic(action);
     }
 
-    const handlelyrics = () => {
+    const handlelyrics = (): void => {
         toggleLyrics();
     }
 
-    const handlelyricsMobile = e => {
+    const handlelyricsMobile = (e: React.SyntheticEvent<EventTarget>): void => {
         if(window.innerWidth < 570){
             toggleLyrics();
         }
     }
 
-    const handleLoop = () => {
+    const handleLoop = (): void => {
         toggleLoop();
     }
 
-    const handleVolumeChange = e => {
-        changeVolumeTo(parseFloat(e.target.value));
+    const handleVolumeChange = (e: React.SyntheticEvent<EventTarget>): void => {
+        let target = e.target as HTMLInputElement;
+        changeVolumeTo(parseFloat(target.value));
     }
 
-    const handleToggleMuted = () => {
+    const handleToggleMuted = (): void => {
         toggleMuted();
     }
 
@@ -91,7 +95,7 @@ const PlayerControl: React.FC<AppProps> = () => {
 
 
                     <MusicSubTitle>
-                        {prop.music.artist}
+                        {prop.music.artists}
                     </MusicSubTitle>
                 </SectionTitles>
             </MusicInfor>}
@@ -103,7 +107,7 @@ const PlayerControl: React.FC<AppProps> = () => {
                         <IconPlay src={istatic.iconBack()} alt="Back Music" />
                     </BtnPlayerControl>
 
-                    {prop.buffer 
+                    {prop.buffer
                         ? <Loading src={istatic.musicLoading()} alt='loading'/> 
                         : <BtnPlayAndPause/>}
 

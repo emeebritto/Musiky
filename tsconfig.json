@@ -5,7 +5,6 @@
     "paths": {
       "components": ["components"],
       "common": ["common"],
-      "scripts": ["scripts"],
       "api": ["api"],
       "assets": ["assets"]
     },

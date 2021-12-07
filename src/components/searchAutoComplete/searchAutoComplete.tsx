@@ -40,7 +40,15 @@ const Option = Styled.a`
 	}
 `
 
-const SearchAutoComplete: React.FC<AppProps> = ({ autoComplete, updateField }) => {
+interface AutoCompleteProps {
+	autoComplete: Array<string>;
+	updateField: (s: string) => void;
+}
+
+const SearchAutoComplete: React.FC<AutoCompleteProps> = ({
+	autoComplete,
+	updateField
+}) => {
 
     const router = useRouter();
 
@@ -48,10 +56,8 @@ const SearchAutoComplete: React.FC<AppProps> = ({ autoComplete, updateField }) =
 		<OptionsCompleteSearch>
 			{autoComplete.map((option, index) =>{
 				return(
-					<Link
-						onClick={()=> updateField(option)} 
-						href={`${router.route}q=${option.replaceAll(' ', '-')}`}>
-						<Option>
+					<Link href={`${router.route}q=${option.replaceAll(' ', '-')}`}>
+						<Option onClick={()=> updateField(option)}>
 							{option}
 						</Option>
 					</Link>

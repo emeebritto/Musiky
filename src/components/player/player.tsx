@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { AppProps } from 'next/app';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -29,7 +28,7 @@ const Blocker = Styled.section`
     height: 100%;
 `
 
-const ReactPlayerComp: React.FC<AppProps> = () => {
+const ReactPlayerComp: React.FC = () => {
 
     const {
         ref,
@@ -54,14 +53,14 @@ const ReactPlayerComp: React.FC<AppProps> = () => {
     return (
         <ViewPort style={{ width: prop.showLyrics? '100vw': '0vw' }}>
             <VideoPlayer
-                ref={reactPlayer => ref.playerRef = reactPlayer}
+                ref={(reactPlayer: HTMLDivElement) => ref.playerRef = reactPlayer}
                 playing={prop.playing}
                 volume={prop.volume}
                 loop={prop.loop}
                 onPlay={() => onPlayAndPause(true)}
                 onPause={() => onPlayAndPause(false)}
-                onProgress={time => changeCurrentTimeTo(time.played)}
-                onDuration={duration =>  handleDuration(duration)}
+                onProgress={(time: {played: number}) => changeCurrentTimeTo(time.played)}
+                onDuration={(duration: number) =>  handleDuration(duration)}
                 onBuffer={() => onBuffer(true)}
                 onBufferEnd={() => onBuffer(false)}
                 onEnded={() => nextMusic(1)}

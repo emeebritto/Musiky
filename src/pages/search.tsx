@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GetServerSideProps } from 'next';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
@@ -13,8 +14,6 @@ import {
     SearchAutoComplete,
     ResultSearch
 } from 'components';
-
-import viewportBackground from 'assets/img/background-musiky-search.png';
 
 
 const ViewPort = Styled.section`
@@ -57,7 +56,7 @@ const SearchField = Styled.section`
         right: 0;
         bottom: 0;
         display: block;
-        background: url(${viewportBackground}) center;
+        background: url(${istatic.classicDisc_darkfilter()}) center;
         transform-origin: center center 0;
         transform: translateZ(-1px) scale(2);
         z-index: -1;
@@ -167,12 +166,15 @@ const Suggestion = Styled.p`
     }
 `
 
+interface SearchPageProp {
+    suggestions: Array<string>;
+}
 
-const Search: NextPage = ({ suggestions }) => {
+const Search: NextPage<SearchPageProp> = ({ suggestions }) => {
 
 
     const [inputSearch, setInputSearch] = useState('');
-    const [autoComplete, setAutoComplete] = useState(null);
+    const [autoComplete, setAutoComplete] = useState([]);
 
 
     const router = useRouter();
@@ -180,12 +182,12 @@ const Search: NextPage = ({ suggestions }) => {
     let { q } = router.query;
 
 
-    const updateField = option => {
+    const updateField = (option: string): void => {
         setInputSearch(option)
         setAutoComplete([])
     }
 
-    const filterSearch = async (value) => {
+    const filterSearch = async (value: string): Promise<void> => {
 
         if (value.length > 1) {
             setAutoComplete(await msk_get('inputAutoComplete', {input: value, maxResult: 8}))
@@ -215,8 +217,9 @@ const Search: NextPage = ({ suggestions }) => {
                         name="seach" 
                         value={inputSearch} 
                         onInput={e => {
-                            setInputSearch(e.target.value)
-                            filterSearch(e.target.value)
+                            let target = e.target as HTMLInputElement;
+                            setInputSearch(target.value)
+                            filterSearch(target.value)
                         }} 
                         placeholder="Artists & Songs"/>
 
@@ -236,10 +239,9 @@ const Search: NextPage = ({ suggestions }) => {
                     {suggestions.map((suggestion, index) => {
                         return (
                             <Link
-                                onClick={()=>{updateField(suggestion)}}
                                 href={`${router.route}?q=${suggestion.replace(/ /g, '-')}`}
                                 key={index}>
-                                <Suggestion>
+                                <Suggestion onClick={()=>{updateField(suggestion)}}>
                                     {suggestion}
                                 </Suggestion>
                             </Link>

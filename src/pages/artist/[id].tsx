@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import Link from 'next/link';
 import Styled from "styled-components";
+import { ArtistDataProps, Music, PlaylistProps } from 'common/types';
 import { msk_get } from 'api';
 import { istatic } from "api/istatic";
 
 import { formatValues } from 'common/scripts/formatNum';
-
+import { usePlayerContext } from 'common/contexts/Player';
 import { MusicList } from 'components';
 
 
@@ -138,10 +139,25 @@ export const PlaylistWrapper = Styled.section`
     }   
 `
 
+interface ArtistPageProps {
+    resAPI: {
+        artistData: ArtistDataProps;
+        musics: Array<Music>;
+        playlists: Array<PlaylistProps>;
+        requestId: string;
+    }
+}
 
-const Artist: NextPage = ({ resAPI }) => {
+const Artist: NextPage<ArtistPageProps> = ({ resAPI }) => {
+
+    const { load } = usePlayerContext();
 
     const {artistData, musics, playlists, requestId} = resAPI;
+
+    const startList = async(playlistId: string): Promise<void> => {
+        let playlist = await msk_get('playlist', { id: playlistId });
+        load(0, playlist.list, playlistId);
+    }
 
     return (
         <ViewPort>
@@ -150,7 +166,7 @@ const Artist: NextPage = ({ resAPI }) => {
                     <ArtistImg 
                         src={artistData.images.length 
                             ? artistData.images[1].url 
-                            : false} 
+                            : undefined} 
                         alt='NULL' />
                     <ArtistData>
                         <ArtistName>{artistData.name}</ArtistName>
@@ -210,7 +226,8 @@ export default Artist
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
-    let resAPI = await msk_get('artist', { q: context.params.id });
+    let q: string | string[] | undefined = context?.params?.id;
+    let resAPI = await msk_get('artist', { q });
 
     return {
         props: { resAPI }, // will be passed to the page component as props

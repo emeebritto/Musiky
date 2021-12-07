@@ -1,5 +1,4 @@
 import React from "react";
-import { AppProps } from 'next/app';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
@@ -30,9 +29,15 @@ const OptionsBox = Styled.section`
 `
 const IconOption = Styled.img`
     width: 25px;
-    opacity: ${(props) => (props.active ? "100%" : "60%")};
-    background-color: rgb(255 255 255 / ${(props) => (props.active ? "15%" : "0%")});
-    box-shadow: 0px 0px 18px rgb(255 255 255 / ${(props) => (props.active ? "40%" : "0%")});
+    opacity: ${(props: {active: boolean}) => (
+        props.active ? "100%" : "60%"
+    )};
+    background-color: rgb(255 255 255 / ${(props: {active: boolean}) => (
+        props.active ? "15%" : "0%"
+    )});
+    box-shadow: 0px 0px 18px rgb(255 255 255 / ${(props: {active: boolean}) => (
+        props.active ? "40%" : "0%"
+    )});
     margin-bottom: 3px;
 `
 
@@ -56,7 +61,7 @@ const Bottom = Styled.section`
 `
 
 
-const NavBar: React.FC<AppProps> = ({ loadingStates }) => {
+const NavBar: React.FC = () => {
 
     const { pathname } = useRouter();
 

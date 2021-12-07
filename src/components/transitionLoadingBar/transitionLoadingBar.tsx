@@ -1,5 +1,4 @@
 import React from 'react'
-import { AppProps } from 'next/app';
 
 import Styled from "styled-components";
 
@@ -9,7 +8,7 @@ const ViewPort = Styled.section`
 	height: 0.3vh;
 	background-color: white;
 	transition: 800ms;
-    animation: ${(props) => (props.loading ? "start-loading 15s forwards" : "end-loading 1s")};
+    animation: ${(props: {loading: boolean}) => (props.loading ? "start-loading 15s forwards" : "end-loading 1s")};
 
 	@keyframes start-loading {
 		0% {
@@ -36,7 +35,14 @@ const ViewPort = Styled.section`
 	}
 `
 
-const TransitionLoadingBar: React.FC<AppProps> = ({ loadingStates }) => {
+interface LoadingBarProps {
+	loadingStates: {
+		values: Array<{contentLoaded: boolean}>;
+		setPageLoadingBar: (s: {loadingBar: boolean, contentLoaded: boolean}) => void;
+	}
+}
+
+const TransitionLoadingBar: React.FC<LoadingBarProps> = ({ loadingStates }) => {
 
 	const [splash, pageLoadingBar] = loadingStates.values
 

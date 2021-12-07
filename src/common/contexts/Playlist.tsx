@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-
+import { Music } from 'common/types';
 import { PlaylistContext } from './providers/Playlist-provider';
 
 
@@ -24,16 +24,17 @@ export function usePlaylistContext(){
 
 	const startPlaylist = (
 		playingIndex: number,
-		playlistId: string,musicList: Array<{}>
+		playlistId: string,
+		musicList: Array<Music>
 	) => {
 		setPlayingIndex(playingIndex);
 		setPlaylistId(playlistId);
 		setMusiclist(musicList);
 	}
 
-	const changeMusic = (action: number): null | {} => {
+	const changeMusic = (action: number): null | Music => {
 
-		if(!musiclist) return false
+		if(!musiclist) return null;
 
 	    setPlayingIndex(playListShuffle
                 ? ~~(Math.random() * musiclist.length - 1)
@@ -52,7 +53,7 @@ export function usePlaylistContext(){
             }
         }
 
-        return playlistFinished ? null : musiclist[playingIndex + action]
+        return playlistFinished ? null : musiclist[playingIndex + action];
 	}
 
 

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import Styled from 'styled-components'
-
-import { msk_get } from "api";
+import { Music } from 'common/types';
+import { msk_get } from 'api';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -95,23 +95,12 @@ interface DiskLibraryProps {
     type: string;
 }
 
-interface DisksListProps {
-    id: string;
-    thumbnails: {
-        medium: {
-            url: string;
-        }
-    };
-    title: string;
-    duration: string;
-}
-
 
 const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, totalSongs, type }) => {
 
     const { load, isPlayingId } = usePlayerContext();
 
-	const [disksList, setDisksList] = useState<Array<DisksListProps>>([]);
+	const [disksList, setDisksList] = useState<Array<Music>>([]);
 
 
     useEffect(() => {

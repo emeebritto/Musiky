@@ -22,7 +22,9 @@ export const MusicOptionBox = Styled.section`
     }
 
     :hover .iconPlayHover {
-        display: ${(props)=> (props.hoverOff ? "none" : "inline-block")};
+        display: ${(props: {hoverOff: boolean}) => (
+            props.hoverOff ? "none" : "inline-block"
+        )};
     }
     :hover .MusicTime {
         display: none;

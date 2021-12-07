@@ -14,9 +14,15 @@ export const ViewPort = styled.main`
     justify-content: space-around;
     width: 96vw;
     height: 10vh;
-    box-shadow: inset 0px ${(props)=> (props.lyrics ? "-40px 50px" : "-50px 40px")} rgb(0 0 0 /75%);
-    backdrop-filter: blur( ${(props)=> (props.lyrics ? "3.5px" : "0px")});
-    -webkitBackdrop-filter: blur( ${(props)=> (props.lyrics ? "3.5px" : "0px")});
+    box-shadow: inset 0px ${(props: {lyrics: boolean}) => (
+        props.lyrics ? "-40px 50px" : "-50px 40px"
+    )} rgb(0 0 0 /75%);
+    backdrop-filter: blur( ${(props: {lyrics: boolean}) => (
+        props.lyrics ? "3.5px" : "0px"
+    )});
+    -webkitBackdrop-filter: blur( ${(props: {lyrics: boolean}) => (
+        props.lyrics ? "3.5px" : "0px"
+    )});
 
     @media(max-width: 570px) {
         height: 8vh;
@@ -138,7 +144,9 @@ export const BtnsBackPlayNext = styled.section`
 `
 
 export const BtnPlayerControl = styled.button`
-    background-color: ${(props)=> (props.play ? "white" : "transparent")};
+    background-color: ${(props: {play?: boolean}) => (
+        props.play ? "white" : "transparent"
+    )};
     border: none;
     width:36px;
     height: 36px;
@@ -148,7 +156,9 @@ export const BtnPlayerControl = styled.button`
 
     :hover {
         cursor: pointer;
-        background-color: rgb(255 255 255/${(props)=> (props.play ? "70%" : "0%")});
+        background-color: rgb(255 255 255/${(props: {play?: boolean}) => (
+            props.play ? "70%" : "0%"
+        )});
     }
 
     @media(max-width: 1070px) {
@@ -239,16 +249,20 @@ export const BtnIconVolume = styled(BtnPlayerControl)`
 `
 
 export const BtnLyrics = styled(BtnIconVolume)`
-    opacity: ${(props)=> (props.lyrics ? "100%" : "60%")};
-    filter: drop-shadow(0px 0px ${(props)=> (props.lyrics ? "8px" : "0px")} gray);
+    opacity: ${(props: {lyrics: boolean}) => (props.lyrics ? "100%" : "60%")};
+    filter: drop-shadow(0px 0px ${(props: {lyrics: boolean}) => (
+        props.lyrics ? "8px" : "0px"
+    )} gray);
     :hover {
         opacity: 100%;
     }
 `
 
 export const BtnRepeat = styled(BtnIconVolume)`
-    opacity: ${(props) => (props.loop ? "100%" : "60%")};
-    filter: drop-shadow(0px 0px ${(props)=> (props.loop ? "8px" : "0px")} gray);
+    opacity: ${(props: {loop: boolean}) => (props.loop ? "100%" : "60%")};
+    filter: drop-shadow(0px 0px ${(props: {loop: boolean}) => (
+        props.loop ? "8px" : "0px"
+    )} gray);
     :hover {
         opacity: 100%;
     }

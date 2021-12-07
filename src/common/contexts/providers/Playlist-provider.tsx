@@ -1,28 +1,20 @@
 import React, { createContext, useState } from 'react';
+import { Music } from 'common/types';
+import { PlaylistContextData } from 'common/types';
 
 
-export interface PlaylistContextData {
-	playingIndex: number;
-	setPlayingIndex: (s: number) => void;
-	musiclist: Array<{}>;
-	setMusiclist: (s: Array<{}>) => void;
-	playlistId: string;
-	setPlaylistId: (s: string) => void;
-	playlistLoop: boolean;
-	setPlaylistLoop: (s: boolean | (s: boolean) => boolean) => void;
-	playListShuffle: boolean;
-	setPlayListShuffle: (s: boolean | (s: boolean) => boolean) => void;
+export const PlaylistContext = createContext<PlaylistContextData>({} as PlaylistContextData);
+PlaylistContext.displayName = 'Playlist';
+
+interface LayoutProps {
+	children: React.ReactNode;
 }
 
-
-export const PlaylistContext = createContext<PlaylistContextData>()
-PlaylistContext.displayName = 'Playlist'
-
-export default function PlaylistProvider({ children }){
+export const PlaylistProvider: React.FC<LayoutProps> = ({ children }) => {
 	
-	const [playingIndex, setPlayingIndex] = useState(null);
+	const [playingIndex, setPlayingIndex] = useState(0);
 	const [playlistId, setPlaylistId] = useState('');
-	const [musiclist, setMusiclist] = useState('');
+	const [musiclist, setMusiclist] = useState<Array<Music>>([]);
 	const [playlistLoop, setPlaylistLoop] = useState(false);
 	const [playListShuffle, setPlayListShuffle] = useState(false);
 

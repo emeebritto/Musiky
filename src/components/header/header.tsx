@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { AppProps } from 'next/app';
 import Link from 'next/link';
 
 import Styled from 'styled-components';
@@ -69,7 +68,7 @@ const UserName = Styled.p`
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `
 
-const Header: React.FC<AppProps> = () => {
+const Header: React.FC = () => {
     const [lyricsMode, setLyricsMode] = useState(false);
 
     return(

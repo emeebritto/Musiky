@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage } from 'next';
 import Styled from "styled-components";
+import { Music } from 'common/types';
 
 import { MusicList } from 'components';
 
@@ -42,9 +43,10 @@ const LoadNewZone = Styled.section`
 
 const AllMusics: NextPage = () => {
 
-    const [musicList, setMusicList] = useState([]);
-    const [secondColumn, setSecondColumn] = useState([]);
+    const [musicList, setMusicList] = useState<Array<Music>>([]);
+    const [secondColumn, setSecondColumn] = useState<Array<Music>>([]);
     const [page, setPage] = useState(1);
+    const ref = useRef<HTMLDivElement | null>(null);
 
     let id = 'allCol100';
     let secondId = 'allCol200';
@@ -54,26 +56,28 @@ const AllMusics: NextPage = () => {
 
         async function getData() {
             let res = await allMusic({ page });
-            let firstPoint = res.items.length / 2;
-            let endPoint = res.items.length;
+            let firstPoint: number = res.items.length / 2;
+            let endPoint: number = res.items.length;
 
-            let newList = [...res.items].splice(0, firstPoint);
-            let newSecondColumn = [...res.items].splice(firstPoint, endPoint);
+            let newList: Music[] = [...res.items].splice(0, firstPoint);
+            let newSecondColumn: Music[] = [...res.items].splice(firstPoint, endPoint);
 
 
-            setMusicList((musicList) => [...musicList, ...newList]);
-            setSecondColumn((secondColumn) => [...secondColumn, ...newSecondColumn]);
+            setMusicList((musicList: Array<Music>) => [...musicList, ...newList]);
+            setSecondColumn((secondColumn: Array<Music>) => [...secondColumn, ...newSecondColumn]);
         }
         getData()
     },[page]);
 
     useEffect(() => {
+        const node = ref?.current // DOM Ref
+        if (!node) return
         const intersectionObserver = new IntersectionObserver(entries => {
             if (entries.some(entry => entry.isIntersecting)) {
                 setPage((currentValue) => currentValue + 1);
             }
         })
-        intersectionObserver.observe(document.querySelector('#LoadNewZone'));
+        intersectionObserver.observe(node);
 
         return () => intersectionObserver.disconnect();
     }, []);
@@ -89,7 +93,7 @@ const AllMusics: NextPage = () => {
                     <MusicList list={secondColumn} listId={secondId}/>
                 </MusicListWrapper>
             </Wrapper>
-            <LoadNewZone id='LoadNewZone'/>
+            <LoadNewZone ref={ref}/>
         </ViewPort>
     )
 }
