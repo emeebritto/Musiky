@@ -23,6 +23,11 @@ const ArtistImg = Styled.img`
     width: 155px;
     height: 155px;
     margin-bottom: 15px;
+    transition: 500ms;
+
+    :hover {
+        border: 2px solid purple;
+    }
 
     @media(max-width: 545px) {
         width: 125px;

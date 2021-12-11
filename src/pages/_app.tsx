@@ -18,7 +18,7 @@ import { GlobalStyle } from '../styles/GlobalStyle';
 const ViewPort = Styled.section` 
   position: relative;
   background-color: rgb(0 0 0 /95%);
-  overflow: scroll;
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
     ::-webkit-scrollbar {

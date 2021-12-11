@@ -228,6 +228,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let q: string | string[] | undefined = context?.params?.id;
     let resAPI = await msk_get('artist', { q });
+    console.log(resAPI);
 
     return {
         props: { resAPI }, // will be passed to the page component as props

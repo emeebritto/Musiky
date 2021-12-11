@@ -1,4 +1,4 @@
-const devENV = false;
+const devENV = true;
 
 const prodAPI = 'https://cdn-istatics.herokuapp.com/static/';
 const devAPI = 'http://localhost:9872/static/';
@@ -15,6 +15,7 @@ export const istatic = {
     iconLoop: ()=> `${BaseUrl}icons/loop_white_24dp.svg`,
     iconShare: ()=> `${BaseUrl}icons/share_white_24dp.svg`,
     iconCommunity: () => `${BaseUrl}icons/groups_white_24dp.svg`,
+    iconAccount: () => `${BaseUrl}icons/account_circle_white_24dp.svg`,
 
     search_Icon: ()=> `${BaseUrl}icons/search_white_24dp.svg`,
     branding: ()=> `${BaseUrl}imgs/branding/branding_Musiky.png`,

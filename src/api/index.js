@@ -1,4 +1,4 @@
-const devENV = false;
+const devENV = true;
 
 const prodAPI = 'https://api-musiky.herokuapp.com';
 const devAPI = 'http://localhost:9874';

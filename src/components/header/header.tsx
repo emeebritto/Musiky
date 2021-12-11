@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
+import { DataStorage } from 'common/storage';
 
 import Styled from 'styled-components';
 
@@ -21,7 +22,7 @@ const HeaderContainer = Styled.header`
     z-index: 3;
     justify-content: space-between;
     align-items: center;
-    width: 97vw;
+    width: 96.5vw;
     height: 9vh;
     box-shadow: ${(props: {lyrics: boolean}) => (
         props.lyrics 
@@ -46,13 +47,13 @@ const ProfileField = Styled.section`
     align-items: center;
     color: #fff;
     margin-right: 30px;
-    border-radius: 18px;
+    border-radius: 12px;
     background-color: #0A090E;
     cursor: pointer;
 `
 
 const ProfileImg = Styled.img`
-    border-radius: 50px;
+    border-radius: 40%;
     width: 40px;
     height: 40px;
 
@@ -68,18 +69,46 @@ const UserName = Styled.p`
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `
 
+const SignInBtn = Styled.button`
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1em;
+    background-color: transparent;
+    border: 1px solid #ABAFB2;
+    padding: 5px 12px;
+    margin-right: 30px;
+    cursor: pointer;
+`
+
+const AccountIcon = Styled.img`
+    margin-right: 5px;
+`
+
 const Header: React.FC = () => {
     const [lyricsMode, setLyricsMode] = useState(false);
+
+    const redirectLogin = () => {
+        window.location.href = "https://account-infinity.vercel.app";
+    }
 
     return(
         <HeaderContainer lyrics={lyricsMode}>
             <Link href='/'>
                 <HeaderBranding src={istatic.branding()}  alt="musiky branding"/>
             </Link>
-            <ProfileField>
-                <ProfileImg src={istatic.EME_branding()} alt="perfilePhoto"/>
-                <UserName>Emerson_Britto</UserName>
-            </ProfileField>
+            {DataStorage.hasToken() &&
+                <ProfileField>
+                    <ProfileImg src={istatic.EME_branding()} alt="perfilePhoto"/>
+                    <UserName>Emerson_Britto</UserName>
+                </ProfileField>
+            }
+            {!DataStorage.hasToken() &&
+                <SignInBtn onClick={()=> redirectLogin()}>
+                    <AccountIcon src={istatic.iconAccount()} alt='account icon' />
+                    SIGN IN
+                </SignInBtn>
+            }
         </HeaderContainer>
     )
 }
