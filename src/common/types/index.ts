@@ -101,3 +101,12 @@ export interface PlaylistContextData {
     playListShuffle: boolean;
     setPlayListShuffle: (s: boolean | ((s: boolean) => boolean)) => void;
 }
+
+export interface AccountContextData {
+    auth: string;
+    setAuth: (s: string) => void;
+    displayName: string;
+    setDisplayName: (s: string) => void;
+    profileImg: string;
+    setProfileImg: (s: string) => void;
+}

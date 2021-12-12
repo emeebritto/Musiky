@@ -11,6 +11,7 @@ import {
 
 import { PlayerProvider } from 'common/contexts/providers/Player-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
+import { AccountProvider } from 'common/contexts/providers/Account-provider';
 
 import { GlobalStyle } from '../styles/GlobalStyle';
 
@@ -35,18 +36,20 @@ const Main = Styled.section`
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ViewPort>
-      <PlaylistProvider>
-        <PlayerProvider>
-          <GlobalStyle/>
-          <NavBar/>
-          <Main>
-            <ReactPlayerComp/>
-            <Header/> 
-            <Component {...pageProps} />
-            <PlayerControl/>
-          </Main>
-        </PlayerProvider>
-      </PlaylistProvider>
+      <AccountProvider>
+        <PlaylistProvider>
+          <PlayerProvider>
+            <GlobalStyle/>
+            <NavBar/>
+            <Main>
+              <ReactPlayerComp/>
+              <Header/> 
+              <Component {...pageProps} />
+              <PlayerControl/>
+            </Main>
+          </PlayerProvider>
+        </PlaylistProvider>
+      </AccountProvider>
     </ViewPort>
   )
 }

@@ -181,7 +181,6 @@ const Search: NextPage<SearchPageProp> = ({ suggestions }) => {
 
     let { q } = router.query;
 
-
     const updateField = (option: string): void => {
         setInputSearch(option)
         setAutoComplete([])

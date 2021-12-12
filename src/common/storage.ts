@@ -27,7 +27,9 @@ export class DataStorage {
   }
 
   static setToken(token: string): void {
-    localStorage.setItem(tokenSlotName, JSON.stringify(token));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(tokenSlotName, JSON.stringify(token));
+    }
   }
 
   static hasToken(): boolean {

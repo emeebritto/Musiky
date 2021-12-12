@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
-import { DataStorage } from 'common/storage';
+import { useRouter } from 'next/router';
+import { ShortCutUrl } from 'common/shortcutUrl';
+
+import { useAccountContext } from 'common/contexts/Account';
 
 import Styled from 'styled-components';
 
@@ -86,10 +89,18 @@ const AccountIcon = Styled.img`
 `
 
 const Header: React.FC = () => {
+
+    const { props, hasAccount } = useAccountContext();
+
     const [lyricsMode, setLyricsMode] = useState(false);
 
+    const router = useRouter();
+
     const redirectLogin = () => {
-        window.location.href = "https://account-infinity.vercel.app";
+        //let after = ShortCutUrl.codeUrl(`https://web-musiky.vercel.app${router.pathname}`);
+        let after = ShortCutUrl.codeUrl(`http://localhost:3000${router.pathname}`);
+        //window.location.href = `https://account-infinity.vercel.app?after=${after}`;
+        window.location.href = `http://localhost:8080/sso?after=${after}`;
     }
 
     return(
@@ -97,13 +108,13 @@ const Header: React.FC = () => {
             <Link href='/'>
                 <HeaderBranding src={istatic.branding()}  alt="musiky branding"/>
             </Link>
-            {DataStorage.hasToken() &&
+            {hasAccount() &&
                 <ProfileField>
                     <ProfileImg src={istatic.EME_branding()} alt="perfilePhoto"/>
-                    <UserName>Emerson_Britto</UserName>
+                    <UserName>{props.displayName}</UserName>
                 </ProfileField>
             }
-            {!DataStorage.hasToken() &&
+            {!hasAccount() &&
                 <SignInBtn onClick={()=> redirectLogin()}>
                     <AccountIcon src={istatic.iconAccount()} alt='account icon' />
                     SIGN IN
