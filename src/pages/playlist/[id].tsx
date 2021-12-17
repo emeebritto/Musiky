@@ -93,6 +93,7 @@ const CircleOption = Styled.img`
 
 const OthersData = Styled.section`
     text-align: center;
+    margin: 10px 0;
 
     @media(max-width: 1075px) { 
         margin-right: 60px;
@@ -178,6 +179,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                     <OthersData>
                         <S.PlaylistTitle>{infors.title}</S.PlaylistTitle>
                         <S.PlaySubTitle>{infors.length} Musics</S.PlaySubTitle>
+                        <S.PlaySubTitle>Duration: {infors.totalDuration}</S.PlaySubTitle>
                         <PlaylistOptions>
                             <CircleOptionComponent/>
                         </PlaylistOptions>

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
+import ReactPlayer from 'react-player';
+import Styled from 'styled-components';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
-import ReactPlayer from 'react-player';
-import Styled from 'styled-components';
 
 const ViewPort = Styled.section`
     position: fixed;
@@ -68,6 +68,7 @@ const ReactPlayerComp: React.FC = () => {
                 url={`https://www.youtube-nocookie.com/embed/${prop.music ? prop.music.id : ''}`}
                 width='100vw'
                 height='100vh'
+                hidden
                 config={{
                     youtube: {
                       playerVars: { showinfo: 0, autoplay: 1, controls: 0 }

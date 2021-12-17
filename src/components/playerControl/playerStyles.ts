@@ -12,7 +12,7 @@ export const ViewPort = styled.main`
     z-index: 3;
     bottom: 0vh;
     justify-content: space-around;
-    width: 96vw;
+    width: 96.5vw;
     height: 10vh;
     box-shadow: inset 0px ${(props: {lyrics: boolean}) => (
         props.lyrics ? "-40px 50px" : "-50px 40px"
@@ -122,8 +122,10 @@ export const MusicTitleInControl = styled(MusicTitle)`
 `
 
 export const MusicSubTitle = styled.p`
+    display: flex;
     font-size: 0.9em;
-    color: rgb(255 255 255/ 70%);
+    opacity: 0.7;
+    color: #fff;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 

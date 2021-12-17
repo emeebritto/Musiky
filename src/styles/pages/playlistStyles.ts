@@ -127,8 +127,9 @@ export const BoxIconPLayHover = Styled.img`
 `
 
 export const PlaySubTitle = Styled(PlaylistTitle)`
-    color: #C4C4C4;
-    font-size: 1.1em;
+    color: #fff;
+    opacity: 0.7;
+    font-size: 1em;
 `
 export const ChannelName = Styled.a`
     text-decoration: none;

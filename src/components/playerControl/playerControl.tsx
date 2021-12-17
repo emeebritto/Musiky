@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
 
 import { usePlayerContext } from 'common/contexts/Player';
@@ -95,7 +96,19 @@ const PlayerControl: React.FC = () => {
 
 
                     <MusicSubTitle>
-                        {prop.music.artists}
+                        {prop.music.artists.map((artist, index) => {
+                            let space='';
+                            if(index > 0){ space = ',  ' }
+                            return(
+                                <Link 
+                                    href={`/artist/${artist.replace(/\W/g, '-')}`}
+                                    key={index}>
+                                    <p onClick={(e)=>{e.stoMusicSubTitlePropagation()}}>
+                                        {space + artist}
+                                    </p>
+                                </Link>
+                            )
+                        })}
                     </MusicSubTitle>
                 </SectionTitles>
             </MusicInfor>}
