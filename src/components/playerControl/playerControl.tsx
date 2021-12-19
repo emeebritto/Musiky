@@ -100,13 +100,9 @@ const PlayerControl: React.FC = () => {
                             let space='';
                             if(index > 0){ space = ',  ' }
                             return(
-                                <Link 
-                                    href={`/artist/${artist.replace(/\W/g, '-')}`}
-                                    key={index}>
-                                    <p onClick={(e)=>{e.stoMusicSubTitlePropagation()}}>
-                                        {space + artist}
-                                    </p>
-                                </Link>
+                                <p key={index}>
+                                    {space + artist}
+                                </p>
                             )
                         })}
                     </MusicSubTitle>

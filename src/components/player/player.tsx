@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/youtube';
 import Styled from 'styled-components';
 
 import { usePlayerContext } from 'common/contexts/Player';
