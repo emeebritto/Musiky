@@ -27,17 +27,7 @@ const HeaderContainer = Styled.header`
     align-items: center;
     width: 96.5vw;
     height: 9vh;
-    box-shadow: ${(props: {lyrics: boolean}) => (
-        props.lyrics 
-            ? "inset 0px 40px 40px rgb(0 0 0 /75%)" 
-            : "inset 0px 60px 60px rgb(0 0 0 /50%)"
-    )};
-    backdrop-filter: ${(props: {lyrics: boolean}) => (
-        props.lyrics ? "blur( 3.5px )" : "blur( 0px )"
-    )};
-    -webkitBackdrop-filter: ${(props: {lyrics: boolean}) => (
-        props.lyrics ? "blur( 3.5px )" : "blur( 0px )"
-    )};
+    box-shadow: inset 0px 60px 60px rgb(0 0 0 /50%);
 
     @media(max-width: 670px) {
         padding-top: 0.5vh;
@@ -92,8 +82,6 @@ const Header: React.FC = () => {
 
     const { props, hasAccount } = useAccountContext();
 
-    const [lyricsMode, setLyricsMode] = useState(false);
-
     const router = useRouter();
 
     const redirectLogin = () => {
@@ -104,7 +92,7 @@ const Header: React.FC = () => {
     }
 
     return(
-        <HeaderContainer lyrics={lyricsMode}>
+        <HeaderContainer>
             <Link href='/'>
                 <HeaderBranding src={istatic.branding()}  alt="musiky branding"/>
             </Link>

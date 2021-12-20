@@ -59,7 +59,9 @@ const ReactPlayerComp: React.FC = () => {
                 loop={prop.loop}
                 onPlay={() => onPlayAndPause(true)}
                 onPause={() => onPlayAndPause(false)}
-                onProgress={(time: {played: number}) => changeCurrentTimeTo(time.played)}
+                onProgress={(time: {played: number, playedSeconds: number}) => {
+                    changeCurrentTimeTo(time.played, time.playedSeconds)
+                }}
                 onDuration={(duration: number) =>  handleDuration(duration)}
                 onBuffer={() => onBuffer(true)}
                 onBufferEnd={() => onBuffer(false)}

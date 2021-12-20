@@ -102,6 +102,15 @@ export interface PlaylistContextData {
     setPlayListShuffle: (s: boolean | ((s: boolean) => boolean)) => void;
 }
 
+export interface LyricContextData {
+    Lyric: {};
+    setLyric: (s: {}) => void;
+    currentLine: string;
+    setCurrentLine: (s: string) => void;
+    showLyrics: boolean;
+    setShowLyrics: (s: boolean | ((s: boolean) => boolean)) => void;
+}
+
 export interface AccountContextData {
     auth: string;
     setAuth: (s: string) => void;

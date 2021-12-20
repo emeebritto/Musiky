@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
 
 import { usePlayerContext } from 'common/contexts/Player';
+import { useLyricContext } from 'common/contexts/Lyric';
 
 import { istatic } from "api/istatic";
 
@@ -16,7 +17,6 @@ const PlayerControl: React.FC = () => {
         prop,
         onPlayAndPause,
         nextMusic,
-        toggleLyrics,
         toggleLoop,
         handleSeekMouseUp,
         handleSeekMouseDown,
@@ -24,6 +24,8 @@ const PlayerControl: React.FC = () => {
         changeVolumeTo,
         toggleMuted
     } = usePlayerContext();
+
+    const { lyricProp, toggleLyrics } = useLyricContext();
 
 
     const handlePlayPause = (e: React.SyntheticEvent<EventTarget>): void => {
@@ -79,8 +81,7 @@ const PlayerControl: React.FC = () => {
     }
 
     return (
-        <ViewPort 
-            lyrics={prop.showLyrics}
+        <ViewPort
             onClick={e =>{handlelyricsMobile(e)}}
             style={{ display: `${prop.music ? '' : 'none'}`}}
             >
@@ -136,7 +137,7 @@ const PlayerControl: React.FC = () => {
 
             <OtherSetting>
 
-                <BtnLyrics lyrics={prop.showLyrics} onClick={()=> handlelyrics()}>
+                <BtnLyrics lyrics={lyricProp.showLyrics} onClick={()=> handlelyrics()}>
                     <img src={istatic.iconLyric()} alt="Lyric" />
                 </BtnLyrics>
 

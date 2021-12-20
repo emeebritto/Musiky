@@ -18,6 +18,7 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [showLyrics, setShowLyrics] = useState(false);
 	const [loop, setLoop] = useState(false);
 	const [currentTime, setCurrentTime] = useState(0);
+	const [currentTimeSeconds, setCurrentTimeSeconds] = useState(0);
 	const [duration, setDuration] = useState(0);
 	const [seeking, setSeeking] = useState(false);
 	const [buffer, setBuffer] = useState(false);
@@ -44,6 +45,8 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 			setLoop,
 			currentTime,
 			setCurrentTime,
+	        currentTimeSeconds,
+	        setCurrentTimeSeconds,
 			duration,
 			setDuration,
 			seeking,

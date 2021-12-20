@@ -6,10 +6,12 @@ import {
   Header, 
   NavBar, 
   PlayerControl,
-  ReactPlayerComp
+  ReactPlayerComp,
+  LirycScreen
 } from 'components';
 
 import { PlayerProvider } from 'common/contexts/providers/Player-provider';
+import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
 import { AccountProvider } from 'common/contexts/providers/Account-provider';
 
@@ -38,16 +40,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <ViewPort>
       <AccountProvider>
         <PlaylistProvider>
-          <PlayerProvider>
-            <GlobalStyle/>
-            <NavBar/>
-            <Main>
-              <ReactPlayerComp/>
-              <Header/> 
-              <Component {...pageProps} />
-              <PlayerControl/>
-            </Main>
-          </PlayerProvider>
+          <LyricProvider>
+            <PlayerProvider>
+              <GlobalStyle/>
+              <NavBar/>
+              <Main>
+                <LirycScreen/>
+                <ReactPlayerComp/>
+                <Header/> 
+                <Component {...pageProps} />
+                <PlayerControl/>
+              </Main>
+            </PlayerProvider>
+          </LyricProvider>
         </PlaylistProvider>
       </AccountProvider>
     </ViewPort>

@@ -13,3 +13,4 @@ export { default as DiskLibrary } from './diskLibrary';
 export { default as NavBar } from './navBar';
 export { default as SearchAutoComplete } from './searchAutoComplete';
 export { default as ResultSearch } from './resultSearch';
+export { default as LirycScreen } from './lirycScreen';

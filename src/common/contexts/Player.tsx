@@ -16,12 +16,12 @@ export function usePlayerContext(){
 		setVolume,
 		lastVolume,
 		setLastVolume,
-		showLyrics,
-		setShowLyrics,
 		loop,
 		setLoop,
 		currentTime,
 		setCurrentTime,
+        currentTimeSeconds,
+        setCurrentTimeSeconds,
 //		duration,
 		setDuration,
 		seeking,
@@ -81,22 +81,13 @@ export function usePlayerContext(){
         setMusic(hasMusic);
     }
 
-    const toggleLyrics = (changeTo: boolean =false): void => {
-
-        if(changeTo) {
-            setShowLyrics(changeTo);
-            return
-        };
-
-        setShowLyrics((showLyrics: boolean) => !showLyrics);
-    }
-
     const toggleLoop = (): void => {
     	setLoop((loop: boolean) => !loop);
     }
 
-    const changeCurrentTimeTo = (value: number): void => {
-    	if (!seeking) setCurrentTime(value);
+    const changeCurrentTimeTo = (timeFloat: number, timeSeconds: number): void => {
+        setCurrentTimeSeconds(timeSeconds.toFixed(0));
+    	if (!seeking) setCurrentTime(timeFloat);
     }
 
     const handleDuration = (duration: number): void => {
@@ -150,13 +141,12 @@ export function usePlayerContext(){
             buffer,
             playing,
             currentTime,
-            showLyrics
+            currentTimeSeconds
         },
     	load,
     	onBuffer,
     	onPlayAndPause,
     	nextMusic,
-    	toggleLyrics,
     	toggleLoop,
         handleSeekMouseUp,
         handleSeekMouseDown,

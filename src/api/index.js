@@ -19,7 +19,7 @@ const pathsList = {
     suggestionArtists: ({maxResult})=> `/search/search-suggestions?total=${maxResult}`,
     inputAutoComplete: ({input, maxResult})=> `/search/auto-complete?input=${input}&maxResult=${maxResult}`,
     search: ({q})=> `/search/${q}`,
-    greeting: ()=> `/greeting`
+    greeting: ()=> `/greeting`,
 };
 
 export const msk_get = async (pathName, argsObj ={}, options ={})=> {
@@ -45,5 +45,14 @@ export const allMusic = async ({ page }) => {
     let OPTIONS = {};
 
     try { return fetch(URL , OPTIONS).then(res=> res.json()) }
+    catch(error) { alert(error) }
+};
+
+export const getLyric = async ({ title, artistRef }) => {
+
+    let URL =  devENV ? istatic_LOCAL_URL : istaticURL;
+    let OPTIONS = {};
+
+    try { return fetch(URL + `music/lyric?title=${title}&artistRef=${artistRef}` , OPTIONS).then(res=> res.json()) }
     catch(error) { alert(error) }
 };
