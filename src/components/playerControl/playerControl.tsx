@@ -136,10 +136,10 @@ const PlayerControl: React.FC = () => {
             </PlayerControlPainel>
 
             <OtherSetting>
-
+                {lyricProp.hasLyric &&
                 <BtnLyrics lyrics={lyricProp.showLyrics} onClick={()=> handlelyrics()}>
                     <img src={istatic.iconLyric()} alt="Lyric" />
-                </BtnLyrics>
+                </BtnLyrics>}
 
                 <BtnRepeat loop={prop.loop} onClick={()=>{handleLoop()}}>
                     <img src={istatic.iconRepeat()} alt="Repeat" />

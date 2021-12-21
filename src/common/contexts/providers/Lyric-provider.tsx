@@ -14,6 +14,7 @@ export const LyricProvider: React.FC<LayoutProps> = ({ children }) => {
     const [Lyric, setLyric] = useState({});
     const [currentLine, setCurrentLine] = useState('waiting for the best moment..');
     const [showLyrics, setShowLyrics] = useState(false);
+    const [hasLyric, setHasLyric] = useState(false);
 
 	return (
 		<LyricContext.Provider value={{
@@ -22,7 +23,9 @@ export const LyricProvider: React.FC<LayoutProps> = ({ children }) => {
 			currentLine,
 			setCurrentLine,
 			showLyrics,
-			setShowLyrics
+			setShowLyrics,
+	        hasLyric,
+	        setHasLyric
 		}}>
 			{ children }
 		</LyricContext.Provider>
