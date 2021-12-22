@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 
 import { usePlayerContext } from 'common/contexts/Player';
@@ -67,13 +67,14 @@ const ReactPlayerComp: React.FC = () => {
                 onBufferEnd={() => onBuffer(false)}
                 onEnded={() => nextMusic(1)}
                 onError={() => nextMusic(1)}
-                url={`https://www.youtube-nocookie.com/embed/${prop.music ? prop.music.id : ''}`}
+                url={`https://musiky-listen.herokuapp.com/${prop.music ? prop.music.id : ''}`}
                 width='100vw'
                 height='100vh'
                 hidden
                 config={{
-                    youtube: {
-                      playerVars: { showinfo: 0, autoplay: 1, controls: 0 }
+                    file: {
+                      attributes: { autoPlay: 1, controls: 0 },
+                      forceAudio: true
                     }
                 }}
             />
@@ -83,3 +84,5 @@ const ReactPlayerComp: React.FC = () => {
 }
 
 export default ReactPlayerComp;
+
+//https://www.youtube-nocookie.com/embed/
