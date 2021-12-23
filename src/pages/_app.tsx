@@ -38,23 +38,23 @@ const Main = Styled.section`
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ViewPort>
-      <AccountProvider>
-        <PlaylistProvider>
-          <LyricProvider>
+      <GlobalStyle/>
+      <NavBar/>
+      <Main>
+        <AccountProvider>
+          <PlaylistProvider>
             <PlayerProvider>
-              <GlobalStyle/>
-              <NavBar/>
-              <Main>
+              <LyricProvider>
                 <LirycScreen/>
                 <ReactPlayerComp/>
                 <Header/> 
                 <Component {...pageProps} />
                 <PlayerControl/>
-              </Main>
+              </LyricProvider>
             </PlayerProvider>
-          </LyricProvider>
-        </PlaylistProvider>
-      </AccountProvider>
+          </PlaylistProvider>
+        </AccountProvider>
+      </Main>
     </ViewPort>
   )
 }

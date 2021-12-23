@@ -52,32 +52,34 @@ const ReactPlayerComp: React.FC = () => {
 
     return (
         <ViewPort style={{ width: prop.showLyrics? '100vw': '0vw' }}>
-            <VideoPlayer
-                ref={(reactPlayer: HTMLDivElement) => ref.playerRef = reactPlayer}
-                playing={prop.playing}
-                volume={prop.volume}
-                loop={prop.loop}
-                onPlay={() => onPlayAndPause(true)}
-                onPause={() => onPlayAndPause(false)}
-                onProgress={(time: {played: number, playedSeconds: number}) => {
-                    changeCurrentTimeTo(time.played, time.playedSeconds)
-                }}
-                onDuration={(duration: number) =>  handleDuration(duration)}
-                onBuffer={() => onBuffer(true)}
-                onBufferEnd={() => onBuffer(false)}
-                onEnded={() => nextMusic(1)}
-                onError={() => nextMusic(1)}
-                url={`https://musiky-listen.herokuapp.com/${prop.music ? prop.music.id : ''}`}
-                width='100vw'
-                height='100vh'
-                hidden
-                config={{
-                    file: {
-                      attributes: { autoPlay: 1, controls: 0 },
-                      forceAudio: true
-                    }
-                }}
-            />
+            {prop.music &&
+                <VideoPlayer
+                    ref={(reactPlayer: HTMLDivElement) => ref.playerRef = reactPlayer}
+                    playing={prop.playing}
+                    volume={prop.volume}
+                    loop={prop.loop}
+                    onPlay={() => onPlayAndPause(true)}
+                    onPause={() => onPlayAndPause(false)}
+                    onProgress={(time: {played: number, playedSeconds: number}) => {
+                        changeCurrentTimeTo(time.played, time.playedSeconds)
+                    }}
+                    onDuration={(duration: number) =>  handleDuration(duration)}
+                    onBuffer={() => onBuffer(true)}
+                    onBufferEnd={() => onBuffer(false)}
+                    onEnded={() => nextMusic(1)}
+                    onError={() => nextMusic(1)}
+                    url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
+                    width='100vw'
+                    height='100vh'
+                    hidden
+                    config={{
+                        file: {
+                          attributes: { autoPlay: 1, controls: 0 },
+                          forceAudio: true
+                        }
+                    }}
+                />
+            }
             <Blocker/>
         </ViewPort >
     )

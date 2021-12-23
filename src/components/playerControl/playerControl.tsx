@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
 
@@ -7,9 +8,11 @@ import { useLyricContext } from 'common/contexts/Lyric';
 
 import { istatic } from "api/istatic";
 
-import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, SectionTitles, MusicTitleInControl, 
-MusicSubTitle, BtnsBackPlayNext, BtnPlayerControl, IconPlay, Loading, DurationSlider, 
-VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat } from './playerStyles';
+import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, 
+    SectionTitles, MusicTitleInControl, MusicSubTitle, BtnsBackPlayNext, 
+    BtnPlayerControl, IconPlay, Loading, DurationSlider, MusicTimeCounter, MusicTimeTotal, 
+    VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat
+} from './playerStyles';
 
 const PlayerControl: React.FC = () => {
 
@@ -62,6 +65,35 @@ const PlayerControl: React.FC = () => {
 
     const handleToggleMuted = (): void => {
         toggleMuted();
+    }
+
+    const fromSecondsToTime = (secondsRaw) => {
+        let sec_num = parseInt(secondsRaw, 10);
+        let hours   = Math.floor(sec_num / 3600);
+        let minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        let seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours   < 10) {hours   = 0 + hours;}
+        if (minutes < 10) {minutes = "0" + minutes;}
+        if (seconds < 10) {seconds = "0" + seconds;}
+        return `${(hours ? (hours + ':') : '') + minutes + ':' + seconds}`;
+    }
+
+    function download(){
+        axios({
+            url:`https://musiky-listen.herokuapp.com/${prop.music ? prop.music.id : ''}`,
+            method:'GET',
+            responseType: 'blob'
+        })
+        .then((response) => {
+            const url = window.URL
+                .createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${prop.music.title}.mp3`);
+            document.body.appendChild(link);
+            link.click();
+        })
     }
 
 
@@ -119,13 +151,21 @@ const PlayerControl: React.FC = () => {
 
                     {prop.buffer
                         ? <Loading src={istatic.musicLoading()} alt='loading'/> 
-                        : <BtnPlayAndPause/>}
+                        : <BtnPlayAndPause/>
+                    }
 
                     <BtnPlayerControl onClick={e => {nextAndBack_Music(e, 1)}}>
                         <IconPlay src={istatic.iconNext()} alt="Next Music" />
                     </BtnPlayerControl>
                 </BtnsBackPlayNext>
-                
+
+                <MusicTimeCounter>
+                    {fromSecondsToTime(prop.currentTimeSeconds)}
+                </MusicTimeCounter>
+                <MusicTimeTotal>
+                    {fromSecondsToTime(prop.duration)}
+                </MusicTimeTotal>
+
                 <DurationSlider
                     type='range' min={0} max={0.999999} step='any' 
                     value={prop.currentTime}

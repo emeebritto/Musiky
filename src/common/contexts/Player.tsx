@@ -22,7 +22,7 @@ export function usePlayerContext(){
 		setCurrentTime,
         currentTimeSeconds,
         setCurrentTimeSeconds,
-//		duration,
+		duration,
 		setDuration,
 		seeking,
 		setSeeking,
@@ -141,7 +141,8 @@ export function usePlayerContext(){
             buffer,
             playing,
             currentTime,
-            currentTimeSeconds
+            currentTimeSeconds,
+            duration
         },
     	load,
     	onBuffer,

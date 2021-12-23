@@ -143,12 +143,13 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                     src={istatic.iconRandom()} 
                     alt="Shuffle"/>
                 <CircleOption active={playlistInfor.playlistLoop} 
-                    onClick={() => togglePlaylistLoop()} 
+                    onClick={() => togglePlaylistLoop()}
                     src={istatic.iconLoop()} 
                     alt="playlist loop"/>
-                <CircleOption 
-                    src={istatic.iconShare()} 
-                    alt="share playlist"/>
+                <CircleOption
+                    onClick={() => alert('available, yet..')}
+                    src={istatic.more_horiz()} 
+                    alt="more playlist options"/>
             </>
         )
     }

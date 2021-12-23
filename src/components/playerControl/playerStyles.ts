@@ -46,6 +46,7 @@ export const MusicInfor = styled(flex_Section)`
     }
 `
 export const PlayerControlPainel = styled(flex_Section)`
+    position: relative;
     justify-content: center;
     width: 40%;
     flex-direction: column;
@@ -167,6 +168,22 @@ export const Loading = styled.img`
     bottom: 12%;
 `
 
+export const MusicTimeCounter = styled.section`
+    position: absolute;
+    font-size: 0.75em;
+    opacity: 0.8;
+    left: 58px;
+    bottom: 18px;
+`
+
+export const MusicTimeTotal = styled.section`
+    position: absolute;
+    font-size: 0.75em;
+    opacity: 0.8;
+    right: 58px;
+    bottom: 18px;
+`
+
 export const DurationSlider = styled.input`
     -webkit-appearance: none;
     width: 80%;
@@ -174,6 +191,7 @@ export const DurationSlider = styled.input`
     height: 4px;
     border-radius: 5px;
     margin: 0 15px;
+    cursor: pointer;
 
     ::-webkit-slider-thumb{
         -webkit-appearance: none;
