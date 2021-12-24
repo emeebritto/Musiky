@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -10,6 +11,8 @@ import * as S from 'styles/pages/playlistStyles';
 
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
+
+import { PopUp } from 'components';
 
 import { msk_get } from 'api';
 import { istatic } from "api/istatic";
@@ -100,6 +103,59 @@ const OthersData = Styled.section`
     }
 `
 
+const Label = Styled.h2`
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+`
+
+const UrlField = Styled.section`
+    display: flex;
+    margin: 10px 0;
+`
+
+const Input = Styled.input`
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    outline: none;
+    background-color: #020207;
+    border-radius: 8px;
+`
+
+const UrlInput = Styled(Input)`
+    width: 395px;
+`
+
+const DownloadOptionInput = Styled(Input)`
+    width: 375px;
+`
+
+const Btn = Styled.button`
+    border: none;
+    padding: 3px 10px;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 6px;
+`
+
+const CopyBtn = Styled(Btn)`
+    margin: 0 3px;
+    background-color: #181318;
+`
+
+const DownloadBtn = Styled(Btn)`
+    margin: 0 3px;
+    background-color: #020222;
+`
+
+const DownloadOption = Styled.section`
+    margin: 15px 0 0 20px;
+`
+
+const AvailableDownload = Styled.p`
+    opacity: 0.7;
+    margin: 15px 0 0 20px;
+`
+
 interface PlaylistPageProp {
     playlist: PlaylistProps;
 }
@@ -114,6 +170,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
     const { infors, list=[] } = playlist;
 
     const { prop, load } = usePlayerContext();
+    const [showPopUp, setShowPopUp] = useState(false);
 
     const { 
         playlistInfor, 
@@ -130,8 +187,29 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 
     useEffect(()=>{
         if(!playlist) router.push('/404');
-        return
     },[router])
+
+
+    const copyUrl = () => {
+        navigator.clipboard.writeText(location.href).then(()=> alert('copied'))
+    }
+
+    const download = () => {
+        axios({
+            url:`https://musiky-listen.herokuapp.com/${prop.music ? prop.music.id : ''}`,
+            method:'GET',
+            responseType: 'blob'
+        })
+        .then((response) => {
+            const url = window.URL
+                .createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', `${prop.music.artists[0]} - ${prop.music.title}.mp3`);
+            document.body.appendChild(link);
+            link.click();
+        })
+    }
 
   
     //Component:
@@ -147,7 +225,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                     src={istatic.iconLoop()} 
                     alt="playlist loop"/>
                 <CircleOption
-                    onClick={() => alert('available, yet..')}
+                    onClick={() => setShowPopUp(true)}
                     src={istatic.more_horiz()} 
                     alt="more playlist options"/>
             </>
@@ -172,6 +250,56 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
         <>
         {infors &&
         <ViewPort>
+            <PopUp show={showPopUp} onRequestClose={()=> setShowPopUp(false)}>
+                <section>
+                    <Label>Playlist URL:</Label>
+                    <UrlField>
+                        <UrlInput
+                            type='text'
+                            value={typeof window !== 'undefined' ? location.href : ''}
+                            readonly
+                        />
+                        <CopyBtn onClick={()=> copyUrl()}>
+                            <img src={istatic.copyIcon()} alt='copy icon'/>
+                        </CopyBtn>
+                    </UrlField>
+                </section>
+                <section>
+                    <Label>Downloads:</Label>
+                    {prop.music &&
+                        <DownloadOption>
+                            <Label>Playing Now:</Label>
+                            <UrlField>
+                                <DownloadOptionInput
+                                    type='text'
+                                    value={`${prop.music.artists[0]} - ${prop.music.title}`}
+                                    readonly
+                                />
+                                <DownloadBtn onClick={()=> download()}>
+                                    <img src={istatic.downloadIcon()} alt='download icon'/>
+                                </DownloadBtn>
+                            </UrlField>
+                        </DownloadOption>
+                    }
+                    {!prop.music && <AvailableDownload>Available</AvailableDownload>}
+                    {false &&
+                        <DownloadOption>
+                            <Label>All Playlist:</Label>
+                            <UrlField>
+                                <DownloadOptionInput
+                                    type='text'
+                                    value={location.href}
+                                    readonly
+                                />
+                                <DownloadBtn onClick={()=> copyUrl()}>
+                                    <img src={istatic.downloadIcon()} alt='download icon'/>
+                                </DownloadBtn>
+                            </UrlField>                        
+                        </DownloadOption>
+                    }
+
+                </section>
+            </PopUp>
             <Wrapper>
                 <S.PlaylistInfor>
                     <S.BackIcon onClick={()=> router.back()} src={istatic.backPage()} alt='back'/>

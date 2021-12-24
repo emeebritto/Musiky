@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
 
@@ -77,23 +76,6 @@ const PlayerControl: React.FC = () => {
         if (minutes < 10) {minutes = "0" + minutes;}
         if (seconds < 10) {seconds = "0" + seconds;}
         return `${(hours ? (hours + ':') : '') + minutes + ':' + seconds}`;
-    }
-
-    function download(){
-        axios({
-            url:`https://musiky-listen.herokuapp.com/${prop.music ? prop.music.id : ''}`,
-            method:'GET',
-            responseType: 'blob'
-        })
-        .then((response) => {
-            const url = window.URL
-                .createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `${prop.music.title}.mp3`);
-            document.body.appendChild(link);
-            link.click();
-        })
     }
 
 

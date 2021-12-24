@@ -37,6 +37,9 @@ export const istatic = {
     iconVolumeOff: ()=> `${BaseUrl}icons/volume_off_white_24dp.svg`,
     more_horiz: ()=> `${BaseUrl}icons/more_horiz_white_24dp.svg`,
 
+    copyIcon: ()=> `${BaseUrl}icons/content_copy_white_24dp.svg`,
+    downloadIcon: ()=> `${BaseUrl}icons/file_download_white_24dp.svg`,
+
     city: ()=> `${BaseUrl}imgs/city.svg`,
     cellingLight: ()=> `${BaseUrl}imgs/cellingLight.png`
 };

@@ -43,12 +43,17 @@ export function useLyricContext(){
     },[prop.music])
 
     useEffect(()=>{
-        if(!Lyric[prop.currentTimeSeconds]) return
-            console.log(Lyric[prop.currentTimeSeconds]);
-        setCurrentLine(Lyric[prop.currentTimeSeconds])
+        if(Lyric[prop.currentTimeSeconds]) {
+            setCurrentLine(Lyric[prop.currentTimeSeconds])
+        } else if (Lyric[prop.currentTimeSeconds -1]) {
+            setCurrentLine(Lyric[prop.currentTimeSeconds -1])
+        } else if (Lyric[prop.currentTimeSeconds -2]) {
+            setCurrentLine(Lyric[prop.currentTimeSeconds -2])
+        }
     },[prop.currentTimeSeconds])
 
     useEffect(()=>{
+        setShowLyrics(Boolean(Object.keys(Lyric).length));
         setHasLyric(Boolean(Object.keys(Lyric).length));
     },[Lyric])
 
