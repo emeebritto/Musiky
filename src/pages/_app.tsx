@@ -14,8 +14,7 @@ import { PlayerProvider } from 'common/contexts/providers/Player-provider';
 import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
 import { AccountProvider } from 'common/contexts/providers/Account-provider';
-
-import { GlobalStyle } from '../styles/GlobalStyle';
+import { GlobalStyle } from 'common/GlobalStyle';
 
 
 const ViewPort = Styled.section` 

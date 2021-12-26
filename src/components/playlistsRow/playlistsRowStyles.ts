@@ -1,35 +1,6 @@
 import Styled from "styled-components";
 
-export const ViewPort = Styled.section`
-    margin: 40px 0;
-`
 
-export const TitleSection = Styled.h2`
-    color: white;
-    font-size: 1.6em;
-    margin: 0 0 16px 18px;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
-    @media(max-width: 900px) {
-        margin-left: 18px;
-        margin-bottom: 23px;
-    }
-
-    @media(max-width: 545px) {
-        font-size: 1.4em;
-    }
-`
-export const PlaylistWrapper = Styled.section`
-    display: flex;
-    align-items: center;
-    height: 250px;
-    overflow: scroll;
-    margin-bottom: 15px;
-
-    ::-webkit-scrollbar {
-        width: 0;
-    }   
-`
 export const PlayList = Styled.section`
     position: relative;
     display: flex;

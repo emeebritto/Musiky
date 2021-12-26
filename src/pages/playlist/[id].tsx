@@ -12,7 +12,7 @@ import * as S from 'styles/pages/playlistStyles';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 
-import { PopUp } from 'components';
+import { PopUp, MusicList } from 'components';
 
 import { msk_get } from 'api';
 import { istatic } from "api/istatic";
@@ -25,7 +25,6 @@ const ViewPort = Styled.section`
     width: 100%;
     height: 100vh;
 `
-
 const Wrapper = Styled.section`
     display: flex;
     justify-content: flex-end;
@@ -50,7 +49,11 @@ const Wrapper = Styled.section`
         margin-top: 14vh;
     }
 `
-
+const MusicListWrapper = Styled.section`
+    display: flex;
+    flex-direction: column;
+    width: 560px;
+`
 const PlaylistOptions = Styled.section`
     display: none;
     margin-top: 30px;
@@ -60,22 +63,19 @@ const PlaylistOptions = Styled.section`
 
     @media(max-width: 1075px) { display: flex }
 `
-
 const OptionsAside = Styled.aside`
     position: fixed;
     top: 21vh;
-    right: 10%;
+    right: 13%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 50px;
     height: 50%;
 
-    @media(max-width: 1230px) { right: 2.5% }
     @media(max-width: 1075px) { display: none }
 
 `
-
 const CircleOption = Styled.img`
     border-radius: 70px;
     width: 25px;
@@ -93,7 +93,6 @@ const CircleOption = Styled.img`
         background-color: rgb(255 255 255 / 20%);
     }
 `
-
 const OthersData = Styled.section`
     text-align: center;
     margin: 10px 0;
@@ -102,16 +101,13 @@ const OthersData = Styled.section`
         margin-right: 60px;
     }
 `
-
 const Label = Styled.h2`
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
-
 const UrlField = Styled.section`
     display: flex;
     margin: 10px 0;
 `
-
 const Input = Styled.input`
     border: none;
     padding: 5px 10px;
@@ -120,15 +116,12 @@ const Input = Styled.input`
     background-color: #020207;
     border-radius: 8px;
 `
-
 const UrlInput = Styled(Input)`
     width: 395px;
 `
-
 const DownloadOptionInput = Styled(Input)`
     width: 375px;
 `
-
 const Btn = Styled.button`
     border: none;
     padding: 3px 10px;
@@ -136,25 +129,22 @@ const Btn = Styled.button`
     cursor: pointer;
     border-radius: 6px;
 `
-
 const CopyBtn = Styled(Btn)`
     margin: 0 3px;
     background-color: #181318;
 `
-
 const DownloadBtn = Styled(Btn)`
     margin: 0 3px;
     background-color: #020222;
 `
-
 const DownloadOption = Styled.section`
     margin: 15px 0 0 20px;
 `
-
 const AvailableDownload = Styled.p`
     opacity: 0.7;
     margin: 15px 0 0 20px;
 `
+
 
 interface PlaylistPageProp {
     playlist: PlaylistProps;
@@ -266,9 +256,9 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                 </section>
                 <section>
                     <Label>Downloads:</Label>
-                    {prop.music &&
-                        <DownloadOption>
-                            <Label>Playing Now:</Label>
+                    <DownloadOption>
+                        <Label>Playing Now:</Label>
+                        {prop.music &&
                             <UrlField>
                                 <DownloadOptionInput
                                     type='text'
@@ -279,9 +269,9 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                                     <img src={istatic.downloadIcon()} alt='download icon'/>
                                 </DownloadBtn>
                             </UrlField>
-                        </DownloadOption>
-                    }
-                    {!prop.music && <AvailableDownload>Available</AvailableDownload>}
+                        }
+                        {!prop.music && <AvailableDownload>- Available</AvailableDownload>}
+                    </DownloadOption>
                     {false &&
                         <DownloadOption>
                             <Label>All Playlist:</Label>
@@ -307,55 +297,16 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                     <S.PlayListImg src={infors.img} alt="PlayList Img"/>
                     <OthersData>
                         <S.PlaylistTitle>{infors.title}</S.PlaylistTitle>
-                        <S.PlaySubTitle>{infors.length} Musics</S.PlaySubTitle>
+                        <S.PlaySubTitle>{infors.length} • Tracks</S.PlaySubTitle>
                         <S.PlaySubTitle>Duration: {infors.totalDuration}</S.PlaySubTitle>
                         <PlaylistOptions>
                             <CircleOptionComponent/>
                         </PlaylistOptions>
                     </OthersData>
                 </S.PlaylistInfor>
-                <S.MusicList>
-                {list.map((music, i) => {
-                    return (
-                        <S.BoxMusic hoverOff={isPlayingIndex(id, i)} 
-                                    onClick={() => load(i, list, id)} 
-                                    key={music.id}
-                                    >
-                            <S.BoxNumMusic>
-                                <S.NumMusic>{i + 1}.</S.NumMusic>
-                            </S.BoxNumMusic>
-
-                            <S.MusicImg src={music.thumbnails.medium.url} alt="Music img"/>
-
-                            <S.MusicInfor>
-                                <S.MusicTitle>{music.title}</S.MusicTitle>
-                                <section>
-                                    {music.artists.map((artist, i) => {
-                                        let space='';
-                                        if(i > 0){ space = ',  ' }
-                                            
-                                        return(
-                                            <Link
-                                                href={`/artist/${artist.replace(/ /g, '_')}`}
-                                                key={i}>
-                                                <S.ChannelName onClick={e => e.stopPropagation()}>
-                                                    {space + artist}
-                                                </S.ChannelName>
-                                            </Link>
-                                        )
-                                    })}
-                                </section>
-                            </S.MusicInfor>
-
-                            <S.MusicTime>
-                                <BoxDurationOrPLayingNow duration={music.duration} index={i}/>
-                                <S.BoxIconPLayHover className="iconPlayHover" src={istatic.iconPlay()} alt="iconPlay" />
-                            </S.MusicTime>
-
-                        </S.BoxMusic>
-                    )
-                })}
-                </S.MusicList>
+                <MusicListWrapper>
+                    <MusicList list={list} listId={id}/>
+                </MusicListWrapper>
                 <OptionsAside>
                     <CircleOptionComponent/>
                 </OptionsAside>

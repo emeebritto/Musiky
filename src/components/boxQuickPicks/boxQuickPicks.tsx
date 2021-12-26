@@ -34,7 +34,7 @@ const MusicListWrapper = Styled.section`
     flex-wrap: wrap;
     width: 75vw;
     height: 260px;
-    overflow: scroll;
+    overflow-y: hidden;
     margin: 0 auto;
 
     ::-webkit-scrollbar {

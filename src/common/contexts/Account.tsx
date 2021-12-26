@@ -1,10 +1,16 @@
 import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
 import { DataStorage } from 'common/storage';
 import { AccountContext } from './providers/Account-provider';
 
+
+declare module 'jsonwebtoken' {
+    export interface UserTokenProps extends jwt.JwtPayload {
+        userNameINF: string;
+    }
+}
 
 export function useAccountContext(){
 
@@ -30,8 +36,8 @@ export function useAccountContext(){
         if(!auth) {
             setAuth(DataStorage.getToken());
         } else {
-            let { userNameINF } = jwt.decode(auth);
-            setDisplayName(userNameINF);
+            let payload: jwt.UserTokenProps | null = jwt.decode(auth);
+            setDisplayName(payload?.userNameINF);
         }
     },[auth])
 

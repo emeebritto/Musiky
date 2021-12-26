@@ -8,10 +8,9 @@ import { usePlayerContext } from 'common/contexts/Player';
 
 import { istatic } from "api/istatic";
 
+import { VerticalView } from "components";
+
 import {
-    ViewPort, 
-    TitleSection, 
-    PlaylistWrapper, 
     PlayList, 
     BtnPLayHover, 
     BtnPLayHoverImg, 
@@ -48,38 +47,35 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name }) => {
     },[])
     
     return (
-        <ViewPort>
-            <TitleSection>{name}</TitleSection>
-            <PlaylistWrapper>
-                {playListsResume.map((playlist, index) => {
-                    return (
-                        <Link 
-                            href={`/playlist/${playlist.infors.playlistId}`}
-                            key={index}>
-                            <PlayList>
-                            	<PlayListImg 
-                                    id="PlayListImg" 
-                                    src={playlist.infors.img}/>
-                                <BtnPLayHover 
-                                    onClick={e => {
-                                        e.preventDefault()
-                                        e.stopPropagation()
-                                        startList(playlist.infors.playlistId)
-                                    }}
-                                    id="BtnPLayHover">
-                                    <BtnPLayHoverImg src={istatic.iconPlay()} alt="play icon"/>
-                                    <ShadowHover></ShadowHover>
-                                </BtnPLayHover>
-                            	<section>
-                            		<PlayListTitle>{playlist.infors.title}</PlayListTitle>
-                            		<Description>{playlist.infors.length} Musics</Description>
-                            	</section>
-                            </PlayList>
-                        </Link>
-                    )
-                })}
-            </PlaylistWrapper>
-        </ViewPort>
+        <VerticalView viewLabel={name}>
+            {playListsResume.map((playlist, index) => {
+                return (
+                    <Link 
+                        href={`/playlist/${playlist.infors.playlistId}`}
+                        key={index}>
+                        <PlayList>
+                        	<PlayListImg 
+                                id="PlayListImg" 
+                                src={playlist.infors.img}/>
+                            <BtnPLayHover 
+                                onClick={e => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    startList(playlist.infors.playlistId)
+                                }}
+                                id="BtnPLayHover">
+                                <BtnPLayHoverImg src={istatic.iconPlay()} alt="play icon"/>
+                                <ShadowHover></ShadowHover>
+                            </BtnPLayHover>
+                        	<section>
+                        		<PlayListTitle>{playlist.infors.title}</PlayListTitle>
+                        		<Description>{playlist.infors.length} • Tracks</Description>
+                        	</section>
+                        </PlayList>
+                    </Link>
+                )
+            })}
+        </VerticalView>
     )
 }
 
