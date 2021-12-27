@@ -38,7 +38,7 @@ const LirycScreen: React.FC = () => {
     return(
         <>
         {lyricProp.showLyrics &&
-            <ViewPort style={{"background-color": `#000`}}>
+            <ViewPort>
                 <Fade>
                     <Lyrics>{ lyricProp.currentLine }</Lyrics>
                 </Fade>

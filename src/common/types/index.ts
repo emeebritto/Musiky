@@ -49,7 +49,7 @@ export interface PlaylistProps {
         totalDuration: string;
     };
     key?: string;
-    list?: Array<Music>;
+    list: Array<Music>;
 }
 
 export interface ArtistDataProps {
@@ -73,12 +73,12 @@ export interface PlayerContextData {
     setVolume: (s: number) => void;
     lastVolume: number;
     setLastVolume: (s: number) => void;
-    showLyrics: boolean;
-    setShowLyrics: (s: boolean | ((s: boolean) => boolean)) => void;
     loop: boolean;
     setLoop: (s: boolean | ((s: boolean) => boolean)) => void;
     currentTime: number;
     setCurrentTime: (s: number) => void;
+    currentTimeSeconds: number;
+    setCurrentTimeSeconds: (s: number) => void;
     duration: number;
     setDuration: (s: number) => void;
     seeking : boolean;
@@ -102,13 +102,19 @@ export interface PlaylistContextData {
     setPlayListShuffle: (s: boolean | ((s: boolean) => boolean)) => void;
 }
 
+interface Lyric {
+  [key: string]: string;
+}
+
 export interface LyricContextData {
-    Lyric: {};
-    setLyric: (s: {}) => void;
+    lyric: Lyric;
+    setLyric: (s: Lyric) => void;
     currentLine: string;
     setCurrentLine: (s: string) => void;
     showLyrics: boolean;
     setShowLyrics: (s: boolean | ((s: boolean) => boolean)) => void;
+    hasLyric: boolean;
+    setHasLyric: (s: boolean | ((s: boolean) => boolean)) => void;
 }
 
 export interface AccountContextData {

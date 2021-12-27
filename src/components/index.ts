@@ -13,5 +13,6 @@ export { default as NavBar } from './navBar';
 export { default as SearchAutoComplete } from './searchAutoComplete';
 export { default as ResultSearch } from './resultSearch';
 export { default as LirycScreen } from './lirycScreen';
-export { default as PopUp } from './popUp';
+export { default as PopUp } from './popUp/box';
+export { default as PlaylistMoreOptions } from './popUp/playlistOptions';
 export { default as VerticalView } from './verticalView';

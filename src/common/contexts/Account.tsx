@@ -6,12 +6,6 @@ import { DataStorage } from 'common/storage';
 import { AccountContext } from './providers/Account-provider';
 
 
-declare module 'jsonwebtoken' {
-    export interface UserTokenProps extends jwt.JwtPayload {
-        userNameINF: string;
-    }
-}
-
 export function useAccountContext(){
 
 	const {
@@ -36,8 +30,8 @@ export function useAccountContext(){
         if(!auth) {
             setAuth(DataStorage.getToken());
         } else {
-            let payload: jwt.UserTokenProps | null = jwt.decode(auth);
-            setDisplayName(payload?.userNameINF);
+            let payload: any = jwt.decode(auth);
+            setDisplayName(payload.userNameINF);
         }
     },[auth])
 

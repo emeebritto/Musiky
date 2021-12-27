@@ -86,7 +86,7 @@ export function usePlayerContext(){
     }
 
     const changeCurrentTimeTo = (timeFloat: number, timeSeconds: number): void => {
-        setCurrentTimeSeconds(timeSeconds.toFixed(0));
+        setCurrentTimeSeconds(Number(timeSeconds.toFixed(0)));
     	if (!seeking) setCurrentTime(timeFloat);
     }
 

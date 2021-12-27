@@ -19,7 +19,7 @@ import { GlobalStyle } from 'common/GlobalStyle';
 
 const ViewPort = Styled.section` 
   position: relative;
-  background-color: rgb(0 0 0 /95%);
+  background-color: #010208;
   overflow: hidden;
   width: 100vw;
   height: 100vh;
@@ -28,7 +28,6 @@ const ViewPort = Styled.section`
       height: 0;
     }
 `
-
 const Main = Styled.section`
   margin-left: 50px;
 `

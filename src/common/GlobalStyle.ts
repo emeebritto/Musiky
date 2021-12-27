@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 
 html {
-	background-color: black;
+	background-color: #010208;
 }
 
 html, body, div, span, applet, object, iframe,

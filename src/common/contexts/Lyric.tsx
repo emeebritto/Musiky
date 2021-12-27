@@ -8,7 +8,7 @@ import { usePlayerContext } from './Player';
 export function useLyricContext(){
 
 	const {
-        Lyric,
+        lyric,
         setLyric,
         currentLine,
         setCurrentLine,
@@ -43,19 +43,19 @@ export function useLyricContext(){
     },[prop.music])
 
     useEffect(()=>{
-        if(Lyric[prop.currentTimeSeconds]) {
-            setCurrentLine(Lyric[prop.currentTimeSeconds])
-        } else if (Lyric[prop.currentTimeSeconds -1]) {
-            setCurrentLine(Lyric[prop.currentTimeSeconds -1])
-        } else if (Lyric[prop.currentTimeSeconds -2]) {
-            setCurrentLine(Lyric[prop.currentTimeSeconds -2])
+        if(lyric[prop.currentTimeSeconds]) {
+            setCurrentLine(lyric[prop.currentTimeSeconds])
+        } else if (lyric[prop.currentTimeSeconds -1]) {
+            setCurrentLine(lyric[prop.currentTimeSeconds -1])
+        } else if (lyric[prop.currentTimeSeconds -2]) {
+            setCurrentLine(lyric[prop.currentTimeSeconds -2])
         }
     },[prop.currentTimeSeconds])
 
     useEffect(()=>{
-        setShowLyrics(Boolean(Object.keys(Lyric).length));
-        setHasLyric(Boolean(Object.keys(Lyric).length));
-    },[Lyric])
+        setShowLyrics(Boolean(Object.keys(lyric).length));
+        setHasLyric(Boolean(Object.keys(lyric).length));
+    },[lyric])
 
     return {
         lyricProp: {

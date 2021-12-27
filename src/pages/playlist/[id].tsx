@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
 import { PlaylistProps } from 'common/types';
-
-import * as S from 'styles/pages/playlistStyles';
-
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
-
-import { PopUp, MusicList } from 'components';
-
+import { PopUp, MusicList, PlaylistMoreOptions } from 'components';
 import { msk_get } from 'api';
 import { istatic } from "api/istatic";
-
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
@@ -49,6 +42,78 @@ const Wrapper = Styled.section`
         margin-top: 14vh;
     }
 `
+const PlaylistInfor = Styled.section`
+    position: fixed;
+    left: 15%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 22%;
+
+    @media(max-width: 1230px) { left: 12% }
+
+    @media(max-width: 1075px) { 
+        left: 0%;
+        position: relative;
+        flex-direction: row;
+        justify-content: center;
+        width: 95%;
+        margin-bottom: 50px;
+    }
+`
+const BackIcon = Styled.img`
+    width: 35px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+
+    :hover {
+        cursor: pointer;
+        background-color: rgb(255 255 255 /3%);
+    }
+
+    @media(max-width: 1075px) { 
+        margin-bottom: 0px;
+    }
+
+    @media(max-width: 570px) { 
+        display: none;
+    }
+`
+const PlayListImg = Styled.img`
+    width: 190px;
+    height: 190px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 30px rgb(0 0 0 / 35%);
+    margin-bottom: 15px;
+
+    @media(max-width: 1075px) { 
+        margin: 0 50px 0 40px;
+    }
+
+    @media(max-width: 620px) { 
+        width: 190px;
+        height: 190px;
+    }
+
+    @media(max-width: 499px) {
+        width: 170px;
+        height: 170px;
+        margin: 0 15px 0 55px;
+    }
+`
+const PlaylistTitle = Styled.p`
+    color: white;
+    font-size: 1.4em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-bottom: 10px;
+`
+const PlaySubTitle = Styled(PlaylistTitle)`
+    color: #fff;
+    opacity: 0.7;
+    font-size: 1em;
+`
+
 const MusicListWrapper = Styled.section`
     display: flex;
     flex-direction: column;
@@ -101,49 +166,6 @@ const OthersData = Styled.section`
         margin-right: 60px;
     }
 `
-const Label = Styled.h2`
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-`
-const UrlField = Styled.section`
-    display: flex;
-    margin: 10px 0;
-`
-const Input = Styled.input`
-    border: none;
-    padding: 5px 10px;
-    color: #fff;
-    outline: none;
-    background-color: #020207;
-    border-radius: 8px;
-`
-const UrlInput = Styled(Input)`
-    width: 395px;
-`
-const DownloadOptionInput = Styled(Input)`
-    width: 375px;
-`
-const Btn = Styled.button`
-    border: none;
-    padding: 3px 10px;
-    background-color: transparent;
-    cursor: pointer;
-    border-radius: 6px;
-`
-const CopyBtn = Styled(Btn)`
-    margin: 0 3px;
-    background-color: #181318;
-`
-const DownloadBtn = Styled(Btn)`
-    margin: 0 3px;
-    background-color: #020222;
-`
-const DownloadOption = Styled.section`
-    margin: 15px 0 0 20px;
-`
-const AvailableDownload = Styled.p`
-    opacity: 0.7;
-    margin: 15px 0 0 20px;
-`
 
 
 interface PlaylistPageProp {
@@ -180,28 +202,6 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
     },[router])
 
 
-    const copyUrl = () => {
-        navigator.clipboard.writeText(location.href).then(()=> alert('copied'))
-    }
-
-    const download = () => {
-        axios({
-            url:`https://musiky-listen.herokuapp.com/${prop.music ? prop.music.id : ''}`,
-            method:'GET',
-            responseType: 'blob'
-        })
-        .then((response) => {
-            const url = window.URL
-                .createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `${prop.music.artists[0]} - ${prop.music.title}.mp3`);
-            document.body.appendChild(link);
-            link.click();
-        })
-    }
-
-  
     //Component:
     function CircleOptionComponent(){
         return(
@@ -240,70 +240,25 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
         <>
         {infors &&
         <ViewPort>
-            <PopUp show={showPopUp} onRequestClose={()=> setShowPopUp(false)}>
-                <section>
-                    <Label>Playlist URL:</Label>
-                    <UrlField>
-                        <UrlInput
-                            type='text'
-                            value={typeof window !== 'undefined' ? location.href : ''}
-                            readonly
-                        />
-                        <CopyBtn onClick={()=> copyUrl()}>
-                            <img src={istatic.copyIcon()} alt='copy icon'/>
-                        </CopyBtn>
-                    </UrlField>
-                </section>
-                <section>
-                    <Label>Downloads:</Label>
-                    <DownloadOption>
-                        <Label>Playing Now:</Label>
-                        {prop.music &&
-                            <UrlField>
-                                <DownloadOptionInput
-                                    type='text'
-                                    value={`${prop.music.artists[0]} - ${prop.music.title}`}
-                                    readonly
-                                />
-                                <DownloadBtn onClick={()=> download()}>
-                                    <img src={istatic.downloadIcon()} alt='download icon'/>
-                                </DownloadBtn>
-                            </UrlField>
-                        }
-                        {!prop.music && <AvailableDownload>- Available</AvailableDownload>}
-                    </DownloadOption>
-                    {false &&
-                        <DownloadOption>
-                            <Label>All Playlist:</Label>
-                            <UrlField>
-                                <DownloadOptionInput
-                                    type='text'
-                                    value={location.href}
-                                    readonly
-                                />
-                                <DownloadBtn onClick={()=> copyUrl()}>
-                                    <img src={istatic.downloadIcon()} alt='download icon'/>
-                                </DownloadBtn>
-                            </UrlField>                        
-                        </DownloadOption>
-                    }
-
-                </section>
-            </PopUp>
+            <PlaylistMoreOptions
+                showPopUp={showPopUp}
+                setShowPopUp={setShowPopUp}
+                playlist={playlist}
+            />
             <Wrapper>
-                <S.PlaylistInfor>
-                    <S.BackIcon onClick={()=> router.back()} src={istatic.backPage()} alt='back'/>
+                <PlaylistInfor>
+                    <BackIcon onClick={()=> router.back()} src={istatic.backPage()} alt='back'/>
 
-                    <S.PlayListImg src={infors.img} alt="PlayList Img"/>
+                    <PlayListImg src={infors.img} alt="PlayList Img"/>
                     <OthersData>
-                        <S.PlaylistTitle>{infors.title}</S.PlaylistTitle>
-                        <S.PlaySubTitle>{infors.length} • Tracks</S.PlaySubTitle>
-                        <S.PlaySubTitle>Duration: {infors.totalDuration}</S.PlaySubTitle>
+                        <PlaylistTitle>{infors.title}</PlaylistTitle>
+                        <PlaySubTitle>{infors.length} • Tracks</PlaySubTitle>
+                        <PlaySubTitle>Duration: {infors.totalDuration}</PlaySubTitle>
                         <PlaylistOptions>
                             <CircleOptionComponent/>
                         </PlaylistOptions>
                     </OthersData>
-                </S.PlaylistInfor>
+                </PlaylistInfor>
                 <MusicListWrapper>
                     <MusicList list={list} listId={id}/>
                 </MusicListWrapper>

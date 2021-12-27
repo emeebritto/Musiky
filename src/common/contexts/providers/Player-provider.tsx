@@ -15,7 +15,6 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [playing, setPlaying] = useState(true);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
-	const [showLyrics, setShowLyrics] = useState(false);
 	const [loop, setLoop] = useState(false);
 	const [currentTime, setCurrentTime] = useState(0);
 	const [currentTimeSeconds, setCurrentTimeSeconds] = useState(0);
@@ -39,8 +38,6 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 			setVolume,
 			lastVolume,
 			setLastVolume,
-			showLyrics,
-			setShowLyrics,
 			loop,
 			setLoop,
 			currentTime,

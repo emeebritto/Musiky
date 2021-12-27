@@ -57,8 +57,8 @@ const BtnHoverLine = Styled.section`
 
 interface VerticalViewProp {
     children: React.ReactNode;
-    viewLabel: string;
-    btnOption: null | {
+    viewLabel?: string;
+    btnOption?: {
         displayName: string;
         href: string;
     };

@@ -27,13 +27,13 @@ const Box = Styled.section`
 interface LayoutProps {
     children: React.ReactNode;
     show: boolean;
-    onClose: () => void;
+    onRequestClose: () => void;
 }
 
 const PopUpBox: React.FC<LayoutProps> = ({
     children,
     show=false,
-    onRequestClose = ()=> {return}
+    onRequestClose = ()=>{return}
 }) => {
 
     return (

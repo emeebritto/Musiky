@@ -51,7 +51,7 @@ const ReactPlayerComp: React.FC = () => {
 
 
     return (
-        <ViewPort style={{ width: prop.showLyrics? '100vw': '0vw' }}>
+        <ViewPort>
             {prop.music &&
                 <VideoPlayer
                     ref={(reactPlayer: HTMLDivElement) => ref.playerRef = reactPlayer}
