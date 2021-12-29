@@ -18,6 +18,7 @@ const MusicOptionBox = Styled.section`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 1;
     width: 500px;
     height: 45px;
     margin: 2.5px 0;

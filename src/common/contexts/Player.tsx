@@ -33,6 +33,7 @@ export function usePlayerContext(){
 	} = useContext(PlayerContext);
 
 	const {
+        stopPlaylist,
 		startPlaylist,
 		changeMusic
 	} = usePlaylistContext();
@@ -47,12 +48,20 @@ export function usePlayerContext(){
         playlistId: string | undefined = undefined
     ): void => {
 
+        console.log(playlistId);
+
         if(playlistId) {
         	startPlaylist(playIndex, playlistId, list);
         }
 
 		setMusic(list[playIndex]);
         setBuffer(true);
+    }
+
+    const stopPlayer = (): void => {
+        stopPlaylist();
+        setMusic(null);
+        setBuffer(false);
     }
 
     const onBuffer = (status: boolean): void => {
@@ -145,6 +154,7 @@ export function usePlayerContext(){
             duration
         },
     	load,
+        stopPlayer,
     	onBuffer,
     	onPlayAndPause,
     	nextMusic,

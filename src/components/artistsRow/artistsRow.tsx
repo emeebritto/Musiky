@@ -31,7 +31,6 @@ const ArtistsRow: React.FC<ArtistRowProps> = ({ maxResult }) => {
 
         async function getData() {
             let { artists } = await msk_get('randomArtists', { maxResult })
-            console.log(artists);
             setArtists(artists)
         }
         getData()

@@ -32,6 +32,11 @@ export function usePlaylistContext(){
 		setMusiclist(musicList);
 	}
 
+	const stopPlaylist = () => {
+		setPlaylistId('');
+		setMusiclist([]);
+	};
+
 	const changeMusic = (action: number): null | Music => {
 
 		if(!musiclist) return null;
@@ -73,11 +78,13 @@ export function usePlaylistContext(){
 	return {
 		playlistInfor: {
 			playingIndex,
+			playlistId,
 			musiclist,
 			playlistLoop,
 			playListShuffle
 		},
 		startPlaylist,
+		stopPlaylist,
 		changeMusic,
 		togglePlaylistShuffle,
 		togglePlaylistLoop,

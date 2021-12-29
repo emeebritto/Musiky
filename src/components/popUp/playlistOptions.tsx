@@ -84,7 +84,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
             <section>
                 <Label>Downloads:</Label>
                 <DownloadOption>
-                    <Label>Playing Now:</Label>
+                    <Label>Now Playing:</Label>
                     {prop.music &&
                         <UrlField>
                             <DownloadOptionInput

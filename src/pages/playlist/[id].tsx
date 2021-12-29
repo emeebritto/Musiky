@@ -113,7 +113,41 @@ const PlaySubTitle = Styled(PlaylistTitle)`
     opacity: 0.7;
     font-size: 1em;
 `
+const PlaylistActions = Styled.section`
+    display: flex;
+`
+const Btn = Styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 16px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 3px 8px;
+    margin: 0 5px;
+`
+const AddPlaylist = Styled(Btn)`
 
+`
+const StartPlaylist = Styled(Btn)`
+    background-color: #D8D7DF;
+    color: #000;
+    transition: 400ms;
+
+    :hover {
+        background-color: #000;
+        color: #D8D7DF;
+
+        img {
+            filter: invert(100%);
+        }
+    }
+
+`
 const MusicListWrapper = Styled.section`
     display: flex;
     flex-direction: column;
@@ -169,7 +203,7 @@ const OthersData = Styled.section`
 
 
 interface PlaylistPageProp {
-    playlist: PlaylistProps;
+    playlist: PlaylistProps | null;
 }
 
 interface DurationOrPLaying {
@@ -179,27 +213,29 @@ interface DurationOrPLaying {
 
 const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 
+    const router = useRouter();
+
     const { infors, list=[] } = playlist;
 
-    const { prop, load } = usePlayerContext();
+    const { prop, load, stopPlayer } = usePlayerContext();
     const [showPopUp, setShowPopUp] = useState(false);
 
-    const { 
+    const {
         playlistInfor, 
         isPlayingIndex,
         togglePlaylistShuffle,
         togglePlaylistLoop 
     } = usePlaylistContext();
-
-
-    const router = useRouter();
     
     let id: string = router.query.id ? String(router.query.id) : '';
 
-
-    useEffect(()=>{
-        if(!playlist) router.push('/404');
-    },[router])
+    const startList = (
+        targetIndex: number,
+        targetList: Array<Music>,
+        playlistId: string
+    ): void => {
+        load(targetIndex, targetList, playlistId);
+    }
 
 
     //Component:
@@ -258,6 +294,25 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                             <CircleOptionComponent/>
                         </PlaylistOptions>
                     </OthersData>
+                    <PlaylistActions>
+                        <AddPlaylist>
+                            <img src={istatic.addIcon()} alt="Add Playlist"/>
+                        </AddPlaylist>
+                        <StartPlaylist onClick={()=> {
+                            playlistInfor.playlistId === id
+                                ? stopPlayer()
+                                : startList(0, list, id)
+                        }}>
+                            {playlistInfor.playlistId === id ? 'Stop' : 'Start'} Playlist
+                            <img
+                                src={
+                                    playlistInfor.playlistId === id 
+                                        ? istatic.stopIcon()
+                                        : istatic.iconPlay()
+                                }
+                                alt="Start Playlist"/>
+                        </StartPlaylist>
+                    </PlaylistActions>
                 </PlaylistInfor>
                 <MusicListWrapper>
                     <MusicList list={list} listId={id}/>
@@ -278,6 +333,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let id: string | string[] | undefined = context?.params?.id;
     let playlist = await msk_get('playlist', { id });
+
+    if(!playlist) return { notFound: true }
 
     return {
         props: { playlist }, // will be passed to the page component as props

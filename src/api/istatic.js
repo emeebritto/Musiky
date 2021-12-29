@@ -8,6 +8,7 @@ const BaseUrl = devENV ? devAPI : prodAPI;
 
 export const istatic = {
     iconPlay: ()=> `${BaseUrl}icons/play_arrow_black_24dp.svg`,
+    stopIcon: ()=> `${BaseUrl}icons/stop_black_24dp.svg`,
     icon_playing: ()=> `${BaseUrl}icons/AnimatedSvg/playing.svg`,
     iconBack: ()=> `${BaseUrl}icons/skip_previous_white_24dp.svg`,
     backPage: ()=> `${BaseUrl}icons/back_icon.svg`,
@@ -39,6 +40,7 @@ export const istatic = {
 
     copyIcon: ()=> `${BaseUrl}icons/content_copy_white_24dp.svg`,
     downloadIcon: ()=> `${BaseUrl}icons/file_download_white_24dp.svg`,
+    addIcon: ()=> `${BaseUrl}icons/add_white_24dp.svg`,
 
     city: ()=> `${BaseUrl}imgs/city.svg`,
     cellingLight: ()=> `${BaseUrl}imgs/cellingLight.png`

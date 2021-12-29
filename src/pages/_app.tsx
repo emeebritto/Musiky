@@ -7,7 +7,8 @@ import {
   NavBar, 
   PlayerControl,
   ReactPlayerComp,
-  LirycScreen
+  LirycScreen,
+  Cursorlight
 } from 'components';
 
 import { PlayerProvider } from 'common/contexts/providers/Player-provider';
@@ -38,6 +39,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <ViewPort>
       <GlobalStyle/>
       <NavBar/>
+      <Cursorlight/>
       <Main>
         <AccountProvider>
           <PlaylistProvider>

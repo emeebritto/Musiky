@@ -30,14 +30,13 @@ const Explore: NextPage = () => {
     return (
         <ViewPort>
             <Wrapper>
-                <PlaylistsRow 
-                    name='Explore List'/>
+                <PlaylistsRow name='Explore List'/>
                 <DiskLibrary 
                     name='long Songs | Ambient' 
                     totalSongs={6} 
                     type='ambienceSongs'/>
-                <PlaylistsRow 
-                    name='Explore new Sets'/>                   
+                <PlaylistsRow name='Explore new Sets'/>
+                <PlaylistsRow name='Another Sets'/>
             </Wrapper>
         </ViewPort>
     )

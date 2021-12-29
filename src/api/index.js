@@ -32,11 +32,13 @@ export const msk_get = async (pathName, argsObj ={}, options ={})=> {
 
     console.log(`FAZENDO REQUESTE PARA ${BaseUrl}${path}`);
 
-    try {
-        return fetch(BaseUrl + path, options).then(res=> cache[path] = res.json())
-    } catch(error) {
-        console.log(error);
-    }
+    return fetch(BaseUrl + path, options)
+        .then(res=> cache[path] = res.json())
+        .catch(err => {
+            console.log(err);
+            return null;
+        })
+
 };
 
 export const allMusic = async ({ page }) => {
