@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
-import { PlaylistProps } from 'common/types';
+import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { PopUp, MusicList, PlaylistMoreOptions } from 'components';
@@ -203,7 +203,7 @@ const OthersData = Styled.section`
 
 
 interface PlaylistPageProp {
-    playlist: PlaylistProps | null;
+    playlist: PlaylistProps;
 }
 
 interface DurationOrPLaying {

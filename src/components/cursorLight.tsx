@@ -19,14 +19,14 @@ const Cursorlight: React.FC = () => {
 	const [clientX, setClientX] = useState(0);
 	const [clientY, setClientY] = useState(0);
 
-	const updateLightPosition = ({ clientX, clientY }) => {
+	const updateLightPosition = (pos: {clientX: number, clientY: number}): void => {
 		if(clientX < (window.screen.width - 10)) {
 			setShowLight(true);
 		} else {
 			setShowLight(false);
 		}
-		setClientX(clientX);
-    	setClientY(clientY);		
+		setClientX(pos.clientX);
+    	setClientY(pos.clientY);		
 	}
 
 	useEffect(()=>{
