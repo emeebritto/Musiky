@@ -20,7 +20,7 @@ const Cursorlight: React.FC = () => {
 	const [clientY, setClientY] = useState(0);
 
 	const updateLightPosition = (pos: {clientX: number, clientY: number}): void => {
-		if(clientX < (window.screen.width - 10)) {
+		if(pos.clientX < (window.innerWidth - 10)) {
 			setShowLight(true);
 		} else {
 			setShowLight(false);
