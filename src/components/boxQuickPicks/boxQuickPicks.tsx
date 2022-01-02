@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Styled from "styled-components";
-
-import { msk_get } from 'api';
-
 import { MusicList } from 'components';
 
 
@@ -43,33 +40,13 @@ const MusicListWrapper = Styled.section`
 `
 
 
-const BoxQuickPicks: React.FC = () => {
-
-    const [musicList, setMusicList] = useState([]);
-    const [id, setId] = useState('');
-
-
-    useEffect(() => {
-
-        async function getData() {
-            let { items } = await msk_get('quickPicks');
-
-            setId(items[0].infors.playlistId);
-
-            let { list } = await msk_get('playlist', { id: items[0].infors.playlistId });
-            list.length = 10; // TEMP
-
-            setMusicList(list);
-        }
-        getData()
-
-    },[])
+const BoxQuickPicks: React.FC = ({ data }) => {
 
     return (
         <ViewPort>
             <TitleSection>Quick Picks</TitleSection>
             <MusicListWrapper>
-                <MusicList list={musicList} listId={id}/>
+                <MusicList list={data.list} listId={data.id}/>
             </MusicListWrapper>
         </ViewPort>
     )

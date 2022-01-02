@@ -6,6 +6,8 @@ const devAPI = 'http://localhost:9874';
 const istatic_LOCAL_URL = `http://localhost:${9872}/`;
 const istaticURL = 'https://cdn-istatics.herokuapp.com/';
 
+export const BaseUrl = devENV ? devAPI : prodAPI;
+
 let cache = {};
 
 const pathsList = {
@@ -25,8 +27,6 @@ const pathsList = {
 export const msk_get = async (pathName, argsObj ={}, options ={})=> {
 
     let path = pathsList[pathName](argsObj);
-
-    let BaseUrl = devENV ? devAPI : prodAPI;
 
     if(cache[path]) return cache[path];
 

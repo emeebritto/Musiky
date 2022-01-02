@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Styled from 'styled-components';
-
-import { msk_get } from 'api';
 
 const ViewPort = Styled.section`
     width: 80%;
@@ -97,29 +95,15 @@ const BtnListenNow = Styled.button`
     }
 `
 
-const BoxGreeting: React.FC = () => {
+const BoxGreeting: React.FC = ({ data }) => {
 
     var nameUser = 'Emerson Britto';
-
-    const [greeting, setGreeting] = useState({
-        greetingText: String,
-        greetingImg: String
-    });
-
-    useEffect(()=> {
-
-        async function getData() {
-            setGreeting(await msk_get('greeting'));
-        }
-        getData();
-
-    },[]);
 
 
     return (
         <ViewPort>
-            <GreetingText>{greeting.greetingText}, {nameUser}</GreetingText>
-            <FeaturedWrapper style={{ background: `url(${greeting.greetingImg}) no-repeat 0% 80%/100% black`}}>
+            <GreetingText>{data.greetingText}, {nameUser}</GreetingText>
+            <FeaturedWrapper style={{ background: `url(${data.greetingImg}) no-repeat 0% 80%/100% black`}}>
                 <BlackBackground/>
                 <Featured>
                     

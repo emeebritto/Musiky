@@ -1,5 +1,7 @@
 import React from 'react';
-import type { NextPage } from 'next';
+import axios from 'axios';
+import { BaseUrl } from 'api';
+import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
 
 import { PlaylistsRow, DiskLibrary } from 'components';
@@ -25,21 +27,27 @@ const Wrapper = Styled.section`
 `
 
 
-const Explore: NextPage = () => {
+const Explore: NextPage = ({ pageContent }) => {
 
     return (
         <ViewPort>
             <Wrapper>
-                <PlaylistsRow name='Explore List'/>
-                <DiskLibrary 
-                    name='long Songs | Ambient' 
-                    totalSongs={6} 
-                    type='ambienceSongs'/>
-                <PlaylistsRow name='Explore new Sets'/>
-                <PlaylistsRow name='Another Sets'/>
+                <PlaylistsRow name='Explore List' data={pageContent.playlists.exploreList}/>
+                <DiskLibrary name='long Songs | Ambient' data={pageContent.disks}/>
+                <PlaylistsRow name='Explore new Sets' data={pageContent.playlists.exploreNewSets}/>
+                <PlaylistsRow name='Another Sets' data={pageContent.playlists.anotherSets}/>
             </Wrapper>
         </ViewPort>
     )
 }
 
 export default Explore
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+
+    let pageContent = await axios.get(`${BaseUrl}/page/explore`).then(r => r.data);
+
+    return {
+        props: { pageContent }, // will be passed to the page component as props
+    }
+}

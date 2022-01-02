@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import Link from 'next/link';
+import React from "react";
 import Styled from "styled-components";
-
 import { VerticalView, ArtistCard } from 'components';
-import { msk_get } from 'api';
 
 
 const ArtistsProfile = Styled.section`
@@ -23,19 +20,7 @@ interface ArtistRowProps {
     maxResult: number;
 }
 
-const ArtistsRow: React.FC<ArtistRowProps> = ({ maxResult }) => {
-
-    const [artists, setArtists] = useState([])
-
-    useEffect(() => {
-
-        async function getData() {
-            let { artists } = await msk_get('randomArtists', { maxResult })
-            setArtists(artists)
-        }
-        getData()
-
-    },[])
+const ArtistsRow: React.FC<ArtistRowProps> = ({ data }) => {
     
     return (
         <VerticalView viewLabel="Artists" btnOption={{
@@ -43,7 +28,7 @@ const ArtistsRow: React.FC<ArtistRowProps> = ({ maxResult }) => {
             href: '/artists'
         }}>
             <ArtistsProfile>
-                {artists.map((artist, index) => {
+                {data.map((artist, index) => {
                     return (
                         <ArtistCard artist={artist} index={index} key={index}/>
                     )

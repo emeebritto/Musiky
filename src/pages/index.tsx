@@ -1,4 +1,6 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
+import axios from 'axios';
+import { BaseUrl } from 'api';
 import Head from 'next/head';
 import Image from 'next/image';
 import Styled from "styled-components";
@@ -25,7 +27,7 @@ const Wrapper = Styled.section`
 `
 
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ pageContent }) => {
   
   return (
     <div>
@@ -35,12 +37,12 @@ const Home: NextPage = () => {
       </Head>
       <ViewPort>
           <Wrapper>
-              <BoxGreeting/>
-              <BoxQuickPicks/>
-              <PlaylistsRow name='MIXs'/>
-              <ArtistsRow maxResult={6}/>
-              <PlaylistsRow name='Others MIXs'/>
-              <PlaylistsRow name='Just Song'/>
+              <BoxGreeting data={pageContent.greeting}/>
+              <BoxQuickPicks data={pageContent.quickPicks}/>
+              <PlaylistsRow name='MIXs' data={pageContent.playlists.mixs}/>
+              <ArtistsRow maxResult={6} data={pageContent.artists}/>
+              <PlaylistsRow name='Others MIXs' data={pageContent.playlists.otherMixs}/>
+              <PlaylistsRow name='Just Song' data={pageContent.playlists.justSongs}/>
           </Wrapper>
       </ViewPort>
     </div>
@@ -48,3 +50,10 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+    let pageContent = await axios.get(`${BaseUrl}/page/home`).then(r => r.data);
+    return {
+        props: { pageContent }, // will be passed to the page component as props
+    }
+}

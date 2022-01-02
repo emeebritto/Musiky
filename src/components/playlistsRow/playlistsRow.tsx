@@ -1,12 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Link from 'next/link';
-
-import { PlaylistProps } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
-
 import { msk_get } from 'api';
 import { istatic } from "api/istatic";
-
 import { VerticalView } from "components";
 
 import {
@@ -24,31 +20,18 @@ interface PlayListRowProps {
     name: string;
 }
 
-const PlayListRow: React.FC<PlayListRowProps> = ({ name }) => {
+const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
 
     const { load } = usePlayerContext()
-
-    const [playListsResume, setPlaylistsResume] = useState<Array<PlaylistProps>>([])
 
     const startList = async(playlistId: string): Promise<void> => {
         let playlist = await msk_get('playlist', { id: playlistId });
         load(0, playlist.list, playlistId);
     }
-
-    useEffect(() => {
-
-        async function getData() {
-            let { items } = await msk_get('randomPlaylists', { label: name })
-            
-            setPlaylistsResume(items);
-        }
-        getData();
-
-    },[])
     
     return (
         <VerticalView viewLabel={name}>
-            {playListsResume.map((playlist, index) => {
+            {data.map((playlist, index) => {
                 return (
                     <Link 
                         href={`/playlist/${playlist.infors.playlistId}`}

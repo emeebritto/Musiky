@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React from "react"
 import Styled from 'styled-components'
 import { Music } from 'common/types';
 import { msk_get } from 'api';
@@ -96,28 +96,16 @@ interface DiskLibraryProps {
 }
 
 
-const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, totalSongs, type }) => {
+const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
 
     const { load, isPlayingId } = usePlayerContext();
-
-	const [disksList, setDisksList] = useState<Array<Music>>([]);
-
-
-    useEffect(() => {
-
-        async function getData() {
-            setDisksList(await msk_get('songsList', { maxResult: totalSongs, type }))
-        }
-        getData();
-
-    },[]);
 
 
 	return(
 		<ViewPort>
 			<TitleSection>{name}</TitleSection>
 			<DiskWrapper>
-                {disksList.map((disk, index) => {
+                {data.map((disk, index) => {
                     return (
                         <Disk onClick={() => load(index, disksList) } key={disk.id}>
                             <DiskImg 
