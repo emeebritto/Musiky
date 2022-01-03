@@ -95,7 +95,14 @@ const BtnListenNow = Styled.button`
     }
 `
 
-const BoxGreeting: React.FC = ({ data }) => {
+interface BoxGreetingProps {
+    data: {
+        greetingText: string;
+        greetingImg: string;
+    };
+}
+
+const BoxGreeting: React.FC<BoxGreetingProps> = ({ data }) => {
 
     var nameUser = 'Emerson Britto';
 

@@ -50,7 +50,7 @@ const FollowesCounter = Styled.p`
     color: #7B7D83;
     height: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin: 10px 0;
 
     @media(max-width: 545px) {

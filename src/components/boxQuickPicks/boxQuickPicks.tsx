@@ -1,5 +1,6 @@
 import React from 'react';
 import Styled from "styled-components";
+import { Music } from 'common/types';
 import { MusicList } from 'components';
 
 
@@ -39,8 +40,15 @@ const MusicListWrapper = Styled.section`
     } 
 `
 
+interface QuickPicksProps {
+    data: {
+        id: string;
+        list: Array<Music>
+    };
+}
 
-const BoxQuickPicks: React.FC = ({ data }) => {
+
+const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
 
     return (
         <ViewPort>

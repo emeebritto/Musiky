@@ -1,5 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
+import { ArtistDataProps } from 'common/types';
 import { VerticalView, ArtistCard } from 'components';
 
 
@@ -16,11 +17,12 @@ const ArtistsProfile = Styled.section`
 
 `
 
-interface ArtistRowProps {
-    maxResult: number;
+interface ArtistsRowProps {
+    data: Array<ArtistDataProps>;
 }
 
-const ArtistsRow: React.FC<ArtistRowProps> = ({ data }) => {
+
+const ArtistsRow: React.FC<ArtistsRowProps> = ({ data }) => {
     
     return (
         <VerticalView viewLabel="Artists" btnOption={{

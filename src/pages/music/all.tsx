@@ -26,7 +26,6 @@ const MusicListWrapper = Styled.section`
     flex-wrap: wrap;
     width: 50vw;
     height: auto;
-    overflow: scroll;
     margin: 0 auto;
 
     ::-webkit-scrollbar {
@@ -35,7 +34,6 @@ const MusicListWrapper = Styled.section`
 `
 
 const LoadNewZone = Styled.section`
-    background-color: red;
     width: 40px;
     height: 40px;
 `

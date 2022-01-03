@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { GetServerSideProps } from 'next';
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
+import { SearchPageContent } from 'common/types/pagesSources';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
 
-import { msk_get } from 'api';
+import { BaseUrl, msk_get } from 'api';
 import { istatic } from "api/istatic";
 
 import { 
@@ -51,7 +52,7 @@ const SearchField = Styled.section`
     ::before {
         content: "";
         position: absolute;
-        top: 0;
+        top: -9vh;
         left: 0;
         right: 0;
         bottom: 0;
@@ -71,8 +72,9 @@ const ContentField = Styled.section`
     justify-content: center;
     top: 80vh;
     padding: 0 10vw 14vh 10vw;
-    background: black;
+    background: #020309;
     line-height: 30px;
+    box-shadow: 0px 0px 30px rgb(0 0 0 / 80%);
 `
 
 const SearchBar = Styled.section`
@@ -167,10 +169,10 @@ const Suggestion = Styled.p`
 `
 
 interface SearchPageProp {
-    suggestions: Array<string>;
+    pageContent: SearchPageContent;
 }
 
-const Search: NextPage<SearchPageProp> = ({ suggestions }) => {
+const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 
 
     const [inputSearch, setInputSearch] = useState('');
@@ -206,8 +208,10 @@ const Search: NextPage<SearchPageProp> = ({ suggestions }) => {
             <ContentField>
                 {router.query.q && <ResultSearch/>}
                 <PlaylistsRow 
-                    name='Others lists'/>
-                <ArtistsRow maxResult={6}/>
+                    name='Others lists'
+                    data={pageContent.playlists.othersLists}
+                />
+                <ArtistsRow data={pageContent.artists}/>
             </ContentField>
             <SearchField>
                 <SearchBar>
@@ -235,7 +239,7 @@ const Search: NextPage<SearchPageProp> = ({ suggestions }) => {
                     
                 </SearchBar>
                 <Suggestions>
-                    {suggestions.map((suggestion, index) => {
+                    {pageContent.searchSuggestions.map((suggestion, index) => {
                         return (
                             <Link
                                 href={`${router.route}?q=${suggestion.replace(/ /g, '-')}`}
@@ -255,10 +259,8 @@ const Search: NextPage<SearchPageProp> = ({ suggestions }) => {
 export default Search
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-
-    let suggestions = await msk_get('suggestionArtists', { maxResult: 11 });
-
+    let pageContent = await axios.get(`${BaseUrl}/page/search`).then(r=>r.data);
     return {
-        props: { suggestions }, // will be passed to the page component as props
+        props: { pageContent }, // will be passed to the page component as props
     }
 }

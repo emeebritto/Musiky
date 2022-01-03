@@ -14,7 +14,7 @@ export const ViewPort = styled.main`
     justify-content: space-around;
     width: 96.5vw;
     height: 10vh;
-    box-shadow: inset 0px -50px 40px rgb(0 0 0 /75%);
+    box-shadow: inset 0px -50px 30px rgb(0 0 0 /80%);
 
     @media(max-width: 570px) {
         height: 8vh;

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BaseUrl } from 'api';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
+import { ExploreContent } from 'common/types/pagesSources';
 
 import { PlaylistsRow, DiskLibrary } from 'components';
 
@@ -26,8 +27,12 @@ const Wrapper = Styled.section`
     }
 `
 
+interface ExploreProps {
+    pageContent: ExploreContent;
+};
 
-const Explore: NextPage = ({ pageContent }) => {
+
+const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
 
     return (
         <ViewPort>

@@ -3,7 +3,8 @@ import axios from 'axios';
 import { BaseUrl } from 'api';
 import Head from 'next/head';
 import Image from 'next/image';
-import Styled from "styled-components";
+import Styled from 'styled-components';
+import { HomeContent } from 'common/types/pagesSources';
 
 import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components';
 
@@ -26,8 +27,11 @@ const Wrapper = Styled.section`
   }
 `
 
+interface HomeProps {
+  pageContent: HomeContent;
+};
 
-const Home: NextPage = ({ pageContent }) => {
+const Home: NextPage<HomeProps> = ({ pageContent }) => {
   
   return (
     <div>
@@ -40,7 +44,7 @@ const Home: NextPage = ({ pageContent }) => {
               <BoxGreeting data={pageContent.greeting}/>
               <BoxQuickPicks data={pageContent.quickPicks}/>
               <PlaylistsRow name='MIXs' data={pageContent.playlists.mixs}/>
-              <ArtistsRow maxResult={6} data={pageContent.artists}/>
+              <ArtistsRow data={pageContent.artists}/>
               <PlaylistsRow name='Others MIXs' data={pageContent.playlists.otherMixs}/>
               <PlaylistsRow name='Just Song' data={pageContent.playlists.justSongs}/>
           </Wrapper>

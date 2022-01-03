@@ -20,7 +20,7 @@ import { GlobalStyle } from 'common/GlobalStyle';
 
 const ViewPort = Styled.section` 
   position: relative;
-  background-color: #010208;
+  background-color: #020309;
   overflow: hidden;
   width: 100vw;
   height: 100vh;

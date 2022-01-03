@@ -27,7 +27,7 @@ const HeaderContainer = Styled.header`
     align-items: center;
     width: 96.5vw;
     height: 9vh;
-    box-shadow: inset 0px 60px 60px rgb(0 0 0 /50%);
+    box-shadow: inset 0px 40px 30px rgb(0 0 0 /80%);
 
     @media(max-width: 670px) {
         padding-top: 0.5vh;

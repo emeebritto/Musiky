@@ -12,7 +12,6 @@ const DiskWrapper = Styled.section`
     display: flex;
     align-items: center;
     height: 260px;
-    overflow: scroll;
     margin-bottom: 30px;
 `
 const TitleSection = Styled.h2`
@@ -91,8 +90,7 @@ const DiskTotalTime = Styled.p`
 
 interface DiskLibraryProps {
     name: string;
-    totalSongs: number;
-    type: string;
+    data: Array<Music>
 }
 
 
@@ -107,7 +105,7 @@ const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
 			<DiskWrapper>
                 {data.map((disk, index) => {
                     return (
-                        <Disk onClick={() => load(index, disksList) } key={disk.id}>
+                        <Disk onClick={() => load(index, data) } key={disk.id}>
                             <DiskImg 
                                 playing={isPlayingId(disk.id)} 
                                 id={isPlayingId(disk.id) ? '' : 'diskImg'}
