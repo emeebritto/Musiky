@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage } from 'next';
 import Styled from "styled-components";
+import axios from 'axios';
 import { Music } from 'common/types';
 
 import { MusicList } from 'components';
 
-import { allMusic } from 'api';
+import { IstaticBaseUrl } from 'api';
 
 
 const ViewPort = Styled.section`
@@ -51,9 +52,10 @@ const AllMusics: NextPage = () => {
 
 
     useEffect(() => {
-
         async function getData() {
-            let res = await allMusic({ page });
+            let res = await axios.get(`${IstaticBaseUrl}music/all?page=${page}`)
+                .then(r=>r.data)
+                .catch(err => console.error(err));
             let firstPoint: number = res.items.length / 2;
             let endPoint: number = res.items.length;
 

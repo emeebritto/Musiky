@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
+import axios from 'axios';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { ArtistDataProps, Music, PlaylistProps } from 'common/types';
-import { msk_get } from 'api';
+import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
 
 import { formatValues } from 'common/scripts/formatNum';
@@ -18,10 +19,12 @@ const ViewPort = Styled.section`
 `
 
 const Wrapper = Styled.section`
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 5;
     width: 100%;
     margin: 15vh 0 10vh 0;
 
@@ -82,13 +85,16 @@ const WrapperGenres = Styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 60%;
+    flex-wrap: wrap;
+    margin: 30px 0;
 `
 
 const Genre = Styled.p`
     padding: 5px 10px;
     background-color: #181B20;
     border-radius: 10px;
-    margin: 30px 10px;
+    margin: 5px 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 
@@ -206,7 +212,7 @@ export const PlaylistWrapper = Styled.section`
 `
 
 interface ArtistPageProps {
-    resAPI: {
+    apiRes: {
         artistData: ArtistDataProps;
         musics: Array<Music>;
         playlists: Array<PlaylistProps>;
@@ -214,14 +220,16 @@ interface ArtistPageProps {
     }
 }
 
-const Artist: NextPage<ArtistPageProps> = ({ resAPI }) => {
+const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
 
     const { load } = usePlayerContext();
 
-    const {artistData, musics, playlists, requestId} = resAPI;
+    const {artistData, musics, playlists, requestId} = apiRes;
 
     const startList = async(playlistId: string): Promise<void> => {
-        let playlist = await msk_get('playlist', { id: playlistId });
+        let playlist = await axios.get(`${BaseUrl}/playlist/${playlistId}`)
+            .then(r=>r.data)
+            .catch(err => console.error(err));
         load(0, playlist.list, playlistId);
     }
 
@@ -293,9 +301,12 @@ export default Artist
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let q: string | string[] | undefined = context?.params?.id;
-    let resAPI = await msk_get('artist', { q });
+    let apiRes = await axios.get(`${BaseUrl}/artist/${q}`)
+        .then(r=>r.data);
+
+    if(!apiRes) return { notFound: true }
 
     return {
-        props: { resAPI }, // will be passed to the page component as props
+        props: { apiRes }, // will be passed to the page component as props
     }
 }

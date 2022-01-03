@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
 
-import { BaseUrl, msk_get } from 'api';
+import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
 
 import { 
@@ -191,10 +191,14 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     const filterSearch = async (value: string): Promise<void> => {
 
         if (value.length > 1) {
-            setAutoComplete(await msk_get('inputAutoComplete', {input: value, maxResult: 8}))
+            setAutoComplete(await axios
+                .get(`${BaseUrl}/search/auto-complete?input=${value}&maxResult=${8}`)
+                .then(r=>r.data)
+                .catch(err => console.error(err))
+            )
         } else {
-            setAutoComplete([])
-            router.push('/search')
+            setAutoComplete([]);
+            router.push('/search');
         }
     }
 

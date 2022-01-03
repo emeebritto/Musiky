@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import axios from 'axios';
 import { EventTarget, SyntheticEvent } from 'common/types';
-import { getLyric } from 'api';
+import { IstaticBaseUrl } from 'api';
 import { LyricContext } from './providers/Lyric-provider';
 import { usePlayerContext } from './Player';
 
@@ -37,7 +38,11 @@ export function useLyricContext(){
         let title = prop.music.title;
         let artistRef = prop.music.artists[0];
         async function getData() {
-            setLyric(await getLyric({ title, artistRef }));
+            setLyric(
+                await axios
+                    .get(`${IstaticBaseUrl}music/lyric?title=${title}&artistRef=${artistRef}`)
+                    .then(r=>r.data)
+            );
         }
         getData();
     },[prop.music])

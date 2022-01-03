@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { withRouter, NextRouter } from 'next/router';
+import axios from 'axios';
 import Styled from 'styled-components';
 import { ArtistDataProps } from 'common/types';
 
-import { msk_get } from 'api';
+import { BaseUrl } from 'api';
 
 import { ArtistCard, MusicList } from 'components';
 
@@ -53,7 +54,9 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
     useEffect(() => {
 
         async function getData() {
-            let res = await msk_get('search', { q });
+            let res = await axios.get(`${BaseUrl}/search/${q}`)
+            	.then(r=>r.data)
+            	.catch(err => console.error(err));
 
             setSearchTop(res.searchTop);
             setArtists(res.artists);

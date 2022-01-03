@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { GetServerSideProps } from 'next';
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
@@ -8,13 +8,14 @@ import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { PopUp, MusicList, PlaylistMoreOptions } from 'components';
-import { msk_get } from 'api';
+import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
 const ViewPort = Styled.section`
     overflow-y: scroll;
+    z-index: 1;
     width: 100%;
     height: 100vh;
 `
@@ -332,7 +333,8 @@ export default Playlist
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let id: string | string[] | undefined = context?.params?.id;
-    let playlist = await msk_get('playlist', { id });
+    let playlist = await axios.get(`${BaseUrl}/playlist/${id}`)
+        .then(r=>r.data);
 
     if(!playlist) return { notFound: true }
 

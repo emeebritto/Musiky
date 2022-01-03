@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from 'next';
+import axios from 'axios';
 import Styled from "styled-components";
 
 import { ArtistCard } from 'components';
-import { msk_get } from 'api';
+import { BaseUrl } from 'api';
 
 
 const ViewPort = Styled.section`
@@ -49,15 +50,14 @@ const Artists: NextPage = () => {
 
     const [artists, setArtists] = useState([]);
 
-
     useEffect(() => {
-
         async function getData() {
-            let list = await msk_get('getArtists');
+            let list = await axios.get(`${BaseUrl}/artist/getArtistsPerPage?page=20`)
+                .then(r=>r.data)
+                .catch(err => console.error(err));
             setArtists(list);
         }
         getData()
-
     },[])
 
 

@@ -15,6 +15,7 @@ const BoxIconPLayHover = Styled.img`
     filter: invert(100%);
 `
 const MusicOptionBox = Styled.section`
+    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;

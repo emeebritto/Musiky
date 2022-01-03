@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
+import axios from 'axios';
 import { usePlayerContext } from 'common/contexts/Player';
-import { msk_get } from 'api';
+import { BaseUrl } from 'api';
 import { istatic } from 'api/istatic';
 import { PlaylistProps } from 'common/types';
 import { VerticalView } from 'components';
@@ -97,7 +98,9 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
     const { load } = usePlayerContext()
 
     const startList = async(playlistId: string): Promise<void> => {
-        let playlist = await msk_get('playlist', { id: playlistId });
+        let playlist = await axios.get(`${BaseUrl}/playlist/${playlistId}`)
+            .then(r=>r.data)
+            .catch(err => console.error(err));
         load(0, playlist.list, playlistId);
     }
     
