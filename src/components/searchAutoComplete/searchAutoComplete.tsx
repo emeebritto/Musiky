@@ -54,9 +54,9 @@ const SearchAutoComplete: React.FC<AutoCompleteProps> = ({
 
 	return(
 		<OptionsCompleteSearch>
-			{autoComplete.map((option, index) =>{
+			{autoComplete.map((option, index) => {
 				return(
-					<Link href={`${router.route}q=${option.replaceAll(' ', '-')}`}>
+					<Link href={`${router.route}?q=${option.replaceAll(' ', '-')}`}>
 						<Option onClick={()=> updateField(option)}>
 							{option}
 						</Option>

@@ -8,13 +8,14 @@ import { HomeContent } from 'common/types/pagesSources';
 
 import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components';
 
-
 const ViewPort = Styled.section`
   overflow-y: scroll;
   width: 100%;
   height: 100vh;
 `
 const Wrapper = Styled.section`
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;

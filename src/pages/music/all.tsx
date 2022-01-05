@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import Styled from "styled-components";
 import axios from 'axios';
 import { Music } from 'common/types';
@@ -84,6 +85,10 @@ const AllMusics: NextPage = () => {
 
 
     return (
+        <>
+        <Head>
+            <title>Musiky - All Tracks</title>
+        </Head>
         <ViewPort>
             <Wrapper>
                 <MusicListWrapper>
@@ -95,6 +100,7 @@ const AllMusics: NextPage = () => {
             </Wrapper>
             <LoadNewZone ref={ref}/>
         </ViewPort>
+        </>
     )
 }
 

@@ -18,6 +18,8 @@ const Cursorlight: React.FC = () => {
 	const [showLight, setShowLight] = useState(true);
 	const [clientX, setClientX] = useState(0);
 	const [clientY, setClientY] = useState(0);
+	const [scale, setScale] = useState(1);
+	const [opacity, setOpacity] = useState(1);
 
 	const updateLightPosition = (pos: {clientX: number, clientY: number}): void => {
 		if(pos.clientX < (window.innerWidth - 10)) {
@@ -27,18 +29,36 @@ const Cursorlight: React.FC = () => {
 		}
 		setClientX(pos.clientX);
     	setClientY(pos.clientY);		
-	}
+	};
+
+	const explosionWithFade = () => {
+		setScale(1.6);
+		setOpacity(0);
+		setTimeout(()=> {
+			setScale(1);
+			setOpacity(1);
+		}, 300);
+	};
+
 
 	useEffect(()=>{
 	    document.addEventListener("mousemove", e => updateLightPosition(e));
 	    return document.removeEventListener("mousemove", e => updateLightPosition(e));
 	},[])
 
+	useEffect(()=>{
+	    document.addEventListener("click", ()=> explosionWithFade());
+	    return document.removeEventListener("click", ()=> explosionWithFade());
+	},[])
+
 	return (
 		<Light style={{ 
 			display: showLight ? 'flex' : 'none',
 			left: clientX -30,
-			top: clientY -30
+			top: clientY -30,
+			opacity: opacity,
+			transform: `scale(${scale})`,
+			transition: 'transform 200ms, opacity 400ms 100ms'
 		}}/>
 	);
 }

@@ -73,12 +73,11 @@ const PlayListImg = Styled.img`
     height: 150px;
 `
 
-const PlayListTitle = Styled.h1`
-    color: white;
-    height: 40px;
+const PlayListTitle = Styled.h2`
+    min-height: 40px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.2em;
-    margin: 0px 0px 5px 5px;
+    margin: 0 0 5px 5px;
 `
 const Description = Styled.p`
     color: white;

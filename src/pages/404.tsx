@@ -1,5 +1,6 @@
 import React from "react";
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Styled from "styled-components";
 
@@ -97,6 +98,10 @@ const NotFound404: NextPage = () => {
     const router = useRouter();
 
     return (
+        <>
+        <Head>
+            <title>No Found (404)</title>
+        </Head>
         <ViewPort style={{ background: `url(${istatic.city()}) no-repeat center/80%`}}>
             <Wrapper>
                 <Light src={istatic.cellingLight()} alt="celling Light"/>
@@ -106,6 +111,7 @@ const NotFound404: NextPage = () => {
                 <BtnHome onClick={()=>{router.push('/')}}>Take me home</BtnHome>
             </Wrapper>
         </ViewPort>
+        </>
     );
 }
 

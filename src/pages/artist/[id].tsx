@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
+import Head from 'next/head';
 import axios from 'axios';
 import Link from 'next/link';
 import Styled from "styled-components";
@@ -234,6 +235,10 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
     }
 
     return (
+        <>
+        <Head>
+            <title>Artist: {artistData.name}</title>
+        </Head>
         <ViewPort>
             <Wrapper>
                 <ArtistInfor>
@@ -241,7 +246,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
                         src={artistData.images.length 
                             ? artistData.images[1].url 
                             : undefined} 
-                        alt='NULL' />
+                        alt='artist profile imagem' />
                     <ArtistData>
                         <ArtistName>{artistData.name}</ArtistName>
                         <FollowesCounter>{formatValues(artistData.followers.total)}</FollowesCounter>
@@ -293,6 +298,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
                 </Listen>
             </Wrapper>
         </ViewPort>
+        </>
     )
 }
 
@@ -302,7 +308,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let q: string | string[] | undefined = context?.params?.id;
     let apiRes = await axios.get(`${BaseUrl}/artist/${q}`)
-        .then(r=>r.data);
+        .then(r=>r.data)
+        .catch(err => console.error(err))
 
     if(!apiRes) return { notFound: true }
 

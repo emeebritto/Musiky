@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { SearchPageContent } from 'common/types/pagesSources';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Styled from 'styled-components';
+import { useDebounce } from 'use-debounce';
 
 import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
@@ -73,7 +75,7 @@ const ContentField = Styled.section`
     top: 80vh;
     padding: 0 10vw 14vh 10vw;
     background: #020309;
-    line-height: 30px;
+    line-height: 22px;
     box-shadow: 0px 0px 30px rgb(0 0 0 / 80%);
 `
 
@@ -174,9 +176,9 @@ interface SearchPageProp {
 
 const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 
-
     const [inputSearch, setInputSearch] = useState('');
     const [autoComplete, setAutoComplete] = useState([]);
+    const [inputValueDebounce] = useDebounce(inputSearch, 900);
 
 
     const router = useRouter();
@@ -184,8 +186,8 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     let { q } = router.query;
 
     const updateField = (option: string): void => {
-        setInputSearch(option)
-        setAutoComplete([])
+        setInputSearch(option);
+        setAutoComplete([]);
     }
 
     const filterSearch = async (value: string): Promise<void> => {
@@ -205,9 +207,17 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     useEffect(() => {
     // The q changed!
     }, [router.query.q])
+
+    useEffect(() => {
+        filterSearch(inputValueDebounce);
+    }, [inputValueDebounce])
   
 
     return (
+        <>
+        <Head>
+            <title>Musiky - Search</title>
+        </Head>
         <ViewPort>
             <ContentField>
                 {router.query.q && <ResultSearch/>}
@@ -225,18 +235,23 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                         value={inputSearch} 
                         onInput={e => {
                             let target = e.target as HTMLInputElement;
-                            setInputSearch(target.value)
-                            filterSearch(target.value)
+                            setInputSearch(target.value);
                         }} 
-                        placeholder="Artists & Songs"/>
+                        placeholder="Artists & Songs"
+                    />
 
-
-
-                    <BtnSearch onClick={e=> router.push(`${router.route}/?q=${inputSearch.replaceAll(' ', '-')}`, undefined, { shallow: true })}>
+                    <BtnSearch onClick={e=> {
+                        setAutoComplete([]);
+                        router.push(
+                            `${router.route}/?q=${inputSearch.replaceAll(' ', '-')}`,
+                            undefined,
+                            { shallow: true }
+                        )
+                    }}>
                         <SearchIcon src={istatic.search_Icon()} alt="search icon"/>
                     </BtnSearch>
 
-                    {autoComplete 
+                    {Boolean(autoComplete.length)
                         && <SearchAutoComplete 
                                 autoComplete={autoComplete} 
                                 updateField={updateField}/>}
@@ -257,6 +272,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                 </Suggestions>
             </SearchField>
         </ViewPort>
+        </>
     )
 }
 

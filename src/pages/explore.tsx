@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BaseUrl } from 'api';
 import type { NextPage, GetServerSideProps } from 'next';
+import Head from 'next/head';
 import Styled from "styled-components";
 import { ExploreContent } from 'common/types/pagesSources';
 
@@ -15,6 +16,8 @@ const ViewPort = Styled.section`
 `
 
 const Wrapper = Styled.section`
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,6 +38,10 @@ interface ExploreProps {
 const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
 
     return (
+        <>
+        <Head>
+            <title>Musiky - Explore</title>
+        </Head>
         <ViewPort>
             <Wrapper>
                 <PlaylistsRow name='Explore List' data={pageContent.playlists.exploreList}/>
@@ -43,6 +50,7 @@ const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
                 <PlaylistsRow name='Another Sets' data={pageContent.playlists.anotherSets}/>
             </Wrapper>
         </ViewPort>
+        </>
     )
 }
 

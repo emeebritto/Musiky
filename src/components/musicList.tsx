@@ -180,7 +180,10 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
             return (
                 <MusicOptionBox 
                     hoverOff={isPlayingIndex(listId, index)} 
-                    onClick={() => { clickOnMusic(index, list, listId) }} 
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        clickOnMusic(index, list, listId)
+                    }} 
                     key={music.id}
                     >
                     <BoxNumMusic>

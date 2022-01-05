@@ -13,9 +13,10 @@ const Artist = Styled.a`
     text-decoration: none;
     align-items: center;
     cursor: pointer;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
     width: 150px;
+    height: 305px;
     margin: 10px 15px;
 `
 const ArtistImg = Styled.img`
@@ -37,7 +38,7 @@ const ArtistImg = Styled.img`
 
 const ArtistName = Styled.h1`
     color: #fff;
-    height: 30px;
+    min-height: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.2em;
 
@@ -91,12 +92,16 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, index=0 }) => {
         <Link 
             href={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`}>
             <Artist>
-                <ArtistImg
-                    src={artist.images.length ? artist.images[1].url : ''}
-                    alt={`${artist.name} img`}/>
-                <ArtistName>{artist.name}</ArtistName>
-                <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
-                <BrnFollow>Follow</BrnFollow>
+                <section>
+                    <ArtistImg
+                        src={artist.images.length ? artist.images[1].url : ''}
+                        alt={`${artist.name} img`}/>
+                    <ArtistName>{artist.name}</ArtistName>
+                </section>
+                <section>
+                    <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
+                    <BrnFollow>Follow</BrnFollow>
+                </section>
             </Artist>
         </Link>
     )

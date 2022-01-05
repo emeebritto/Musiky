@@ -8,7 +8,7 @@ const ArtistsProfile = Styled.section`
     display: flex;
     align-items: center;
     overflow-y: hidden;
-    height: 295px;
+    height: 305px;
     margin-bottom: 15px;
 
     ::-webkit-scrollbar {

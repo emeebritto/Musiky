@@ -2,7 +2,8 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import Styled from 'styled-components';
 
-import { 
+import {
+  ErrorBoundary,
   Header, 
   NavBar, 
   PlayerControl,
@@ -38,23 +39,25 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ViewPort>
       <GlobalStyle/>
-      <NavBar/>
-      <Cursorlight/>
-      <Main>
-        <AccountProvider>
-          <PlaylistProvider>
-            <PlayerProvider>
-              <LyricProvider>
-                <LirycScreen/>
-                <ReactPlayerComp/>
-                <Header/> 
-                <Component {...pageProps} />
-                <PlayerControl/>
-              </LyricProvider>
-            </PlayerProvider>
-          </PlaylistProvider>
-        </AccountProvider>
-      </Main>
+      <ErrorBoundary>
+        <NavBar/>
+        <Cursorlight/>
+        <Main>
+          <AccountProvider>
+            <PlaylistProvider>
+              <PlayerProvider>
+                <LyricProvider>
+                  <LirycScreen/>
+                  <ReactPlayerComp/>
+                  <Header/> 
+                  <Component {...pageProps} />
+                  <PlayerControl/>
+                </LyricProvider>
+              </PlayerProvider>
+            </PlaylistProvider>
+          </AccountProvider>
+        </Main>
+      </ErrorBoundary>
     </ViewPort>
   )
 }

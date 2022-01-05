@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
+import Head from 'next/head';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -275,7 +276,9 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 
     return (
         <>
-        {infors &&
+        <Head>
+            <title>Playlist: {infors.title}</title>
+        </Head>
         <ViewPort>
             <PlaylistMoreOptions
                 showPopUp={showPopUp}
@@ -323,7 +326,6 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                 </OptionsAside>
             </Wrapper>
         </ViewPort>
-        }
         </>
     )
 }

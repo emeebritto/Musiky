@@ -27,7 +27,7 @@ const FirstSection = Styled.section`
 `
 
 const MusicListWrapper = Styled.section`
-	width: 50vw;
+	width: 40vw;
 	margin-left: 80px;
 `
 
@@ -58,6 +58,8 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
             	.then(r=>r.data)
             	.catch(err => console.error(err));
 
+            if(res.noFound) return;
+
             setSearchTop(res.searchTop);
             setArtists(res.artists);
 
@@ -85,6 +87,7 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 				<Hr/>
 			</ViewPort>
 		}
+		{!requestId && <p>{q} - no Found (404)</p>}
 		</>
 	);
 }

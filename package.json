@@ -17,7 +17,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-player": "^2.9.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "use-debounce": "^7.0.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.14.5",
