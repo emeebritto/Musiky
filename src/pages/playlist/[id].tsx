@@ -8,6 +8,7 @@ import Styled from 'styled-components';
 import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
+import { useSplashContext } from 'common/contexts/splash';
 import { PopUp, MusicList, PlaylistMoreOptions } from 'components';
 import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
@@ -215,6 +216,8 @@ interface DurationOrPLaying {
 
 const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 
+    const { desableSplash } = useSplashContext();
+
     const router = useRouter();
 
     const { infors, list=[] } = playlist;
@@ -238,6 +241,8 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
     ): void => {
         load(targetIndex, targetList, playlistId);
     }
+
+    if(infors.title) desableSplash();
 
 
     //Component:

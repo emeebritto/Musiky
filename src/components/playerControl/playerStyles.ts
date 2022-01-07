@@ -110,6 +110,10 @@ export const MusicTitle = styled.p`
 export const MusicTitleInControl = styled(MusicTitle)`
     background-color: rgb(0 0 0 /40%);
     box-shadow: 0px 0px 30px rgb(0 0 0 /100%);
+    width: 17em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     border-radius: 4px;
     word-break: keep-all;
 `

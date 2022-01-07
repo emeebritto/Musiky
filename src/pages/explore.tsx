@@ -6,6 +6,8 @@ import Head from 'next/head';
 import Styled from "styled-components";
 import { ExploreContent } from 'common/types/pagesSources';
 
+import { useSplashContext } from 'common/contexts/splash';
+
 import { PlaylistsRow, DiskLibrary } from 'components';
 
 
@@ -36,6 +38,9 @@ interface ExploreProps {
 
 
 const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
+
+    const { desableSplash } = useSplashContext();
+    if (pageContent) desableSplash();
 
     return (
         <>

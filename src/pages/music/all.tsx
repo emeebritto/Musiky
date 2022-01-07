@@ -4,9 +4,8 @@ import Head from 'next/head';
 import Styled from "styled-components";
 import axios from 'axios';
 import { Music } from 'common/types';
-
 import { MusicList } from 'components';
-
+import { useSplashContext } from 'common/contexts/splash';
 import { IstaticBaseUrl } from 'api';
 
 
@@ -42,6 +41,8 @@ const LoadNewZone = Styled.section`
 
 
 const AllMusics: NextPage = () => {
+
+    const { desableSplash } = useSplashContext();
 
     const [musicList, setMusicList] = useState<Array<Music>>([]);
     const [secondColumn, setSecondColumn] = useState<Array<Music>>([]);
@@ -82,6 +83,8 @@ const AllMusics: NextPage = () => {
 
         return () => intersectionObserver.disconnect();
     }, []);
+
+    if (!!musicList.length) desableSplash();
 
 
     return (

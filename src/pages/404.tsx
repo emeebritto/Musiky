@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Styled from "styled-components";
-
+import { useSplashContext } from 'common/contexts/splash';
 import { istatic } from "api/istatic";
 
 const ViewPort = Styled.section`
@@ -95,7 +95,11 @@ const BtnHome = Styled.button`
 
 const NotFound404: NextPage = () => {
 
+    const { desableSplash } = useSplashContext();
+
     const router = useRouter();
+
+    desableSplash();
 
     return (
         <>

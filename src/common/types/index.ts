@@ -89,6 +89,11 @@ export interface PlayerContextData {
     setMuted: (s: boolean) => void;
 }
 
+export interface SplashContextData {
+    splash: boolean;
+    setSplash: (s: boolean) => void;
+}
+
 export interface PlaylistContextData {
     playingIndex: number;
     setPlayingIndex: (s: number) => void;

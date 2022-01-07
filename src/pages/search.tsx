@@ -8,6 +8,8 @@ import axios from 'axios';
 import Styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 
+import { useSplashContext } from 'common/contexts/splash';
+
 import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
 
@@ -176,6 +178,8 @@ interface SearchPageProp {
 
 const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 
+    const { desableSplash } = useSplashContext();
+
     const [inputSearch, setInputSearch] = useState('');
     const [autoComplete, setAutoComplete] = useState([]);
     const [inputValueDebounce] = useDebounce(inputSearch, 900);
@@ -211,6 +215,8 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     useEffect(() => {
         filterSearch(inputValueDebounce);
     }, [inputValueDebounce])
+
+    if(pageContent) desableSplash();
   
 
     return (
@@ -251,7 +257,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                         <SearchIcon src={istatic.search_Icon()} alt="search icon"/>
                     </BtnSearch>
 
-                    {Boolean(autoComplete.length)
+                    {!!autoComplete.length
                         && <SearchAutoComplete 
                                 autoComplete={autoComplete} 
                                 updateField={updateField}/>}

@@ -10,6 +10,7 @@ import { istatic } from "api/istatic";
 
 import { formatValues } from 'common/scripts/formatNum';
 import { usePlayerContext } from 'common/contexts/Player';
+import { useSplashContext } from 'common/contexts/splash';
 import { MusicList } from 'components';
 
 
@@ -223,6 +224,7 @@ interface ArtistPageProps {
 
 const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
 
+    const { desableSplash } = useSplashContext();
     const { load } = usePlayerContext();
 
     const {artistData, musics, playlists, requestId} = apiRes;
@@ -233,6 +235,8 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
             .catch(err => console.error(err));
         load(0, playlist.list, playlistId);
     }
+
+    if (requestId) desableSplash();
 
     return (
         <>

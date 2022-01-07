@@ -6,6 +6,8 @@ import Styled from "styled-components";
 import { ArtistCard } from 'components';
 import { BaseUrl } from 'api';
 
+import { useSplashContext } from 'common/contexts/splash';
+
 
 const ViewPort = Styled.section`
     display: flex;
@@ -48,6 +50,8 @@ export const ArtistsList = Styled.section`
 
 const Artists: NextPage = () => {
 
+    const { desableSplash } = useSplashContext();
+
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
@@ -59,6 +63,8 @@ const Artists: NextPage = () => {
         }
         getData()
     },[])
+
+    if(!!artists.length) desableSplash();
 
 
     return (

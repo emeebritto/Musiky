@@ -16,20 +16,10 @@ import { PlayerProvider } from 'common/contexts/providers/Player-provider';
 import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
 import { AccountProvider } from 'common/contexts/providers/Account-provider';
+import { SplashProvider } from 'common/contexts/splash';
 import { GlobalStyle } from 'common/GlobalStyle';
 
 
-const ViewPort = Styled.section` 
-  position: relative;
-  background-color: #020309;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-    ::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-`
 const Main = Styled.section`
   margin-left: 50px;
 `
@@ -37,7 +27,7 @@ const Main = Styled.section`
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ViewPort>
+    <SplashProvider>
       <GlobalStyle/>
       <ErrorBoundary>
         <NavBar/>
@@ -58,7 +48,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           </AccountProvider>
         </Main>
       </ErrorBoundary>
-    </ViewPort>
+    </SplashProvider>
   )
 }
 

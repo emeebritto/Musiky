@@ -58,8 +58,8 @@ export function useLyricContext(){
     },[prop.currentTimeSeconds])
 
     useEffect(()=>{
-        setShowLyrics(Boolean(Object.keys(lyric).length));
-        setHasLyric(Boolean(Object.keys(lyric).length));
+        setShowLyrics(!!Object.keys(lyric).length);
+        setHasLyric(!!Object.keys(lyric).length);
     },[lyric])
 
     return {

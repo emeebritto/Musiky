@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Styled from 'styled-components';
 import { HomeContent } from 'common/types/pagesSources';
 
+import { useSplashContext } from 'common/contexts/splash';
+
 import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components';
 
 const ViewPort = Styled.section`
@@ -33,6 +35,10 @@ interface HomeProps {
 };
 
 const Home: NextPage<HomeProps> = ({ pageContent }) => {
+
+  const { desableSplash } = useSplashContext();
+
+  if(pageContent) desableSplash();
   
   return (
     <div>
