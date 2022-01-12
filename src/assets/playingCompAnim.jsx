@@ -1,6 +1,7 @@
-import React from "react";
+import React/*, { useState, useEffect }*/ from 'react';
 
-function PausedAnim() {
+const PausedAnim = () => {
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

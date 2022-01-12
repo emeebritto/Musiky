@@ -4,8 +4,8 @@ import { BaseUrl } from 'api';
 import Head from 'next/head';
 import Image from 'next/image';
 import Styled from 'styled-components';
+import cache from "memory-cache";
 import { HomeContent } from 'common/types/pagesSources';
-
 import { useSplashContext } from 'common/contexts/splash';
 
 import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components';
@@ -63,8 +63,17 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-    let pageContent = await axios.get(`${BaseUrl}/page/home`).then(r => r.data);
-    return {
-        props: { pageContent }, // will be passed to the page component as props
-    }
+  const URL = `${BaseUrl}/page/home`;
+  let pageContent = {};
+
+  const cachedResponse = cache.get(URL);
+  if (cachedResponse) {
+    pageContent = cachedResponse;
+  } else {
+    pageContent = await axios.get(URL).then(r => r.data);
+    cache.put(URL, pageContent, 60 * 60000);
+  }
+  return {
+    props: { pageContent }, // will be passed to the page component as props
+  }
 }

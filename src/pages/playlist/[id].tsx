@@ -10,7 +10,7 @@ import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { useSplashContext } from 'common/contexts/splash';
 import { PopUp, MusicList, PlaylistMoreOptions } from 'components';
-import { BaseUrl } from 'api';
+import { BaseUrl, IstaticBaseUrl } from 'api';
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
@@ -207,6 +207,7 @@ const OthersData = Styled.section`
 
 interface PlaylistPageProp {
     playlist: PlaylistProps;
+    mode: string;
 }
 
 interface DurationOrPLaying {
@@ -214,14 +215,11 @@ interface DurationOrPLaying {
     index: number;
 }
 
-const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
-
-    const { desableSplash } = useSplashContext();
-
-    const router = useRouter();
+const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
 
     const { infors, list=[] } = playlist;
-
+    const { desableSplash } = useSplashContext();
+    const router = useRouter();
     const { prop, load, stopPlayer } = usePlayerContext();
     const [showPopUp, setShowPopUp] = useState(false);
 
@@ -297,8 +295,8 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
                     <PlayListImg src={infors.img} alt="PlayList Img"/>
                     <OthersData>
                         <PlaylistTitle>{infors.title}</PlaylistTitle>
-                        <PlaySubTitle>{infors.length} • Tracks</PlaySubTitle>
-                        <PlaySubTitle>Duration: {infors.totalDuration}</PlaySubTitle>
+                        {infors.length && <PlaySubTitle>{infors.length} • Tracks</PlaySubTitle>}
+                        {infors.totalDuration && <PlaySubTitle>Duration: {infors.totalDuration}</PlaySubTitle>}
                         <PlaylistOptions>
                             <CircleOptionComponent/>
                         </PlaylistOptions>
@@ -339,13 +337,27 @@ export default Playlist
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
+    let playlist = {
+        infors: {},
+        list: []
+    };
+
     let id: string | string[] | undefined = context?.params?.id;
-    let playlist = await axios.get(`${BaseUrl}/playlist/${id}`)
-        .then(r=>r.data);
+    let mode: string | string[] | undefined = context?.query?.mode;
+    if (mode) {
+        let { list } = await axios.get(`${IstaticBaseUrl}playlist/${id}`).then(r=>r.data);
+        playlist.list = list;
+        playlist.infors.title = `Mix - ${list[0].title}`;
+        playlist.infors.img = list[0].thumbnails.medium.url;
+    } else {
+        playlist = await axios.get(`${BaseUrl}/playlist/${id}`)
+            .then(r => r.data);
+    }
+
 
     if(!playlist) return { notFound: true }
 
     return {
-        props: { playlist }, // will be passed to the page component as props
+        props: { playlist, mode: mode || null } // will be passed to the page component as props
     }
 }

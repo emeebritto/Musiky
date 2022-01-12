@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { SearchPageContent } from 'common/types/pagesSources';
 import axios from 'axios';
 import Styled from 'styled-components';
+import cache from "memory-cache";
 import { useDebounce } from 'use-debounce';
 
 import { useSplashContext } from 'common/contexts/splash';
@@ -285,8 +286,18 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 export default Search
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-    let pageContent = await axios.get(`${BaseUrl}/page/search`).then(r=>r.data);
-    return {
-        props: { pageContent }, // will be passed to the page component as props
-    }
+  const URL = `${BaseUrl}/page/search`;
+  let pageContent = {};
+
+  const cachedResponse = cache.get(URL);
+  if (cachedResponse) {
+    pageContent = cachedResponse;
+  } else {
+    pageContent = await axios.get(URL).then(r => r.data);
+    cache.put(URL, pageContent, 60 * 60000);
+  }
+
+  return {
+    props: { pageContent }, // will be passed to the page component as props
+  }
 }

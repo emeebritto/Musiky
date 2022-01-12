@@ -12,8 +12,7 @@ export interface HomeContent {
         greetingImg: string;
     };
     quickPicks: {
-        id: string;
-        list: Array<Music>;
+        items: Array<PlaylistProps>;
     };
     playlists: any;
     artists: Array<ArtistDataProps>;

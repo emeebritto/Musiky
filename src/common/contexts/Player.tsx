@@ -1,4 +1,6 @@
 import React, { useContext } from 'react';
+import axios from 'axios';
+import { IstaticBaseUrl } from 'api';
 import { EventTarget, SyntheticEvent, Music } from 'common/types';
 import { PlayerContext } from './providers/Player-provider';
 import { usePlaylistContext } from './Playlist';
@@ -42,20 +44,26 @@ export function usePlayerContext(){
 // ==================================================================
 
 
-	const load = (
+	const load = async(
         playIndex: number,
-        list: Array<Music>,
+        list: Array<Music> | string,
         playlistId: string | undefined = undefined
-    ): void => {
+    ): Promise<void> => {
 
-        console.log(playlistId);
+        if (typeof list == 'string') {
+            list = await axios.get(`${IstaticBaseUrl}playlist/${list}`)
+                .then(r => r.data.list)
+                .catch(err => console.error(err));
+        }
 
-        if(playlistId) {
+        if(playlistId && typeof list != 'string') {
         	startPlaylist(playIndex, playlistId, list);
         }
 
-		setMusic(list[playIndex]);
-        setBuffer(true);
+        if(typeof list != 'string') {
+    		setMusic(list[playIndex]);
+            setBuffer(true);
+        }
     }
 
     const stopPlayer = (): void => {

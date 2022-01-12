@@ -47,8 +47,9 @@ export interface PlaylistProps {
         description: string;
         length: number;
         totalDuration: string;
+        startWith?: Music;
     };
-    key?: string;
+    key: string;
     list: Array<Music>;
 }
 

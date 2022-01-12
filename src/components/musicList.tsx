@@ -2,10 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { Music } from 'common/types';
-
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
-
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
@@ -26,7 +24,7 @@ const MusicOptionBox = Styled.section`
 
     ::-webkit-scrollbar {
         width: 0;
-    }   
+    }
 
     :hover{
         cursor: pointer;
