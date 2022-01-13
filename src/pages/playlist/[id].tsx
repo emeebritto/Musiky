@@ -338,7 +338,10 @@ export default Playlist
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let playlist = {
-        infors: {},
+        infors: {
+            title: '',
+            img: ''
+        },
         list: []
     };
 
