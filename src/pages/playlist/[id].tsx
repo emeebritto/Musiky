@@ -338,18 +338,26 @@ export default Playlist
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let playlist = {
+        id: '',
         infors: {
+            id: '',
             title: '',
             img: ''
         },
         list: []
     };
 
-    let id: string | string[] | undefined = context?.params?.id;
-    let mode: string | string[] | undefined = context?.query?.mode;
-    if (mode) {
-        let { list } = await axios.get(`${IstaticBaseUrl}playlist/${id}`).then(r=>r.data);
+    const id: string | string[] | undefined = context.params?.id;
+    const ikey: string | string[] | undefined = context.query?.ikey;
+    const mode: string | string[] | undefined = context.query?.mode;
+
+    if(!id) return { notFound: true }
+
+    if (mode == 'radio') {
+        let { list } = await axios.get(`${IstaticBaseUrl}playlist/${ikey}`).then(r=>r.data);
         playlist.list = list;
+        playlist.id = String(id);
+        playlist.infors.id = String(id);
         playlist.infors.title = `Mix - ${list[0].title}`;
         playlist.infors.img = list[0].thumbnails.medium.url;
     } else {

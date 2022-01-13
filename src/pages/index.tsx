@@ -44,7 +44,6 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
     <div>
       <Head>
         <title>Musiky (in Development)</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <ViewPort>
           <Wrapper>

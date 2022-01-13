@@ -1,6 +1,13 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import Styled from 'styled-components';
+import { PlayerProvider } from 'common/contexts/providers/Player-provider';
+import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
+import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
+import { AccountProvider } from 'common/contexts/providers/Account-provider';
+import { SplashProvider } from 'common/contexts/splash';
+import { GlobalStyle } from 'common/GlobalStyle';
 
 import {
   ErrorBoundary,
@@ -12,13 +19,6 @@ import {
   Cursorlight
 } from 'components';
 
-import { PlayerProvider } from 'common/contexts/providers/Player-provider';
-import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
-import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
-import { AccountProvider } from 'common/contexts/providers/Account-provider';
-import { SplashProvider } from 'common/contexts/splash';
-import { GlobalStyle } from 'common/GlobalStyle';
-
 
 const Main = Styled.section`
   margin-left: 50px;
@@ -27,6 +27,10 @@ const Main = Styled.section`
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
+    <>
+    <Head>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
     <SplashProvider>
       <GlobalStyle/>
       <ErrorBoundary>
@@ -49,6 +53,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         </Main>
       </ErrorBoundary>
     </SplashProvider>
+    </>
   )
 }
 

@@ -1,12 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ShortCutUrl } from 'common/shortcutUrl';
-
-import { useAccountContext } from 'common/contexts/Account';
-
 import Styled from 'styled-components';
-
+import { ShortCutUrl } from 'common/shortcutUrl';
+import { useAccountContext } from 'common/contexts/Account';
 import { istatic } from 'api/istatic';
 
 const HeaderBranding = Styled.img`

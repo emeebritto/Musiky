@@ -1,3 +1,6 @@
+import axios from 'axios';
+axios.get('https://musiky-listen.herokuapp.com');
+
 const devENV = false;
 
 const prodAPI = 'https://api-musiky.herokuapp.com';

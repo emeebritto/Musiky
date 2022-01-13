@@ -149,8 +149,6 @@ interface Playing {
 
 const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
 
-    console.log(JSON.stringify(data, null, "      "));
-
     const { prop, load } = usePlayerContext();
     const { isPlayingIndex, playlistInfor } = usePlaylistContext();
     const router = useRouter();
@@ -165,8 +163,8 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
         }
     }
 
-    const goToList = ({ key }: { key: string }) => {
-        router.push(`/playlist/${key}?mode=radio`);
+    const goToList = ({ key, id }: { key: string, id: string }) => {
+        router.push(`/playlist/${id}?ikey=${key}&mode=radio`);
     };
 
     //Component:
