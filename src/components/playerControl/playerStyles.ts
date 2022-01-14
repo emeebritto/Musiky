@@ -12,7 +12,7 @@ export const ViewPort = styled.main`
     z-index: 3;
     bottom: 0vh;
     justify-content: space-around;
-    width: 96.5vw;
+    width: 95.5vw;
     height: 10vh;
     box-shadow: inset 0px -50px 30px rgb(0 0 0 /80%);
 
