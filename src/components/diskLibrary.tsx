@@ -109,7 +109,7 @@ const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
                                 playing={isPlayingId(disk.id)} 
                                 id={isPlayingId(disk.id) ? '' : 'diskImg'}
                                 style={{ 
-                                    background: `url(${disk.thumbnails.medium.url}) no-repeat center/177.5%`
+                                    background: `url(${disk.thumbnails[1].url}) no-repeat center/177.5%`
                                 }}
                             >
                                 <CenterHole/>

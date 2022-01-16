@@ -11,6 +11,7 @@ import PausedAnim from 'assets/playingCompAnim.jsx';
 const BoxIconPLayHover = Styled.img`
     display: none;
     filter: invert(100%);
+    margin: 0 8.5px;
 `
 const MusicOptionBox = Styled.section`
     position: relative;
@@ -127,7 +128,7 @@ const MusicTitle = Styled.p`
 const MusicTime = Styled.section`
     text-align: center;
     font-size: 0.9em;
-    width: 60px;
+    width: 100px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     @media(max-width: 545px) {
         display: none;
@@ -188,7 +189,7 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
                         <NumMusic>{index + 1}.</NumMusic>
                     </BoxNumMusic>
                     <DataMusic>
-                        <BoxImgMusic src={music.thumbnails.medium.url} alt="imgMusic" />
+                        <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
                         <Titles>
                             <MusicTitle>{music.title}</MusicTitle>
                             <section>

@@ -24,11 +24,7 @@ export interface Music {
     title: string;
     originTitle: string;
     sourceBy: string;
-    thumbnails: {
-        medium: {
-            url: string;
-        }
-    };
+    thumbnails: Array<{ url: string }>;
     duration: string;
     durationObj: {
         hour: number;

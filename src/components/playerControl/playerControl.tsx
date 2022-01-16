@@ -91,7 +91,7 @@ const PlayerControl: React.FC = () => {
             >
             {prop.music && <MusicInfor>
                 <MusicImg 
-                    src={prop.music.thumbnails.medium.url}
+                    src={prop.music.thumbnails[1].url}
                     alt="musicImg"
                     />
                 <SectionTitles>
