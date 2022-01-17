@@ -41,11 +41,9 @@ const ReactPlayerComp: React.FC = () => {
     } = usePlayerContext();
 
 
-    useEffect(()=>{
-
+    useEffect(()=> {
         document.addEventListener("contextmenu", e => e.preventDefault());
         return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
-
     },[])
 
 

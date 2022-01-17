@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Styled from "styled-components";
 import axios from 'axios';
 import { usePlayerContext } from 'common/contexts/Player';
+import { usePlaylistContext } from 'common/contexts/Playlist';
 import { BaseUrl } from 'api';
 import { istatic } from 'api/istatic';
 import { PlaylistProps } from 'common/types';
@@ -22,13 +23,26 @@ const PlayList = Styled.section`
 
     :hover {
         cursor: pointer;
-        transform: translateY(-5px);
+        transform: ${(props: {playHoverOff: boolean}) => (
+            props.playHoverOff ? "" : "translateY(-5px)"
+        )};
     }
 
     :hover #BtnPLayHover {
-        display: inline-block;
+        ${(props: {playHoverOff: boolean}) => (
+            props.playHoverOff 
+            ? "display: none"
+            : "display: inline-block"
+        )};
     }
 
+`
+const PlayingList = Styled.img`
+    display: ${(props: {on: boolean}) => (props.on ? "" : "none")};
+    position: absolute;
+    width: 30px;
+    top: 30%;
+    left: 40%;
 `
 const BtnPLayHover = Styled.button`
     display: none;
@@ -71,6 +85,9 @@ const PlayListImg = Styled.img`
     border-radius: 10px;
     width: 150px;
     height: 150px;
+    filter: ${(props: {fade: boolean}) => (
+        props.fade ? "brightness(0.4)" : "brightness(1)"
+    )};
 `
 
 const PlayListTitle = Styled.h2`
@@ -94,7 +111,8 @@ interface PlayListRowProps {
 
 const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
 
-    const { load } = usePlayerContext()
+    const { load } = usePlayerContext();
+    const { playlistInfor } = usePlaylistContext();
 
     const startList = async(playlistId: string): Promise<void> => {
         let playlist = await axios.get(`${BaseUrl}/playlist/${playlistId}`)
@@ -102,18 +120,31 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
             .catch(err => console.error(err));
         load(0, playlist.list, playlistId);
     }
-    
+
+    const isPlaying = (id: string): boolean => {
+        if (!playlistInfor.playlistId) return false;
+        return id === playlistInfor.playlistId;
+    }
+
     return (
         <VerticalView viewLabel={name}>
             {data.map((playlist, index) => {
+                let playing = isPlaying(playlist.id);
                 return (
                     <Link 
                         href={`/playlist/${playlist.infors.playlistId}`}
                         key={index}>
-                        <PlayList>
+                        <PlayList playHoverOff={playing}>
                         	<PlayListImg 
                                 id="PlayListImg" 
-                                src={playlist.infors.img}/>
+                                src={playlist.infors.img}
+                                fade={playing}
+                            />
+                            <PlayingList
+                                src={istatic.icon_playingList()}
+                                alt="playing list"
+                                on={playing}
+                            />
                             <BtnPLayHover 
                                 onClick={e => {
                                     e.preventDefault()
@@ -121,8 +152,11 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
                                     startList(playlist.infors.playlistId)
                                 }}
                                 id="BtnPLayHover">
-                                <BtnPLayHoverImg src={istatic.iconPlay()} alt="play icon"/>
-                                <ShadowHover></ShadowHover>
+                                <BtnPLayHoverImg
+                                    src={istatic.iconPlay()}
+                                    alt="play icon"
+                                />
+                                <ShadowHover/>
                             </BtnPLayHover>
                         	<section>
                         		<PlayListTitle>{playlist.infors.title}</PlayListTitle>

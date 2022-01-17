@@ -10,6 +10,7 @@ export const istatic = {
     iconPlay: ()=> `${BaseUrl}icons/play_arrow_black_24dp.svg`,
     stopIcon: ()=> `${BaseUrl}icons/stop_black_24dp.svg`,
     icon_playing: ()=> `${BaseUrl}icons/AnimatedSvg/playing.svg`,
+    icon_playingList: ()=> `${BaseUrl}icons/AnimatedSvg/playing-bar.svg`,
     icon_paused: ()=> `${BaseUrl}icons/AnimatedSvg/pausedIcon.svg`,
     iconBack: ()=> `${BaseUrl}icons/skip_previous_white_24dp.svg`,
     backPage: ()=> `${BaseUrl}icons/back_icon.svg`,

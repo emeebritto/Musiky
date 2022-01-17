@@ -256,6 +256,7 @@ export const VolumeControl = styled(DurationSlider)`
     }
 
 `
+
 export const BtnIconVolume = styled(BtnPlayerControl)`
     width: 30px;
     height: 30px;
