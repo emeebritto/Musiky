@@ -7,6 +7,7 @@ import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
 import { AccountProvider } from 'common/contexts/providers/Account-provider';
 import { SplashProvider } from 'common/contexts/splash';
+import { BackPlayerProvider } from 'common/contexts/backPlayer';
 import { GlobalStyle } from 'common/GlobalStyle';
 
 import {
@@ -14,6 +15,7 @@ import {
   Header, 
   NavBar, 
   PlayerControl,
+  BackPlayer,
   ReactPlayerComp,
   LirycScreen,
   Cursorlight
@@ -34,23 +36,26 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <SplashProvider>
       <GlobalStyle/>
       <ErrorBoundary>
-        <NavBar/>
-        <Cursorlight/>
-        <Main>
-          <AccountProvider>
-            <PlaylistProvider>
-              <PlayerProvider>
-                <LyricProvider>
-                  <LirycScreen/>
-                  <ReactPlayerComp/>
-                  <Header/> 
-                  <Component {...pageProps} />
-                  <PlayerControl/>
-                </LyricProvider>
-              </PlayerProvider>
-            </PlaylistProvider>
-          </AccountProvider>
-        </Main>
+        <BackPlayerProvider>
+          <NavBar/>
+          <Cursorlight/>
+          <Main>
+            <AccountProvider>
+              <PlaylistProvider>
+                <PlayerProvider>
+                  <LyricProvider>
+                    <LirycScreen/>
+                    <ReactPlayerComp/>
+                    <Header/>
+                      <BackPlayer/>
+                      <Component {...pageProps} />
+                      <PlayerControl/>
+                  </LyricProvider>
+                </PlayerProvider>
+              </PlaylistProvider>
+            </AccountProvider>
+          </Main>
+        </BackPlayerProvider>
       </ErrorBoundary>
     </SplashProvider>
     </>

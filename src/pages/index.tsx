@@ -8,7 +8,13 @@ import cache from "memory-cache";
 import { HomeContent } from 'common/types/pagesSources';
 import { useSplashContext } from 'common/contexts/splash';
 
-import { BoxGreeting, BoxQuickPicks, PlaylistsRow, ArtistsRow } from 'components';
+import {
+  Recommendations,
+  BoxGreeting,
+  BoxQuickPicks,
+  PlaylistsRow,
+  ArtistsRow
+} from 'components';
 
 const ViewPort = Styled.section`
   overflow-y: scroll;
@@ -23,7 +29,7 @@ const Wrapper = Styled.section`
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 20vh 0 10vh 0;
+  margin: 0 0 10vh 0;
 
   @media(max-width: 900px) {
     margin-top: 16vh;
@@ -47,6 +53,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
       </Head>
       <ViewPort>
           <Wrapper>
+              <Recommendations data={pageContent.recommendations}/>
               <BoxGreeting data={pageContent.greeting}/>
               <BoxQuickPicks data={pageContent.quickPicks}/>
               <PlaylistsRow name='MIXs' data={pageContent.playlists.mixs}/>

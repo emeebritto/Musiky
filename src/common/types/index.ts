@@ -91,6 +91,13 @@ export interface SplashContextData {
     setSplash: (s: boolean) => void;
 }
 
+export interface BackPlayerContextData {
+    id: string;
+    setId: (s: string) => void;
+    playing: boolean;
+    setPlaying: (s: boolean) => void;
+}
+
 export interface PlaylistContextData {
     playingIndex: number;
     setPlayingIndex: (s: number) => void;

@@ -13,7 +13,7 @@ const NavBarContainer = Styled.aside`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 3;
+    z-index: 4;
     width: 50px;
     height: 100vh;
     box-shadow: inset 0px 60px 60px rgb(0 0 0 /70%);

@@ -38,7 +38,7 @@ const PlayList = Styled.section`
 
 `
 const PlayingList = Styled.img`
-    display: ${(props: {on: boolean}) => (props.on ? "" : "none")};
+    display: ${(props: {active: boolean}) => (props.active ? "" : "none")};
     position: absolute;
     width: 30px;
     top: 30%;
@@ -143,7 +143,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
                             <PlayingList
                                 src={istatic.icon_playingList()}
                                 alt="playing list"
-                                on={playing}
+                                active={playing}
                             />
                             <BtnPLayHover 
                                 onClick={e => {

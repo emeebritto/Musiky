@@ -3,6 +3,7 @@ import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
 import { EventTarget, SyntheticEvent, Music } from 'common/types';
 import { PlayerContext } from './providers/Player-provider';
+import { useBackPlayerContext } from 'common/contexts/backPlayer';
 import { usePlaylistContext } from './Playlist';
 
 
@@ -39,6 +40,8 @@ export function usePlayerContext(){
 		startPlaylist,
 		changeMusic
 	} = usePlaylistContext();
+
+    const { stopSong } = useBackPlayerContext();
 	
 
 // ==================================================================
@@ -63,6 +66,7 @@ export function usePlayerContext(){
         if(typeof list != 'string') {
     		setMusic(list[playIndex]);
             setBuffer(true);
+            stopSong();
         }
     }
 

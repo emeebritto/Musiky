@@ -9,7 +9,7 @@ const ViewPort = Styled.section`
     left: 0;
     width: 99.4vw;
     height: 100vh;
-    z-index: 2;
+    z-index: 3;
     background-color: #000;
 `
 
