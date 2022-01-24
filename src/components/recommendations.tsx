@@ -111,7 +111,7 @@ const Recommendations: React.FC = ({ data }) => {
         <ReactPlayer
           playing={true}
           volume={0}
-          url={`https://www.youtube-nocookie.com/embed/${data.clip.id}`}
+          url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1`}
           onBuffer={() => setPlaying(false)}
           onBufferEnd={()=> setPlaying(true)}
           onEnded={()=> setPlaying(false)}
