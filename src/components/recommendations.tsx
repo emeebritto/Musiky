@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
+import { ArtistDataProps, Music } from "common/types";
 import { useBackPlayerContext } from 'common/contexts/backPlayer';
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -21,7 +22,7 @@ const Thumbnail = Styled.section`
   position: absolute;
   top: 0;
   left: 0;
-  background: ${(props) => (
+  background: ${(props: {img: string | false}) => (
     props.img
     ? `url(${props.img}) center/70%`
     : `rgba(0, 0, 0, 0.6)`
@@ -79,8 +80,15 @@ const ListenNowBtn = Styled.button`
     background-color: #fff;
   }
 `
+interface RecProps {
+  data: {
+    clip: Music;
+    artist: ArtistDataProps;
+    instrumental: Music;
+  }
+}
 
-const Recommendations: React.FC = ({ data }) => {
+const Recommendations: React.FC<RecProps> = ({ data }) => {
 
   const { playSong } = useBackPlayerContext();
   const { load } = usePlayerContext();

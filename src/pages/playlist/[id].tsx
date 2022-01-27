@@ -9,7 +9,7 @@ import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { useSplashContext } from 'common/contexts/splash';
-import { PopUp, MusicList, PlaylistMoreOptions } from 'components';
+import { MusicList, PlaylistMoreOptions } from 'components';
 import { BaseUrl, IstaticBaseUrl } from 'api';
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';

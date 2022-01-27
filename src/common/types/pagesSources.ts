@@ -5,8 +5,12 @@ export interface ExploreContent {
     disks: Array<Music>;
 }
 
-
 export interface HomeContent {
+    recommendations: {
+        clip: Music;
+        artist: ArtistDataProps;
+        instrumental: Music;
+    };
     greeting: {
         greetingText: string;
         greetingImg: string;

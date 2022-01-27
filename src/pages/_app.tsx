@@ -17,7 +17,7 @@ import {
   PlayerControl,
   BackPlayer,
   ReactPlayerComp,
-  LirycScreen,
+  LyricScreen,
   Cursorlight
 } from 'components';
 
@@ -44,7 +44,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
               <PlaylistProvider>
                 <PlayerProvider>
                   <LyricProvider>
-                    <LirycScreen/>
+                    <LyricScreen/>
                     <ReactPlayerComp/>
                     <Header/>
                       <BackPlayer/>
