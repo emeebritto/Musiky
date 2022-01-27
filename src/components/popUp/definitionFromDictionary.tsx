@@ -27,7 +27,7 @@ const DefinitionFromDictionary: React.FC<LayoutProps> = ({
     word
 }) => {
 
-    const [defs, setDefs] = useState([]);
+    const [defs, setDefs] = useState<any>([]);
     const [isLoading, setLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -49,7 +49,7 @@ const DefinitionFromDictionary: React.FC<LayoutProps> = ({
     },[])
 
     return (
-        <PopUp show={word} onRequestClose={()=> setWord('')}>
+        <PopUp show={!!word} onRequestClose={()=> setWord('')}>
             <Titles>
                 <WordName>Word: { word }</WordName>
                 <img/>
@@ -58,7 +58,7 @@ const DefinitionFromDictionary: React.FC<LayoutProps> = ({
             {!!hasError && <p>No definition(s) found for "{word}"</p>}
             {!!defs.length &&
             <section>
-                {defs.map((def, i) => {
+                {defs.map((def: any, i: number) => {
                     return (
                         <section>{def.glossary}</section>
                     )

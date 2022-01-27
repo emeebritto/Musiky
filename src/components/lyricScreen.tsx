@@ -68,7 +68,7 @@ const LyricScreen: React.FC = () => {
     const { lyricProp } = useLyricContext();
     const [word, setWord] = useState('');
 
-    const copyContent = (currentValue): void => {
+    const copyContent = (currentValue: string): void => {
         navigator.clipboard.writeText(currentValue).then(()=> alert('copied'))
     }
 
