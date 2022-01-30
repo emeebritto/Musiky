@@ -86,25 +86,22 @@ interface ArtistCardProps {
 }
 
 
-const ArtistCard: React.FC<ArtistCardProps> = ({ artist, index=0 }) => {
+const ArtistCard: React.FC<ArtistCardProps> = ({ artist, index=0 }) => (
+    <Link 
+        href={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`}>
+        <Artist>
+            <section>
+                <ArtistImg
+                    src={artist.images.length ? artist.images[1].url : ''}
+                    alt={`${artist.name} img`}/>
+                <ArtistName>{artist.name}</ArtistName>
+            </section>
+            <section>
+                <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
+                <BrnFollow>Follow</BrnFollow>
+            </section>
+        </Artist>
+    </Link>
+)
 
-    return (
-        <Link 
-            href={`/artist/${artist.name.replace(/ /g, '-').toLowerCase()}`}>
-            <Artist>
-                <section>
-                    <ArtistImg
-                        src={artist.images.length ? artist.images[1].url : ''}
-                        alt={`${artist.name} img`}/>
-                    <ArtistName>{artist.name}</ArtistName>
-                </section>
-                <section>
-                    <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
-                    <BrnFollow>Follow</BrnFollow>
-                </section>
-            </Artist>
-        </Link>
-    )
-}
-
-export default ArtistCard
+export default ArtistCard;

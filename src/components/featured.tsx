@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { ArtistDataProps, Music } from "common/types";
-import { useBackPlayerContext } from 'common/contexts/backPlayer';
+import { useFeaturedContext } from 'common/contexts/Featured';
 import { usePlayerContext } from 'common/contexts/Player';
 
 
@@ -88,19 +88,17 @@ interface RecProps {
   }
 }
 
-const Recommendations: React.FC<RecProps> = ({ data }) => {
+const Featured: React.FC<RecProps> = ({ data }) => {
 
-  const { playSong } = useBackPlayerContext();
+  const { playSong, playing, stopAll } = useFeaturedContext();
   const { load } = usePlayerContext();
-  const [playing, setPlaying] = useState(false);
 
   const playMusic = (): void => {
     load(0, [ data.clip ], 'dfmskd76');
-    setPlaying(false);
   }
 
   useEffect(()=>{
-      playSong(data.instrumental.id);
+    playSong(data.instrumental.id);
   },[])
 
   return (
@@ -117,12 +115,10 @@ const Recommendations: React.FC<RecProps> = ({ data }) => {
       </Data>
       <PlayerWrapper>
         <ReactPlayer
-          playing={true}
+          playing={playing}
           volume={0}
           url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1`}
-          onBuffer={() => setPlaying(false)}
-          onBufferEnd={()=> setPlaying(true)}
-          onEnded={()=> setPlaying(false)}
+          onEnded={()=> stopAll()}
           width='95vw'
           height='112vh'
           config={{
@@ -137,4 +133,4 @@ const Recommendations: React.FC<RecProps> = ({ data }) => {
   )
 }
 
-export default Recommendations;
+export default Featured;

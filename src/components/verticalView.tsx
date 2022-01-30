@@ -64,26 +64,27 @@ interface VerticalViewProp {
     };
 }
 
-const VerticalView: React.FC<VerticalViewProp> = ({ children, viewLabel='', btnOption={} }) => {
+const VerticalView: React.FC<VerticalViewProp> = ({ 
+    children,
+    viewLabel='',
+    btnOption={}
+}) => (
+    <ViewPort>
+        {viewLabel &&
+            <ViewInfor>
+                <Label>{viewLabel}</Label>
+                {btnOption.href &&
+                    <BtnField>
+                        <Link href={btnOption.href}>
+                            <BtnOption>{ btnOption.displayName }</BtnOption>
+                        </Link>
+                        <BtnHoverLine id='hoverLine'/>
+                    </BtnField>
+                }
+            </ViewInfor>
+        }
+        <ViewWrapper>{ children }</ViewWrapper>
+    </ViewPort>
+)
 
-    return (
-        <ViewPort>
-            {viewLabel &&
-                <ViewInfor>
-                    <Label>{viewLabel}</Label>
-                    {btnOption.href &&
-                        <BtnField>
-                            <Link href={btnOption.href}>
-                                <BtnOption>{ btnOption.displayName }</BtnOption>
-                            </Link>
-                            <BtnHoverLine id='hoverLine'/>
-                        </BtnField>
-                    }
-                </ViewInfor>
-            }
-            <ViewWrapper>{ children }</ViewWrapper>
-        </ViewPort>
-    )
-}
-
-export default VerticalView
+export default VerticalView;

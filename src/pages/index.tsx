@@ -9,7 +9,7 @@ import { HomeContent } from 'common/types/pagesSources';
 import { useSplashContext } from 'common/contexts/splash';
 
 import {
-  Recommendations,
+  Featured,
   BoxGreeting,
   BoxQuickPicks,
   PlaylistsRow,
@@ -53,7 +53,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
       </Head>
       <ViewPort>
           <Wrapper>
-              <Recommendations data={pageContent.recommendations}/>
+              <Featured data={pageContent.recommendations}/>
               <BoxGreeting data={pageContent.greeting}/>
               <BoxQuickPicks data={pageContent.quickPicks}/>
               <PlaylistsRow name='MIXs' data={pageContent.playlists.mixs}/>

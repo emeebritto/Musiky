@@ -7,7 +7,7 @@ import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
 import { AccountProvider } from 'common/contexts/providers/Account-provider';
 import { SplashProvider } from 'common/contexts/splash';
-import { BackPlayerProvider } from 'common/contexts/backPlayer';
+import { FeaturedProvider } from 'common/contexts/Featured';
 import { GlobalStyle } from 'common/GlobalStyle';
 
 import {
@@ -15,7 +15,7 @@ import {
   Header, 
   NavBar, 
   PlayerControl,
-  BackPlayer,
+  FeaturedPlayer,
   ReactPlayerComp,
   LyricScreen,
   Cursorlight
@@ -36,7 +36,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     <SplashProvider>
       <GlobalStyle/>
       <ErrorBoundary>
-        <BackPlayerProvider>
+        <FeaturedProvider>
           <NavBar/>
           <Cursorlight/>
           <Main>
@@ -47,7 +47,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                     <LyricScreen/>
                     <ReactPlayerComp/>
                     <Header/>
-                      <BackPlayer/>
+                      <FeaturedPlayer/>
                       <Component {...pageProps} />
                       <PlayerControl/>
                   </LyricProvider>
@@ -55,7 +55,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
               </PlaylistProvider>
             </AccountProvider>
           </Main>
-        </BackPlayerProvider>
+        </FeaturedProvider>
       </ErrorBoundary>
     </SplashProvider>
     </>

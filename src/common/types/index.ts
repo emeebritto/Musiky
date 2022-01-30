@@ -91,7 +91,7 @@ export interface SplashContextData {
     setSplash: (s: boolean) => void;
 }
 
-export interface BackPlayerContextData {
+export interface FeaturedContextData {
     id: string;
     setId: (s: string) => void;
     playing: boolean;

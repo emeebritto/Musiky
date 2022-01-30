@@ -54,16 +54,14 @@ const Author = Styled.h1`
     }
 `
 
-const SplashScreen: React.FC = () => {
-	return(
-		<ViewPort>
-			<BrandingWrapper>
-				<AppBranding src={istatic.branding()} alt="musiky branding"/>
-			</BrandingWrapper>
-			<Author>By Emerson Britto</Author>
-		</ViewPort>
-	)
-}
+const SplashScreen: React.FC = () => (
+	<ViewPort>
+		<BrandingWrapper>
+			<AppBranding src={istatic.branding()} alt="musiky branding"/>
+		</BrandingWrapper>
+		<Author>By Emerson Britto</Author>
+	</ViewPort>
+)
 
 
-export default SplashScreen
+export default SplashScreen;

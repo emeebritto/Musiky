@@ -22,22 +22,19 @@ interface ArtistsRowProps {
 }
 
 
-const ArtistsRow: React.FC<ArtistsRowProps> = ({ data }) => {
-    
-    return (
-        <VerticalView viewLabel="Artists" btnOption={{
-            displayName: "SEE ALL",
-            href: '/artists'
-        }}>
-            <ArtistsProfile>
-                {data.map((artist, index) => {
-                    return (
-                        <ArtistCard artist={artist} index={index} key={index}/>
-                    )
-                })}
-            </ArtistsProfile>
-        </VerticalView>
-    )
-}
+const ArtistsRow: React.FC<ArtistsRowProps> = ({ data }) => (
+    <VerticalView viewLabel="Artists" btnOption={{
+        displayName: "SEE ALL",
+        href: '/artists'
+    }}>
+        <ArtistsProfile>
+            {data.map((artist, index) => {
+                return (
+                    <ArtistCard artist={artist} index={index} key={index}/>
+                )
+            })}
+        </ArtistsProfile>
+    </VerticalView>
+)
 
-export default ArtistsRow
+export default ArtistsRow;

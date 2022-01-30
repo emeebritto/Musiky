@@ -20,5 +20,5 @@ export { default as VerticalView } from './verticalView';
 export { default as Cursorlight } from './cursorLight';
 export { ErrorBoundary } from './errorBoundary';
 export { default as SplashScreen } from './splashScreen';
-export { default as BackPlayer } from './backPlayer';
-export { default as Recommendations } from './recommendations';
+export { default as FeaturedPlayer } from './featuredPlayer';
+export { default as Featured } from './featured';

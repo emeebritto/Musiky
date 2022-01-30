@@ -33,7 +33,7 @@ const DefinitionFromDictionary: React.FC<LayoutProps> = ({
 
     useEffect(()=> {
         async function getDef() {
-            axios.get(`http://localhost:9872/itools/dictionary?word=${word}`)
+            axios.get(`https://cdn-istatics.herokuapp.com/itools/dictionary?word=${word}`)
                 .then(res => {
                     setDefs(res.data)
                     setLoading(false);
