@@ -92,10 +92,14 @@ export interface SplashContextData {
 }
 
 export interface FeaturedContextData {
-    id: string;
-    setId: (s: string) => void;
     playing: boolean;
     setPlaying: (s: boolean) => void;
+    AudId: string;
+    setAudId: (s: string) => void;
+    playingAud: boolean;
+    setPlayingAud: (s: boolean) => void;
+    AudVol: number;
+    setAudVol: (s: number) => void;
 }
 
 export interface PlaylistContextData {

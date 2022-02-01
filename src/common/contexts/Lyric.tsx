@@ -32,6 +32,14 @@ export function useLyricContext(){
         setShowLyrics((showLyrics: boolean) => !showLyrics);
     }
 
+    const getFullLyric = () => {
+        return Object.values(lyric);
+    }
+
+    const getLyricTimeRef = () => {
+        return Object.keys(lyric);
+    }
+
     useEffect(()=>{
         if (!prop.music) return;
         setCurrentLine('waiting for the best moment..');
@@ -68,6 +76,8 @@ export function useLyricContext(){
             showLyrics,
             hasLyric
         },
+        getFullLyric,
+        getLyricTimeRef,
         toggleLyrics
     }
 }
