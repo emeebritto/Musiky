@@ -1,6 +1,7 @@
 import React from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { PlayerProvider } from 'common/contexts/providers/Player-provider';
 import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
@@ -28,7 +29,8 @@ const Main = Styled.section`
 
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-  if (Component.name === 'Embed') {
+  const router = useRouter();
+  if (router.route === "/embed/[id]") {
     return (
       <>
       <Head>
@@ -36,15 +38,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       </Head>
       <GlobalStyle/>
       <ErrorBoundary>
-          {false && <Cursorlight/>}
-              <PlaylistProvider>
-                <PlayerProvider>
-                  <LyricProvider>
-                    <ReactPlayerComp/>
-                      <Component {...pageProps} />
-                  </LyricProvider>
-                </PlayerProvider>
-              </PlaylistProvider>
+        <PlaylistProvider>
+          <PlayerProvider>
+            <LyricProvider>
+              <ReactPlayerComp/>
+                <Component {...pageProps} />
+            </LyricProvider>
+          </PlayerProvider>
+        </PlaylistProvider>
       </ErrorBoundary>
       </>
     )
