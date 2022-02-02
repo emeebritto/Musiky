@@ -71,4 +71,7 @@ table {
     color: white;
     background-color: #6033FF;
 }
+strong {
+	font-weight: bold;
+}
 `

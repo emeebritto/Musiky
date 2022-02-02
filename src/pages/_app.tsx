@@ -28,6 +28,27 @@ const Main = Styled.section`
 
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
+  if (Component.name === 'Embed') {
+    return (
+      <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <GlobalStyle/>
+      <ErrorBoundary>
+          {false && <Cursorlight/>}
+              <PlaylistProvider>
+                <PlayerProvider>
+                  <LyricProvider>
+                    <ReactPlayerComp/>
+                      <Component {...pageProps} />
+                  </LyricProvider>
+                </PlayerProvider>
+              </PlaylistProvider>
+      </ErrorBoundary>
+      </>
+    )
+  }
   return (
     <>
     <Head>
