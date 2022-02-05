@@ -6,13 +6,15 @@ import { LyricContext } from './providers/Lyric-provider';
 import { usePlayerContext } from './Player';
 
 
-export function useLyricContext(){
+export function useLyricContext() {
 
 	const {
         lyric,
         setLyric,
         currentLine,
         setCurrentLine,
+        currentIndex,
+        setCurrentIndex,
         showLyrics,
         setShowLyrics,
         hasLyric,
@@ -40,6 +42,13 @@ export function useLyricContext(){
         return Object.keys(lyric);
     }
 
+    const fullLyricCurrentLine = (currentTimeSeconds: number): void => {
+        let index = Object.keys(lyric).findIndex(value => {
+            return Number(value) == currentTimeSeconds
+        });
+        setCurrentIndex(index);
+    };
+
     useEffect(()=>{
         if (!prop.music) return;
         setCurrentLine('waiting for the best moment..');
@@ -57,11 +66,14 @@ export function useLyricContext(){
 
     useEffect(()=>{
         if(lyric[prop.currentTimeSeconds]) {
-            setCurrentLine(lyric[prop.currentTimeSeconds])
+            setCurrentLine(lyric[prop.currentTimeSeconds]);
+            fullLyricCurrentLine(prop.currentTimeSeconds);
         } else if (lyric[prop.currentTimeSeconds -1]) {
-            setCurrentLine(lyric[prop.currentTimeSeconds -1])
+            setCurrentLine(lyric[prop.currentTimeSeconds -1]);
+            fullLyricCurrentLine(prop.currentTimeSeconds -1);
         } else if (lyric[prop.currentTimeSeconds -2]) {
-            setCurrentLine(lyric[prop.currentTimeSeconds -2])
+            setCurrentLine(lyric[prop.currentTimeSeconds -2]);
+            fullLyricCurrentLine(prop.currentTimeSeconds -2);
         }
     },[prop.currentTimeSeconds])
 
@@ -72,6 +84,7 @@ export function useLyricContext(){
 
     return {
         lyricProp: {
+            currentIndex,
             currentLine,
             showLyrics,
             hasLyric

@@ -77,7 +77,7 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 		<>
 		{requestId &&
 			<ViewPort>
-				<Label>Resultado para: {q.replace(/-/g, ' ')}</Label>
+				<Label>Resultado para: {searchTop.name}</Label>
 				<FirstSection>
 					<ArtistCard artist={searchTop}/>
 					<MusicListWrapper>

@@ -99,7 +99,8 @@ const BtnSeeFullLyric = Styled.button`
 const LyricLine = Styled.p`
     font-size: 1.3em;
     margin: 1px 0;
-    opacity: 0.6;
+    opacity: ${(props: {active: boolean}) => (props.active ? "0.9" : "0.6")};
+    font-weight: ${(props: {active: boolean}) => (props.active ? "bold" : "")};
     cursor: pointer;
     transition: 100ms;
 
@@ -165,7 +166,12 @@ const LyricScreen: React.FC = () => {
                     <FullLyricWrapper>
                         {getFullLyric().map((line, i) => {
                             return (
-                                <LyricLine onClick={()=> goToLine(i)}>{line}</LyricLine>
+                                <LyricLine
+                                    onClick={()=> goToLine(i)}
+                                    active={lyricProp.currentIndex === i}
+                                >
+                                    {line}
+                                </LyricLine>
                             )
                         })}
                     </FullLyricWrapper>

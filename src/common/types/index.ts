@@ -124,6 +124,8 @@ export interface LyricContextData {
     setLyric: (s: Lyric) => void;
     currentLine: string;
     setCurrentLine: (s: string) => void;
+    currentIndex: number;
+    setCurrentIndex: (s: number) => void;
     showLyrics: boolean;
     setShowLyrics: (s: boolean | ((s: boolean) => boolean)) => void;
     hasLyric: boolean;

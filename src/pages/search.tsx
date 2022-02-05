@@ -227,14 +227,14 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
         </Head>
         <ViewPort>
             <ContentField>
-                {router.query.q && <ResultSearch/>}
-                <PlaylistsRow 
+                {router.query.q && <ResultSearch />}
+                <PlaylistsRow
                     name='Others lists'
                     data={pageContent.playlists.othersLists}
                 />
                 <ArtistsRow data={pageContent.artists}/>
             </ContentField>
-            <SearchField>
+            <SearchField onClick={() => setAutoComplete([])}>
                 <SearchBar>
                     <InputSearchBar 
                         type="text" 
@@ -250,7 +250,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                     <BtnSearch onClick={e=> {
                         setAutoComplete([]);
                         router.push(
-                            `${router.route}/?q=${inputSearch.replaceAll(' ', '-')}`,
+                            `${router.route}/?q=${inputSearch.replace(/\W|_/gi, '')}`,
                             undefined,
                             { shallow: true }
                         )
@@ -259,7 +259,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                     </BtnSearch>
 
                     {!!autoComplete.length
-                        && <SearchAutoComplete 
+                        && <SearchAutoComplete
                                 autoComplete={autoComplete} 
                                 updateField={updateField}/>}
                     
@@ -268,7 +268,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                     {pageContent.searchSuggestions.map((suggestion, index) => {
                         return (
                             <Link
-                                href={`${router.route}?q=${suggestion.replace(/ /g, '-')}`}
+                                href={`${router.route}?q=${suggestion.replace(/\W|_/gi, '')}`}
                                 key={index}>
                                 <Suggestion onClick={()=>{updateField(suggestion)}}>
                                     {suggestion}
