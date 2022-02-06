@@ -2,14 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { BaseUrl } from 'api';
 import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
 import Styled from "styled-components";
 import cache from "memory-cache";
 import { ExploreContent } from 'common/types/pagesSources';
 
 import { useSplashContext } from 'common/contexts/splash';
 
-import { PlaylistsRow, DiskLibrary } from 'components';
+import { PlaylistsRow, DiskLibrary, TabTitle } from 'components';
 
 
 const ViewPort = Styled.section`
@@ -45,9 +44,7 @@ const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
 
   return (
     <>
-    <Head>
-      <title>Musiky - Explore</title>
-    </Head>
+    <TabTitle name={`Musiky - Explore`}/>
     <ViewPort>
       <Wrapper>
         <PlaylistsRow name='Explore List' data={pageContent.playlists.exploreList}/>

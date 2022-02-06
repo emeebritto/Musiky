@@ -1,10 +1,10 @@
 import React from "react";
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Styled from "styled-components";
 import { useSplashContext } from 'common/contexts/splash';
 import { istatic } from "api/istatic";
+import { TabTitle } from "components";
 
 const ViewPort = Styled.section`
     position: relative;
@@ -103,9 +103,7 @@ const NotFound404: NextPage = () => {
 
     return (
         <>
-        <Head>
-            <title>No Found (404)</title>
-        </Head>
+        <TabTitle name={`No Found (404)`}/>
         <ViewPort style={{ background: `url(${istatic.city()}) no-repeat center/80%`}}>
             <Wrapper>
                 <Light src={istatic.cellingLight()} alt="celling Light"/>

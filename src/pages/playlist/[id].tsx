@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -9,7 +8,7 @@ import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { useSplashContext } from 'common/contexts/splash';
-import { MusicList, PlaylistMoreOptions } from 'components';
+import { MusicList, PlaylistMoreOptions, TabTitle } from 'components';
 import { BaseUrl, IstaticBaseUrl } from 'api';
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
@@ -279,9 +278,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
 
     return (
         <>
-        <Head>
-            <title>Playlist: {infors.title}</title>
-        </Head>
+        <TabTitle name={`Playlist: ${infors.title}`}/>
         <ViewPort>
             <PlaylistMoreOptions
                 showPopUp={showPopUp}

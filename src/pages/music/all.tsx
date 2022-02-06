@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import Styled from "styled-components";
 import axios from 'axios';
 import { Music } from 'common/types';
-import { MusicList } from 'components';
+import { MusicList, TabTitle } from 'components';
 import { useSplashContext } from 'common/contexts/splash';
 import { IstaticBaseUrl } from 'api';
 
@@ -18,7 +17,6 @@ const Wrapper = Styled.section`
     display: flex;
     margin: 14vh 0;
 `
-
 const MusicListWrapper = Styled.section`
     display: flex;
     justify-content: center;
@@ -33,7 +31,6 @@ const MusicListWrapper = Styled.section`
         width: 0;
     } 
 `
-
 const LoadNewZone = Styled.section`
     width: 40px;
     height: 40px;
@@ -89,9 +86,7 @@ const AllMusics: NextPage = () => {
 
     return (
         <>
-        <Head>
-            <title>Musiky - All Tracks</title>
-        </Head>
+        <TabTitle name={`Musiky - All Tracks`}/>
         <ViewPort>
             <Wrapper>
                 <MusicListWrapper>

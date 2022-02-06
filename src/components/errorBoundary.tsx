@@ -1,6 +1,7 @@
 // From React Docs (modified);
 import React from 'react';
 import Styled from 'styled-components';
+import { LoadingCube } from 'components';
 
 
 const Wrapper = Styled.section`
@@ -64,6 +65,7 @@ class ErrorBoundary extends React.Component {
         <Wrapper>
           <M>Why you just listen to me?</M>
           <RedLight/>
+          <LoadingCube error={true}/>
         </Wrapper>
       )
     }

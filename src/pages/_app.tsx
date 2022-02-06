@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -19,7 +19,8 @@ import {
   FeaturedPlayer,
   ReactPlayerComp,
   LyricScreen,
-  Cursorlight
+  Cursorlight,
+  LoadingCube
 } from 'components';
 
 
@@ -30,6 +31,7 @@ const Main = Styled.section`
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if("serviceWorker" in navigator) {
@@ -46,11 +48,25 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }
   }, [])
 
+useEffect(() => {
+    const handleStart = (url: string): void => {
+      url !== router.pathname ? setIsLoading(true) : setIsLoading(false);
+    };
+    const handleComplete = (url: string): void => setIsLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    //router.events.on("routeChangeError", handleError);
+  }, [router]);
+
   if (router.route === "/embed/[id]") {
     return (
       <>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <meta charSet="utf-8"/>
+        <link rel="icon" href="/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="author" content="Emerson_Britto"/>
       </Head>
       <GlobalStyle/>
       <ErrorBoundary>
@@ -69,22 +85,24 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
     <Head>
-      <meta charSet="utf-8" />
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="manifest" href="/manifest.json" />
-      <meta name="keywords" content="Musiky, music player" />
+      <meta charSet="utf-8"/>
+      <link rel="icon" href="/favicon.ico"/>
+      <link rel="manifest" href="/manifest.json"/>
+      <meta name="keywords" content="Musiky, music player"/>
       <meta
         name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
       />
+      <meta name="theme-color" content="#020309"/>
+      <meta name="author" content="Emerson_Britto"/>
       <title>Musiky</title>
-      <meta name="theme-color" content="#020309" />
     </Head>
     <SplashProvider>
       <GlobalStyle/>
       <ErrorBoundary>
         <FeaturedProvider>
           <NavBar/>
+          {isLoading && <LoadingCube/>}
           <Cursorlight/>
           <Main>
             <AccountProvider>

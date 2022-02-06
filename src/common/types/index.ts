@@ -51,6 +51,7 @@ export interface PlaylistProps {
 
 export interface ArtistDataProps {
     name: string;
+    id: string;
     images: Array<{ url: string }>;
     followers: {
         total: number;

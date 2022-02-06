@@ -5,6 +5,7 @@ import Styled from 'styled-components';
 import { ShortCutUrl } from 'common/shortcutUrl';
 import { useAccountContext } from 'common/contexts/Account';
 import { istatic } from 'api/istatic';
+import { Time } from 'components';
 
 
 const HeaderContainer = Styled.header`
@@ -31,6 +32,10 @@ const HeaderBranding = Styled.img`
     @media(max-width: 570px) {
         width: 100px;
     }
+`
+const HeaderRight = Styled.section`
+    display: flex;
+    align-items: center;
 `
 const ProfileField = Styled.section`
     display: flex;
@@ -96,12 +101,15 @@ const Header: React.FC = () => {
                     <UserName>{props.displayName}</UserName>
                 </ProfileField>
             }
-            {!hasAccount() &&
-                <SignInBtn onClick={()=> redirectLogin()}>
-                    <AccountIcon src={istatic.iconAccount()} alt='account icon' />
-                    SIGN IN
-                </SignInBtn>
-            }
+            <HeaderRight>
+                <Time margin={`0 25px`}/>
+                {!hasAccount() &&
+                    <SignInBtn onClick={()=> redirectLogin()}>
+                        <AccountIcon src={istatic.iconAccount()} alt='account icon' />
+                        SIGN IN
+                    </SignInBtn>
+                }
+            </HeaderRight>
         </HeaderContainer>
     )
 }

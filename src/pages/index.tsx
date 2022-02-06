@@ -1,7 +1,6 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import { BaseUrl } from 'api';
-import Head from 'next/head';
 import Image from 'next/image';
 import Styled from 'styled-components';
 import cache from "memory-cache";
@@ -13,7 +12,8 @@ import {
   BoxGreeting,
   BoxQuickPicks,
   PlaylistsRow,
-  ArtistsRow
+  ArtistsRow,
+  TabTitle
 } from 'components';
 
 const ViewPort = Styled.section`
@@ -48,9 +48,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
   
   return (
     <div>
-      <Head>
-        <title>Musiky (in Development)</title>
-      </Head>
+      <TabTitle name={`Musiky (in Development)`}/>
       <ViewPort>
           <Wrapper>
               <Featured data={pageContent.recommendations}/>

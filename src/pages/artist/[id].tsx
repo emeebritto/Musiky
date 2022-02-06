@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
 import axios from 'axios';
 import Link from 'next/link';
 import Styled from "styled-components";
@@ -11,7 +10,7 @@ import { istatic } from "api/istatic";
 import { formatValues } from 'common/scripts/formatNum';
 import { usePlayerContext } from 'common/contexts/Player';
 import { useSplashContext } from 'common/contexts/splash';
-import { MusicList } from 'components';
+import { MusicList, TabTitle } from 'components';
 
 
 const ViewPort = Styled.section`
@@ -240,9 +239,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
 
     return (
         <>
-        <Head>
-            <title>Artist: {artistData.name}</title>
-        </Head>
+        <TabTitle name={`Artist: ${artistData.name}`}/>
         <ViewPort>
             <Wrapper>
                 <ArtistInfor>
