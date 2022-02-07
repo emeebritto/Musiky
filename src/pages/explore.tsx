@@ -60,7 +60,7 @@ const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
 export default Explore;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const URL = `${BaseUrl}/page/explore`;
+  const URL = `http://${context.req.headers.host}/api/pages/explore`;
   let pageContent = {};
 
   const cachedResponse = cache.get(URL);

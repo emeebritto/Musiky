@@ -6,7 +6,7 @@ import Styled from 'styled-components';
 import { istatic } from "api/istatic";
 
 
-const NavBarContainer = Styled.aside`
+const NavBarContainer = Styled.nav`
     position: fixed;
     top: 0;
     left: 0;

@@ -115,7 +115,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
   const { playlistInfor } = usePlaylistContext();
 
   const startList = async(playlistId: string): Promise<void> => {
-    let playlist = await axios.get(`${BaseUrl}/playlist/${playlistId}`)
+    let playlist = await axios.get(`${location.origin}/api/playlist/${playlistId}`)
       .then(r=>r.data)
       .catch(err => console.error(err));
     load(0, playlist.list, playlistId);

@@ -59,7 +59,7 @@ const SplashScreen: React.FC = () => (
 		<BrandingWrapper>
 			<AppBranding src={istatic.branding()} alt="musiky branding"/>
 		</BrandingWrapper>
-		<Author>By Emerson Britto</Author>
+		<Author>from <strong>Nordly</strong></Author>
 	</ViewPort>
 )
 

@@ -286,7 +286,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 export default Search
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const URL = `${BaseUrl}/page/search`;
+  const URL = `http://${context.req.headers.host}/api/pages/search`;
   let pageContent = {};
 
   const cachedResponse = cache.get(URL);

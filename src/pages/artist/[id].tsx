@@ -229,7 +229,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
     const {artistData, musics, playlists, requestId} = apiRes;
 
     const startList = async(playlistId: string): Promise<void> => {
-        let playlist = await axios.get(`${BaseUrl}/playlist/${playlistId}`)
+        let playlist = await axios.get(`${location.origin}/api/playlist/${playlistId}`)
             .then(r=>r.data)
             .catch(err => console.error(err));
         load(0, playlist.list, playlistId);
@@ -308,7 +308,8 @@ export default Artist
 export const getServerSideProps: GetServerSideProps = async(context) => {
 
     let q: string | string[] | undefined = context?.params?.id;
-    let apiRes = await axios.get(`${BaseUrl}/artist/${q}`)
+    const URL = `http://${context.req.headers.host}/api/artist/${q}`;
+    let apiRes = await axios.get(URL)
         .then(r=>r.data)
         .catch(err => console.error(err))
 

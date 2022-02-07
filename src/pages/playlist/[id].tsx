@@ -358,7 +358,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
         playlist.infors.title = `Mix - ${list[0].title}`;
         playlist.infors.img = list[0].thumbnails[1].url;
     } else {
-        playlist = await axios.get(`${BaseUrl}/playlist/${id}`)
+        playlist = await axios.get(`http://${context.req.headers.host}/api/playlist/${id}`)
             .then(r => r.data);
     }
 

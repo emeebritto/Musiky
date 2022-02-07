@@ -64,10 +64,10 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
   )
 }
 
-export default Home
+export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const URL = `${BaseUrl}/page/home`;
+  const URL = `http://${context.req.headers.host}/api/pages/home`;
   let pageContent = {};
 
   const cachedResponse = cache.get(URL);
