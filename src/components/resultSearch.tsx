@@ -4,9 +4,6 @@ import { withRouter, NextRouter } from 'next/router';
 import axios from 'axios';
 import Styled from 'styled-components';
 import { ArtistDataProps } from 'common/types';
-
-import { BaseUrl } from 'api';
-
 import { ArtistCard, MusicList } from 'components';
 
 const ViewPort = Styled.section`
@@ -45,16 +42,14 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 	const [searchTop, setSearchTop] = useState<ArtistDataProps>({} as ArtistDataProps);
 	const [artists, setArtists] = useState([]);
 	const [musics, setMusics] = useState([]);
-
 	const [requestId, setRequestId] = useState('');
 
     let q: string = String(router.query.q);
 
 
     useEffect(() => {
-
         async function getData() {
-            let res = await axios.get(`${BaseUrl}/search/${q}`)
+            let res = await axios.get(`${location.origin}/api/search/${q}`)
             	.then(r=>r.data)
             	.catch(err => console.error(err));
 
@@ -69,7 +64,6 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
             setRequestId(res.requestId);
         }
         getData()
-
     },[q])
 
 

@@ -8,6 +8,7 @@
       "api": ["api"],
       "assets": ["assets"]
     },
+    "typeRoots": ["src/@types", "node_modules/@types"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,

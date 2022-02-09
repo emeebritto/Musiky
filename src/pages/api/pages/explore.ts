@@ -9,8 +9,10 @@ export default async function handler(
   res: NextApiResponse<ExploreContent>
 ) {
 
-  const $ = {};
-  $.playlists = {};
+  const $: ExploreContent = {
+    playlists: {},
+    disks: []
+  };
 
   $.playlists.exploreList = await randomPlaylists({ totalList: 6 })
     .then(r=>r.items);

@@ -4,7 +4,6 @@ import Styled from "styled-components";
 import axios from 'axios';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
-import { BaseUrl } from 'api';
 import { istatic } from 'api/istatic';
 import { PlaylistProps } from 'common/types';
 import { VerticalView } from 'components';

@@ -4,7 +4,7 @@ import faker from 'faker';
 
 const randomPlaylists = async(
     { totalList, category='all' }: 
-    {totalList: number, category: string}
+    {totalList: number, category?: string}
 ) => {
     let playlists = {
         request: 'random-list',

@@ -1,17 +1,25 @@
 import axios from 'axios';
 
+interface PathProps {
+  [key: string]: string;
+}
+
 const BASE_URL = process.env.NODE_ENV === 'development'
     ? `http://localhost:${9872}/`
     : 'https://cdn-istatics.herokuapp.com/'
 
 
-const onError = err => {
+const onError = (err: any) => {
     console.error(err);
 }
 
-const request = (pathName, params='', callbackError=onError) => {
+const request = (
+    pathName: string,
+    params: string ='',
+    callbackError=onError
+) => {
 
-    let paths = {
+    const paths: PathProps = {
         playlist: 'playlist/',
         artist: 'artist/',
         allMusics: 'music/all',

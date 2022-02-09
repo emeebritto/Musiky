@@ -1,7 +1,10 @@
-const { request } = require('../../external/api');
+import { request } from 'common/utils/request';
+import { Music } from 'common/types';
 
-
-const autoComplete = async(value, maxResult=10) => {
+const autoComplete = async(
+    value: string,
+    maxResult: number =10
+): Promise<Music[]> => {
 
     let { items } = await request('allMusics', '?allNames=1&maxResult=5000');
     let { names } = await request('allArtistNames');
@@ -32,4 +35,4 @@ const autoComplete = async(value, maxResult=10) => {
     return selected;
 }
 
-module.exports = autoComplete
+export default autoComplete;

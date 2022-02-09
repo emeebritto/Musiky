@@ -1,8 +1,8 @@
-const faker = require('faker');
-const { request } = require('../../external/api');
+import faker from 'faker';
+import { request } from 'common/utils/request';
 
 
-const search = async({ input }) => {
+const search = async({ input }: {input: string}) => {
 
     let res = {
         input: input,
@@ -30,4 +30,4 @@ const search = async({ input }) => {
     return res
 }
 
-module.exports = search
+export default search;

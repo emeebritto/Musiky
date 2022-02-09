@@ -11,8 +11,7 @@ export default async function handler(
   res: NextApiResponse<HomeContent>
 ) {
 
-  const $ = {};
-  $.playlists = {};
+  const $: HomeContent | {} = {};
 
   let playlists = await randomPlaylists({ totalList: 1 });
   let firstPlaylistId = playlists.items[0].id;

@@ -1,6 +1,6 @@
 import { request } from 'common/utils/request';
 
-const suggestions = async({ total }) => {
+const suggestions = async({ total }: {total: number}) => {
 
     let { names } = await request('allArtistNames')
     let suggestionsList = [];
