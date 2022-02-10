@@ -11,18 +11,17 @@ export default async function handler(
   res: NextApiResponse<HomeContent>
 ) {
 
-  const $: HomeContent | {} = {};
-
-  let playlists = await randomPlaylists({ totalList: 1 });
-  let firstPlaylistId = playlists.items[0].id;
-
-  $.greeting = greeting();
-  $.recommendations = await recommendations();
-  $.quickPicks = await randomPlaylists({ totalList: 10, category: 'random' });
-  $.playlists.mixs = await randomPlaylists({ totalList: 6 }).then(r=>r.items);
-  $.artists = await randomArtists({ maxResult: 6 }).then(r=>r.artists);
-  $.playlists.otherMixs = await randomPlaylists({ totalList: 6 }).then(r=>r.items);
-  $.playlists.justSongs = await randomPlaylists({ totalList: 6 }).then(r=>r.items);
+  const $ = {
+    greeting: greeting(),
+    recommendations: await recommendations(),
+    quickPicks: await randomPlaylists({ totalList: 10, category: 'random' }),
+    playlists: {
+      mixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
+      otherMixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
+      justSongs: await randomPlaylists({ totalList: 6 }).then(r=>r.items)
+    },
+    artists: await randomArtists({ maxResult: 6 }).then(r=>r.artists)
+  };
 
   res.status(200).json($)
 }

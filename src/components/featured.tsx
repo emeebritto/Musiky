@@ -85,16 +85,18 @@ interface RecProps {
     clip: Music;
     artist: ArtistDataProps;
     instrumental: Music;
-  }
+  } | undefined;
 }
 
 const Featured: React.FC<RecProps> = ({ data }) => {
+
+  if (!data) return (<></>);
 
   const { playSong, playing, stopAll } = useFeaturedContext();
   const { load } = usePlayerContext();
 
   const playMusic = (): void => {
-    load(0, [ data.clip ], 'dfmskd76');
+   load(0, [ data.clip ], 'dfmskd76');
   }
 
   useEffect(()=>{

@@ -4,9 +4,8 @@ import axios from 'axios';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { ArtistDataProps, Music, PlaylistProps } from 'common/types';
-import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
-
+import byId from 'common/utils/playlists/byId';
 import { formatValues } from 'common/scripts/formatNum';
 import { usePlayerContext } from 'common/contexts/Player';
 import { useSplashContext } from 'common/contexts/splash';
@@ -229,9 +228,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
     const {artistData, musics, playlists, requestId} = apiRes;
 
     const startList = async(playlistId: string): Promise<void> => {
-        let playlist = await axios.get(`${location.origin}/api/playlist/${playlistId}`)
-            .then(r=>r.data)
-            .catch(err => console.error(err));
+        let playlist = await byId({id: playlistId});
         load(0, playlist.list, playlistId);
     }
 

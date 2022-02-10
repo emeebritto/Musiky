@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { BaseUrl } from 'api';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
 import cache from "memory-cache";

@@ -6,6 +6,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const result = await search({ input: req.query.input });
+  const result = await search({ input: String(req.query.input) });
   res.status(200).json(result);
 }

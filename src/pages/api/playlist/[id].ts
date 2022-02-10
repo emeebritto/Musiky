@@ -7,6 +7,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<PlaylistProps>
 ) {
-  const playlist = await byId({ id: req.query.id });
+  const playlist = await byId({ id: String(req.query.id) });
   res.status(200).json(playlist);
 }

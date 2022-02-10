@@ -1,6 +1,5 @@
 import type { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
-import { BaseUrl } from 'api';
 import Image from 'next/image';
 import Styled from 'styled-components';
 import cache from "memory-cache";
@@ -42,22 +41,29 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ pageContent }) => {
 
-  const { desableSplash } = useSplashContext();
+  const {
+    recommendations,
+    greeting,
+    quickPicks,
+    playlists,
+    artists
+  } = pageContent;
 
-  if(pageContent) desableSplash();
+  const { desableSplash } = useSplashContext();
+  if (pageContent) desableSplash();
   
   return (
     <div>
       <TabTitle name={`Musiky (in Development)`}/>
       <ViewPort>
           <Wrapper>
-              <Featured data={pageContent.recommendations}/>
-              <BoxGreeting data={pageContent.greeting}/>
-              <BoxQuickPicks data={pageContent.quickPicks}/>
-              <PlaylistsRow name='MIXs' data={pageContent.playlists.mixs}/>
-              <ArtistsRow data={pageContent.artists}/>
-              <PlaylistsRow name='Others MIXs' data={pageContent.playlists.otherMixs}/>
-              <PlaylistsRow name='Just Song' data={pageContent.playlists.justSongs}/>
+              <Featured data={recommendations}/>
+              <BoxGreeting data={greeting}/>
+              <BoxQuickPicks data={quickPicks}/>
+              <PlaylistsRow name='MIXs' data={playlists.mixs}/>
+              <ArtistsRow data={artists}/>
+              <PlaylistsRow name='Others MIXs' data={playlists.otherMixs}/>
+              <PlaylistsRow name='Just Song' data={playlists.justSongs}/>
           </Wrapper>
       </ViewPort>
     </div>

@@ -1,8 +1,16 @@
 import getPlaylistsById from 'common/utils/playlists/byId';
 import artistData from 'common/utils/artists/artistData';
-import { Music } from 'common/types';
+import { Music, ArtistDataProps } from 'common/types';
 
-const recommendations = async() => {
+interface Return {
+	instrumental: Music,
+	artist: ArtistDataProps,
+	clip: Music
+};
+
+const isEmpty = (obj: any): boolean => !!!Object.keys(obj).length;
+
+const recommendations = async(): Promise<Return | undefined> => {
 	let noVocals = await getPlaylistsById({ id: 'PLrQmjsgFFZHi2KZhTy8717zlVnSi6Jiat' });
 	let officialVideos = await getPlaylistsById({ id: 'PLrQmjsgFFZHiLLcr1cKedzZVBMnujZQEE' });
 	let song = noVocals.list[~~(Math.random() * noVocals.list.length - 1)];
@@ -14,6 +22,10 @@ const recommendations = async() => {
 		&& tragetArtist.test(ms.originTitle)
 		|| tragetArtist.test(ms.artists[0])
 	});
+
+	if (isEmpty(data.artistData) || isEmpty(clip)) {
+		return undefined;
+	}
 
 	return {
 		instrumental: song,

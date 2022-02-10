@@ -10,14 +10,15 @@ export default async function handler(
   res: NextApiResponse<SearchPageContent>
 ) {
 
-    const $ = {};
-    $.playlists = {};
-
-    $.searchSuggestions = await suggestions({ total: 11 });
-    $.playlists.othersLists = await randomPlaylists({ totalList: 6 })
-      .then(r=>r.items);
-    $.artists = await randomArtists({ maxResult: 6 })
-      .then(r=>r.artists);
+  const $ = {
+    searchSuggestions: await suggestions({ total: 11 }),
+    playlists: {
+      othersLists: await randomPlaylists({ totalList: 6 })
+        .then(r=>r.items)
+    },
+    artists: await randomArtists({ maxResult: 6 })
+      .then(r=>r.artists)
+  }
 
   res.status(200).json($)
 }

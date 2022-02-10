@@ -1,20 +1,23 @@
 import { request } from 'common/utils/request';
 import { Music } from 'common/types';
 
-const autoComplete = async(
-    value: string,
-    maxResult: number =10
-): Promise<Music[]> => {
+const autoComplete = async({
+    input,
+    maxResult=10
+}:{
+    input: string,
+    maxResult: number
+}): Promise<string[]> => {
 
     let { items } = await request('allMusics', '?allNames=1&maxResult=5000');
     let { names } = await request('allArtistNames');
 
     var selected = [];
 
-    if (value.length > 0) {
+    if (input.length > 0) {
         for (var i = 0; i < items.length; i++) {
 
-            var exp = new RegExp(value, "i");
+            var exp = new RegExp(input, "i");
             var item = items[i];
             var name = names[i];
  

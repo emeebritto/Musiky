@@ -4,15 +4,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SearchPageContent } from 'common/types/pagesSources';
+import { Music } from 'common/types';
 import axios from 'axios';
 import Styled from 'styled-components';
 import cache from "memory-cache";
 import { useDebounce } from 'use-debounce';
-
 import { useSplashContext } from 'common/contexts/splash';
-
-import { BaseUrl } from 'api';
 import { istatic } from "api/istatic";
+import autoComplete from 'common/utils/search/autoComplete';
 
 import { 
     PlaylistsRow, 
@@ -182,7 +181,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     const { desableSplash } = useSplashContext();
 
     const [inputSearch, setInputSearch] = useState('');
-    const [autoComplete, setAutoComplete] = useState([]);
+    const [optionsToComplete, setOptionsToComplete] = useState<string[]>([]);
     const [inputValueDebounce] = useDebounce(inputSearch, 900);
 
 
@@ -192,19 +191,15 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 
     const updateField = (option: string): void => {
         setInputSearch(option);
-        setAutoComplete([]);
+        setOptionsToComplete([]);
     }
 
     const filterSearch = async (value: string): Promise<void> => {
 
         if (value.length > 1) {
-            setAutoComplete(await axios
-                .get(`${BaseUrl}/search/auto-complete?input=${value}&maxResult=${8}`)
-                .then(r=>r.data)
-                .catch(err => console.error(err))
-            )
+            setOptionsToComplete(await autoComplete({input: value, maxResult: 8}));
         } else {
-            setAutoComplete([]);
+            setOptionsToComplete([]);
             router.push('/search');
         }
     }
@@ -234,7 +229,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                 />
                 <ArtistsRow data={pageContent.artists}/>
             </ContentField>
-            <SearchField onClick={() => setAutoComplete([])}>
+            <SearchField onClick={() => setOptionsToComplete([])}>
                 <SearchBar>
                     <InputSearchBar 
                         type="text" 
@@ -248,7 +243,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                     />
 
                     <BtnSearch onClick={e=> {
-                        setAutoComplete([]);
+                        setOptionsToComplete([]);
                         router.push(
                             `${router.route}/?q=${inputSearch.replace(/\W|_/gi, '')}`,
                             undefined,
@@ -258,9 +253,9 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                         <SearchIcon src={istatic.search_Icon()} alt="search icon"/>
                     </BtnSearch>
 
-                    {!!autoComplete.length
+                    {!!optionsToComplete.length
                         && <SearchAutoComplete
-                                autoComplete={autoComplete} 
+                                autoComplete={optionsToComplete} 
                                 updateField={updateField}/>}
                     
                 </SearchBar>

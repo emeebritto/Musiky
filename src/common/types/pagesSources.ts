@@ -10,7 +10,7 @@ export interface HomeContent {
         clip: Music;
         artist: ArtistDataProps;
         instrumental: Music;
-    };
+    } | undefined;
     greeting: {
         greetingText: string;
         greetingImg: string;
