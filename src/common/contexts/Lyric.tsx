@@ -26,7 +26,7 @@ export function useLyricContext() {
 
 // ==================================================================
 
-    const toggleLyrics = (changeTo: boolean =false): void => {
+    const toggleLyrics = (changeTo: boolean=false): void => {
         if(changeTo) {
             setShowLyrics(changeTo);
             return
@@ -78,7 +78,6 @@ export function useLyricContext() {
     },[prop.currentTimeSeconds])
 
     useEffect(()=>{
-        setShowLyrics(!!Object.keys(lyric).length);
         setHasLyric(!!Object.keys(lyric).length);
     },[lyric])
 

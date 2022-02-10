@@ -121,6 +121,9 @@ const MusicTitle = Styled.p`
         width: 230px;
     }
 `
+const NamesList = Styled.ul`
+    display: flex;
+`
 const MusicTime = Styled.section`
     text-align: center;
     font-size: 0.9em;
@@ -216,21 +219,23 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
                                 <BoxImgMusic src={list.infors.img} alt="playlist image" />
                                 <Titles>
                                     <MusicTitle>{list.infors.title}</MusicTitle>
-                                    <section>
+                                    <NamesList>
                                         {startWith && startWith.artists.map((artist, index) => {
                                             let space='';
                                             if(index > 0){ space = ',  ' }
                                             return(
-                                                <Link 
-                                                    href={`/artist/${artist.replace(/\W/g, '-')}`}
-                                                    key={index}>
-                                                    <ChannelName onClick={(e)=>{e.stopPropagation()}}>
-                                                        {space + artist}
-                                                    </ChannelName>
-                                                </Link>
+                                                <li key={index}>
+                                                    <Link
+                                                        href={`/artist/${artist.replace(/\W/g, '-')}`}
+                                                    >
+                                                        <ChannelName onClick={(e)=>{e.stopPropagation()}}>
+                                                            {space + artist}
+                                                        </ChannelName>
+                                                    </Link>
+                                                </li>
                                             )
                                         })}
-                                    </section>
+                                    </NamesList>
                                 </Titles>
                             </DataMusic>
                             <BoxPLayingNow id={list.id}/>

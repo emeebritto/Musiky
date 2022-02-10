@@ -124,6 +124,9 @@ const MusicTitle = Styled.p`
     width: 230px;
   }
 `
+const NamesList = Styled.ul`
+    display: flex;
+`
 const MusicTime = Styled.section`
   text-align: center;
   font-size: 0.9em;
@@ -179,7 +182,7 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
         hoverOff={isPlayingIndex(listId, index)} 
         onClick={(e) => {
           e.stopPropagation();
-          clickOnMusic(index, list, listId)
+          clickOnMusic(index, list, listId);
         }}
         key={music.id}
         >
@@ -190,7 +193,7 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
           <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
           <Titles>
             <MusicTitle>{music.title}</MusicTitle>
-            <ul>
+            <NamesList>
               {music.artists.map((artist, index) => {
                 let space='';
                 if(index > 0){ space = ',  ' }
@@ -206,7 +209,7 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
                   </li>
                 )
               })}
-            </ul>
+            </NamesList>
           </Titles>
         </DataMusic>
         <MusicTime>

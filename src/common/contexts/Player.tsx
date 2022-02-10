@@ -94,11 +94,13 @@ export function usePlayerContext(){
     	let hasMusic: Music | null = changeMusic(action);
 
     	if(!hasMusic){
+            onBuffer(false);
     		setPlaying(false);
     		return
-    	}
-
-        setMusic(hasMusic);
+    	} else {
+            onBuffer(true);
+            setMusic(hasMusic);            
+        }
     }
 
     const toggleLoop = (): void => {
