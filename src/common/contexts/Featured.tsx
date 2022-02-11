@@ -27,7 +27,7 @@ export const FeaturedProvider: React.FC<LayoutProps> = ({ children }) => {
   // Audio:
   const [playingAud, setPlayingAud] = useState(true);
   const [AudId, setAudId] = useState('');
-  const [AudVol, setAudVol] = useState(0.6);
+  const [AudVol, setAudVol] = useState(0.5);
 
   return (
     <FeaturedContext.Provider value={{

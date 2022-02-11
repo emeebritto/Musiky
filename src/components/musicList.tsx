@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { Music } from 'common/types';
@@ -153,6 +153,8 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
   const { prop, load } = usePlayerContext();
   const { isPlayingIndex } = usePlaylistContext();
 
+  const [showUnavailable, setShowUnavailable] = useState(false);
+
   const clickOnMusic = (
     targetIndex: number,
     targetList: Array<Music>,
@@ -177,54 +179,76 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
 
   return (
     <>
-    {list.map((music, index) => (
-      <MusicOptionBox 
-        hoverOff={isPlayingIndex(listId, index)} 
-        onClick={(e) => {
-          e.stopPropagation();
-          clickOnMusic(index, list, listId);
-        }}
-        key={music.id}
-        >
-        <BoxNumMusic>
-          <NumMusic>{index + 1}.</NumMusic>
-        </BoxNumMusic>
-        <DataMusic>
-          <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
-          <Titles>
-            <MusicTitle>{music.title}</MusicTitle>
-            <NamesList>
-              {music.artists.map((artist, index) => {
-                let space='';
-                if(index > 0){ space = ',  ' }
-                return(
-                  <li key={index}>
-                    <Link 
-                        href={`/artist/${artist.replace(/\W/g, '')}`}
-                    >
-                      <ChannelName onClick={(e)=>{e.stopPropagation()}}>
-                        {space + artist}
-                      </ChannelName>
-                    </Link>
-                  </li>
-                )
-              })}
-            </NamesList>
-          </Titles>
-        </DataMusic>
-        <MusicTime>
-          <BoxDurationOrPLayingNow
-            duration={music.duration}
-            index={index}
-          />
-          <BoxIconPLayHover
-            className="iconPlayHover"
-            src={istatic.iconPlay()}
-            alt="iconPlay"
-          />
-        </MusicTime>
-      </MusicOptionBox>
-    ))}
+    {list.map((music, index) => {
+      if (music['unavailable'] && !showUnavailable) {
+        return;
+      } else if (music['unavailable'] && showUnavailable) {
+        return (
+          <MusicOptionBox 
+            onClick={(e) => e.stopPropagation()}
+            key={music.id}
+            >
+            <BoxNumMusic>
+              <NumMusic>{index + 1}.</NumMusic>
+            </BoxNumMusic>
+            <DataMusic>
+              <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
+              <Titles>
+                <MusicTitle>[ Unavailable Music ]</MusicTitle>
+              </Titles>
+            </DataMusic>
+          </MusicOptionBox>
+        );
+      }
+      return (
+        <MusicOptionBox 
+          hoverOff={isPlayingIndex(listId, index)} 
+          onClick={(e) => {
+            e.stopPropagation();
+            clickOnMusic(index, list, listId);
+          }}
+          key={music.id}
+          >
+          <BoxNumMusic>
+            <NumMusic>{index + 1}.</NumMusic>
+          </BoxNumMusic>
+          <DataMusic>
+            <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
+            <Titles>
+              <MusicTitle>{music.title}</MusicTitle>
+              <NamesList>
+                {music.artists.map((artist, index) => {
+                  let space='';
+                  if(index > 0){ space = ',  ' }
+                  return(
+                    <li key={index}>
+                      <Link 
+                          href={`/artist/${artist.replace(/\W/g, '')}`}
+                      >
+                        <ChannelName onClick={(e)=>{e.stopPropagation()}}>
+                          {space + artist}
+                        </ChannelName>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </NamesList>
+            </Titles>
+          </DataMusic>
+          <MusicTime>
+            <BoxDurationOrPLayingNow
+              duration={music.duration}
+              index={index}
+            />
+            <BoxIconPLayHover
+              className="iconPlayHover"
+              src={istatic.iconPlay()}
+              alt="iconPlay"
+            />
+          </MusicTime>
+        </MusicOptionBox>
+      )
+    })}
     {!list.length && <p>Nothing</p>}
     </>
   )

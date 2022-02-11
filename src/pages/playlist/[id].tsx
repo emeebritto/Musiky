@@ -3,7 +3,9 @@ import type { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import cache from "memory-cache";
 import Styled from 'styled-components';
+import { verifyUnavailable } from 'common/utils';
 import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
@@ -351,15 +353,29 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     if(!id) return { notFound: true }
 
     if (mode == 'radio') {
-        let { list } = await axios.get(`${IstaticBaseUrl}playlist/${ikey}`).then(r=>r.data);
-        playlist.list = list;
-        playlist.id = String(id);
-        playlist.infors.id = String(id);
-        playlist.infors.title = `Mix - ${list[0].title}`;
-        playlist.infors.img = list[0].thumbnails[1].url;
+        const URL = `${IstaticBaseUrl}playlist/${ikey}`;
+        const cachedResponse = cache.get(URL);
+        if (cachedResponse) {
+            playlist = cachedResponse;
+        } else {
+            let { list } = await axios.get(URL).then(r=>r.data);
+            playlist.list = await verifyUnavailable(list);
+            playlist.id = String(id);
+            playlist.infors.id = String(id);
+            playlist.infors.title = `Mix - ${list[0].title}`;
+            playlist.infors.img = list[0].thumbnails[1].url;
+            cache.put(URL, playlist, 60 * 60000);
+        }
     } else {
-        playlist = await axios.get(`http://${context.req.headers.host}/api/playlist/${id}`)
-            .then(r => r.data);
+        const URL = `http://${context.req.headers.host}/api/playlist/${id}`;
+        const cachedResponse = cache.get(URL);
+        if (cachedResponse) {
+            playlist = cachedResponse;
+        } else {
+            playlist = await axios.get(URL)
+                .then(r => r.data);
+            cache.put(URL, playlist, 60 * 60000);
+        }
     }
 
 

@@ -1,10 +1,7 @@
-const devENV = false;
-
+const devENV = process.env.NODE_ENV === 'development';
 const prodAPI = 'https://cdn-istatics.herokuapp.com/static/';
 const devAPI = 'http://localhost:9872/static/';
-
 const BaseUrl = devENV ? devAPI : prodAPI;
-
 
 export const istatic = {
     iconPlay: ()=> `${BaseUrl}icons/play_arrow_black_24dp.svg`,

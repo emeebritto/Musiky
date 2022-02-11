@@ -99,7 +99,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                             </DownloadBtn>
                         </UrlField>
                     }
-                    {!prop.music && <AvailableDownload>- Available</AvailableDownload>}
+                    {!prop.music && <AvailableDownload>- Unavailable</AvailableDownload>}
                 </DownloadOption>
                 {Boolean(Object.keys(playlist).length) &&
                     <DownloadOption>

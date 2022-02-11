@@ -23,13 +23,13 @@ const recommendations = async(): Promise<Return | undefined> => {
 		|| tragetArtist.test(ms.artists[0])
 	});
 
-	if (isEmpty(data.artistData) || isEmpty(clip)) {
+	if (isEmpty(data.artist) || isEmpty(clip)) {
 		return undefined;
 	}
 
 	return {
 		instrumental: song,
-		artist: data.artistData,
+		artist: data.artist,
 		clip: clip
 	}
 };

@@ -18,18 +18,14 @@ export const musicDownload = async(music: Music): Promise<void> => {
         link.click();
     })
 }
-
 export const multiDownloads = async(list: Array<Music>): Promise<void> => {
     for (let i=0; i < list.length; i++) {
         await musicDownload(list[i]);
     }
 }
-
 export const copyContent = (): void => {
     navigator.clipboard.writeText(location.href).then(()=> alert('copied'))
 }
-
-
 export const fromSecondsToTime = (secondsRaw: number): string => {
     let sec_num = Number(secondsRaw.toFixed(0)); //parseInt(secondsRaw, 10);
     let hours: number | string = Math.floor(sec_num / 3600);
@@ -41,3 +37,21 @@ export const fromSecondsToTime = (secondsRaw: number): string => {
     if (seconds < 10) {seconds = "0" + seconds;}
     return `${(hours ? (hours + ':') : '') + minutes + ':' + seconds}`;
 }
+export const verifyUnavailable = async(
+    list: Array<Music>
+): Promise<Array<Music>> => {
+    let newList = list;
+    for (let i=1; i < list.length; i++) {
+        const musicId = list[i].id;
+        newList[i] = await axios.get(`https://i.ytimg.com/vi/${musicId}/default.jpg`)
+            .then(res => newList[i])
+            .catch(err => {
+                return {
+                    id: list[i].id,
+                    unavailable: true,
+                    reason: 'Deleted'
+                };
+            })
+    }
+    return newList;
+};

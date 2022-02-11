@@ -7,14 +7,14 @@ const artistData = async({ q }: {q: string}) => {
         `${q}?type=name`
     );
 
-    const artistData = items.length? items[0] : {};
+    const artist = items.length? items[0] : {};
     const resAPi = await request('allMusics', `?withArtist=${q}&maxResult=9999`);
     const musics = resAPi.items;
     const list = await request('allPlaylist', `?withArtist=${q}`);
     const playlists = list.items;
 
     return {
-        artistData,
+        artist,
         playlists,
         musics
     };
