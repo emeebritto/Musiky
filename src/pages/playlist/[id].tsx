@@ -339,11 +339,11 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     let playlist = {
         id: '',
         infors: {
-            id: '',
+            playlistId: '',
             title: '',
             img: ''
         },
-        list: []
+        list: [{}]
     };
 
     const id: string | string[] | undefined = context.params?.id;
@@ -361,7 +361,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
             let { list } = await axios.get(URL).then(r=>r.data);
             playlist.list = await verifyUnavailable(list);
             playlist.id = String(id);
-            playlist.infors.id = String(id);
+            playlist.infors.playlistId = String(id);
             playlist.infors.title = `Mix - ${list[0].title}`;
             playlist.infors.img = list[0].thumbnails[1].url;
             cache.put(URL, playlist, 60 * 60000);

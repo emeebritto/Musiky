@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Music } from 'common/types';
+import { Music, UnavailableMusic } from 'common/types';
 
 export const musicDownload = async(music: Music): Promise<void> => {
     if (!music) return
@@ -39,10 +39,10 @@ export const fromSecondsToTime = (secondsRaw: number): string => {
 }
 export const verifyUnavailable = async(
     list: Array<Music>
-): Promise<Array<Music>> => {
-    let newList = list;
-    for (let i=1; i < list.length; i++) {
-        const musicId = list[i].id;
+): Promise<Array<Music | UnavailableMusic>> => {
+    let newList: Array<Music | UnavailableMusic> = [...list];
+    for (let i=0; i < list.length; i++) {
+        const musicId: string = list[i].id;
         newList[i] = await axios.get(`https://i.ytimg.com/vi/${musicId}/default.jpg`)
             .then(res => newList[i])
             .catch(err => {
@@ -51,7 +51,7 @@ export const verifyUnavailable = async(
                     unavailable: true,
                     reason: 'Deleted'
                 };
-            })
+            })            
     }
     return newList;
 };

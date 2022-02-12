@@ -21,6 +21,7 @@ export interface SyntheticEvent {
 
 export interface Music {
     id: string;
+    unavailable?: boolean;
     title: string;
     originTitle: string;
     sourceBy: string;
@@ -32,6 +33,12 @@ export interface Music {
         seconds: number;
     };
     artists: Array<string>;
+}
+
+export interface UnavailableMusic {
+    id: string;
+    unavailable: boolean;
+    reason: string;
 }
 
 export interface PlaylistProps {

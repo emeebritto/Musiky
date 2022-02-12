@@ -6,7 +6,7 @@ import artistData from 'common/utils/artists/artistData';
 interface Response {
   requestId: string;
   query: string;
-  artistData: ArtistDataProps | {};
+  artist: ArtistDataProps | {};
   playlists: Array<PlaylistProps>;
   musics: Array<Music>;
 };

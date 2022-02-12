@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
-import { Music } from 'common/types';
+import { Music, UnavailableMusic } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { istatic } from "api/istatic";
@@ -33,7 +33,7 @@ const MusicOptionBox = Styled.section`
   }
 
   :hover .iconPlayHover {
-    display: ${(props: {hoverOff: boolean}) => (
+    display: ${(props: {hoverOff?: boolean}) => (
       props.hoverOff ? "none" : "inline-block"
     )};
   }
@@ -180,11 +180,11 @@ const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
   return (
     <>
     {list.map((music, index) => {
-      if (music['unavailable'] && !showUnavailable) {
+      if (music.unavailable && !showUnavailable) {
         return;
-      } else if (music['unavailable'] && showUnavailable) {
+      } else if (music.unavailable && showUnavailable) {
         return (
-          <MusicOptionBox 
+          <MusicOptionBox
             onClick={(e) => e.stopPropagation()}
             key={music.id}
             >

@@ -213,7 +213,7 @@ export const PlaylistWrapper = Styled.section`
 
 interface ArtistPageProps {
     apiRes: {
-        artistData: ArtistDataProps;
+        artist: ArtistDataProps;
         musics: Array<Music>;
         playlists: Array<PlaylistProps>;
         requestId: string;
@@ -225,7 +225,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
     const { desableSplash } = useSplashContext();
     const { load } = usePlayerContext();
 
-    const {artistData, musics, playlists, requestId} = apiRes;
+    const {artist, musics, playlists, requestId} = apiRes;
 
     const startList = async(playlistId: string): Promise<void> => {
         let playlist = await byId({id: playlistId});
@@ -236,23 +236,23 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
 
     return (
         <>
-        <TabTitle name={`Artist: ${artistData.name}`}/>
+        <TabTitle name={`Artist: ${artist.name}`}/>
         <ViewPort>
             <Wrapper>
                 <ArtistInfor>
                     <ArtistImg 
-                        src={artistData.images.length 
-                            ? artistData.images[1].url 
+                        src={artist.images.length 
+                            ? artist.images[1].url 
                             : undefined} 
                         alt='artist profile imagem' />
                     <ArtistData>
-                        <ArtistName>{artistData.name}</ArtistName>
-                        <FollowesCounter>{formatValues(artistData.followers.total)}</FollowesCounter>
+                        <ArtistName>{artist.name}</ArtistName>
+                        <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
                     </ArtistData>
                     <BrnFollow>Follow</BrnFollow>
                 </ArtistInfor>
                 <WrapperGenres>
-                    {artistData.genres.map((genre, i)=>{
+                    {artist.genres.map((genre, i)=>{
                         return (
                             <Genre key={i}>{genre}</Genre>
                         )
