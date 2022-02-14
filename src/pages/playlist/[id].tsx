@@ -10,10 +10,15 @@ import { PlaylistProps, Music } from 'common/types';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { useSplashContext } from 'common/contexts/splash';
-import { MusicList, PlaylistMoreOptions, TabTitle } from 'components';
 import { IstaticBaseUrl } from 'api';
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
+import {
+    MusicList,
+    WarnBox,
+    PlaylistMoreOptions,
+    TabTitle
+} from 'components';
 
 
 const ViewPort = Styled.section`
@@ -25,7 +30,7 @@ const ViewPort = Styled.section`
 const Wrapper = Styled.section`
     display: flex;
     justify-content: flex-end;
-    width: 84%;
+    width: 81%;
     margin: 20vh 0vw 20vh 0vw;
 
     @media(max-width: 1230px) { width: 85% }
@@ -155,7 +160,7 @@ const StartPlaylist = Styled(Btn)`
 const MusicListWrapper = Styled.section`
     display: flex;
     flex-direction: column;
-    width: 560px;
+    width: 510px;
 `
 const PlaylistOptions = Styled.section`
     display: none;
@@ -223,6 +228,8 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
     const router = useRouter();
     const { prop, load, stopPlayer } = usePlayerContext();
     const [showPopUp, setShowPopUp] = useState(false);
+    const [showWarnBox, setShowWarnBox] = useState(false);
+    const [showUnavailable, setShowUnavailable] = useState(false);
 
     const {
         playlistInfor, 
@@ -240,6 +247,12 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
     ): void => {
         load(targetIndex, targetList, playlistId);
     }
+
+    useEffect(()=>{
+        if (list.some(ms => ms.unavailable)) {
+            setShowWarnBox(true);
+        };
+    },[])
 
     if(infors.title) desableSplash();
 
@@ -321,7 +334,20 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
                     </PlaylistActions>
                 </PlaylistInfor>
                 <MusicListWrapper>
-                    <MusicList list={list} listId={id}/>
+                    <WarnBox
+                        activeIf={showWarnBox}
+                        txt='Unavailable Music was hidden'
+                        action={{
+                            name: 'show anyway',
+                            execute: ()=> setShowUnavailable(true)
+                        }}
+                        margin={'0 0 15px 0'}
+                    />
+                    <MusicList
+                        list={list}
+                        listId={id}
+                        showUnavailable={showUnavailable}
+                    />
                 </MusicListWrapper>
                 <OptionsAside>
                     <CircleOptionComponent/>

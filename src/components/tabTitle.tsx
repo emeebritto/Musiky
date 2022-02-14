@@ -8,13 +8,21 @@ interface TabTitleProps {
 
 const TabTitle: React.FC<TabTitleProps> = ({ name }) => {
 	const { prop } = usePlayerContext();
-	if (prop.music) {
-		return (
-			<Head>
-				<title>Playing: { prop.music.title }</title>
-			</Head>
-		)
+
+	const PlayerStatus = (): string => {
+		if (prop.playing) {
+			return 'Playing';
+		} else if (prop.buffer) {
+			return 'Loading';
+		}
+		return 'Paused';
+		//The player does not seem to be in this dimension
 	}
+
+	if (prop.music) {
+		name = `${PlayerStatus()}: ${ prop.music.title }`;
+	}
+
 	return (
 		<Head>
 			<title>{ name }</title>

@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
+import { Swiper } from 'swiper/react';
+import { Scrollbar } from "swiper";
+import 'swiper/css';
+import 'swiper/css/scrollbar';
 
 
 const ViewPort = Styled.section`
@@ -17,6 +21,15 @@ const ViewWrapper = Styled.section`
     align-items: center;
     overflow-y: hidden;
     margin-bottom: 15px;
+
+    .swiper {
+        display: flex;
+        justify-content: center;
+        width: 80vw;
+    }
+
+    .swiper-slide {
+    }
 `
 const ViewInfor = Styled.section`
     display: flex;
@@ -68,23 +81,64 @@ const VerticalView: React.FC<VerticalViewProp> = ({
     children,
     viewLabel='',
     btnOption={}
-}) => (
-    <ViewPort>
-        {viewLabel &&
-            <ViewInfor>
-                <Label>{viewLabel}</Label>
-                {btnOption.href &&
-                    <BtnField>
-                        <Link href={btnOption.href}>
-                            <BtnOption>{ btnOption.displayName }</BtnOption>
-                        </Link>
-                        <BtnHoverLine id='hoverLine'/>
-                    </BtnField>
-                }
-            </ViewInfor>
+}) => {
+
+    const [screenWidth, setScreenWidth] = useState(0)
+
+    useEffect(()=>{
+        const win: any = window;
+        setScreenWidth(win.innerWidth)
+        if(win.attachEvent) {
+            win.attachEvent('onresize', function() {
+                setScreenWidth(win.innerWidth)
+            });
         }
-        <ViewWrapper>{ children }</ViewWrapper>
-    </ViewPort>
-)
+        else if(win.addEventListener) {
+            win.addEventListener('resize', function() {
+                setScreenWidth(win.innerWidth)
+            }, true);
+        }
+
+        return ()=> {
+            if(win.detachEvent) {
+                win.detachEvent('onresize', function() {
+                    setScreenWidth(win.innerWidth)
+                })
+            }
+            else if(win.removeEventListener) {
+                win.removeEventListener('resize', function() {
+                    setScreenWidth(win.innerWidth)
+                }, true)
+            }
+        }
+    },[])
+
+    return (
+        <ViewPort>
+            {viewLabel &&
+                <ViewInfor>
+                    <Label>{viewLabel}</Label>
+                    {btnOption.href &&
+                        <BtnField>
+                            <Link href={btnOption.href}>
+                                <BtnOption>{ btnOption.displayName }</BtnOption>
+                            </Link>
+                            <BtnHoverLine id='hoverLine'/>
+                        </BtnField>
+                    }
+                </ViewInfor>
+            }
+            <ViewWrapper>
+            <Swiper
+                slidesPerView={(6 * screenWidth) / 1366}
+                scrollbar={{ draggable: true }}
+                modules={[Scrollbar]}
+            >
+                { children }
+            </Swiper>
+            </ViewWrapper>
+        </ViewPort>
+    );
+};
 
 export default VerticalView;

@@ -141,6 +141,7 @@ const MusicTime = Styled.section`
 interface MusicListProps {
   list: Array<Music>;
   listId: string;
+  showUnavailable?: boolean;
 }
 
 interface DurationOrPLaying {
@@ -148,12 +149,14 @@ interface DurationOrPLaying {
   index: number;
 }
 
-const MusicList: React.FC<MusicListProps> = ({ list, listId }) => {
+const MusicList: React.FC<MusicListProps> = ({
+  list,
+  listId,
+  showUnavailable=false
+}) => {
 
   const { prop, load } = usePlayerContext();
   const { isPlayingIndex } = usePlaylistContext();
-
-  const [showUnavailable, setShowUnavailable] = useState(false);
 
   const clickOnMusic = (
     targetIndex: number,

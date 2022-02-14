@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
+import faker from 'faker';
+import { SwiperSlide } from 'swiper/react';
 import axios from 'axios';
 import { usePlayerContext } from 'common/contexts/Player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
@@ -130,9 +132,12 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
       {data.map((playlist, index) => {
         let playing = isPlaying(playlist.id);
         return (
+          <SwiperSlide
+            key={index + faker.datatype.uuid()}
+          >
           <Link
             href={`/playlist/${playlist.infors.playlistId}`}
-            key={index}>
+          >
             <PlayList playHoverOff={playing}>
             	<PlayListImg 
                     id="PlayListImg" 
@@ -163,6 +168,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
             	</section>
             </PlayList>
           </Link>
+          </SwiperSlide>
         )
       })}
     </VerticalView>
