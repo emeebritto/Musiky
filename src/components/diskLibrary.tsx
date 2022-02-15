@@ -1,6 +1,9 @@
-import React from "react"
-import Styled from 'styled-components'
+import React from "react";
+import faker from 'faker';
+import Styled from 'styled-components';
+import { SwiperSlide } from 'swiper/react';
 import { Music } from 'common/types';
+import { VerticalView } from 'components';
 
 import { usePlayerContext } from 'common/contexts/Player';
 
@@ -99,30 +102,33 @@ const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
 
 
 	return(
-		<ViewPort>
-			<TitleSection>{name}</TitleSection>
+    <VerticalView viewLabel={name}>
 			<DiskWrapper>
-                {data.map((disk, index) => {
-                    return (
-                        <Disk onClick={() => load(index, data) } key={disk.id}>
-                            <DiskImg 
-                                playing={isPlayingId(disk.id)} 
-                                id={isPlayingId(disk.id) ? '' : 'diskImg'}
-                                style={{ 
-                                    background: `url(${disk.thumbnails[1].url}) no-repeat center/177.5%`
-                                }}
-                            >
-                                <CenterHole/>
-                            </DiskImg>
-                        	<section>
-                        		<DiskTitle>{disk.title}</DiskTitle>
-                        		<DiskTotalTime>{disk.duration}</DiskTotalTime>
-                        	</section>
-                        </Disk>
-                    )
-                })}
+        {data.map((disk, i) => {
+          return (
+            <SwiperSlide
+              key={i + faker.datatype.uuid()}
+            >
+            <Disk onClick={() => load(i, data) } key={disk.id}>
+              <DiskImg 
+                playing={isPlayingId(disk.id)} 
+                id={isPlayingId(disk.id) ? '' : 'diskImg'}
+                style={{ 
+                  background: `url(${disk.thumbnails[1].url}) no-repeat center/177.5%`
+                }}
+              >
+                <CenterHole/>
+              </DiskImg>
+            	<section>
+            		<DiskTitle>{disk.title}</DiskTitle>
+            		<DiskTotalTime>{disk.duration}</DiskTotalTime>
+            	</section>
+            </Disk>
+            </SwiperSlide>
+          )
+        })}
 			</DiskWrapper>
-		</ViewPort>
+    </VerticalView>
 	)
 }
 
