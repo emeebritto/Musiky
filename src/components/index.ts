@@ -26,3 +26,4 @@ export { default as LoadingCube } from './loadingCube';
 export { default as TabTitle } from './tabTitle';
 export { default as Time } from './time';
 export { default as WarnBox } from './warnBox';
+export { default as EmotionView } from './emotionView';
