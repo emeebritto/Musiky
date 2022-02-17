@@ -9,9 +9,10 @@ import { TabTitle, EmotionView } from 'components';
 import { Music } from 'common/types';
 import { IstaticBaseUrl } from 'api';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar } from "swiper";
+import { Scrollbar, Virtual } from "swiper";
 import 'swiper/css';
 import 'swiper/css/scrollbar';
+import 'swiper/css/virtual';
 
 
 const ViewPort = Styled.section`
@@ -23,6 +24,14 @@ const ViewPort = Styled.section`
     width: 100%;
     height: 100%;
   }
+`
+const LoadNewZone = Styled.section`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: red;
 `
 
 const Emotions: NextPage = () => {
@@ -43,19 +52,6 @@ const Emotions: NextPage = () => {
       getData()
     },[page]);
 
-    useEffect(() => {
-      const node = ref?.current // DOM Ref
-      if (!node) return
-      const intersectionObserver = new IntersectionObserver(entries => {
-        if (entries.some(entry => entry.isIntersecting)) {
-          setPage((currentValue) => currentValue + 1);
-        }
-      })
-      intersectionObserver.observe(node);
-
-      return () => intersectionObserver.disconnect();
-    }, []);
-
   if (true) desableSplash();
 
   return (
@@ -66,12 +62,15 @@ const Emotions: NextPage = () => {
         slidesPerView={1}
         direction={"vertical"}
         scrollbar={{ draggable: true }}
-        modules={[Scrollbar]}
+        modules={[Scrollbar, Virtual]}
+        onReachEnd={() => {setPage((currentValue) => currentValue + 1)}}
+        virtual
       >
         {emotionsList.map((emotion, i) => {
           return (
             <SwiperSlide
               key={i + faker.datatype.uuid()}
+              virtualIndex={i}
             >
               <EmotionView src={emotion}/>
             </SwiperSlide>
@@ -86,3 +85,4 @@ const Emotions: NextPage = () => {
 export default Emotions;
 
 //<Action src={istatic.chat_bubble_outline_white()} alt='comment' />
+//{i === (emotionsList.length - 5) && <LoadNewZone ref={ref}/>}

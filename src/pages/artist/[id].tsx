@@ -247,7 +247,9 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
                         alt='artist profile imagem' />
                     <ArtistData>
                         <ArtistName>{artist.name}</ArtistName>
-                        <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
+                        <FollowesCounter>
+                            {formatValues(artist.followers.total)} Followes
+                        </FollowesCounter>
                     </ArtistData>
                     <BrnFollow>Follow</BrnFollow>
                 </ArtistInfor>

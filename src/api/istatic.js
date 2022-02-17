@@ -45,5 +45,6 @@ export const istatic = {
     cellingLight: ()=> `${BaseUrl}imgs/cellingLight.png`,
     favorite_border_white: ()=> `${BaseUrl}icons/favorite_border_white_24dp.svg`,
     favorite_white: ()=> `${BaseUrl}icons/favorite_white_24dp.svg`,
-    chat_bubble_outline_white: ()=> `${BaseUrl}icons/chat_bubble_outline_white_24dp.svg`
+    chat_bubble_outline_white: ()=> `${BaseUrl}icons/chat_bubble_outline_white_24dp.svg`,
+    expand_more_white: ()=> `${BaseUrl}icons/expand_more_white_24dp.svg`
 };

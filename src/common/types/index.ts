@@ -24,14 +24,16 @@ export interface Music {
     unavailable?: boolean;
     title: string;
     originTitle: string;
-    sourceBy: string;
+    sourceBy: {
+        id: string;
+        name: string;
+        thumbnails: Array<{ url: string }>;
+        subscriber_count: number;
+    };
     thumbnails: Array<{ url: string }>;
     duration: string;
-    durationObj: {
-        hour: number;
-        minutes: number;
-        seconds: number;
-    };
+    durationSec: number;
+    viewCount: number;
     artists: Array<string>;
 }
 

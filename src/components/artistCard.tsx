@@ -97,7 +97,9 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, index=0 }) => (
                 <ArtistName>{artist.name}</ArtistName>
             </section>
             <section>
-                <FollowesCounter>{formatValues(artist.followers.total)}</FollowesCounter>
+                <FollowesCounter>
+                    {formatValues(artist.followers.total)} Followes
+                </FollowesCounter>
                 <BrnFollow>Follow</BrnFollow>
             </section>
         </Artist>
