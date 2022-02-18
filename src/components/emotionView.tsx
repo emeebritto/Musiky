@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { Music } from 'common/types';
 import { formatValues } from 'common/scripts/formatNum';
 import { istatic } from 'api/istatic';
+import { IstaticBaseUrl } from 'api';
 import { useSwiperSlide, useSwiper } from 'swiper/react';
 
 const SectionWrapper = Styled.section`
@@ -23,10 +25,12 @@ const SectionWrapper = Styled.section`
 const Infors = Styled.section`
 	display: flex;
 	flex-direction: column;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	width: 400px;
-	height: 80%;
-	padding: 20% 0;
-	background-color: #01040E;
+	height: 88%;
+	padding-top: 8vh;
+	background-color: #01040C;
+	overflow: hidden;
 `
 const MediaTitle = Styled.h2`
 	color: #fff;
@@ -40,13 +44,19 @@ const UserData = Styled.section`
 	width: 100%;
 `
 const UserImg = Styled.img`
-	width: 50px;
-	margin: 0 15px 0 25px;
 	border-radius: 50%;
+	${(props: {margin?: string, size?: string}) => (`
+		margin: ${props.margin || '0 15px 0 25px'};
+		width: ${props.size || "50px"};
+		height: ${props.size || "50px"};
+	`)}
 `
 const UserName = Styled.section`
-	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  width: 170px;
+  ${(props: {width?: string, bold?: boolean, opacity?: number}) => (`
+  	width: ${props.width ? props.width : "170px"};
+  	opacity: ${props.opacity ? props.opacity : 1};
+  	${props.bold ? "font-weight: bold;" : ""}
+  `)};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,7 +68,7 @@ const FollowBtn = Styled.button`
 	font-size: 1em;
 	background-color: transparent;
 	padding: 5px 12px;
-	margin: 0 20px;
+	margin: 0 35px;
 	cursor: pointer;
 `
 const MediaData = Styled.section`
@@ -75,6 +85,62 @@ const Count = Styled.p`
 		font-size: ${props.size};
 		opacity: ${props.opacity};
 	`)}
+`
+const InputCommentsField = Styled.section`
+	display: flex;
+	align-items: center;
+`
+const InputComment = Styled.textarea`
+	border: none;
+	border-radius: 8px;
+	color: #fff;
+	background-color: #010512;
+	padding: 10px 10px;
+	resize: none;
+	width: 64%;
+	height: 30px;
+	max-height: 80px;
+	transition: 400ms;
+
+	:focus {
+		outline: 2px solid #012A7B;
+		height: 50px;
+	}
+`
+const Icon = Styled.img`
+	opacity: .9;
+	padding: 5px;
+	cursor: pointer;
+	${(props: {margin?: string, size: string}) => (`
+		margin: ${props.margin || 0};
+		width: ${props.size? props.size : "30px"};
+	`)}
+`
+const Hr = Styled.hr`
+	width: 100%;
+	opacity: .05;
+`
+const CommentsWrapper = Styled.section`
+	height: 320px;
+	overflow-y: scroll;
+`
+const NoComments = Styled.p`
+	opacity: .7;
+	margin: 10px 20px;
+`
+const Comment = Styled.section`
+	display: flex;
+	width: 100%;
+	margin: 16px 0;
+`
+const AboutCommentWrapper = Styled.section`
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+`
+const CommentText = Styled.p`
+	color: #fff;
+	width: 18em;
 `
 const PlayerWrapper = Styled.section`
   border-radius: 10px;
@@ -122,13 +188,35 @@ interface EmotionViewProps {
 	src: Music;
 }
 
+interface CommentProps {
+	author: string;
+	time: string;
+	text: string;
+	authorThumb: Array<{url: string}>;
+}
+
 const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	const swiperSlide = useSwiperSlide();
 	const swiper = useSwiper();
 	const [playing, setPlaying] = useState(false);
+	const [comments, setComments] = useState<CommentProps[] | null>(null);
+	const [continuation, setContinuation] = useState('');
+
+	const getComments = async() => {
+		await axios.get(`${IstaticBaseUrl}comments?id=${src.id}`)
+			.then(r => {
+				let d = r.data;
+				setComments(d.comments.length? d.comments : null);
+				setContinuation(d.continuation);
+			})
+	};
 
 	useEffect(()=>{
 		setPlaying(swiperSlide.isActive);
+		if (swiperSlide.isActive) {
+			getComments();
+		}
+		console.log(comments);
 	},[swiperSlide.isActive])
 
 	return (
@@ -141,8 +229,8 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	  				<UserName>{src.sourceBy.name}</UserName>
 		  			{src.sourceBy.subscriber_count &&
 		  				<Count
-		  					margin={'5px 0 0 0'}
-		  					size={'0.9em'}
+		  					margin='5px 0 0 0'
+		  					size='0.9em'
 		  					opacity={0.8}
 		  				>
 		  					{formatValues(src.sourceBy.subscriber_count)} followes
@@ -152,9 +240,42 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	  			<FollowBtn>Follow</FollowBtn>
 	  		</UserData>
 	  		<MediaData>
-	  			<Count margin={'0 30px'}>{formatValues(0)} comments</Count>
-	  			<Count margin={'0 30px'}>{formatValues(src.viewCount)} views</Count>
+	  			<Count margin='0 30px'>
+	  				{formatValues(!!comments? comments.length : 0)} comments
+	  			</Count>
+	  			<Count margin='0 30px'>
+	  				{formatValues(src.viewCount)} views
+	  			</Count>
 	  		</MediaData>
+	  		<Hr/>
+		  	<InputCommentsField>
+		  		<UserImg size='40px' src={istatic.EME_branding()} alt='user image'/>
+		  		<InputComment placeholder='comment..'/>
+		  		<Icon
+		  			size='28px'
+		  			margin='0 5px'
+		  			src={istatic.send_white()}
+		  			alt='send comment'
+		  		/>
+		  	</InputCommentsField>
+		  	<Hr/>
+		  	<CommentsWrapper>
+		  		{!comments && <NoComments>Nothing comments</NoComments>}
+		  		{!!comments && comments.map((cmm, i) => {
+		  			return (
+		  				<Comment>
+		  					<UserImg size='40px' src={cmm.authorThumb[1].url} alt='user image'/>
+		  					<section>
+		  						<AboutCommentWrapper>
+		  							<UserName opacity={0.8} width='200px' bold>{cmm.author}</UserName>
+		  							<Count size='0.9em' margin='0 0' opacity={0.7}>{cmm.time}</Count>
+		  						</AboutCommentWrapper>
+		  						<CommentText>{cmm.text}</CommentText>
+		  					</section>
+		  				</Comment>
+		  			);
+		  		})}
+		  	</CommentsWrapper>
 	  	</Infors>
 	    <PlayerWrapper>
 	      <VideoPlayer

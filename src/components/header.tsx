@@ -26,8 +26,8 @@ const HeaderContainer = Styled.header`
 const HeaderBranding = Styled.img`
     width: 110px;
     height: 65px;
-    margin-left: 10px;
-    margin-bottom: 5px;
+    margin: 0 0 5px 10px;
+    cursor: pointer;
 
     @media(max-width: 570px) {
         width: 100px;
