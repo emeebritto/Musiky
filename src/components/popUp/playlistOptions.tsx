@@ -107,7 +107,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                         <UrlField>
                             <DownloadOptionInput
                                 type='text'
-                                value={`${playlist.infors.title} - (${playlist.infors.length} Tracks)`}
+                                value={`${playlist.infors.title} - (${playlist.list.length} Tracks)`}
                                 readOnly
                             />
                             <DownloadBtn onClick={()=> multiDownloads(playlist.list)}>

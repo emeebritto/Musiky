@@ -128,7 +128,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
   }
 
   return (
-    <VerticalView viewLabel={name}>
+    <VerticalView viewLabel={name} margin='20px 0'>
       {data.map((playlist, index) => {
         let playing = isPlaying(playlist.id);
         return (

@@ -10,6 +10,7 @@ import {
   Featured,
   BoxGreeting,
   BoxQuickPicks,
+  YourFlow,
   PlaylistsRow,
   ArtistsRow,
   TabTitle
@@ -45,6 +46,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
     recommendations,
     greeting,
     quickPicks,
+    yourFlow,
     playlists,
     artists
   } = pageContent;
@@ -60,6 +62,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
               <Featured data={recommendations}/>
               <BoxGreeting data={greeting}/>
               <BoxQuickPicks data={quickPicks}/>
+              {false && <YourFlow data={yourFlow}/>}
               <PlaylistsRow name='MIXs' data={playlists.mixs}/>
               <ArtistsRow data={artists}/>
               <PlaylistsRow name='Others MIXs' data={playlists.otherMixs}/>

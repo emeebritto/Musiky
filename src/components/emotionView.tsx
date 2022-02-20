@@ -216,7 +216,6 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 		if (swiperSlide.isActive) {
 			getComments();
 		}
-		console.log(comments);
 	},[swiperSlide.isActive])
 
 	return (
@@ -267,7 +266,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 		  					<UserImg size='40px' src={cmm.authorThumb[1].url} alt='user image'/>
 		  					<section>
 		  						<AboutCommentWrapper>
-		  							<UserName opacity={0.8} width='200px' bold>{cmm.author}</UserName>
+		  							<UserName opacity={0.8} width='190px' bold>{cmm.author}</UserName>
 		  							<Count size='0.9em' margin='0 0' opacity={0.7}>{cmm.time}</Count>
 		  						</AboutCommentWrapper>
 		  						<CommentText>{cmm.text}</CommentText>

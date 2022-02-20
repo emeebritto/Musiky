@@ -18,6 +18,9 @@ export interface HomeContent {
     quickPicks: {
         items: Array<PlaylistProps>;
     };
+    yourFlow: {
+        emotions: Music[];
+    }
     playlists: any;
     artists: Array<ArtistDataProps>;
 }

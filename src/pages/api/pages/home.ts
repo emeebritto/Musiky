@@ -1,4 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import axios from 'axios';
+import { IstaticBaseUrl } from 'api';
 import { HomeContent } from 'common/types/pagesSources';
 import greeting from 'common/utils/greeting';
 import recommendations from 'common/utils/recommendations';
@@ -15,6 +17,9 @@ export default async function handler(
     greeting: greeting(),
     recommendations: await recommendations(),
     quickPicks: await randomPlaylists({ totalList: 10, category: 'random' }),
+    yourFlow: {
+      emotions: await axios.get(`${IstaticBaseUrl}emotions?random=1&maxResult=10`).then(r=>r.data)
+    },
     playlists: {
       mixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
       otherMixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),

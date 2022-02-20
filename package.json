@@ -1,5 +1,11 @@
 {
-  "name": "next-type",
+  "name": "Musiky",
+  "description": "music player",
+  "version": "0.0.0-development",
+  "author": "Emerson Britto",
+  "bugs": {
+    "url": "https://github.com/Emerson-Britto/Musiky/issues"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -43,5 +49,18 @@
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.4.1",
     "typescript": "4.4.4"
+  },
+  "homepage": "https://github.com/Emerson-Britto/Musiky#readme",
+  "keywords": [
+    "musiky",
+    "web player",
+    "nordly",
+    "project",
+    "Emerson-Britto"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Emerson-Britto/Musiky.git"
   }
 }

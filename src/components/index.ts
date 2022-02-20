@@ -27,3 +27,6 @@ export { default as TabTitle } from './tabTitle';
 export { default as Time } from './time';
 export { default as WarnBox } from './warnBox';
 export { default as EmotionView } from './emotionView';
+export { default as EmotionPreviewBox } from './emotionPreviewBox';
+export { default as SwiperBtns } from './swiperBtns';
+export { default as YourFlow } from './yourFlow';

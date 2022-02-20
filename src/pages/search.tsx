@@ -183,19 +183,14 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     const [inputSearch, setInputSearch] = useState('');
     const [optionsToComplete, setOptionsToComplete] = useState<string[]>([]);
     const [inputValueDebounce] = useDebounce(inputSearch, 900);
-
-
     const router = useRouter();
-
     let { q } = router.query;
 
     const updateField = (option: string): void => {
         setInputSearch(option);
         setOptionsToComplete([]);
     }
-
     const filterSearch = async (value: string): Promise<void> => {
-
         if (value.length > 1) {
             setOptionsToComplete(await autoComplete({input: value, maxResult: 8}));
         } else {

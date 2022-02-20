@@ -11,6 +11,7 @@ import { usePlaylistContext } from 'common/contexts/Playlist';
 
 const ViewPort = Styled.section`
     width: 81%;
+    margin: 5px 0 20px 0;
 `
 const TitleSection = Styled.h2`
     color: white;

@@ -24,10 +24,14 @@ interface ArtistsRowProps {
 
 
 const ArtistsRow: React.FC<ArtistsRowProps> = ({ data }) => (
-  <VerticalView viewLabel="Artists" btnOption={{
-    displayName: "SEE ALL",
-    href: '/artists'
-  }}>
+  <VerticalView
+    viewLabel="Artists"
+    btnOption={{
+      displayName: "SEE ALL",
+      href: '/artists'
+    }}
+    margin='20px 0'
+  >
     <ArtistsProfile>
       {data.map((artist, index) => {
         return (

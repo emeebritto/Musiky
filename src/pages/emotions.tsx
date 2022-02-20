@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
 import type { NextPage, GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 import Styled from "styled-components";
 import cache from "memory-cache";
 import faker from "faker";
@@ -37,20 +38,42 @@ const LoadNewZone = Styled.section`
 const Emotions: NextPage = () => {
 
   const { desableSplash } = useSplashContext();
+  const router = useRouter();
   const [emotionsList, setEmotionsList] = useState<Array<Music>>([]);
   const [page, setPage] = useState(1);
-  const ref = useRef<HTMLDivElement | null>(null);
+//  const ref = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-      async function getData() {
-        let res = await axios.get(`${IstaticBaseUrl}emotions?page=${page}`)
-            .then(r=>r.data)
-            .catch(err => console.error(err));
+  let { startWith } = router.query;
 
-        setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
-      }
-      getData()
-    },[page]);
+  useEffect(() => {
+    async function getData() {
+      let res = await axios.get(`${IstaticBaseUrl}emotions?page=${page}`)
+          .then(r=>r.data)
+          .catch(err => console.error(err));
+      setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
+      console.log(emotionsList);
+    };
+    getData();
+  },[page]);
+
+  useEffect(()=>{
+    async function getData() {
+      if (startWith) {
+        let first = await axios.get(`${IstaticBaseUrl}emotions?id=${startWith}`)
+          .then(r => r.data)
+          .catch(err => console.error(err));
+        let someRandoms = await axios.get(`${IstaticBaseUrl}emotions?random=1&maxResult=5`)
+          .then(r => r.data)
+          .catch(err => console.error(err));
+        setEmotionsList((emotionsList: Array<Music>) => [
+          first,
+          ...someRandoms,
+          ...emotionsList
+        ]);
+      };
+    };
+    getData();
+  },[router.query.startWith])
 
   if (true) desableSplash();
 
