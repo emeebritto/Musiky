@@ -65,6 +65,10 @@ const YourFlow: React.FC<YourFlowProps> = ({ data }) => {
           viewLabel='Last Played:'
           addStyle={VerticalViewStyle()}
           labelSize='1.5em'
+          btnOption={{
+            displayName: "History",
+            href: '/history'
+          }}
           desableSwipeMode
           desableLine
         >

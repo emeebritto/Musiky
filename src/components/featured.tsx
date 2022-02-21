@@ -5,6 +5,7 @@ import Styled from 'styled-components';
 import { ArtistDataProps, Music } from "common/types";
 import { useFeaturedContext } from 'common/contexts/Featured';
 import { usePlayerContext } from 'common/contexts/Player';
+import { FeaturedControl } from 'components';
 
 
 const ViewPort = Styled.section`
@@ -63,7 +64,6 @@ const ArtistName = Styled.p`
     font-style: italic;
   }
 `
-
 const ListenNowBtn = Styled.button`
   padding: 5px 12px;
   background-color: transparent;
@@ -92,15 +92,15 @@ const Featured: React.FC<RecProps> = ({ data }) => {
 
   if (!data) return (<></>);
 
-  const { playSong, playing, stopAll } = useFeaturedContext();
+  const { preLoad, playing, stopAll } = useFeaturedContext();
   const { load } = usePlayerContext();
 
   const playMusic = (): void => {
-   load(0, [ data.clip ], 'dfmskd76');
+    load(0, [ data.clip ], 'dfmskd76');
   }
 
   useEffect(()=>{
-    playSong(data.instrumental.id);
+    preLoad(data.instrumental.id);
   },[])
 
   return (
@@ -116,21 +116,23 @@ const Featured: React.FC<RecProps> = ({ data }) => {
         <ListenNowBtn onClick={()=> playMusic()}>Listen Now</ListenNowBtn>
       </Data>
       <PlayerWrapper>
-        <ReactPlayer
-          playing={playing}
-          volume={0}
-          url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1`}
-          onEnded={()=> stopAll()}
-          width='95vw'
-          height='112vh'
-          config={{
-            youtube: {
-              playerVars: { autoPlay: 1, controls: 0 },
-            }
-          }}
-        />
+        {playing &&
+          <ReactPlayer
+            playing={playing}
+            volume={0}
+            url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1`}
+            width='95vw'
+            height='112vh'
+            config={{
+              youtube: {
+                playerVars: { autoPlay: 1, controls: 0 },
+              }
+            }}
+          />
+        }
         <Thumbnail img={playing ? false : data.clip.thumbnails[3].url}/>
       </PlayerWrapper>
+      <FeaturedControl/>
     </ViewPort >
   )
 }

@@ -4,7 +4,6 @@ self.addEventListener("install", function (event) {
 
 self.addEventListener('fetch', e => {
   console.log('Service Worker: Fetching');
-  console.log(e);
   e.respondWith(
     fetch(e.request)
     .then(res => res)

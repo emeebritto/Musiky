@@ -17,7 +17,7 @@ const ViewPort = Styled.section`
 const Label = Styled.h2`
     color: white;
     font-size: ${(props: {labelSize?: string}) => (props.labelSize ||  "1.6em")};
-    margin: 0 0 16px 18px;
+    margin-left: 18px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 `
 const ViewWrapper = Styled.section`
@@ -47,6 +47,7 @@ const ViewInfor = Styled.section`
 `
 const BtnField = Styled.section`
     position: relative;
+    margin-right: 15px;
 
     :hover #hoverLine {
         opacity: 100%;

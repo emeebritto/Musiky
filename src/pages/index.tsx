@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import Image from 'next/image';
@@ -52,12 +53,24 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
   } = pageContent;
 
   const { desableSplash } = useSplashContext();
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(()=>{
+    const node = ref?.current // DOM Ref
+    if (!node) return;
+    node.scrollTo({
+      top: 230,
+      left: 0,
+      behavior: 'smooth'
+    });
+  },[])
+
   if (pageContent) desableSplash();
   
   return (
     <div>
       <TabTitle name={`Musiky (in Development)`}/>
-      <ViewPort>
+      <ViewPort ref={ref}>
           <Wrapper>
               <Featured data={recommendations}/>
               <BoxGreeting data={greeting}/>

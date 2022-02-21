@@ -103,11 +103,11 @@ export interface SplashContextData {
 
 export interface FeaturedContextData {
     playing: boolean;
-    setPlaying: (s: boolean) => void;
+    setPlaying: (s: boolean | ((s: boolean) => boolean)) => void;
     AudId: string;
     setAudId: (s: string) => void;
     playingAud: boolean;
-    setPlayingAud: (s: boolean) => void;
+    setPlayingAud: (s: boolean | ((s: boolean) => boolean)) => void;
     AudVol: number;
     setAudVol: (s: number) => void;
 }

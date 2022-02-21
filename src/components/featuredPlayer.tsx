@@ -17,7 +17,7 @@ const FeaturedPlayer: React.FC = () => {
   const { playingAud, AudId, AudVol } = useFeaturedContext();
   return (
     <ViewPort>
-      {!!AudId &&
+      {(!!AudId && playingAud) &&
       <ReactPlayer
         playing={playingAud}
         volume={AudVol}

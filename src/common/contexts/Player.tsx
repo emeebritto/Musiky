@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
 import { EventTarget, SyntheticEvent, Music } from 'common/types';
+import { DataStorage } from 'common/storage';
 import { PlayerContext } from './providers/Player-provider';
 import { useFeaturedContext } from 'common/contexts/Featured';
 import { usePlaylistContext } from './Playlist';
@@ -45,6 +46,14 @@ export function usePlayerContext(){
 // ==================================================================
 
 
+    const updateHistory = (music: Music): void => {
+        const key = '2jdf3i23ef-history-temp';
+        if (DataStorage.get(key) == undefined) DataStorage.set(key, []);
+        let date = new Date();
+        let newSong = {id: music.id, type: 'music', time: date.getTime()};
+        DataStorage.set(key, [newSong, ...DataStorage.get(key)]);
+    }
+
 	const load = async(
         playIndex: number,
         list: Array<Music> | string,
@@ -63,9 +72,9 @@ export function usePlayerContext(){
 
         if(typeof list != 'string') {
     		setMusic(list[playIndex]);
+            updateHistory(list[playIndex]);
             setBuffer(true);
             setPlaying(true);
-            //stopAll();
         }
     }
 
@@ -99,7 +108,8 @@ export function usePlayerContext(){
     		return
     	} else {
             onBuffer(true);
-            setMusic(hasMusic);            
+            setMusic(hasMusic);
+            updateHistory(hasMusic);
         }
     }
 

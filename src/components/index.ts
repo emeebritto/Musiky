@@ -22,6 +22,7 @@ export { ErrorBoundary } from './errorBoundary';
 export { default as SplashScreen } from './splashScreen';
 export { default as FeaturedPlayer } from './featuredPlayer';
 export { default as Featured } from './featured';
+export { default as FeaturedControl } from './featuredControl';
 export { default as LoadingCube } from './loadingCube';
 export { default as TabTitle } from './tabTitle';
 export { default as Time } from './time';
