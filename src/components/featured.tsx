@@ -21,7 +21,7 @@ const PlayerWrapper = Styled.section`
 `
 const Thumbnail = Styled.section`
   position: absolute;
-  top: 0;
+  top: -70px;
   left: 0;
   background: ${(props: {img: string | false}) => (
     props.img

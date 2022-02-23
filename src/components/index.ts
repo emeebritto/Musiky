@@ -31,3 +31,4 @@ export { default as EmotionView } from './emotionView';
 export { default as EmotionPreviewBox } from './emotionPreviewBox';
 export { default as SwiperBtns } from './swiperBtns';
 export { default as YourFlow } from './yourFlow';
+export { default as LastPlayed } from './lastPlayed';

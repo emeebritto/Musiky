@@ -3,7 +3,6 @@ import type { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import Image from 'next/image';
 import Styled from 'styled-components';
-import cache from "memory-cache";
 import { HomeContent } from 'common/types/pagesSources';
 import { useSplashContext } from 'common/contexts/splash';
 
@@ -75,7 +74,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
               <Featured data={recommendations}/>
               <BoxGreeting data={greeting}/>
               <BoxQuickPicks data={quickPicks}/>
-              {false && <YourFlow data={yourFlow}/>}
+              {true && <YourFlow data={yourFlow}/>}
               <PlaylistsRow name='MIXs' data={playlists.mixs}/>
               <ArtistsRow data={artists}/>
               <PlaylistsRow name='Others MIXs' data={playlists.otherMixs}/>
@@ -90,15 +89,7 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const URL = `http://${context.req.headers.host}/api/pages/home`;
-  let pageContent = {};
-
-  const cachedResponse = cache.get(URL);
-  if (cachedResponse) {
-    pageContent = cachedResponse;
-  } else {
-    pageContent = await axios.get(URL).then(r => r.data);
-    cache.put(URL, pageContent, 60 * 60000);
-  }
+  const pageContent = await axios.get(URL).then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }

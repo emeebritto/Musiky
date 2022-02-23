@@ -3,7 +3,6 @@ import type { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import cache from "memory-cache";
 import Styled from 'styled-components';
 import { verifyUnavailable } from 'common/utils';
 import { PlaylistProps, Music } from 'common/types';
@@ -213,7 +212,6 @@ const OthersData = Styled.section`
 
 interface PlaylistPageProp {
     playlist: PlaylistProps;
-    mode: string;
 }
 
 interface DurationOrPLaying {
@@ -221,7 +219,7 @@ interface DurationOrPLaying {
     index: number;
 }
 
-const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
+const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 
     const { infors, list=[] } = playlist;
     const { desableSplash } = useSplashContext();
@@ -358,56 +356,17 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist, mode }) => {
     )
 }
 
-export default Playlist
+export default Playlist;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-
-    let playlist = {
-        id: '',
-        infors: {
-            playlistId: '',
-            title: '',
-            img: ''
-        },
-        list: [{}]
-    };
-
     const id: string | string[] | undefined = context.params?.id;
-    const ikey: string | string[] | undefined = context.query?.ikey;
-    const mode: string | string[] | undefined = context.query?.mode;
-
     if(!id) return { notFound: true }
 
-    if (mode == 'radio') {
-        const URL = `${IstaticBaseUrl}playlist/${ikey}`;
-        const cachedResponse = cache.get(URL);
-        if (cachedResponse) {
-            playlist = cachedResponse;
-        } else {
-            let { list } = await axios.get(URL).then(r=>r.data);
-            playlist.list = await verifyUnavailable(list);
-            playlist.id = String(id);
-            playlist.infors.playlistId = String(id);
-            playlist.infors.title = `Mix - ${list[0].title}`;
-            playlist.infors.img = list[0].thumbnails[1].url;
-            cache.put(URL, playlist, 60 * 60000);
-        }
-    } else {
-        const URL = `http://${context.req.headers.host}/api/playlist/${id}`;
-        const cachedResponse = cache.get(URL);
-        if (cachedResponse) {
-            playlist = cachedResponse;
-        } else {
-            playlist = await axios.get(URL)
-                .then(r => r.data);
-            cache.put(URL, playlist, 60 * 60000);
-        }
-    }
-
-
+    const URL = `http://${context.req.headers.host}/api/playlist/${id}`;
+    const playlist = await axios.get(URL).then(r => r.data);
     if(!playlist) return { notFound: true }
 
     return {
-        props: { playlist, mode: mode || null } // will be passed to the page component as props
+        props: { playlist } // will be passed to the page component as props
     }
 }

@@ -48,5 +48,6 @@ export const istatic = {
     chat_bubble_outline_white: ()=> `${BaseUrl}icons/chat_bubble_outline_white_24dp.svg`,
     expand_more_white: ()=> `${BaseUrl}icons/expand_more_white_24dp.svg`,
     send_white: ()=> `${BaseUrl}icons/send_white_24dp.svg`,
-    play_disabled_white: ()=> `${BaseUrl}icons/play_disabled_white_24dp.svg`
+    play_disabled_white: ()=> `${BaseUrl}icons/play_disabled_white_24dp.svg`,
+    music_note_white: ()=> `${BaseUrl}icons/music_note_white_24dp.svg`
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
-import cache from "memory-cache";
 import { ExploreContent } from 'common/types/pagesSources';
 
 import { useSplashContext } from 'common/contexts/splash';
@@ -60,16 +59,7 @@ export default Explore;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const URL = `http://${context.req.headers.host}/api/pages/explore`;
-  let pageContent = {};
-
-  const cachedResponse = cache.get(URL);
-  if (cachedResponse) {
-    pageContent = cachedResponse;
-  } else {
-    pageContent = await axios.get(URL).then(r => r.data);
-    cache.put(URL, pageContent, 60 * 60000);
-  }
-
+  const pageContent = await axios.get(URL).then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }

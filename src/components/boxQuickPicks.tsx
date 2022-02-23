@@ -167,8 +167,8 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
         }
     }
 
-    const goToList = ({ key, id }: { key: string, id: string }) => {
-        router.push(`/playlist/${id}?ikey=${key}&mode=radio`);
+    const goToList = (id: string) => {
+        router.push(`/playlist/${id}`);
     };
 
     //Component:
@@ -202,24 +202,24 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
         <ViewPort>
             <TitleSection>Quick Picks</TitleSection>
             <MusicListWrapper>
-                {data.items.map((list, i) => {
-                    let { startWith } = list.infors;
+                {data.items.map((pl, i) => {
+                    let { startWith } = pl.infors;
                     return (
                         <Playlists
                             onClick={(e) => {
                                 e.stopPropagation();
-                                startList(0, list.key, list.id);
-                                goToList(list);
+                                startList(0, pl.list, pl.id);
+                                goToList(pl.id);
                             }}
-                            key={list.id}
+                            key={pl.id}
                         >
                             <BoxNumMusic>
                                 <NumMusic>{i + 1}.</NumMusic>
                             </BoxNumMusic>
                             <DataMusic>
-                                <BoxImgMusic src={list.infors.img} alt="playlist image" />
+                                <BoxImgMusic src={pl.infors.img} alt="playlist image" />
                                 <Titles>
-                                    <MusicTitle>{list.infors.title}</MusicTitle>
+                                    <MusicTitle>{pl.infors.title}</MusicTitle>
                                     <NamesList>
                                         {startWith && startWith.artists.map((artist, index) => {
                                             let space='';
@@ -239,7 +239,7 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
                                     </NamesList>
                                 </Titles>
                             </DataMusic>
-                            <BoxPLayingNow id={list.id}/>
+                            <BoxPLayingNow id={pl.id}/>
                         </Playlists>
                 )})}
             </MusicListWrapper>

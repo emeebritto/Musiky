@@ -14,6 +14,7 @@ export const AccountProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [auth, setAuth] = useState('');
 	const [displayName, setDisplayName] = useState('');
 	const [profileImg, setProfileImg] = useState('');
+	const [history, setHistory] = useState([]);
 
 	return (
 		<AccountContext.Provider value={{
@@ -22,7 +23,9 @@ export const AccountProvider: React.FC<LayoutProps> = ({ children }) => {
 			displayName,
 			setDisplayName,
 			profileImg,
-			setProfileImg
+			setProfileImg,
+      history,
+      setHistory
 		}}>
 			{ children }
 		</AccountContext.Provider>

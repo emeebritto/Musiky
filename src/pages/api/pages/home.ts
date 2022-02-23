@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
+import cache from "memory-cache";
 import { IstaticBaseUrl } from 'api';
 import { HomeContent } from 'common/types/pagesSources';
 import greeting from 'common/utils/greeting';
@@ -7,11 +8,18 @@ import recommendations from 'common/utils/recommendations';
 import randomPlaylists from 'common/utils/random/playlists';
 import randomArtists from 'common/utils/random/artists';
 
+const KEY = 'page:home';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<HomeContent>
 ) {
+
+  const cachedResponse = cache.get(KEY);
+  if (cachedResponse) {
+    res.status(200).json(cachedResponse);
+    return;
+  }
 
   const $ = {
     greeting: greeting(),
@@ -27,6 +35,13 @@ export default async function handler(
     },
     artists: await randomArtists({ maxResult: 6 }).then(r=>r.artists)
   };
+  // create playlists cache:
+  let quickPicksPlaylists = $.quickPicks.items;
+  for (let i=0; i < quickPicksPlaylists.length; i++) {
+    let { id } = quickPicksPlaylists[i];
+    cache.put(`playlist:${id}`, quickPicksPlaylists[i], 1440 * 60000);
+  }
 
+  cache.put(KEY, $, 60 * 60000);
   res.status(200).json($)
 }

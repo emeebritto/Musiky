@@ -22,12 +22,16 @@ export function usePlaylistContext(){
 // ==================================================================
 
 
-	const startPlaylist = (
-		playingIndex: number,
+	const startPlaylist = ({
+		playIndex,
+		playlistId,
+		musicList
+	}: {
+		playIndex: number,
 		playlistId: string,
-		musicList: Array<Music>
-	) => {
-		setPlayingIndex(playingIndex);
+		musicList: Array<Music>,
+	}) => {
+		setPlayingIndex(playIndex);
 		setPlaylistId(playlistId);
 		setMusiclist(musicList);
 	}

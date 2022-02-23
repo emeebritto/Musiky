@@ -3,7 +3,6 @@ export interface EventTarget {
     dispatchEvent(evt: Event): boolean;
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
 }
-
 export interface SyntheticEvent {
     bubbles: boolean;
     cancelable: boolean;
@@ -18,7 +17,6 @@ export interface SyntheticEvent {
     timeStamp: Date;
     type: string;
 }
-
 export interface Music {
     id: string;
     unavailable?: boolean;
@@ -36,13 +34,11 @@ export interface Music {
     viewCount: number;
     artists: Array<string>;
 }
-
 export interface UnavailableMusic {
     id: string;
     unavailable: boolean;
     reason: string;
 }
-
 export interface PlaylistProps {
     id: string,
     infors: {
@@ -57,7 +53,6 @@ export interface PlaylistProps {
     key: string;
     list: Array<Music>;
 }
-
 export interface ArtistDataProps {
     name: string;
     id: string;
@@ -67,7 +62,6 @@ export interface ArtistDataProps {
     };
     genres: Array<string>;
 }
-
 export interface PlayerContextData {
     ref: {
         playerRef: any;
@@ -95,12 +89,10 @@ export interface PlayerContextData {
     muted: boolean;
     setMuted: (s: boolean) => void;
 }
-
 export interface SplashContextData {
     splash: boolean;
     setSplash: (s: boolean) => void;
 }
-
 export interface FeaturedContextData {
     playing: boolean;
     setPlaying: (s: boolean | ((s: boolean) => boolean)) => void;
@@ -111,7 +103,6 @@ export interface FeaturedContextData {
     AudVol: number;
     setAudVol: (s: number) => void;
 }
-
 export interface PlaylistContextData {
     playingIndex: number;
     setPlayingIndex: (s: number) => void;
@@ -124,11 +115,9 @@ export interface PlaylistContextData {
     playListShuffle: boolean;
     setPlayListShuffle: (s: boolean | ((s: boolean) => boolean)) => void;
 }
-
 interface Lyric {
   [key: string]: string;
 }
-
 export interface LyricContextData {
     lyric: Lyric;
     setLyric: (s: Lyric) => void;
@@ -141,7 +130,15 @@ export interface LyricContextData {
     hasLyric: boolean;
     setHasLyric: (s: boolean | ((s: boolean) => boolean)) => void;
 }
-
+export interface DataHistory {
+    id: string;
+    type: string;
+    time: number;
+    playlist?: {
+        id: string;
+        link: string;
+    } | null
+}
 export interface AccountContextData {
     auth: string;
     setAuth: (s: string) => void;
@@ -149,4 +146,6 @@ export interface AccountContextData {
     setDisplayName: (s: string) => void;
     profileImg: string;
     setProfileImg: (s: string) => void;
+    history: DataHistory[];
+    setHistory: (s: DataHistory[] | ((s: DataHistory[]) => DataHistory[])) => void;
 }

@@ -3,8 +3,15 @@ import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import faker from 'faker';
 import { Music } from 'common/types';
-import { VerticalView, EmotionPreviewBox, SwiperBtns } from 'components';
 import { SwiperSlide } from 'swiper/react';
+import { istatic } from 'api/istatic';
+import {
+  VerticalView,
+  EmotionPreviewBox,
+  LastPlayed,
+  SwiperBtns
+} from 'components';
+
 
 const ViewPort = Styled.section`
   display: flex;
@@ -22,15 +29,13 @@ const VerticalViewStyle = () => (`
   overflow: hidden;
   background-color: #090816;
 `)
-const LastPlayer = Styled.section`
-  width: 100%;
-  height: 70px;
-  background-color: red;
-`
 const MyFlow = Styled.section`
   width: 30vw;
   height: 365px;
-  background-color: purple;
+`
+
+const ComingSoon = Styled.p`
+  margin: 140px;
 `
 
 interface YourFlowProps {
@@ -72,7 +77,7 @@ const YourFlow: React.FC<YourFlowProps> = ({ data }) => {
           desableSwipeMode
           desableLine
         >
-          <LastPlayer/>
+          <LastPlayed/>
         </VerticalView>
       </EmotionsAndResume>
       <VerticalView
@@ -81,7 +86,9 @@ const YourFlow: React.FC<YourFlowProps> = ({ data }) => {
         width='38.5%'
         desableSwipeMode
       >
-        <MyFlow/>
+        <MyFlow>
+          <ComingSoon>Coming Soon.</ComingSoon>
+        </MyFlow>
       </VerticalView>
     </ViewPort>
   );

@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
 import { EventTarget, SyntheticEvent, Music } from 'common/types';
-import { DataStorage } from 'common/storage';
 import { PlayerContext } from './providers/Player-provider';
 import { useFeaturedContext } from 'common/contexts/Featured';
+import { useAccountContext } from 'common/contexts/Account';
 import { usePlaylistContext } from './Playlist';
 
 
@@ -39,43 +39,35 @@ export function usePlayerContext(){
 	const {
         stopPlaylist,
 		startPlaylist,
-		changeMusic
+		changeMusic,
+        playlistInfor
 	} = usePlaylistContext();
+
+    const { updateHistory } = useAccountContext();
 
 
 // ==================================================================
 
-
-    const updateHistory = (music: Music): void => {
-        const key = '2jdf3i23ef-history-temp';
-        if (DataStorage.get(key) == undefined) DataStorage.set(key, []);
-        let date = new Date();
-        let newSong = {id: music.id, type: 'music', time: date.getTime()};
-        DataStorage.set(key, [newSong, ...DataStorage.get(key)]);
-    }
-
 	const load = async(
         playIndex: number,
-        list: Array<Music> | string,
-        playlistId: string | undefined = undefined
+        musicList: Array<Music>,
+        playlistId: string | undefined = undefined,
     ): Promise<void> => {
 
-        if (typeof list == 'string') {
-            list = await axios.get(`${IstaticBaseUrl}playlist/${list}`)
-                .then(r => r.data.list)
-                .catch(err => console.error(err));
-        }
+        if (playlistId && musicList.length) {
+        	startPlaylist({ playIndex, playlistId, musicList });
+        };
 
-        if(playlistId && typeof list != 'string') {
-        	startPlaylist(playIndex, playlistId, list);
-        }
-
-        if(typeof list != 'string') {
-    		setMusic(list[playIndex]);
-            updateHistory(list[playIndex]);
+        if (musicList.length) {
+    		setMusic(musicList[playIndex]);
             setBuffer(true);
             setPlaying(true);
-        }
+            updateHistory({
+                type: 'music',
+                data: musicList[playIndex],
+                playlistId: playlistId
+            });
+        };
     }
 
     const stopPlayer = (): void => {
@@ -105,11 +97,17 @@ export function usePlayerContext(){
     	if(!hasMusic){
             onBuffer(false);
     		setPlaying(false);
-    		return
+    		return;
     	} else {
             onBuffer(true);
             setMusic(hasMusic);
-            updateHistory(hasMusic);
+            updateHistory({
+                type: 'music',
+                data: hasMusic,
+                playlistId: playlistInfor.playlistId
+                    ? playlistInfor.playlistId
+                    : null
+            });
         }
     }
 
