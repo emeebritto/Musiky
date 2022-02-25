@@ -9,7 +9,8 @@ import {
   VerticalView,
   EmotionPreviewBox,
   LastPlayed,
-  SwiperBtns
+  SwiperBtns,
+  MyFlow
 } from 'components';
 
 
@@ -29,14 +30,7 @@ const VerticalViewStyle = () => (`
   overflow: hidden;
   background-color: #090816;
 `)
-const MyFlow = Styled.section`
-  width: 30vw;
-  height: 365px;
-`
 
-const ComingSoon = Styled.p`
-  margin: 140px;
-`
 
 interface YourFlowProps {
   data: {
@@ -80,16 +74,7 @@ const YourFlow: React.FC<YourFlowProps> = ({ data }) => {
           <LastPlayed/>
         </VerticalView>
       </EmotionsAndResume>
-      <VerticalView
-        viewLabel='MyFlow'
-        addStyle={VerticalViewStyle()}
-        width='38.5%'
-        desableSwipeMode
-      >
-        <MyFlow>
-          <ComingSoon>Coming Soon.</ComingSoon>
-        </MyFlow>
-      </VerticalView>
+      <MyFlow/>
     </ViewPort>
   );
 }

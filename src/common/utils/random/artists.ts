@@ -2,14 +2,6 @@ import faker from 'faker';
 import { request } from 'common/utils/request';
 import { ArtistDataProps } from 'common/types';
 
-
-interface ArtistPerIndex {
-    index: number;
-    provider: string;
-    resquestId: string;
-    indexContent: ArtistDataProps;
-};
-
 interface FinalRes {
     maxResult: number,
     provider: string,
@@ -28,12 +20,12 @@ const randomArtists = async({ maxResult=6 }: {maxResult: number}) => {
 
     while (res.artists.length < maxResult) {
         const randomNum: number = ~~(Math.random() * 200);
-        let requestRes: ArtistPerIndex | undefined = await request(
+        let requestRes: ArtistDataProps | {} = await request(
             'artistPerIndex',
             `?index=${randomNum}`
         );
-        if (requestRes && !!Object.keys(requestRes.indexContent).length) {
-            res.artists.push(requestRes.indexContent);
+        if (requestRes && !!Object.keys(requestRes).length) {
+            res.artists.push(requestRes);
         }
     }
 

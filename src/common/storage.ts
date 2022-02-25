@@ -6,12 +6,16 @@ export class DataStorage {
   }
 
   static set(key: string, data: any): void {
+    if (!key || !data) return;
     localStorage.setItem(key, JSON.stringify(data));
   }
 
   static get(key: string): any {
-    const data: any = localStorage.getItem(key);
-    return JSON.parse(data);
+    if (typeof window !== 'undefined') {
+      const data: any = localStorage.getItem(key);
+      return JSON.parse(data);
+    }
+    return false;
   }
 
   static del(key: string): void {

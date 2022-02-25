@@ -90,7 +90,7 @@ export function useAccountContext(){
   },[router.query]);
 
   useEffect(()=>{
-    setHistory(DataStorage.get(HISTORY_KEY));
+    setHistory(DataStorage.get(HISTORY_KEY) || []);
   },[]);
 
 

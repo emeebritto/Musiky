@@ -41,22 +41,28 @@ const Icon = Styled.img`
   margin: 0 20px;
 `
 
+const Warns = Styled.p`
+  margin: 0 auto;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+`
+
 const LastPlayer = () => {
   const { history } = useAccountContext();
   const { prop } = usePlayerContext();
   const [last, setLast] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
   useEffect(()=>{
     let lastSong = prop.music? (history[1] || history[0]) : history[0];
     if (!lastSong) return;
+    setLoading(true);
     async function getData() {
       let musicData = await axios.get(`${IstaticBaseUrl}music/${lastSong.id}`)
-        .then(r => r.data.music)
+        .then(r => r.data)
         .catch(err => setError(true))
       let playlistData = await axios.get(`${location.origin}/api/playlist/${lastSong.playlist.id}`)
         .then(r => r.data)
-        .catch(err => setError(true))
       setLoading(false);
       if (musicData && musicData.id) {
         musicData['from'] = playlistData;
@@ -69,15 +75,21 @@ const LastPlayer = () => {
   if (!last.id && loading) {
     return (
       <ViewPort>
-        <p>Loading history..</p>
+        <Warns>Loading history..</Warns>
       </ViewPort>
     )
   } else if (!last.id && error) {
     return (
       <ViewPort>
-        <p>request history failed.</p>
+        <Warns>request history failed.</Warns>
       </ViewPort>
     )
+  } else if (!last.id) {
+    return (
+      <ViewPort>
+        <Warns>You don't have history, yet.</Warns>
+      </ViewPort>
+    );
   } else if (!last.id) {
     return (<></>);
   }

@@ -10,7 +10,7 @@ const autoComplete = async({
 }): Promise<string[]> => {
 
     let { items } = await request('allMusics', '?allNames=1&maxResult=5000');
-    let { names } = await request('allArtistNames');
+    let namesList = await request('allArtistNames');
 
     var selected = [];
 
@@ -19,7 +19,7 @@ const autoComplete = async({
 
             var exp = new RegExp(input, "i");
             var item = items[i];
-            var name = names[i];
+            var name = namesList[i];
  
             let hasSomeEvenMusic = selected.some(value => value === item);
             if (exp.test(item) && !hasSomeEvenMusic) {
