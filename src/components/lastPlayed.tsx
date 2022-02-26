@@ -29,7 +29,7 @@ const Title = Styled.p`
   margin-bottom: 8px;
 `
 const From = Styled.p`
-  width: 400px;
+  width: 420px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

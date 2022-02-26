@@ -109,20 +109,34 @@ const WhatsTheVibe: NextPage = () => {
     'Old',
     'Heart Broken',
     'Relationship',
+    'Night Love',
     'Chill Night',
+    'Night',
     'Summer Party',
     'Melancholy',
+    'Memories',
     'lo-fi',
     'chill',
     'Dance',
+    'Slow Dance',
     'Slowed',
+    'Messy Mind',
+    'Rain',
     'Workout',
     'morning',
+    'Late Afternoon',
+    'intense fellings',
+    'Driving At Night',
+    'Desert',
+    'Countryside',
     'Vibrant',
+    'Drop',
     'Rock',
     'Young',
     'Electronic',
-    'Trap'
+    'powerful',
+    'Trap',
+    'Rap'
   ]);
 
   if (devENV) {
@@ -159,13 +173,14 @@ const WhatsTheVibe: NextPage = () => {
     setActiveVibes([]);
   };
   const actionClearStorage = () => {
-    DataStorage.set(VIBE_KEY, []);
+    DataStorage.set(VIBE_KEY, null);
   };
   const actionCopyStorage = () => {
     navigator.clipboard.writeText(JSON.stringify(DataStorage.get(VIBE_KEY)))
       .then(()=> alert('copied'))
   };
   const actionSkip = () => {
+    setActiveVibes([]);
     getSong();
   };
 
@@ -189,8 +204,14 @@ const WhatsTheVibe: NextPage = () => {
   }
 
   useEffect(()=>{
-    if (!DataStorage.get(VIBE_KEY)) DataStorage.set(VIBE_KEY, []);
-    getSong();
+    (async() => {
+      if (!DataStorage.get(VIBE_KEY)) {
+        const vibesFromDB = await axios.get(`${IstaticBaseUrl}static/vibesDB.json`)
+          .then(r => r.data);
+        DataStorage.set(VIBE_KEY, [...vibesFromDB]);
+      }
+      getSong();
+    })()
   },[])
 
   return (

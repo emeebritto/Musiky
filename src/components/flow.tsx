@@ -125,6 +125,10 @@ const MyFlow = () => {
 		'morning'
 	]);
 
+	useEffect(()=>{
+		if (!ActiveVibe) return;
+	},[ActiveVibe])
+
 	return (
 	  <VerticalView
       viewLabel='MyFlow'
