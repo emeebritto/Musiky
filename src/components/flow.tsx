@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
+import axios from 'axios';
+import { IstaticBaseUrl } from 'api';
+import { usePlayerContext } from 'common/contexts/player';
 import { VerticalView } from 'components';
 
 const MyFlowVerticalViewStyle = () => (`
@@ -36,18 +39,28 @@ const Disk = Styled.section`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-  width: 170px;
-  height: 170px;
+  width: 190px;
+  height: 190px;
   border-radius: 50%;
-  background: url(${(props: {img: string}) => (props.img)}) no-repeat center #0C1B31;
+  background: url(${(props: {img: string}) => (props.img)}) no-repeat center/175% #0C1B31;
   overflow: hidden;
   transition: 400ms;
+  animation: ${(props: {playing: boolean}) => (
+    props.playing ? "spin infinite 30s linear" : ''
+  )};
+
+  @keyframes spin {
+	  to {
+	    transform: rotate(360deg);
+	  }
+  }
 `
 const CenterHole = Styled.section`
 	border-radius: 50%;
 	width: 20px;
   height: 20px;
   background-color: #000;
+  border: 5px solid #313331;
 `
 const Glass = Styled.section`
 	position: absolute;
@@ -105,6 +118,8 @@ const VibeBtn = Styled.button`
 
 const MyFlow = () => {
 
+	const { prop, load } = usePlayerContext();
+
 	const [ActiveVibe, setActiveVibe] = useState<string | null>(null);
 	const [vibesOptions, setVibesOptions] = useState([
 		'Happy',
@@ -125,8 +140,29 @@ const MyFlow = () => {
 		'morning'
 	]);
 
+	const getData = async() => {
+		const params = `categoryInput=random&musicsType=vibes:${ActiveVibe}&maxPlaylists=1&maxPerList=2&minPerList=1`;
+		const [ playlist ] = await axios.get(`${IstaticBaseUrl}playlist/all?${params}`)
+			.then(r => r.data.items)
+		console.log(playlist);
+		return playlist;
+	};
+
+	const startSong = ({ id, list }) => {
+		load({
+			playIndex: 0,
+			list: list,
+			listId: id,
+			onEnded: getData
+		});
+	};
+
 	useEffect(()=>{
 		if (!ActiveVibe) return;
+		async function main() {
+			startSong(await getData());
+		}
+		main();
 	},[ActiveVibe])
 
 	return (
@@ -138,13 +174,24 @@ const MyFlow = () => {
     >
 			<ViewPort>
 				<DiskField active={!!ActiveVibe}>
-					<Disk>
+				<Disk
+					img={prop.music && !!ActiveVibe
+						? prop.music.thumbnails[1].url
+						: ''
+					}
+					playing={prop.playing && !!ActiveVibe}
+				>
 						<CenterHole/>
 					</Disk>
 					<Glass/>
 				</DiskField>
 				<SongInfors>
-					<SongTitle>-- ___ --</SongTitle>
+					<SongTitle>
+						{prop.music && !!ActiveVibe
+							? `${prop.music.artists[0]} - ${prop.music.title}`
+							: '-- ___ --'
+						}
+					</SongTitle>
 				</SongInfors>
 				<VibeBtnsField>
 					<VibeBtns>

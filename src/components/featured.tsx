@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { ArtistDataProps, Music } from "common/types";
 import { useFeaturedContext } from 'common/contexts/Featured';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 import { FeaturedControl } from 'components';
 
 

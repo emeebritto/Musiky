@@ -33,13 +33,13 @@ export function useAccountContext(){
   }:{
     type: string,
     data: Music | PlaylistProps,
-    playlistId?: string 
+    playlistId?: string
   }): void => {
     
     if (DataStorage.get(HISTORY_KEY) == undefined) DataStorage.set(HISTORY_KEY, []);
     let date = new Date();
     if (type === 'music') {
-      let newData = {
+      let newData: DataHistory = {
         id: data.id,
         type: 'music',
         time: date.getTime(),
@@ -48,17 +48,19 @@ export function useAccountContext(){
           link: `/playlist/${playlistId}`
         }
       };
-      setHistory((history: DataHistory[]) => [newData, ...history]);
+      let historyUpdated = [newData, ...history];
+      setHistory(historyUpdated);
       DataStorage.set(HISTORY_KEY, [newData, ...DataStorage.get(HISTORY_KEY)]);
       return;
     };
     if (type === 'playlist') {
-      let newData = {
+      let newData: DataHistory = {
         id: data.id,
         type: 'playlist',
         time: date.getTime()
       };
-      setHistory((history: DataHistory[]) => [newData, ...history]);
+      let historyUpdated = [newData, ...history];
+      setHistory(historyUpdated);
       DataStorage.set(HISTORY_KEY, [newData, ...DataStorage.get(HISTORY_KEY)]);
       return;
     }

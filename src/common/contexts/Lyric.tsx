@@ -3,7 +3,8 @@ import axios from 'axios';
 import { EventTarget, SyntheticEvent } from 'common/types';
 import { IstaticBaseUrl } from 'api';
 import { LyricContext } from './providers/Lyric-provider';
-import { usePlayerContext } from './Player';
+import { usePlayerContext } from './player';
+import { usePlayerProgressContext } from './player/progress';
 
 
 export function useLyricContext() {
@@ -22,6 +23,7 @@ export function useLyricContext() {
 	} = useContext(LyricContext);
 
     const { prop } = usePlayerContext();
+    const { currentTimeSec } = usePlayerProgressContext();
 	
 
 // ==================================================================
@@ -65,17 +67,17 @@ export function useLyricContext() {
     },[prop.music])
 
     useEffect(()=>{
-        if(lyric[prop.currentTimeSeconds]) {
-            setCurrentLine(lyric[prop.currentTimeSeconds]);
-            fullLyricCurrentLine(prop.currentTimeSeconds);
-        } else if (lyric[prop.currentTimeSeconds -1]) {
-            setCurrentLine(lyric[prop.currentTimeSeconds -1]);
-            fullLyricCurrentLine(prop.currentTimeSeconds -1);
-        } else if (lyric[prop.currentTimeSeconds -2]) {
-            setCurrentLine(lyric[prop.currentTimeSeconds -2]);
-            fullLyricCurrentLine(prop.currentTimeSeconds -2);
+        if(lyric[currentTimeSec]) {
+            setCurrentLine(lyric[currentTimeSec]);
+            fullLyricCurrentLine(currentTimeSec);
+        } else if (lyric[currentTimeSec -1]) {
+            setCurrentLine(lyric[currentTimeSec -1]);
+            fullLyricCurrentLine(currentTimeSec -1);
+        } else if (lyric[currentTimeSec -2]) {
+            setCurrentLine(lyric[currentTimeSec -2]);
+            fullLyricCurrentLine(currentTimeSec -2);
         }
-    },[prop.currentTimeSeconds])
+    },[currentTimeSec])
 
     useEffect(()=>{
         setHasLyric(!!Object.keys(lyric).length);

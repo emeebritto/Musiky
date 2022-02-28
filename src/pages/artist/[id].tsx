@@ -7,7 +7,7 @@ import { ArtistDataProps, Music, PlaylistProps } from 'common/types';
 import { istatic } from "api/istatic";
 import byId from 'common/utils/playlists/byId';
 import { formatValues } from 'common/scripts/formatNum';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
 import { MusicList, TabTitle } from 'components';
 

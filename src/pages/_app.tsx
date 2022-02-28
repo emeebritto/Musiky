@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
-import { PlayerProvider } from 'common/contexts/providers/Player-provider';
+import { PlayerProvider } from 'common/contexts/player';
 import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
 import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
 import { AccountProvider } from 'common/contexts/providers/Account-provider';
@@ -74,7 +74,7 @@ useEffect(() => {
           <PlayerProvider>
             <LyricProvider>
               <ReactPlayerComp/>
-                <Component {...pageProps} />
+              <Component {...pageProps} />
             </LyricProvider>
           </PlayerProvider>
         </PlaylistProvider>
@@ -112,9 +112,9 @@ useEffect(() => {
                     <LyricScreen/>
                     <ReactPlayerComp/>
                     <Header/>
-                      <FeaturedPlayer/>
-                      <Component {...pageProps} />
-                      <PlayerControl/>
+                    <FeaturedPlayer/>
+                    <Component {...pageProps} />
+                    <PlayerControl/>
                   </LyricProvider>
                 </PlayerProvider>
               </PlaylistProvider>

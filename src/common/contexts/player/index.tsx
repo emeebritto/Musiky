@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
-import { EventTarget, SyntheticEvent, Music } from 'common/types';
-import { PlayerContext } from './providers/Player-provider';
+import { EventTarget, SyntheticEvent, Music, PlaylistProps } from 'common/types';
 import { useFeaturedContext } from 'common/contexts/Featured';
 import { useAccountContext } from 'common/contexts/Account';
-import { usePlaylistContext } from './Playlist';
+import { usePlaylistContext } from 'common/contexts/Playlist';
+import { PlayerContext } from './player-provider';
+export { PlayerProvider } from './player-provider';
 
-
-export function usePlayerContext(){
+export function usePlayerContext() {
 
 	const {
         ref,
@@ -22,10 +22,6 @@ export function usePlayerContext(){
 		setLastVolume,
 		loop,
 		setLoop,
-		currentTime,
-		setCurrentTime,
-        currentTimeSeconds,
-        setCurrentTimeSeconds,
 		duration,
 		setDuration,
 		seeking,
@@ -48,24 +44,35 @@ export function usePlayerContext(){
 
 // ==================================================================
 
-	const load = async(
+	const load = async({
+        playIndex,
+        list,
+        listId = undefined,
+        onEnded
+    }:{
         playIndex: number,
-        musicList: Array<Music>,
-        playlistId: string | undefined = undefined,
-    ): Promise<void> => {
+        list: Array<Music>,
+        listId: string | undefined,
+        onEnded?: () => PlaylistProps
+    }): Promise<void> => {
 
-        if (playlistId && musicList.length) {
-        	startPlaylist({ playIndex, playlistId, musicList });
+        if (listId && list.length) {
+        	startPlaylist({
+                playIndex,
+                listId,
+                list,
+                onEnded
+            });
         };
 
-        if (musicList.length) {
-    		setMusic(musicList[playIndex]);
+        if (list.length) {
+    		setMusic(list[playIndex]);
             setBuffer(true);
             setPlaying(true);
             updateHistory({
                 type: 'music',
-                data: musicList[playIndex],
-                playlistId: playlistId
+                data: list[playIndex],
+                playlistId: listId
             });
         };
     }
@@ -90,16 +97,17 @@ export function usePlayerContext(){
         setPlaying((status: boolean) => !status);
     }
 
-    const nextMusic = (action: number): void => {
+    const nextMusic = async(action: number): Promise<void> => {
 
-    	let hasMusic: Music | null = changeMusic(action);
+        setPlaying(false);
+        onBuffer(true);
+    	let hasMusic: Music | null = await changeMusic(action);
 
     	if(!hasMusic){
             onBuffer(false);
-    		setPlaying(false);
     		return;
     	} else {
-            onBuffer(true);
+            setPlaying(true);
             setMusic(hasMusic);
             updateHistory({
                 type: 'music',
@@ -113,11 +121,6 @@ export function usePlayerContext(){
 
     const toggleLoop = (): void => {
     	setLoop((loop: boolean) => !loop);
-    }
-
-    const changeCurrentTimeTo = (timeFloat: number, timeSeconds: number): void => {
-        setCurrentTimeSeconds(Number(timeSeconds.toFixed(0)));
-    	if (!seeking) setCurrentTime(timeFloat);
     }
 
     const handleDuration = (duration: number): void => {
@@ -151,11 +154,6 @@ export function usePlayerContext(){
         setSeeking(true);
     }
 
-    const handleSeekChange = (e: React.SyntheticEvent<EventTarget>): void => {
-        let target = e.target as HTMLInputElement;
-        setCurrentTime(parseFloat(target.value));
-    }
-
     const isPlayingId = (id: string): boolean => {
         if(music) return id === music.id
         return false;
@@ -169,9 +167,8 @@ export function usePlayerContext(){
             volume,
             muted,
             buffer,
+            seeking,
             playing,
-            currentTime,
-            currentTimeSeconds,
             duration
         },
     	load,
@@ -182,8 +179,6 @@ export function usePlayerContext(){
     	toggleLoop,
         handleSeekMouseUp,
         handleSeekMouseDown,
-        handleSeekChange,
-    	changeCurrentTimeTo,
     	handleDuration,
     	changeVolumeTo,
     	toggleMuted,

@@ -33,3 +33,4 @@ export { default as SwiperBtns } from './swiperBtns';
 export { default as YourFlow } from './yourFlow';
 export { default as LastPlayed } from './lastPlayed';
 export { default as MyFlow } from './flow';
+export { default as PlaylistMetaData } from './playlistMetaData';

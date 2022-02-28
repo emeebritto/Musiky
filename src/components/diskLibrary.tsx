@@ -5,7 +5,7 @@ import { SwiperSlide } from 'swiper/react';
 import { Music } from 'common/types';
 import { VerticalView } from 'components';
 
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 
 const ViewPort = Styled.section`
 `

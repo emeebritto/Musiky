@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
-
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
+import { usePlayerProgressContext } from 'common/contexts/player/progress';
 import { useLyricContext } from 'common/contexts/Lyric';
 import { fromSecondsToTime } from 'common/utils';
 
@@ -23,10 +23,14 @@ const PlayerControl: React.FC = () => {
         toggleLoop,
         handleSeekMouseUp,
         handleSeekMouseDown,
-        handleSeekChange,
         changeVolumeTo,
         toggleMuted
     } = usePlayerContext();
+    const {
+        handleSeekChange,
+        currentTimeSec,
+        currentTime
+    } = usePlayerProgressContext();
 
     const { lyricProp, toggleLyrics } = useLyricContext();
 
@@ -132,7 +136,7 @@ const PlayerControl: React.FC = () => {
                 </BtnsBackPlayNext>
 
                 <MusicTimeCounter>
-                    {fromSecondsToTime(prop.currentTimeSeconds)}
+                    {fromSecondsToTime(currentTimeSec)}
                 </MusicTimeCounter>
                 <MusicTimeTotal>
                     {fromSecondsToTime(prop.duration)}
@@ -140,7 +144,7 @@ const PlayerControl: React.FC = () => {
 
                 <DurationSlider
                     type='range' min={0} max={0.999999} step='any' 
-                    value={prop.currentTime}
+                    value={currentTime}
                     onChange={e => {handleSeekChange(e)}}
                     onMouseDown={() => {handleSeekMouseDown()}}
                     onMouseUp={e => {handleSeekMouseUp(e)}}

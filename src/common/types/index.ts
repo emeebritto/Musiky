@@ -76,10 +76,6 @@ export interface PlayerContextData {
     setLastVolume: (s: number) => void;
     loop: boolean;
     setLoop: (s: boolean | ((s: boolean) => boolean)) => void;
-    currentTime: number;
-    setCurrentTime: (s: number) => void;
-    currentTimeSeconds: number;
-    setCurrentTimeSeconds: (s: number) => void;
     duration: number;
     setDuration: (s: number) => void;
     seeking : boolean;
@@ -114,6 +110,11 @@ export interface PlaylistContextData {
     setPlaylistLoop: (s: boolean | ((s: boolean) => boolean)) => void;
     playListShuffle: boolean;
     setPlayListShuffle: (s: boolean | ((s: boolean) => boolean)) => void;
+    on: {
+        ended: {
+            current: () => PlaylistProps;
+        };
+    };
 }
 interface Lyric {
   [key: string]: string;
@@ -135,9 +136,9 @@ export interface DataHistory {
     type: string;
     time: number;
     playlist?: {
-        id: string;
-        link: string;
-    } | null
+        id?: string;
+        link?: string;
+    };
 }
 export interface AccountContextData {
     auth: string;
@@ -147,5 +148,5 @@ export interface AccountContextData {
     profileImg: string;
     setProfileImg: (s: string) => void;
     history: DataHistory[];
-    setHistory: (s: DataHistory[] | ((s: DataHistory[]) => DataHistory[])) => void;
+    setHistory: (s: DataHistory[]) => void;
 }

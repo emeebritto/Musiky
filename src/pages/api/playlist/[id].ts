@@ -14,7 +14,15 @@ export default async function handler(
     return;
   };
 
-  const playlist = await byId({ id: String(req.query.id) });
+  const id = req.query.id;
+
+  const wasCache = id.split('-')[0] === 'qp' || id.split('-')[0] === 'last';
+  if (wasCache) {
+    res.status(200).send();
+    return;
+  }
+
+  const playlist = await byId({ id: String(id) });
   cache.put(KEY, playlist, 60 * 60000);
   res.status(200).json(playlist);
 }

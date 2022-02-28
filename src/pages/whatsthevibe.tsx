@@ -7,7 +7,7 @@ import { devENV, IstaticBaseUrl } from 'api';
 import { DataStorage } from 'common/storage';
 import { Music } from 'common/types';
 import { useSplashContext } from 'common/contexts/splash';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 import { TabTitle } from 'components';
 
 
@@ -197,7 +197,11 @@ const WhatsTheVibe: NextPage = () => {
           if (evenExists >= 0) {
             ActiveVibes(songlist[evenExists].vibes);
           }
-          load(0, [ song ], 'dfscx');
+          load({
+            playIndex: 0,
+            list: [ song ],
+            listId: 'dfscx'
+          });
           return song;
         })
     );

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
+import { usePlayerProgressContext } from 'common/contexts/player/progress';
 
 
 const ViewPort = Styled.section`
@@ -36,9 +36,9 @@ const ReactPlayerComp: React.FC = () => {
     onBuffer,
     onPlayAndPause,
     nextMusic,
-    changeCurrentTimeTo,
     handleDuration
   } = usePlayerContext();
+  const { changeCurrentTimeTo } = usePlayerProgressContext();
 
   useEffect(()=> {
     document.addEventListener("contextmenu", e => e.preventDefault());
@@ -57,7 +57,9 @@ const ReactPlayerComp: React.FC = () => {
           onPlay={() => onPlayAndPause(true)}
           onPause={() => onPlayAndPause(false)}
           onProgress={(time: {played: number, playedSeconds: number}) => {
-            changeCurrentTimeTo(time.played, time.playedSeconds)
+            if (!prop.seeking) {
+              changeCurrentTimeTo(time.played, time.playedSeconds);
+            }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
           onBuffer={() => onBuffer(true)}

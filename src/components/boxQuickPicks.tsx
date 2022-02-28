@@ -5,7 +5,7 @@ import Styled from "styled-components";
 import { Music, PlaylistProps } from 'common/types';
 import { MusicList } from 'components';
 import { istatic } from 'api/istatic';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 
 
@@ -163,7 +163,11 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
         playlistId: string | undefined = undefined
     ): void => {
         if (playlistId != playlistInfor.playlistId) {
-            load(targetIndex, targetList, playlistId);            
+            load({
+                playIndex: targetIndex,
+                list: targetList,
+                listId: playlistId
+            });
         }
     }
 

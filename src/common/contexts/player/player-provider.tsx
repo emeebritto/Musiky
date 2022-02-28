@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { PlayerContextData, Music } from 'common/types';
+import { PlayerProgressProvider } from 'common/contexts/player/progress';
 
 
 interface LayoutProps {
@@ -16,8 +17,6 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
 	const [loop, setLoop] = useState(false);
-	const [currentTime, setCurrentTime] = useState(0);
-	const [currentTimeSeconds, setCurrentTimeSeconds] = useState(0);
 	const [duration, setDuration] = useState(0);
 	const [seeking, setSeeking] = useState(false);
 	const [buffer, setBuffer] = useState(false);
@@ -26,34 +25,32 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	var playerRef = null;
 
 	return (
-		<PlayerContext.Provider value={{
-			ref: {
-				playerRef
-			},
-			music,
-			setMusic,
-			playing,
-			setPlaying,
-			volume,
-			setVolume,
-			lastVolume,
-			setLastVolume,
-			loop,
-			setLoop,
-			currentTime,
-			setCurrentTime,
-	        currentTimeSeconds,
-	        setCurrentTimeSeconds,
-			duration,
-			setDuration,
-			seeking,
-			setSeeking,
-			buffer,
-			setBuffer,
-			muted,
-			setMuted
-		}}>
-			{ children }
-		</PlayerContext.Provider>
+		<PlayerProgressProvider>
+			<PlayerContext.Provider value={{
+				ref: {
+					playerRef
+				},
+				music,
+				setMusic,
+				playing,
+				setPlaying,
+				volume,
+				setVolume,
+				lastVolume,
+				setLastVolume,
+				loop,
+				setLoop,
+				duration,
+				setDuration,
+				seeking,
+				setSeeking,
+				buffer,
+				setBuffer,
+				muted,
+				setMuted
+			}}>
+				{ children }
+			</PlayerContext.Provider>
+		</PlayerProgressProvider>
 	)
 }

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { istatic } from 'api/istatic';
 import { IstaticBaseUrl } from 'api';
 import { useAccountContext } from 'common/contexts/Account';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 
 const ViewPort = Styled.section`
   display: flex;
@@ -46,12 +46,20 @@ const Warns = Styled.p`
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 
-const LastPlayer = () => {
+const LastPlayer: React.FC = () => {
   const { history } = useAccountContext();
-  const { prop } = usePlayerContext();
+  const { prop, load } = usePlayerContext();
   const [last, setLast] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const playLastSong = () => {
+    load({
+      playIndex: 0,
+      list: [ last ],
+      listId: 'last-fdsdsf4323'
+    });
+  };
 
   useEffect(()=>{
     let lastSong = prop.music? (history[1] || history[0]) : history[0];
@@ -95,7 +103,7 @@ const LastPlayer = () => {
   }
 
 	return (
-    <ViewPort>
+    <ViewPort onClick={playLastSong}>
       <Thumbnail src={last.thumbnails[1].url} alt='music Thumbnail'/>
       <Data>
         <Title>{last.title}</Title>

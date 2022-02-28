@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 import axios from 'axios';
 import { musicDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 import { PopUp } from 'components';
 import { istatic } from "api/istatic";
 import { IstaticBaseUrl } from 'api';

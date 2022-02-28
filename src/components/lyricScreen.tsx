@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Styled from "styled-components";
 import { istatic } from 'api/istatic';
-
 import { useLyricContext } from "common/contexts/Lyric";
-import { usePlayerContext } from "common/contexts/Player";
+import { usePlayerContext } from "common/contexts/player";
 import { DefinitionFromDictionary } from "components";
 
 

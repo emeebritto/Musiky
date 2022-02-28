@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Music } from 'common/types';
+import { Music, PlaylistProps } from 'common/types';
 import { PlaylistContext } from './providers/Playlist-provider';
 
 
@@ -15,7 +15,8 @@ export function usePlaylistContext(){
 		playlistLoop,
 		setPlaylistLoop,
 		playListShuffle,
-		setPlayListShuffle
+		setPlayListShuffle,
+		on
 	} = useContext(PlaylistContext);
 
 
@@ -24,16 +25,21 @@ export function usePlaylistContext(){
 
 	const startPlaylist = ({
 		playIndex,
-		playlistId,
-		musicList
+		listId,
+		list,
+		onEnded
 	}: {
 		playIndex: number,
-		playlistId: string,
-		musicList: Array<Music>,
+		listId: string,
+		list: Array<Music>,
+		onEnded?: () => PlaylistProps
 	}) => {
 		setPlayingIndex(playIndex);
-		setPlaylistId(playlistId);
-		setMusiclist(musicList);
+		setPlaylistId(listId);
+		setMusiclist(list);
+		if (onEnded) {
+			on.ended.current = onEnded;			
+		}
 	}
 
 	const stopPlaylist = () => {
@@ -41,7 +47,7 @@ export function usePlaylistContext(){
 		setMusiclist([]);
 	};
 
-	const changeMusic = (action: number): null | Music => {
+	const changeMusic = async(action: number): Promise<Music | null> => {
 
 		if(!musiclist) return null;
 
@@ -61,6 +67,13 @@ export function usePlaylistContext(){
                 playlistFinished = true;
             }
         }
+
+        if (playlistFinished && on.ended.current) {
+        	let {list} = await on.ended.current();
+        	let listUpdated = [ ...musiclist, ...list];
+        	setMusiclist(listUpdated);
+        	return listUpdated[playingIndex + action];
+        };
 
         return playlistFinished ? null : musiclist[playingIndex + action];
 	}

@@ -8,7 +8,7 @@ import cache from "memory-cache";
 import { Music } from 'common/types';
 import { istatic } from "api/istatic";
 import { fromSecondsToTime } from 'common/utils';
-import { usePlayerContext } from 'common/contexts/Player';
+import { usePlayerContext } from 'common/contexts/player';
 
 
 const ViewPort = Styled.section`

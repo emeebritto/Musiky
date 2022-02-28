@@ -15,7 +15,7 @@ interface TimeProps {
 const Time: React.FC<TimeProps> = ({ margin='0' }) => {
 	return (
 		<Clock
-			interval={1000}
+			interval={10000}
 			format="hh:mm"
 			margin={margin}
 		/>
