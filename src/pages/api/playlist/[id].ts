@@ -5,7 +5,7 @@ import byId from 'common/utils/playlists/byId';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<PlaylistProps>
+  res: NextApiResponse<PlaylistProps | {msg: string}>
 ) {
   const KEY = `playlist:${req.query.id}`;
   const cachedResponse = cache.get(KEY);
@@ -14,15 +14,15 @@ export default async function handler(
     return;
   };
 
-  const id = req.query.id;
+  const id = String(req.query.id);
 
   const wasCache = id.split('-')[0] === 'qp' || id.split('-')[0] === 'last';
   if (wasCache) {
-    res.status(200).send();
+    res.status(200).send({ msg: 'ok' });
     return;
   }
 
-  const playlist = await byId({ id: String(id) });
+  const playlist = await byId({ id });
   cache.put(KEY, playlist, 60 * 60000);
   res.status(200).json(playlist);
 }

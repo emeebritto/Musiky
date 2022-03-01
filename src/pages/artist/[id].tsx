@@ -229,7 +229,11 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
 
     const startList = async(playlistId: string): Promise<void> => {
         let playlist = await byId({id: playlistId});
-        load(0, playlist.list, playlistId);
+        load({
+            playIndex: 0,
+            list: playlist.list,
+            listId: playlistId
+        });
     }
 
     if (requestId) desableSplash();

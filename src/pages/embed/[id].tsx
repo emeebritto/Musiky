@@ -9,6 +9,7 @@ import { Music } from 'common/types';
 import { istatic } from "api/istatic";
 import { fromSecondsToTime } from 'common/utils';
 import { usePlayerContext } from 'common/contexts/player';
+import { usePlayerProgressContext } from 'common/contexts/player/progress';
 
 
 const ViewPort = Styled.section`
@@ -148,13 +149,21 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
     load,
     onPlayAndPause,
     handleSeekMouseUp,
-    handleSeekMouseDown,
-    handleSeekChange
+    handleSeekMouseDown
   } = usePlayerContext();
+  const {
+    currentTime,
+    currentTimeSec,
+    handleSeekChange
+  } = usePlayerProgressContext();
 
   const handlePlayPause = (): void => {
     if (!prop.music) {
-      load(0, [ pageContent ], 'embed3d');
+      load({
+        playIndex: 0,
+        list: [ pageContent ],
+        listId: 'embed-sffhrew3d'
+      });
       return;
     }
     onPlayAndPause();
@@ -194,13 +203,13 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
             </BtnPlayerControl>
             <DurationSlider
                 type='range' min={0} max={0.999999} step='any' 
-                value={prop.currentTime}
+                value={currentTime}
                 onChange={handleSeekChange}
                 onMouseDown={handleSeekMouseDown}
                 onMouseUp={handleSeekMouseUp}
             />
             <MusicTimeTotal>
-                {fromSecondsToTime(prop.duration - prop.currentTimeSeconds)}
+                {fromSecondsToTime(prop.duration - currentTimeSec)}
             </MusicTimeTotal>          
           </Controls>
         </DataAndControls>

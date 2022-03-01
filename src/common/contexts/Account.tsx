@@ -33,7 +33,7 @@ export function useAccountContext(){
   }:{
     type: string,
     data: Music | PlaylistProps,
-    playlistId?: string
+    playlistId: string | null
   }): void => {
     
     if (DataStorage.get(HISTORY_KEY) == undefined) DataStorage.set(HISTORY_KEY, []);
@@ -45,7 +45,7 @@ export function useAccountContext(){
         time: date.getTime(),
         playlist: {
           id: playlistId,
-          link: `/playlist/${playlistId}`
+          link: playlistId ? `/playlist/${playlistId}` : null
         }
       };
       let historyUpdated = [newData, ...history];

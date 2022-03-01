@@ -3,9 +3,7 @@ import axios from 'axios';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
 import { ExploreContent } from 'common/types/pagesSources';
-
 import { useSplashContext } from 'common/contexts/splash';
-
 import { PlaylistsRow, DiskLibrary, TabTitle } from 'components';
 
 
@@ -14,7 +12,6 @@ const ViewPort = Styled.section`
   width: 100%;
   height: 100vh;
 `
-
 const Wrapper = Styled.section`
   position: relative;
   z-index: 2;
@@ -33,7 +30,6 @@ const Wrapper = Styled.section`
 interface ExploreProps {
   pageContent: ExploreContent;
 };
-
 
 const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
 

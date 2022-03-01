@@ -19,6 +19,7 @@ export interface SyntheticEvent {
 }
 export interface Music {
     id: string;
+    target: string;
     unavailable?: boolean;
     title: string;
     originTitle: string;
@@ -112,7 +113,7 @@ export interface PlaylistContextData {
     setPlayListShuffle: (s: boolean | ((s: boolean) => boolean)) => void;
     on: {
         ended: {
-            current: () => PlaylistProps;
+            current: null | (() => Promise<PlaylistProps>);
         };
     };
 }
@@ -136,8 +137,8 @@ export interface DataHistory {
     type: string;
     time: number;
     playlist?: {
-        id?: string;
-        link?: string;
+        id: string | null;
+        link: string | null;
     };
 }
 export interface AccountContextData {

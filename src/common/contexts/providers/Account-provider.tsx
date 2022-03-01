@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { AccountContextData } from 'common/types';
+import { AccountContextData, DataHistory } from 'common/types';
 
 
 export const AccountContext = createContext<AccountContextData>({} as AccountContextData);
@@ -14,7 +14,7 @@ export const AccountProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [auth, setAuth] = useState('');
 	const [displayName, setDisplayName] = useState('');
 	const [profileImg, setProfileImg] = useState('');
-	const [history, setHistory] = useState([]);
+	const [history, setHistory] = useState<DataHistory[]>([]);
 
 	return (
 		<AccountContext.Provider value={{

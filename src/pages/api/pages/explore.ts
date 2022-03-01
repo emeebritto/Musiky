@@ -18,18 +18,14 @@ export default async function handler(
   };
 
   const $: ExploreContent = {
-    playlists: {},
-    disks: []
+    playlists: {
+      exploreList: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
+      exploreNewSets: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
+      anotherSets: await randomPlaylists({ totalList: 6 }).then(r=>r.items)
+    },
+    disks: await randomSongs({ maxResult: 6 })
   };
 
-  $.playlists.exploreList = await randomPlaylists({ totalList: 6 })
-    .then(r=>r.items);
-  $.disks = await randomSongs({ maxResult: 6, listType: 'ambienceSongs' });
-  $.playlists.exploreNewSets = await randomPlaylists({ totalList: 6 })
-    .then(r=>r.items);
-  $.playlists.anotherSets = await randomPlaylists({ totalList: 6 })
-    .then(r=>r.items);
-
   cache.put(KEY, $, 60 * 60000);
-  res.status(200).json($)
+  res.status(200).json($);
 }

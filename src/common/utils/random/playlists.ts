@@ -14,7 +14,7 @@ const randomPlaylists = async(
     };
     let lists = await request(
         'allPlaylist',
-        `?random=1&categoryInput=${category}&maxPlaylists=${totalList}`
+        `?random=1&categoryInput=${category}&musicsType=${'tags:music'}&maxPlaylists=${totalList}`
     );
     playlists.items = lists.items;
     playlists.length = lists.itemsLength;

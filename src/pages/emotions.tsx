@@ -6,6 +6,7 @@ import Styled from "styled-components";
 import cache from "memory-cache";
 import faker from "faker";
 import { useSplashContext } from 'common/contexts/splash';
+import { usePlayerContext } from 'common/contexts/player';
 import { TabTitle, EmotionView } from 'components';
 import { Music } from 'common/types';
 import { IstaticBaseUrl } from 'api';
@@ -38,12 +39,16 @@ const LoadNewZone = Styled.section`
 const Emotions: NextPage = () => {
 
   const { desableSplash } = useSplashContext();
+  const { stopPlayer } = usePlayerContext();
   const router = useRouter();
   const [emotionsList, setEmotionsList] = useState<Array<Music>>([]);
   const [page, setPage] = useState(1);
-//  const ref = useRef<HTMLDivElement | null>(null);
 
   let { startWith } = router.query;
+
+  useEffect(()=>{
+    stopPlayer()
+  },[])
 
   useEffect(() => {
     async function getData() {
@@ -106,6 +111,3 @@ const Emotions: NextPage = () => {
 }
 
 export default Emotions;
-
-//<Action src={istatic.chat_bubble_outline_white()} alt='comment' />
-//{i === (emotionsList.length - 5) && <LoadNewZone ref={ref}/>}

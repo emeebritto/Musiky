@@ -55,3 +55,12 @@ export const verifyUnavailable = async(
     }
     return newList;
 };
+
+export const sleep = (fc: any, time: number): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        setTimeout(()=> {
+            fc();
+            resolve();
+        }, time);
+    })
+};

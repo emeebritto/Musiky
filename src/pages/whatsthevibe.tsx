@@ -5,7 +5,7 @@ import type { NextPage } from 'next';
 import axios from 'axios';
 import { devENV, IstaticBaseUrl } from 'api';
 import { DataStorage } from 'common/storage';
-import { Music } from 'common/types';
+import { Music, ArtistDataProps } from 'common/types';
 import { useSplashContext } from 'common/contexts/splash';
 import { usePlayerContext } from 'common/contexts/player';
 import { TabTitle } from 'components';
@@ -139,12 +139,6 @@ const WhatsTheVibe: NextPage = () => {
     'Rap'
   ]);
 
-  if (devENV) {
-    desableSplash();
-  } else {
-    router.push('/');
-  }
-
   const addVibe = (vb: string): void => {
     let newList = [...ActiveVibes, vb];
     setActiveVibes(newList);
@@ -153,11 +147,11 @@ const WhatsTheVibe: NextPage = () => {
     let newList = [...ActiveVibes].filter((v: string)=> v != vb);
     setActiveVibes(newList);
   };
-  const hasSome = (vb: string): void => {
+  const hasSome = (vb: string): boolean => {
     return ActiveVibes.some((v: string)=> v === vb);
   };
   const actionNext = () => {
-    if (ActiveVibes.length) {
+    if (ActiveVibes.length && currentMusic) {
       let song = {
         title: currentMusic.title.replace(/\W|_/ig, ''),
         artist: currentMusic.artists[0].replace(/\W|_/ig, ''),
@@ -190,12 +184,13 @@ const WhatsTheVibe: NextPage = () => {
         .then(r=> {
           let songlist = DataStorage.get(VIBE_KEY);
           let song = r.data.items[0];
-          let evenExists = songlist.findIndex(ms => (
-            ms.title === song.title.replace(/\W|_/ig, '')
-            && ms.artists[0] === song.artist.replace(/\W|_/ig, '')
-          ));
+          let evenExists = songlist
+            .findIndex((ms: {title: string, artist: string}) => (
+              ms.title === song.title.replace(/\W|_/ig, '')
+              && ms.artist === song.artists[0].replace(/\W|_/ig, '')
+            ));
           if (evenExists >= 0) {
-            ActiveVibes(songlist[evenExists].vibes);
+            setActiveVibes(songlist[evenExists].vibes);
           }
           load({
             playIndex: 0,
@@ -208,6 +203,11 @@ const WhatsTheVibe: NextPage = () => {
   }
 
   useEffect(()=>{
+    if (!devENV) {
+      router.push('/');
+      return;
+    }
+    desableSplash();
     (async() => {
       if (!DataStorage.get(VIBE_KEY)) {
         const vibesFromDB = await axios.get(`${IstaticBaseUrl}static/vibesDB.json`)

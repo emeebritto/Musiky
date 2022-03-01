@@ -3,6 +3,7 @@ import Styled from 'styled-components';
 import axios from 'axios';
 import { istatic } from 'api/istatic';
 import { IstaticBaseUrl } from 'api';
+import { Music, DataHistory } from 'common/types';
 import { useAccountContext } from 'common/contexts/Account';
 import { usePlayerContext } from 'common/contexts/player';
 
@@ -46,14 +47,22 @@ const Warns = Styled.p`
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
 
+interface FromProps {
+  infors: {
+    title: string
+  };
+}
+
 const LastPlayer: React.FC = () => {
   const { history } = useAccountContext();
   const { prop, load } = usePlayerContext();
-  const [last, setLast] = useState({});
+  const [last, setLast] = useState<Music | null>(null);
+  const [from, setFrom] = useState<FromProps | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const playLastSong = () => {
+  const playLastSong = (): void => {
+    if (!last) return;
     load({
       playIndex: 0,
       list: [ last ],
@@ -62,43 +71,43 @@ const LastPlayer: React.FC = () => {
   };
 
   useEffect(()=>{
-    let lastSong = prop.music? (history[1] || history[0]) : history[0];
+    const lastSong: DataHistory = prop.music? (history[1] || history[0]) : history[0];
     if (!lastSong) return;
     setLoading(true);
     async function getData() {
-      let musicData = await axios.get(`${IstaticBaseUrl}music/${lastSong.id}`)
+      const musicData = await axios.get(`${IstaticBaseUrl}music/${lastSong.id}`)
         .then(r => r.data)
         .catch(err => setError(true))
-      let playlistData = await axios.get(`${location.origin}/api/playlist/${lastSong.playlist.id}`)
-        .then(r => r.data)
-      setLoading(false);
-      if (musicData && musicData.id) {
-        musicData['from'] = playlistData;
-        setLast(musicData);
+      setLast(musicData || null);
+      if (lastSong.playlist) {
+        const playlistData = await axios.get(`${location.origin}/api/playlist/${lastSong.playlist.id}`)
+          .then(r => r.data)
+        setFrom(playlistData || null);
       }
+      setLoading(false);
     };
     getData();
   },[history])
 
-  if (!last.id && loading) {
+  if (!last && loading) {
     return (
       <ViewPort>
         <Warns>Loading history..</Warns>
       </ViewPort>
     )
-  } else if (!last.id && error) {
+  } else if (!last && error) {
     return (
       <ViewPort>
         <Warns>request history failed.</Warns>
       </ViewPort>
     )
-  } else if (!last.id) {
+  } else if (!last) {
     return (
       <ViewPort>
         <Warns>You don't have history, yet.</Warns>
       </ViewPort>
     );
-  } else if (!last.id) {
+  } else if (!last) {
     return (<></>);
   }
 
@@ -107,8 +116,8 @@ const LastPlayer: React.FC = () => {
       <Thumbnail src={last.thumbnails[1].url} alt='music Thumbnail'/>
       <Data>
         <Title>{last.title}</Title>
-        {!!last.from && <From>From Playlist: {last.from.infors.title}</From>}
-        {!last.from && <From>{last.artists[0]}</From>}
+        {!!from && <From>From Playlist: {from.infors.title}</From>}
+        {!from && <From>{last.artists[0]}</From>}
       </Data>
       <Icon src={istatic.iconPlay()} alt='play'/>
     </ViewPort>

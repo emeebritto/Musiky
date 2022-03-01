@@ -32,7 +32,7 @@ export function usePlaylistContext(){
 		playIndex: number,
 		listId: string,
 		list: Array<Music>,
-		onEnded?: () => PlaylistProps
+		onEnded?: () => Promise<PlaylistProps>
 	}) => {
 		setPlayingIndex(playIndex);
 		setPlaylistId(listId);

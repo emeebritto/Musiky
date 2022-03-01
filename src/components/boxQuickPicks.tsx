@@ -159,8 +159,8 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
 
     const startList = (
         targetIndex: number,
-        targetList: Array<Music> | string,
-        playlistId: string | undefined = undefined
+        targetList: Array<Music>,
+        playlistId: string | null = null
     ): void => {
         if (playlistId != playlistInfor.playlistId) {
             load({

@@ -47,13 +47,13 @@ export function usePlayerContext() {
 	const load = async({
         playIndex,
         list,
-        listId = undefined,
+        listId=null,
         onEnded
     }:{
         playIndex: number,
         list: Array<Music>,
-        listId: string | undefined,
-        onEnded?: () => PlaylistProps
+        listId: string | null,
+        onEnded?: () => Promise<PlaylistProps>
     }): Promise<void> => {
 
         if (listId && list.length) {

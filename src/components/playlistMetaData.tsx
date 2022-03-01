@@ -1,6 +1,7 @@
 import React/*, { useState, useEffect }*/ from 'react';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
+import { Music, PlaylistProps } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { usePlayerContext } from 'common/contexts/player';
 import { istatic } from "api/istatic";
@@ -144,12 +145,19 @@ const CircleOption = Styled.img`
   }
 `
 
-
-const PlaylistMetaData = ({ id, playlist }) => {
+interface Props {
+  id: string;
+  playlist: PlaylistProps;
+}
+const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
 
 	const { infors, list=[] } = playlist;
   const router = useRouter();
-	const { playlistInfor } = usePlaylistContext();
+	const {
+    playlistInfor,
+    togglePlaylistShuffle,
+    togglePlaylistLoop
+  } = usePlaylistContext();
 	const { load, stopPlayer } = usePlayerContext();
 
   const startList = (
@@ -177,7 +185,7 @@ const PlaylistMetaData = ({ id, playlist }) => {
           src={istatic.iconLoop()} 
           alt="playlist loop"/>
         <CircleOption
-          onClick={() => setShowPopUp(true)}
+          //onClick={() => setShowPopUp(true)}
           src={istatic.more_horiz()} 
           alt="more playlist options"/>
       </>

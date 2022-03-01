@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
+import { Music, PlaylistProps } from 'common/types';
+import { sleep } from 'common/utils';
 import { usePlayerContext } from 'common/contexts/player';
+import { usePlayerProgressContext } from 'common/contexts/player/progress';
 import { VerticalView } from 'components';
 
 const MyFlowVerticalViewStyle = () => (`
@@ -35,25 +38,19 @@ const DiskField = Styled.section`
 `
 const Disk = Styled.section`
 	position: relative;
-	top: -55%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
   width: 190px;
   height: 190px;
   border-radius: 50%;
-  background: url(${(props: {img: string}) => (props.img)}) no-repeat center/175% #0C1B31;
   overflow: hidden;
-  transition: 400ms;
-  animation: ${(props: {playing: boolean}) => (
-    props.playing ? "spin infinite 30s linear" : ''
-  )};
-
-  @keyframes spin {
-	  to {
-	    transform: rotate(360deg);
-	  }
-  }
+  transition: top 400ms, transform 3400ms;
+  ${(props: {playing: boolean, img: string, off: boolean, time: number}) => (`
+    background: url(${props.img}) no-repeat center/175% #0C1B31;
+    top: ${props.off ? '-135%' : '-55%'};
+    transform: rotate(${props.time}deg);
+  `)}
 `
 const CenterHole = Styled.section`
 	border-radius: 50%;
@@ -119,6 +116,10 @@ const VibeBtn = Styled.button`
 const MyFlow = () => {
 
 	const { prop, load } = usePlayerContext();
+	const { currentTimeSec } = usePlayerProgressContext();
+
+	const [diskOff, setDiskOff] = useState(false);
+	const [diskImg, setDiskImg] = useState('');
 
 	const [ActiveVibe, setActiveVibe] = useState<string | null>(null);
 	const [vibesOptions, setVibesOptions] = useState([
@@ -140,15 +141,22 @@ const MyFlow = () => {
 		'morning'
 	]);
 
-	const getData = async() => {
+
+
+	const getData = async(): Promise<PlaylistProps> => {
 		const params = `categoryInput=random&musicsType=vibes:${ActiveVibe}&maxPlaylists=1&maxPerList=2&minPerList=1`;
 		const [ playlist ] = await axios.get(`${IstaticBaseUrl}playlist/all?${params}`)
 			.then(r => r.data.items)
-		console.log(playlist);
 		return playlist;
 	};
 
-	const startSong = ({ id, list }) => {
+	const updateDisk = async(music: Music) => {
+		setDiskOff(true);
+		await sleep(()=> setDiskImg(music.thumbnails[1].url), 500);
+		await sleep(()=> setDiskOff(false), 500);
+	};
+
+	const startSong = ({ id, list }:{id: string, list: Music[]}) => {
 		load({
 			playIndex: 0,
 			list: list,
@@ -156,6 +164,11 @@ const MyFlow = () => {
 			onEnded: getData
 		});
 	};
+
+	useEffect(()=>{
+		if (!prop.music) return;
+		updateDisk(prop.music);
+	},[prop.music]);
 
 	useEffect(()=>{
 		if (!ActiveVibe) return;
@@ -175,11 +188,10 @@ const MyFlow = () => {
 			<ViewPort>
 				<DiskField active={!!ActiveVibe}>
 				<Disk
-					img={prop.music && !!ActiveVibe
-						? prop.music.thumbnails[1].url
-						: ''
-					}
+					off={diskOff}
+					img={diskImg}
 					playing={prop.playing && !!ActiveVibe}
+					time={12 * currentTimeSec}
 				>
 						<CenterHole/>
 					</Disk>

@@ -1,15 +1,19 @@
 import { request } from 'common/utils/request';
 
+const randomSongs = async({
+  maxResult=6
+}:{
+  maxResult: number
+}) => {
+  let { requestId, items } = await request(
+    'allMusics',
+    `?random=1&maxResult=${maxResult}&categoryInput=${'tags:music'}`
+  );
 
-const randomSongs = async(
-    {listType, maxResult=6 }:
-    {listType: string, maxResult: number}
-) => {
-    let { items } = await request(
-        'allMusics',
-        `?maxResult=${maxResult}&categoryInput=${listType}`
-    );
-    return items;
+  return {
+    id: requestId,
+    list: items
+  };
 }
 
 export default randomSongs;

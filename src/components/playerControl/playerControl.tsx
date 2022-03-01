@@ -2,84 +2,44 @@ import React from 'react';
 import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
 import { usePlayerContext } from 'common/contexts/player';
-import { usePlayerProgressContext } from 'common/contexts/player/progress';
 import { useLyricContext } from 'common/contexts/Lyric';
-import { fromSecondsToTime } from 'common/utils';
-
+import { PlayerProgressControl } from 'components';
 import { istatic } from "api/istatic";
 
-import { ViewPort, MusicInfor, PlayerControlPainel, OtherSetting, MusicImg, 
-    SectionTitles, MusicTitleInControl, MusicSubTitle, BtnsBackPlayNext, 
-    BtnPlayerControl, IconPlay, Loading, DurationSlider, MusicTimeCounter, MusicTimeTotal, 
-    VolumeControl, BtnIconVolume, BtnLyrics, BtnRepeat
+import {
+    ViewPort, MusicInfor, OtherSetting, MusicImg, 
+    SectionTitles, MusicTitleInControl, MusicSubTitle, 
+    BtnPlayerControl, IconPlay, VolumeControl,
+    BtnIconVolume, BtnLyrics, BtnRepeat
 } from './playerStyles';
 
 const PlayerControl: React.FC = () => {
 
     const {
         prop,
-        onPlayAndPause,
-        nextMusic,
         toggleLoop,
-        handleSeekMouseUp,
-        handleSeekMouseDown,
         changeVolumeTo,
         toggleMuted
     } = usePlayerContext();
-    const {
-        handleSeekChange,
-        currentTimeSec,
-        currentTime
-    } = usePlayerProgressContext();
-
     const { lyricProp, toggleLyrics } = useLyricContext();
-
-
-    const handlePlayPause = (e: React.SyntheticEvent<EventTarget>): void => {
-        e.stopPropagation();
-        onPlayAndPause();
-    }
-
-    const nextAndBack_Music = (
-        e: React.SyntheticEvent<EventTarget>,
-        action: number
-    ): void => {
-        e.stopPropagation();
-        nextMusic(action);
-    }
 
     const handlelyrics = (): void => {
         toggleLyrics();
     }
-
     const handlelyricsMobile = (e: React.SyntheticEvent<EventTarget>): void => {
         if(window.innerWidth < 570){
             toggleLyrics();
         }
     }
-
     const handleLoop = (): void => {
         toggleLoop();
     }
-
     const handleVolumeChange = (e: React.SyntheticEvent<EventTarget>): void => {
         let target = e.target as HTMLInputElement;
         changeVolumeTo(parseFloat(target.value));
     }
-
     const handleToggleMuted = (): void => {
         toggleMuted();
-    }
-
-
-
-    //component:
-    function BtnPlayAndPause() {
-        return(
-            <BtnPlayerControl play onClick={e => {handlePlayPause(e)}}>
-                <IconPlay src={prop.playing? istatic.iconPause() : istatic.iconPlay()} alt="Play or Pause" />
-            </BtnPlayerControl>
-        )
     }
 
     function getVolumeIconStatus() {
@@ -118,38 +78,7 @@ const PlayerControl: React.FC = () => {
                 </SectionTitles>
             </MusicInfor>}
 
-            <PlayerControlPainel>
-
-                <BtnsBackPlayNext>
-                    <BtnPlayerControl onClick={e => {nextAndBack_Music(e, -1)}}>
-                        <IconPlay src={istatic.iconBack()} alt="Back Music" />
-                    </BtnPlayerControl>
-
-                    {prop.buffer
-                        ? <Loading src={istatic.musicLoading()} alt='loading'/> 
-                        : <BtnPlayAndPause/>
-                    }
-
-                    <BtnPlayerControl onClick={e => {nextAndBack_Music(e, 1)}}>
-                        <IconPlay src={istatic.iconNext()} alt="Next Music" />
-                    </BtnPlayerControl>
-                </BtnsBackPlayNext>
-
-                <MusicTimeCounter>
-                    {fromSecondsToTime(currentTimeSec)}
-                </MusicTimeCounter>
-                <MusicTimeTotal>
-                    {fromSecondsToTime(prop.duration)}
-                </MusicTimeTotal>
-
-                <DurationSlider
-                    type='range' min={0} max={0.999999} step='any' 
-                    value={currentTime}
-                    onChange={e => {handleSeekChange(e)}}
-                    onMouseDown={() => {handleSeekMouseDown()}}
-                    onMouseUp={e => {handleSeekMouseUp(e)}}
-                />
-            </PlayerControlPainel>
+            <PlayerProgressControl/>
 
             <OtherSetting>
                 {lyricProp.hasLyric &&

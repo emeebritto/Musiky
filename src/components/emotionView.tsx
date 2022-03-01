@@ -284,7 +284,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
           onPause={()=> setPlaying(false)}
 	        volume={1}
 	        loop={true}
-	        url={`https://musiky-listen.herokuapp.com/${src.id}?videoMode=1`}
+	        url={`https://musiky-listen.herokuapp.com/${src.id}?videoMode=1&source=${src.target}`}
 	        width='100%'
 	        height='100%'
 	        config={{

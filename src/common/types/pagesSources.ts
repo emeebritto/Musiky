@@ -2,7 +2,10 @@ import { Music, PlaylistProps, ArtistDataProps } from 'common/types';
 
 export interface ExploreContent {
     playlists: any;
-    disks: Array<Music>;
+    disks: {
+        id: string,
+        list: Array<Music>
+    };
 }
 
 export interface HomeContent {

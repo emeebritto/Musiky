@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import faker from 'faker';
 import Styled from 'styled-components';
 import { istatic } from "api/istatic";
 
@@ -66,27 +67,22 @@ const NavBar: React.FC = () => {
     top: [
       {
         path: '/',
-        id: 'df56gfgvvccd',
         icon: istatic.homeIcon(),
         alt: 'Home Icon'
       },{
         path: '/explore',
-        id: 'df5wrwssaccd',
         icon: istatic.exploreIcon(),
         alt: 'explore Icon'
       },{
         path: '/emotions',
-        id: 'df56gf345hjgh',
         icon: istatic.music_note_white(),
         alt: 'emotions Icon'
       },{
         path: '/community',
-        id: 'dasafgdaxzzvccd',
         icon: istatic.iconCommunity(),
         alt: 'community Icon'
       },{
         path: '/library',
-        id: 'df56wewgjghjhgd',
         icon: istatic.libraryIcon(),
         alt: 'library Icon'
       },
@@ -105,7 +101,7 @@ const NavBar: React.FC = () => {
       <OptionsBox>
         {navigationOptions.top.map((option, i) => {
           return (
-            <Link href={option.path} key={option.id + i}>
+            <Link href={option.path} key={faker.datatype.uuid() + i}>
               <Option>
                 <IconOption 
                     active={option.path === pathname} 
@@ -119,7 +115,7 @@ const NavBar: React.FC = () => {
       <Bottom>
         {navigationOptions.bottom.map((option, i) => {
           return (
-            <Link href={option.path} key={option.id + i}>
+            <Link href={option.path} key={faker.datatype.uuid() + i}>
               <Option>
                 <IconOption 
                     active={option.path === pathname} 
