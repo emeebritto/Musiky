@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { EventTarget, SyntheticEvent } from 'common/types';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { useLyricContext } from 'common/contexts/Lyric';
 import { PlayerProgressControl } from 'components';
 import { istatic } from "api/istatic";
@@ -20,7 +20,7 @@ const PlayerControl: React.FC = () => {
         toggleLoop,
         changeVolumeTo,
         toggleMuted
-    } = usePlayerContext();
+    } = usePlayer();
     const { lyricProp, toggleLyrics } = useLyricContext();
 
     const handlelyrics = (): void => {

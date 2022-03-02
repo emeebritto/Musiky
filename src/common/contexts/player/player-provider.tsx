@@ -1,6 +1,9 @@
 import React, { createContext, useState } from 'react';
 import { PlayerContextData, Music } from 'common/types';
-import { PlayerProgressProvider } from 'common/contexts/player/progress';
+import {
+	PlayerProgressProvider,
+	PlayerFlowProvider
+} from 'common/contexts/player';
 
 
 interface LayoutProps {
@@ -26,31 +29,33 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 
 	return (
 		<PlayerProgressProvider>
-			<PlayerContext.Provider value={{
-				ref: {
-					playerRef
-				},
-				music,
-				setMusic,
-				playing,
-				setPlaying,
-				volume,
-				setVolume,
-				lastVolume,
-				setLastVolume,
-				loop,
-				setLoop,
-				duration,
-				setDuration,
-				seeking,
-				setSeeking,
-				buffer,
-				setBuffer,
-				muted,
-				setMuted
-			}}>
-				{ children }
-			</PlayerContext.Provider>
+			<PlayerFlowProvider>
+				<PlayerContext.Provider value={{
+					ref: {
+						playerRef
+					},
+					music,
+					setMusic,
+					playing,
+					setPlaying,
+					volume,
+					setVolume,
+					lastVolume,
+					setLastVolume,
+					loop,
+					setLoop,
+					duration,
+					setDuration,
+					seeking,
+					setSeeking,
+					buffer,
+					setBuffer,
+					muted,
+					setMuted
+				}}>
+					{ children }
+				</PlayerContext.Provider>
+			</PlayerFlowProvider>
 		</PlayerProgressProvider>
 	)
 }

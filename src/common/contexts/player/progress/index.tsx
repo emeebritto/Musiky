@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { PlayerProgressContext } from './playerProgress-provider';
 export { PlayerProgressProvider } from './playerProgress-provider';
 
-export function usePlayerProgressContext() {
+export function usePlayerProgress() {
 
 	const {
 		currentTime,

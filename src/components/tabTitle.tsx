@@ -1,13 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 
 interface TabTitleProps {
     name: string;
 }
 
 const TabTitle: React.FC<TabTitleProps> = ({ name }) => {
-	const { prop } = usePlayerContext();
+	const { prop } = usePlayer();
 
 	const PlayerStatus = (): string => {
 		if (prop.playing) {

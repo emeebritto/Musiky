@@ -3,8 +3,7 @@ import axios from 'axios';
 import { EventTarget, SyntheticEvent } from 'common/types';
 import { IstaticBaseUrl } from 'api';
 import { LyricContext } from './providers/Lyric-provider';
-import { usePlayerContext } from './player';
-import { usePlayerProgressContext } from './player/progress';
+import { usePlayer, usePlayerProgress } from './player';
 
 
 export function useLyricContext() {
@@ -22,8 +21,8 @@ export function useLyricContext() {
         setHasLyric
 	} = useContext(LyricContext);
 
-    const { prop } = usePlayerContext();
-    const { currentTimeSec } = usePlayerProgressContext();
+    const { prop } = usePlayer();
+    const { currentTimeSec } = usePlayerProgress();
 	
 
 // ==================================================================

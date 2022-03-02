@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Styled from 'styled-components';
-import axios from 'axios';
-import { IstaticBaseUrl } from 'api';
-import { Music, PlaylistProps } from 'common/types';
-import { sleep } from 'common/utils';
-import { usePlayerContext } from 'common/contexts/player';
-import { usePlayerProgressContext } from 'common/contexts/player/progress';
+import { usePlayer, usePlayerFlow, usePlayerProgress } from 'common/contexts/player';
 import { VerticalView } from 'components';
 
 const MyFlowVerticalViewStyle = () => (`
@@ -113,70 +108,17 @@ const VibeBtn = Styled.button`
 	}
 `
 
-const MyFlow = () => {
+const MyFlow: React.FC = () => {
 
-	const { prop, load } = usePlayerContext();
-	const { currentTimeSec } = usePlayerProgressContext();
-
-	const [diskOff, setDiskOff] = useState(false);
-	const [diskImg, setDiskImg] = useState('');
-
-	const [ActiveVibe, setActiveVibe] = useState<string | null>(null);
-	const [vibesOptions, setVibesOptions] = useState([
-		'Happy',
-		'Sad',
-		'Very Sad',
-		'Alone',
-		'Old',
-		'Heart Broken',
-		'Relationship',
-		'Chill Night',
-		'Summer Party',
-		'Melancholy',
-		'lo-fi',
-		'chill',
-		'Dance',
-		'Slowed',
-		'Workout',
-		'morning'
-	]);
-
-
-
-	const getData = async(): Promise<PlaylistProps> => {
-		const params = `categoryInput=random&musicsType=vibes:${ActiveVibe}&maxPlaylists=1&maxPerList=2&minPerList=1`;
-		const [ playlist ] = await axios.get(`${IstaticBaseUrl}playlist/all?${params}`)
-			.then(r => r.data.items)
-		return playlist;
-	};
-
-	const updateDisk = async(music: Music) => {
-		setDiskOff(true);
-		await sleep(()=> setDiskImg(music.thumbnails[1].url), 500);
-		await sleep(()=> setDiskOff(false), 500);
-	};
-
-	const startSong = ({ id, list }:{id: string, list: Music[]}) => {
-		load({
-			playIndex: 0,
-			list: list,
-			listId: id,
-			onEnded: getData
-		});
-	};
-
-	useEffect(()=>{
-		if (!prop.music) return;
-		updateDisk(prop.music);
-	},[prop.music]);
-
-	useEffect(()=>{
-		if (!ActiveVibe) return;
-		async function main() {
-			startSong(await getData());
-		}
-		main();
-	},[ActiveVibe])
+	const { prop, stopPlayer } = usePlayer();
+	const { currentTimeSec } = usePlayerProgress();
+	const {
+		diskOff,
+		diskImg,
+		activeVibe,
+		vibesOptions,
+		setActiveVibe
+	} = usePlayerFlow();
 
 	return (
 	  <VerticalView
@@ -186,12 +128,12 @@ const MyFlow = () => {
       desableSwipeMode
     >
 			<ViewPort>
-				<DiskField active={!!ActiveVibe}>
+				<DiskField active={!!activeVibe}>
 				<Disk
 					off={diskOff}
 					img={diskImg}
-					playing={prop.playing && !!ActiveVibe}
-					time={12 * currentTimeSec}
+					playing={prop.playing && !!activeVibe}
+					time={!!activeVibe ? 12 * currentTimeSec : 0}
 				>
 						<CenterHole/>
 					</Disk>
@@ -199,7 +141,7 @@ const MyFlow = () => {
 				</DiskField>
 				<SongInfors>
 					<SongTitle>
-						{prop.music && !!ActiveVibe
+						{prop.music && !!activeVibe
 							? `${prop.music.artists[0]} - ${prop.music.title}`
 							: '-- ___ --'
 						}
@@ -211,9 +153,14 @@ const MyFlow = () => {
 							return (
 								<VibeBtn
 									onClick={()=> {
-										vb === ActiveVibe? setActiveVibe(null) : setActiveVibe(vb)
+										if (vb === activeVibe) {
+											setActiveVibe(null);
+											stopPlayer();
+											return;
+										}
+										setActiveVibe(vb);
 									}}
-									active={vb === ActiveVibe}
+									active={vb === activeVibe}
 									key={i}
 								>
 										{vb}

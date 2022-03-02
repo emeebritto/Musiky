@@ -8,8 +8,7 @@ import cache from "memory-cache";
 import { Music } from 'common/types';
 import { istatic } from "api/istatic";
 import { fromSecondsToTime } from 'common/utils';
-import { usePlayerContext } from 'common/contexts/player';
-import { usePlayerProgressContext } from 'common/contexts/player/progress';
+import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 
 
 const ViewPort = Styled.section`
@@ -150,12 +149,12 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
     onPlayAndPause,
     handleSeekMouseUp,
     handleSeekMouseDown
-  } = usePlayerContext();
+  } = usePlayer();
   const {
     currentTime,
     currentTimeSec,
     handleSeekChange
-  } = usePlayerProgressContext();
+  } = usePlayerProgress();
 
   const handlePlayPause = (): void => {
     if (!prop.music) {

@@ -5,7 +5,7 @@ import { istatic } from 'api/istatic';
 import { IstaticBaseUrl } from 'api';
 import { Music, DataHistory } from 'common/types';
 import { useAccountContext } from 'common/contexts/Account';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 
 const ViewPort = Styled.section`
   display: flex;
@@ -55,7 +55,7 @@ interface FromProps {
 
 const LastPlayer: React.FC = () => {
   const { history } = useAccountContext();
-  const { prop, load } = usePlayerContext();
+  const { prop, load } = usePlayer();
   const [last, setLast] = useState<Music | null>(null);
   const [from, setFrom] = useState<FromProps | null>(null);
   const [loading, setLoading] = useState(false);

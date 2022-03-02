@@ -5,7 +5,7 @@ import byId from 'common/utils/playlists/byId';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<PlaylistProps | {msg: string}>
+  res: NextApiResponse<PlaylistProps | null>
 ) {
   const KEY = `playlist:${req.query.id}`;
   const cachedResponse = cache.get(KEY);
@@ -18,7 +18,7 @@ export default async function handler(
 
   const wasCache = id.split('-')[0] === 'qp' || id.split('-')[0] === 'last';
   if (wasCache) {
-    res.status(200).send({ msg: 'ok' });
+    res.status(200).send(null);
     return;
   }
 

@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { SwiperSlide } from 'swiper/react';
 import { Music } from 'common/types';
 import { VerticalView } from 'components';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 
 const ViewPort = Styled.section`
 `
@@ -97,7 +97,7 @@ interface DiskLibraryProps {
 }
 
 const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
-  const { load, isPlayingId } = usePlayerContext();
+  const { load, isPlayingId } = usePlayer();
   const playSong = (index: number): void => {
     load({
       playIndex: index,

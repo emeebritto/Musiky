@@ -7,7 +7,7 @@ import { devENV, IstaticBaseUrl } from 'api';
 import { DataStorage } from 'common/storage';
 import { Music, ArtistDataProps } from 'common/types';
 import { useSplashContext } from 'common/contexts/splash';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { TabTitle } from 'components';
 
 
@@ -97,7 +97,7 @@ const WhatsTheVibe: NextPage = () => {
   const VIBE_KEY = '--thev1b4k4y_';
 
   const router = useRouter();
-  const { load } = usePlayerContext();
+  const { load } = usePlayer();
   const { desableSplash } = useSplashContext();
   const [ currentMusic, setCurrentMusic ] = useState<Music | null>(null);
   const [ActiveVibes, setActiveVibes] = useState<string[]>([]);

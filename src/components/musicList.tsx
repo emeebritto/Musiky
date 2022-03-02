@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { Music, UnavailableMusic } from 'common/types';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { istatic } from "api/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
@@ -155,7 +155,7 @@ const MusicList: React.FC<MusicListProps> = ({
   showUnavailable=false
 }) => {
 
-  const { prop, load } = usePlayerContext();
+  const { prop, load } = usePlayer();
   const { isPlayingIndex } = usePlaylistContext();
 
   const clickOnMusic = (

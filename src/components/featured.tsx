@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { ArtistDataProps, Music } from "common/types";
 import { useFeaturedContext } from 'common/contexts/Featured';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { FeaturedControl } from 'components';
 
 
@@ -93,7 +93,7 @@ const Featured: React.FC<RecProps> = ({ data }) => {
   if (!data) return (<></>);
 
   const { preLoad, playing, stopAll } = useFeaturedContext();
-  const { load } = usePlayerContext();
+  const { load } = usePlayer();
 
   const playMusic = (): void => {
     load({

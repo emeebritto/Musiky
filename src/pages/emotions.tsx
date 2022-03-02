@@ -6,14 +6,13 @@ import Styled from "styled-components";
 import cache from "memory-cache";
 import faker from "faker";
 import { useSplashContext } from 'common/contexts/splash';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { TabTitle, EmotionView } from 'components';
 import { Music } from 'common/types';
 import { IstaticBaseUrl } from 'api';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar, Virtual } from "swiper";
+import { Virtual } from "swiper";
 import 'swiper/css';
-import 'swiper/css/scrollbar';
 import 'swiper/css/virtual';
 
 
@@ -39,7 +38,7 @@ const LoadNewZone = Styled.section`
 const Emotions: NextPage = () => {
 
   const { desableSplash } = useSplashContext();
-  const { stopPlayer } = usePlayerContext();
+  const { stopPlayer } = usePlayer();
   const router = useRouter();
   const [emotionsList, setEmotionsList] = useState<Array<Music>>([]);
   const [page, setPage] = useState(1);
@@ -89,8 +88,7 @@ const Emotions: NextPage = () => {
       <Swiper
         slidesPerView={1}
         direction={"vertical"}
-        scrollbar={{ draggable: true }}
-        modules={[Scrollbar, Virtual]}
+        modules={[Virtual]}
         onReachEnd={() => {setPage((currentValue) => currentValue + 1)}}
         virtual
       >

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Styled from "styled-components";
 import { istatic } from 'api/istatic';
 import { useLyricContext } from "common/contexts/Lyric";
-import { usePlayerContext } from "common/contexts/player";
+import { usePlayer } from "common/contexts/player";
 import { DefinitionFromDictionary } from "components";
 
 
@@ -111,7 +111,7 @@ const LyricLine = Styled.p`
 const LyricScreen: React.FC = () => {
 
     const { lyricProp, getFullLyric, getLyricTimeRef } = useLyricContext();
-    const { ref } = usePlayerContext();
+    const { ref } = usePlayer();
     const [word, setWord] = useState('');
     const [fullLyric, setFullLyric] = useState(false);
 

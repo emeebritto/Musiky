@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { Music, PlaylistProps } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { istatic } from "api/istatic";
 
 const PlaylistInfor = Styled.section`
@@ -158,7 +158,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
     togglePlaylistShuffle,
     togglePlaylistLoop
   } = usePlaylistContext();
-	const { load, stopPlayer } = usePlayerContext();
+	const { load, stopPlayer } = usePlayer();
 
   const startList = (
     targetIndex: number,

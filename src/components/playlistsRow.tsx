@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import faker from 'faker';
 import { SwiperSlide } from 'swiper/react';
 import axios from 'axios';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { istatic } from 'api/istatic';
 import { PlaylistProps } from 'common/types';
@@ -112,7 +112,7 @@ interface PlayListRowProps {
 
 const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
 
-  const { load } = usePlayerContext();
+  const { load } = usePlayer();
   const { playlistInfor } = usePlaylistContext();
 
   const startList = async(playlistId: string): Promise<void> => {

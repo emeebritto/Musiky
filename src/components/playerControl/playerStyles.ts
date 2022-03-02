@@ -9,7 +9,7 @@ export const ViewPort = styled.main`
     display: flex;
     align-items: center;
     position: fixed;
-    z-index: 3;
+    z-index: 5;
     bottom: 0vh;
     justify-content: space-around;
     width: 95.5vw;

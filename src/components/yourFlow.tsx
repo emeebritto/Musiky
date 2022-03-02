@@ -61,7 +61,7 @@ const YourFlow: React.FC<YourFlowProps> = ({ data }) => {
           <SwiperBtns/>
         </VerticalView>
         <VerticalView
-          viewLabel='Last Played:'
+          viewLabel='Played'
           addStyle={VerticalViewStyle()}
           labelSize='1.5em'
           btnOption={{

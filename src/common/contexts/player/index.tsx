@@ -6,9 +6,11 @@ import { useFeaturedContext } from 'common/contexts/Featured';
 import { useAccountContext } from 'common/contexts/Account';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { PlayerContext } from './player-provider';
+export { usePlayerProgress, PlayerProgressProvider } from './progress';
+export { usePlayerFlow, PlayerFlowProvider } from './flow';
 export { PlayerProvider } from './player-provider';
 
-export function usePlayerContext() {
+export function usePlayer() {
 
 	const {
         ref,

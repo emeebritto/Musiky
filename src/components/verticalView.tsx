@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { Swiper } from 'swiper/react';
-import { Scrollbar } from "swiper";
 import 'swiper/css';
-import 'swiper/css/scrollbar';
 
 
 const ViewPort = Styled.section`
@@ -153,8 +151,7 @@ const VerticalView: React.FC<VerticalViewProp> = ({
                 <>{ children }</>
                 :<Swiper
                     slidesPerView={slidesPerView || (6 * screenWidth) / 1366}
-                    scrollbar={{ draggable: true }}
-                    modules={[Scrollbar]}
+                    modules={[]}
                 >
                     { children }
                 </Swiper>

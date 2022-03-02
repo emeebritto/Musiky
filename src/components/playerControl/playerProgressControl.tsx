@@ -1,7 +1,6 @@
 import React/*, { useState, useEffect }*/ from 'react';
 import Styled from 'styled-components';
-import { usePlayerContext } from 'common/contexts/player';
-import { usePlayerProgressContext } from 'common/contexts/player/progress';
+import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 import { fromSecondsToTime } from 'common/utils';
 import { istatic } from "api/istatic";
 import {
@@ -21,14 +20,14 @@ const PlayerProgressControl = () => {
     handleSeekChange,
     currentTimeSec,
     currentTime
-  } = usePlayerProgressContext();
+  } = usePlayerProgress();
   const {
   	prop,
   	onPlayAndPause,
     nextMusic,
     handleSeekMouseUp,
     handleSeekMouseDown
-  } = usePlayerContext();
+  } = usePlayer();
 
   const handlePlayPause = (e: React.SyntheticEvent<EventTarget>): void => {
     e.stopPropagation();

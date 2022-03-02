@@ -2,7 +2,7 @@ import React, { useContext, createContext, useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import {FeaturedContextData, Music } from 'common/types';
 import { DataStorage } from 'common/storage';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 
 const ViewPort = Styled.section` 
   position: relative;
@@ -52,7 +52,7 @@ export const FeaturedProvider: React.FC<LayoutProps> = ({ children }) => {
 // ==================================================================
 
 export function useFeaturedContext(){
-  const { prop } = usePlayerContext();
+  const { prop } = usePlayer();
 	const $ = useContext(FeaturedContext);
 	
 // ==================================================================

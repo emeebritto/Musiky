@@ -70,9 +70,9 @@ export function usePlaylistContext(){
 
         if (playlistFinished && on.ended.current) {
         	let {list} = await on.ended.current();
-        	let listUpdated = [ ...musiclist, ...list];
+        	let listUpdated = [ ...musiclist, ...list ];
         	setMusiclist(listUpdated);
-        	return listUpdated[playingIndex + action];
+        	return listUpdated[musiclist.length]; // go to last song
         };
 
         return playlistFinished ? null : musiclist[playingIndex + action];

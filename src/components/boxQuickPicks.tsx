@@ -5,7 +5,7 @@ import Styled from "styled-components";
 import { Music, PlaylistProps } from 'common/types';
 import { MusicList } from 'components';
 import { istatic } from 'api/istatic';
-import { usePlayerContext } from 'common/contexts/player';
+import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 
 
@@ -153,7 +153,7 @@ interface Playing {
 
 const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
 
-    const { prop, load } = usePlayerContext();
+    const { prop, load } = usePlayer();
     const { isPlayingIndex, playlistInfor } = usePlaylistContext();
     const router = useRouter();
 

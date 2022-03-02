@@ -258,7 +258,10 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 		  		/>
 		  	</InputCommentsField>
 		  	<Hr/>
-		  	<CommentsWrapper>
+		  	<CommentsWrapper
+		  		onMouseEnter={() => swiper.disable()}
+		  		onMouseLeave={() => swiper.enable()}
+		  	>
 		  		{!comments && <NoComments>Nothing comments</NoComments>}
 		  		{!!comments && comments.map((cmm, i) => {
 		  			return (

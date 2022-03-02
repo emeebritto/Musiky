@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import Styled from 'styled-components';
+//import { useFeaturedContext } from 'common/contexts/Featured';
 
 const Clock = Styled(Moment)`
 	opacity: 0.9;
@@ -9,14 +10,20 @@ const Clock = Styled(Moment)`
 `
 
 interface TimeProps {
-    margin?: string;
+  margin?: string;
 }
-
 const Time: React.FC<TimeProps> = ({ margin='0' }) => {
+	//const { preLoad } = useFeaturedContext();
 	return (
 		<Clock
+			//onChange={(val: string) => {
+			//	let time = val.split(/:|\s/g);
+			//	if (time[1] === '00') {
+			//		preLoad('6Ga-a0kEr8k');
+			//	}
+			//}}
 			interval={10000}
-			format="hh:mm"
+			format="hh:mm A"
 			margin={margin}
 		/>
 	);
