@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -28,10 +28,8 @@ const Main = Styled.section`
   margin-left: 50px;
 `
 
-
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if("serviceWorker" in navigator) {
@@ -47,17 +45,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       });
     }
   }, [])
-
-useEffect(() => {
-    const handleStart = (url: string): void => {
-      url !== router.pathname ? setIsLoading(true) : setIsLoading(false);
-    };
-    const handleComplete = (url: string): void => setIsLoading(false);
-
-    router.events.on("routeChangeStart", handleStart);
-    router.events.on("routeChangeComplete", handleComplete);
-    //router.events.on("routeChangeError", handleError);
-  }, [router]);
 
   if (router.route === "/embed/[id]") {
     return (
@@ -102,7 +89,7 @@ useEffect(() => {
       <ErrorBoundary>
         <FeaturedProvider>
           <NavBar/>
-          {isLoading && <LoadingCube/>}
+          <LoadingCube/>
           <Cursorlight/>
           <Main>
             <AccountProvider>

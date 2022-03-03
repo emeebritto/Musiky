@@ -12,6 +12,9 @@ const SwiperBtnStyle = Styled.img`
   background-color: #060512;
   cursor: pointer;
   box-shadow: 0 0 20px #000;
+  opacity: ${(props: {visible: boolean}) => (
+    props.visible ? "1" : "0"
+  )};
 `
 const RightBtn = Styled(SwiperBtnStyle)`
   right: -2%;
@@ -42,18 +45,18 @@ const SwiperBtns = () => {
 
   return (
     <>
-      {!isEnd &&
       <RightBtn
       	onClick={slideNext}
       	src={istatic.expand_more_white()}
       	alt='RightBtn'
-      />}
-      {!isBeginning &&
+        visible={!isEnd}
+      />
       <LeftBtn
       	onClick={slidePrev}
       	src={istatic.expand_more_white()}
       	alt='LeftBtn'
-      />}
+        visible={!isBeginning}
+      />
     </>
   );
 }

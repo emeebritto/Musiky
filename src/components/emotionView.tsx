@@ -199,24 +199,12 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	const swiperSlide = useSwiperSlide();
 	const swiper = useSwiper();
 	const [playing, setPlaying] = useState(false);
-	const [comments, setComments] = useState<CommentProps[] | null>(null);
-	const [continuation, setContinuation] = useState('');
-
-	const getComments = async() => {
-		await axios.get(`${IstaticBaseUrl}comments?id=${src.id}`)
-			.then(r => {
-				let d = r.data;
-				setComments(d.comments.length? d.comments : null);
-				setContinuation(d.continuation);
-			})
-	};
+	const [comments, setComments] = useState<CommentProps[] | null>(src.comments.list);
+	const [continuation, setContinuation] = useState(src.comments.continuation);
 
 	useEffect(()=>{
 		setPlaying(swiperSlide.isActive);
-		if (swiperSlide.isActive) {
-			getComments();
-		}
-	},[swiperSlide.isActive])
+	},[swiperSlide.isActive]);
 
 	return (
 	  <SectionWrapper>

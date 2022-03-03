@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import Styled from "styled-components";
 import cache from "memory-cache";
@@ -35,50 +34,27 @@ const LoadNewZone = Styled.section`
   background-color: red;
 `
 
-const Emotions: NextPage = () => {
+interface EmotionsProps {
+  emotions: Music;
+};
+const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
 
   const { desableSplash } = useSplashContext();
   const { stopPlayer } = usePlayer();
-  const router = useRouter();
-  const [emotionsList, setEmotionsList] = useState<Array<Music>>([]);
+  const [emotionsList, setEmotionsList] = useState<Music[]>(emotions);
   const [page, setPage] = useState(1);
 
-  let { startWith } = router.query;
+  const loadMore = async() => {
+    let res = await axios.get(`${location.origin}/api/emotions?random=1&maxResult=6`)
+      .then(r=>r.data)
+      .catch(err => console.error(err));
+    setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
+    //setPage((currentValue) => currentValue + 1);
+  };
 
   useEffect(()=>{
     stopPlayer()
   },[])
-
-  useEffect(() => {
-    async function getData() {
-      let res = await axios.get(`${IstaticBaseUrl}emotions?page=${page}`)
-          .then(r=>r.data)
-          .catch(err => console.error(err));
-      setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
-      console.log(emotionsList);
-    };
-    getData();
-  },[page]);
-
-  useEffect(()=>{
-    async function getData() {
-      if (startWith) {
-        let first = await axios.get(`${IstaticBaseUrl}emotions?id=${startWith}`)
-          .then(r => r.data)
-          .catch(err => console.error(err));
-        let someRandoms = await axios.get(`${IstaticBaseUrl}emotions?random=1&maxResult=5`)
-          .then(r => r.data)
-          .catch(err => console.error(err));
-        setEmotionsList((emotionsList: Array<Music>) => [
-          first,
-          ...someRandoms,
-          ...emotionsList
-        ]);
-      };
-    };
-    getData();
-  },[router.query.startWith])
-
   if (true) desableSplash();
 
   return (
@@ -89,7 +65,7 @@ const Emotions: NextPage = () => {
         slidesPerView={1}
         direction={"vertical"}
         modules={[Virtual]}
-        onReachEnd={() => {setPage((currentValue) => currentValue + 1)}}
+        onReachEnd={loadMore}
         virtual
       >
         {emotionsList.map((emotion, i) => {
@@ -109,3 +85,13 @@ const Emotions: NextPage = () => {
 }
 
 export default Emotions;
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+  const startWith: string | string[] | undefined = context?.query?.startWith;
+  let firstEmotion: Music | null = null;
+  const URL = `http://${context.req.headers.host}/api/emotions?id=${startWith}&random=1&maxResult=14`;
+  let emotions = await axios.get(URL).then(r => r.data);
+  return {
+    props: { emotions }, // will be passed to the page component as props
+  }
+}

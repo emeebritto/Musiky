@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useRouter } from 'next/router';
 import Styled from "styled-components";
-
 
 const Cube = Styled.section`
 	position: absolute;
@@ -21,19 +21,40 @@ const Cube = Styled.section`
 	)} infinite;
 
 	@keyframes roll {
-        to {
-            transform: rotate(360deg);
-        }
+    to {
+      transform: rotate(360deg);
     }
+  }
 `
 
 interface TabTitleProps {
-    error?: boolean;
+  error?: boolean;
+  off?: boolean;
 }
 
-const LoadingCube: React.FC<TabTitleProps> = ({ error=false }) => (
-	<Cube error={error}/>
-)
+const LoadingCube: React.FC<TabTitleProps> = ({ error=false, off }) => {
+
+	if (off) return(<></>);
+	if (error) return (<Cube error={error}/>);
+
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const handleStart = (url: string): void => setIsLoading(true);
+    const handleComplete = (url: string): void => setIsLoading(false);
+
+    router.events.on("routeChangeStart", handleStart);
+    router.events.on("routeChangeComplete", handleComplete);
+    //router.events.on("routeChangeError", handleError);
+  }, []);
+
+	return (
+		<>
+			{isLoading && <Cube error={error}/>}
+		</>
+	)
+}
 
 
 export default LoadingCube;
