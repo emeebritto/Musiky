@@ -52,6 +52,7 @@ const Playlists = Styled.section`
     width: 500px;
     height: 45px;
     margin: 2.5px 0;
+    border-radius: 7px;
 
     :hover{
         cursor: pointer;

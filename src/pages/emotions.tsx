@@ -42,10 +42,10 @@ const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
   const { desableSplash } = useSplashContext();
   const { stopPlayer } = usePlayer();
   const [emotionsList, setEmotionsList] = useState<Music[]>(emotions);
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
 
   const loadMore = async() => {
-    let res = await axios.get(`${location.origin}/api/emotions?random=1&maxResult=6`)
+    let res = await axios.get(`${location.origin}/api/emotions?random=1&maxResult=8`)
       .then(r=>r.data)
       .catch(err => console.error(err));
     setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
@@ -74,7 +74,7 @@ const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
               key={i + faker.datatype.uuid()}
               virtualIndex={i}
             >
-              <EmotionView src={emotion}/>
+              <EmotionView src={emotion} />
             </SwiperSlide>
           );
         })}

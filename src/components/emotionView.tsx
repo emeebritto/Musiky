@@ -168,20 +168,22 @@ const Action = Styled.img`
   width: 90%;
   margin: 8px 0;
   cursor: pointer;
-  opacity: 0.8;
-
-  :hover {
-    opacity: 1;
-  }
+  opacity: 0.9;
 `
 const SwiperUpBtn = Styled(Action)`
 	width: 110%;
 	transform: rotate(180deg);
 	margin: 8px 0;
+	${(props: {on: boolean}) => (`
+		opacity: ${props.on ? 1 : 0.3};
+	`)}
 `
 const SwiperDownBtn = Styled(Action)`
 	width: 110%;
 	margin: 8px 0;
+	${(props: {on: boolean}) => (`
+		opacity: ${props.on ? 1 : 0.3};
+	`)}
 `
 
 interface EmotionViewProps {
@@ -193,13 +195,9 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	const swiper = useSwiper();
 	const [playing, setPlaying] = useState(false);
 	const [comments, setComments] = useState(src.comments? src.comments.list:null);
-	const [continuation, setContinuation] = useState(
-		src.comments
-			? src.comments.continuation
-			:null
-	);
+	const [continuation, setContinuation] = useState(src.comments? src.comments.continuation:null);
 
-	useEffect(()=>{
+	useEffect(()=> {
 		setPlaying(swiperSlide.isActive);
 	},[swiperSlide.isActive]);
 
@@ -283,10 +281,26 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	      />
 	    </PlayerWrapper>
 	    <Actions>
-	    <SwiperUpBtn onClick={()=> swiper.slidePrev()} src={istatic.expand_more_white()} alt='share' />
-	      <Action src={istatic.favorite_border_white()} alt='like' />
-	      <Action src={istatic.iconShare()} alt='share' />
-	      <SwiperDownBtn onClick={()=> swiper.slideNext()} src={istatic.expand_more_white()} alt='share' />
+	    	<SwiperUpBtn
+	    		onClick={()=> {if (!swiper.isBeginning) swiper.slidePrev()}}
+	    		src={istatic.expand_more_white()}
+	    		alt='up'
+	    		on={!swiper.isBeginning}
+	    	/>
+	      <Action
+	      	src={istatic.favorite_border_white()}
+	      	alt='like'
+	      />
+	      <Action
+	      	src={istatic.iconShare()}
+	      	alt='share'
+	      />
+	      <SwiperDownBtn
+	      	onClick={()=> {if (!swiper.isEnd) swiper.slideNext()}}
+	      	src={istatic.expand_more_white()}
+	      	alt='down'
+	      	on={!swiper.isEnd}
+	      />
 	    </Actions>
 	  </SectionWrapper>
 	);
