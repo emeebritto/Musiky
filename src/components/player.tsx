@@ -63,7 +63,7 @@ const ReactPlayerComp: React.FC = () => {
           onBuffer={() => onBuffer(true)}
           onBufferEnd={() => onBuffer(false)}
           onEnded={() => nextMusic(1)}
-          onError={() => nextMusic(1)}
+          //onError={(e) => console.log(e)}
           url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
           width='100vw'
           height='100vh'

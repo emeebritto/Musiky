@@ -34,6 +34,15 @@ export interface Music {
     durationSec: number;
     viewCount: number;
     artists: Array<string>;
+    comments: {
+        list: Array<{
+            author: string;
+            time: string;
+            text: string;
+            authorThumb: Array<{url: string}>;
+        }>;
+        continuation: string;
+    } | null;
 }
 export interface UnavailableMusic {
     id: string;

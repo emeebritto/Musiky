@@ -188,19 +188,16 @@ interface EmotionViewProps {
 	src: Music;
 }
 
-interface CommentProps {
-	author: string;
-	time: string;
-	text: string;
-	authorThumb: Array<{url: string}>;
-}
-
 const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	const swiperSlide = useSwiperSlide();
 	const swiper = useSwiper();
 	const [playing, setPlaying] = useState(false);
-	const [comments, setComments] = useState<CommentProps[] | null>(src.comments.list);
-	const [continuation, setContinuation] = useState(src.comments.continuation);
+	const [comments, setComments] = useState(src.comments? src.comments.list:null);
+	const [continuation, setContinuation] = useState(
+		src.comments
+			? src.comments.continuation
+			:null
+	);
 
 	useEffect(()=>{
 		setPlaying(swiperSlide.isActive);

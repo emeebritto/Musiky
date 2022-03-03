@@ -35,7 +35,7 @@ const LoadNewZone = Styled.section`
 `
 
 interface EmotionsProps {
-  emotions: Music;
+  emotions: Music[];
 };
 const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
 
