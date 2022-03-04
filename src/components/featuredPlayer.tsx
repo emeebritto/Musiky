@@ -21,7 +21,7 @@ const FeaturedPlayer: React.FC = () => {
       <ReactPlayer
         playing={playingAud}
         volume={AudVol}
-        url={`https://musiky-listen.herokuapp.com/${AudId}`}
+        url={`https://musiky-listen.herokuapp.com/${AudId}?source=${'yt'}`}
         hidden
         config={{
           file: {

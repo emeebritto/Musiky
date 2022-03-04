@@ -283,7 +283,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	    <Actions>
 	    	<SwiperUpBtn
 	    		onClick={()=> {if (!swiper.isBeginning) swiper.slidePrev()}}
-	    		src={istatic.expand_more_white()}
+	    		src={istatic.arrow_white()}
 	    		alt='up'
 	    		on={!swiper.isBeginning}
 	    	/>
@@ -297,7 +297,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	      />
 	      <SwiperDownBtn
 	      	onClick={()=> {if (!swiper.isEnd) swiper.slideNext()}}
-	      	src={istatic.expand_more_white()}
+	      	src={istatic.arrow_white()}
 	      	alt='down'
 	      	on={!swiper.isEnd}
 	      />

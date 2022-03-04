@@ -54,6 +54,9 @@ export const FeaturedProvider: React.FC<LayoutProps> = ({ children }) => {
 export function useFeaturedContext(){
   const { prop } = usePlayer();
 	const $ = useContext(FeaturedContext);
+
+  const audioStorekey = 'autoplay-msk-background-player';
+  const videoStorekey = 'autoplay-msk-background--video-player';
 	
 // ==================================================================
 
@@ -64,24 +67,28 @@ export function useFeaturedContext(){
   }
 
   const resumeAndPauseAudio = (): void => {
+    console.log($.playingAud);
+    console.log(typeof $.playingAud);
+    DataStorage.set(audioStorekey, !$.playingAud);
     $.setPlayingAud((playingAud: boolean) => !playingAud);
-    DataStorage.set('autoplay-msk-background-player', !$.playingAud);
   };
   const resumeAndPauseVideo = (): void => {
-    $.setPlaying((playing: boolean) => !playing);
-    DataStorage.set('autoplay-msk-background--video-player', !$.playing);
+    DataStorage.set(videoStorekey, !$.playing);
+    $.setPlaying((playing: boolean) => !playing);  
   };
-
+  const stopVideo = () => {
+    //$.setAudId('');
+    $.setPlaying(false);
+  }
   const stopSong = () => {
     //$.setAudId('');
     $.setPlayingAud(false);
   }
-
   const stopAll = () => {
     $.setPlayingAud(false);
     $.setPlaying(false);
-    DataStorage.set('autoplay-msk-background-player', false);
-    DataStorage.set('autoplay-msk-background--video-player', false);
+    DataStorage.set(audioStorekey, false);
+    DataStorage.set(videoStorekey, false);
   }
 
   useEffect(() => {
@@ -90,8 +97,6 @@ export function useFeaturedContext(){
   },[prop.playing])
 
   useEffect(()=>{
-    const audioStorekey = 'autoplay-msk-background-player';
-    const videoStorekey = 'autoplay-msk-background--video-player';
     if (DataStorage.get(audioStorekey) != undefined
       && DataStorage.get(videoStorekey) != undefined) {
       $.setPlayingAud(DataStorage.get(audioStorekey));
@@ -109,6 +114,7 @@ export function useFeaturedContext(){
     resumeAndPauseAudio,
     resumeAndPauseVideo,
     stopSong,
+    stopVideo,
     stopAll
   }
 }

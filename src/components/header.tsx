@@ -11,7 +11,7 @@ import { Time } from 'components';
 const HeaderContainer = Styled.header`
     position: fixed;
     display: flex;
-    z-index: 3;
+    z-index: 15;
     justify-content: space-between;
     align-items: center;
     width: 95.5vw;

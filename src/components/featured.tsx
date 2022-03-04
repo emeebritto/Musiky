@@ -17,7 +17,7 @@ const ViewPort = Styled.section`
 `
 const PlayerWrapper = Styled.section`
   position: relative;
-  top: -8vh;
+  top: -13.7vh;
 `
 const Thumbnail = Styled.section`
   position: absolute;
@@ -92,7 +92,7 @@ const Featured: React.FC<RecProps> = ({ data }) => {
 
   if (!data) return (<></>);
 
-  const { preLoad, playing, stopAll } = useFeaturedContext();
+  const { preLoad, playing, stopVideo, stopAll } = useFeaturedContext();
   const { load } = usePlayer();
 
   const playMusic = (): void => {
@@ -123,8 +123,9 @@ const Featured: React.FC<RecProps> = ({ data }) => {
         {playing &&
           <ReactPlayer
             playing={playing}
+            ended={stopVideo}
             volume={0}
-            url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1`}
+            url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1&source=${data.clip.target}`}
             width='95vw'
             height='112vh'
             config={{

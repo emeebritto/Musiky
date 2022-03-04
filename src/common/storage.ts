@@ -5,8 +5,8 @@ export class DataStorage {
     throw Error("No");
   }
 
-  static set(key: string, data: any): void {
-    if (!key || !data) return;
+  static set(key: string, data: any ='empty'): void {
+    if (!key) return;
     localStorage.setItem(key, JSON.stringify(data));
   }
 

@@ -14,7 +14,8 @@ import { GlobalStyle } from 'common/GlobalStyle';
 import {
   ErrorBoundary,
   Header, 
-  NavBar, 
+  NavBar,
+  Watch,
   PlayerControl,
   FeaturedPlayer,
   ReactPlayerComp,
@@ -98,6 +99,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
                   <LyricProvider>
                     <LyricScreen/>
                     <ReactPlayerComp/>
+                    <Watch/>
                     <Header/>
                     <FeaturedPlayer/>
                     <Component {...pageProps} />

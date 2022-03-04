@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useRef } from 'react';
 import { PlayerContextData, Music } from 'common/types';
 import {
 	PlayerProgressProvider,
@@ -17,6 +17,7 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [music, setMusic] = useState<null | Music>(null);
 	const [playing, setPlaying] = useState(false);
+	const [renderAudioPlayer, setRenderAudioPlayer] = useState(true);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
 	const [loop, setLoop] = useState(false);
@@ -24,20 +25,23 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [seeking, setSeeking] = useState(false);
 	const [buffer, setBuffer] = useState(false);
 	const [muted, setMuted] = useState(false);
-
-	var playerRef = null;
+	const audPlayer = useRef(null);
+	const watchPlayer = useRef(null);
 
 	return (
 		<PlayerProgressProvider>
 			<PlayerFlowProvider>
 				<PlayerContext.Provider value={{
 					ref: {
-						playerRef
+						audPlayer,
+						watchPlayer
 					},
 					music,
 					setMusic,
 					playing,
 					setPlaying,
+					renderAudioPlayer,
+					setRenderAudioPlayer,
 					volume,
 					setVolume,
 					lastVolume,

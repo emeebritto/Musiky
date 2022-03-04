@@ -47,13 +47,13 @@ const SwiperBtns = () => {
     <>
       <RightBtn
       	onClick={slideNext}
-      	src={istatic.expand_more_white()}
+      	src={istatic.arrow_white()}
       	alt='RightBtn'
         visible={!isEnd}
       />
       <LeftBtn
       	onClick={slidePrev}
-      	src={istatic.expand_more_white()}
+      	src={istatic.arrow_white()}
       	alt='LeftBtn'
         visible={!isBeginning}
       />

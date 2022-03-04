@@ -18,14 +18,6 @@ const VideoPlayer = Styled(ReactPlayer)`
   left: 0;
 `
 
-const Blocker = Styled.section`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`
-
 const ReactPlayerComp: React.FC = () => {
 
   const {
@@ -36,19 +28,23 @@ const ReactPlayerComp: React.FC = () => {
     nextMusic,
     handleDuration
   } = usePlayer();
-  const { changeCurrentTimeTo } = usePlayerProgress();
+  const { changeCurrentTimeTo, currentTime } = usePlayerProgress();
 
   useEffect(()=> {
     document.addEventListener("contextmenu", e => e.preventDefault());
     return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
   },[])
 
+  useEffect(()=>{
+    if (!ref.audPlayer.current) return;
+    ref.audPlayer.current.seekTo(currentTime);
+  },[ref.audPlayer.current])
 
   return (
     <ViewPort>
-      {prop.music &&
+      {(prop.music && prop.renderAudioPlayer) &&
         <VideoPlayer
-          ref={(reactPlayer: HTMLDivElement) => ref.playerRef = reactPlayer}
+          ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
           playing={prop.playing}
           volume={prop.volume}
           loop={prop.loop}
@@ -76,7 +72,6 @@ const ReactPlayerComp: React.FC = () => {
           }}
         />
       }
-      <Blocker/>
     </ViewPort>
   )
 }

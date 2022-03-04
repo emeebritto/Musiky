@@ -28,6 +28,13 @@ export const ViewPort = styled.main`
 
 export const MusicInfor = styled(flex_Section)`
     width: 30%;
+    border-radius: 6px;
+    transition: 300ms;
+    cursor: pointer;
+
+    :hover {
+        background-color: rgba(255, 255, 255, 0.03);
+    }
 
     @media(max-width: 1070px) {
         width: 35%;
@@ -45,24 +52,16 @@ export const MusicInfor = styled(flex_Section)`
         width: 50%;
     }
 `
+export const ControlPainelWrapper = styled.section`
+    width: 40%;
+    height: 100%;
+`
 export const PlayerControlPainel = styled(flex_Section)`
     position: relative;
     justify-content: center;
-    width: 40%;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
-
-    @media(max-width: 1070px) {
-        flex-direction: row;
-        width: 25%;
-    }
-
-    @media(max-width: 780px) {
-        width: 20%;
-    }
-
-    @media(max-width: 780px) {
-        width: 30%;
-    }
 `
 export const OtherSetting = styled(flex_Section)`
     justify-content: flex-end;
@@ -93,6 +92,7 @@ export const SectionTitles = styled.section`
     justify-content: center;
     flex-direction: column;
     height: 100%;
+    max-width: 65%;
 `
 
 export const MusicTitle = styled.p`
@@ -110,7 +110,6 @@ export const MusicTitle = styled.p`
 export const MusicTitleInControl = styled(MusicTitle)`
     background-color: rgb(0 0 0 /40%);
     box-shadow: 0px 0px 30px rgb(0 0 0 /100%);
-    width: 17em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -176,16 +175,16 @@ export const MusicTimeCounter = styled.section`
     position: absolute;
     font-size: 0.75em;
     opacity: 0.8;
-    left: 58px;
-    bottom: 18px;
+    left: 11%;
+    bottom: 26%;
 `
 
 export const MusicTimeTotal = styled.section`
     position: absolute;
     font-size: 0.75em;
     opacity: 0.8;
-    right: 58px;
-    bottom: 18px;
+    right: 11%;
+    bottom: 26%;
 `
 
 export const DurationSlider = styled.input`
