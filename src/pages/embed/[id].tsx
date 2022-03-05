@@ -124,7 +124,7 @@ const MusicTimeTotal = Styled.section`
 
 
 interface EmbedProps {
-  pageContent: Music | boolean;
+  pageContent: Music | null;
 };
 
 const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
@@ -133,10 +133,10 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
     window.open('https://musiky.vercel.app', '_blank');
   };
 
-  if (typeof pageContent == 'boolean') {
+  if (!pageContent) {
     return (
       <Alert onClick={goToMusiky}>
-        Musiky Embed API - Sorry, we don't found it (404)
+        Musiky - Sorry, we don't found it (404)
       </Alert>
     )
   }
@@ -229,8 +229,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     pageContent = cachedResponse;
   } else {
     pageContent = await axios.get(URL)
-      .then(r => r.data.music)
-      .catch(err => false)
+      .then(r => r.data)
+      .catch(err => null)
     cache.put(URL, pageContent, 60 * 60000);
   }
 

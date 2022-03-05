@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import ReactPlayer from 'react-player';
 import axios from 'axios';
@@ -6,6 +7,7 @@ import { IstaticBaseUrl } from 'api';
 import Styled from 'styled-components';
 import { istatic } from 'api/istatic';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
+import { useSplashContext } from 'common/contexts/splash';
 import { PlayerProgressControl } from 'components';
 
 const ViewPort = Styled.section`
@@ -90,9 +92,9 @@ const Action = Styled.img`
 	cursor: pointer;
 `
 
-const Watch = () => {
+const Watch: NextPage = () => {
   const router = useRouter();
-  const [activeWatchMode, setWatchMode] = useState(false);
+  const { desableSplash } = useSplashContext();
   const [controlsVisible, setControlsVisible] = useState(false);
   const {
   	ref,
@@ -104,36 +106,40 @@ const Watch = () => {
   	onPlayAndPause
   } = usePlayer();
   const { changeCurrentTimeTo, currentTime } = usePlayerProgress();
-  let { watch } = router.query;
 
   const init = async() => {
-  	if (watch) {
-  		desableAudioPlayer();
-  		if (!prop.music) {
-				const music = await axios.get(`${IstaticBaseUrl}music/${watch}`)
-					.then(r => r.data)
-				load({
-					playIndex: 0,
-					list: [ music ],
-					listId: 'watch-sdr5h742ng'
-				});
-  		}
-  		setWatchMode(true);
-  		return;
-  	}
-  	setWatchMode(false)
-  	desableAudioPlayer(false);
+		if (!prop.music) {
+			const music = await axios.get(`${IstaticBaseUrl}music/${router.query.v}`)
+				.then(r => r.data)
+			load({
+				playIndex: 0,
+				list: [ music ],
+				listId: 'watch-sdr5h742ng'
+			});
+		}
+		desableAudioPlayer();
   };
 
- 	useEffect(()=>{
- 	  if (!ref.watchPlayer.current) return;
- 	  ref.watchPlayer.current.seekTo(currentTime);
- 	},[ref.watchPlayer.current])
-
   useEffect(()=> {
+  	if (!router.query.v) return;
   	init();
-  }, [router.query.watch])
-  if (!activeWatchMode) return(<></>);
+  }, [router.query.v])
+
+ 	//useEffect(()=> {
+ 	//  if (!ref.watchPlayer.current) return;
+	// 	ref.watchPlayer.current.seekTo(currentTime);
+ 	//},[ref.watchPlayer.current])
+
+  useEffect(()=>{
+    router.events.on("routeChangeComplete", (url: string): void => {
+    	if (!url.includes('/watch')) {
+    		desableAudioPlayer(false);
+    	}
+    });
+  },[])
+
+	if (prop.music) desableSplash();
+  if (!prop.music) return(<></>);
 
 	return (
 		<ViewPort>

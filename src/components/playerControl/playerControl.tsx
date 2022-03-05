@@ -66,9 +66,9 @@ const PlayerControl: React.FC = () => {
         <MusicInfor
           onClick={()=> {
             router.push({
-              pathname: location.pathname,
+              pathname: '/watch',
               query: {
-                watch: prop.music.id
+                v: prop.music.id
               }
             }, undefined, { shallow: true, scroll: false });
           }}

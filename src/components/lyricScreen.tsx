@@ -120,7 +120,7 @@ const LyricScreen: React.FC = () => {
     }
 
     const goToLine = (i: number): void => {
-        ref.playerRef.seekTo(getLyricTimeRef()[i], 'seconds');
+        ref.audPlayer.current.seekTo(getLyricTimeRef()[i], 'seconds');
     }
 
     return(

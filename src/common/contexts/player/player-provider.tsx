@@ -17,7 +17,10 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [music, setMusic] = useState<null | Music>(null);
 	const [playing, setPlaying] = useState(false);
-	const [renderAudioPlayer, setRenderAudioPlayer] = useState(true);
+	const [mode, setMode] = useState({
+		only_audio: true,
+		video: false
+	});
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
 	const [loop, setLoop] = useState(false);
@@ -40,8 +43,8 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 					setMusic,
 					playing,
 					setPlaying,
-					renderAudioPlayer,
-					setRenderAudioPlayer,
+					mode,
+					setMode,
 					volume,
 					setVolume,
 					lastVolume,

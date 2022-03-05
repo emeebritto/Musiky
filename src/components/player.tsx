@@ -36,29 +36,29 @@ const ReactPlayerComp: React.FC = () => {
   },[])
 
   useEffect(()=>{
-    if (!ref.audPlayer.current) return;
+    if (!prop.mode['only_audio'] || !ref.audPlayer.current) return;
     ref.audPlayer.current.seekTo(currentTime);
-  },[ref.audPlayer.current])
+  },[prop.mode])
 
   return (
     <ViewPort>
-      {(prop.music && prop.renderAudioPlayer) &&
+      {prop.music &&
         <VideoPlayer
           ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
-          playing={prop.playing}
+          playing={prop.mode['only_audio'] && prop.playing}
           volume={prop.volume}
           loop={prop.loop}
-          onPlay={() => onPlayAndPause(true)}
-          onPause={() => onPlayAndPause(false)}
+          onPlay={()=> prop.mode['only_audio']? onPlayAndPause(true):null}
+          onPause={()=> prop.mode['only_audio']? onPlayAndPause(false):null}
           onProgress={(time: {played: number, playedSeconds: number}) => {
-            if (!prop.seeking) {
+            if (!prop.seeking && prop.mode['only_audio']) {
               changeCurrentTimeTo(time.played, time.playedSeconds);
             }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
           onBuffer={() => onBuffer(true)}
           onBufferEnd={() => onBuffer(false)}
-          onEnded={() => nextMusic(1)}
+          onEnded={() => prop.mode['only_audio']? nextMusic(1):null}
           //onError={(e) => console.log(e)}
           url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
           width='100vw'
@@ -66,7 +66,7 @@ const ReactPlayerComp: React.FC = () => {
           hidden
           config={{
             file: {
-              attributes: { autoPlay: 1, controls: 0 },
+              attributes: { autoPlay: 0, controls: 0 },
               forceAudio: true
             }
           }}

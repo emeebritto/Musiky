@@ -18,8 +18,8 @@ export function usePlayer() {
 		setMusic,
 		playing,
 		setPlaying,
-        renderAudioPlayer,
-        setRenderAudioPlayer,
+        mode,
+        setMode,
 		volume,
 		setVolume,
 		lastVolume,
@@ -88,7 +88,9 @@ export function usePlayer() {
     }
 
     const desableAudioPlayer = (status?: boolean=true): void => {
-        setRenderAudioPlayer(status ? false : true);
+        status
+            ? setMode({only_audio:false, video:true})
+            : setMode({only_audio:true, video:false})
     }
 
     const onBuffer = (status: boolean): void => {
@@ -155,7 +157,9 @@ export function usePlayer() {
     const handleSeekMouseUp = (e: React.SyntheticEvent<EventTarget>): void => {
         let target = e.target as HTMLInputElement;
         setSeeking(false);
-        ref.audPlayer.current.seekTo(parseFloat(target.value));
+        activeAudioPlayer
+            ? ref.audPlayer.current.seekTo(parseFloat(target.value))
+            : ref.watchPlayer.current.seekTo(parseFloat(target.value))
     }
 
     const handleSeekMouseDown = (): void => {
@@ -178,7 +182,7 @@ export function usePlayer() {
             seeking,
             playing,
             duration,
-            renderAudioPlayer
+            mode
         },
     	load,
         stopPlayer,
