@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import { withRouter, NextRouter } from 'next/router';
 import axios from 'axios';
 import Styled from 'styled-components';
+import { usePlayer } from 'common/contexts/player';
 import { ArtistDataProps } from 'common/types';
 import { ArtistCard, MusicList } from 'components';
 
@@ -39,6 +40,7 @@ interface WithRouterProps {
 
 const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 
+	const { load } = usePlayer();
 	const [searchTop, setSearchTop] = useState<ArtistDataProps>({} as ArtistDataProps);
 	const [artists, setArtists] = useState([]);
 	const [musics, setMusics] = useState([]);
@@ -46,6 +48,9 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 
     let q: string = String(router.query.q);
 
+	const startMedia = (playIndex: number): void => {
+		load({ playIndex, playlist });
+	};
 
     useEffect(() => {
         async function getData() {
@@ -75,7 +80,11 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 				<FirstSection>
 					<ArtistCard artist={searchTop}/>
 					<MusicListWrapper>
-						<MusicList list={musics} listId={requestId}/>
+						<MusicList
+							list={musics}
+							listId={requestId}
+							startMedia={startMedia}
+						/>
 					</MusicListWrapper>
 				</FirstSection>
 				<Hr/>

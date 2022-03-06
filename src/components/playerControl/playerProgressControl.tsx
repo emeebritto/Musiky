@@ -14,7 +14,24 @@ import {
   MusicTimeTotal
 } from './playerStyles';
 
-const PlayerProgressControl = () => {
+
+const ScreenMode = Styled.img`
+  width: 30px;
+  opacity: 0.9;
+`
+
+interface Props {
+  includes?: {
+    loop?: boolean;
+    fullscreen?: boolean;
+  };
+  onRequestFullscreen?: ()=> void;
+};
+
+const PlayerProgressControl: React.FC<Props> = ({
+  includes={},
+  onRequestFullscreen
+}) => {
 
   const {
     handleSeekChange,
@@ -24,6 +41,7 @@ const PlayerProgressControl = () => {
   const {
   	prop,
   	onPlayAndPause,
+    toggleLoop,
     nextMusic,
     handleSeekMouseUp,
     handleSeekMouseDown
@@ -51,17 +69,39 @@ const PlayerProgressControl = () => {
   }
 
 	return (
-    <PlayerControlPainel>
+    <PlayerControlPainel onClick={e=> e.stopPropagation()}>
       <BtnsBackPlayNext>
+          <BtnPlayerControl
+            nonactive={!prop.loop}
+            disable={!includes.loop}
+            onClick={toggleLoop}
+          >
+            <IconPlay src={istatic.iconLoop()} alt='loop Mode'/>
+          </BtnPlayerControl>
           <BtnPlayerControl onClick={e => {nextAndBack_Music(e, -1)}}>
             <IconPlay src={istatic.iconBack()} alt="Back Music" />
           </BtnPlayerControl>
-          {prop.buffer
-            ? <Loading src={istatic.musicLoading()} alt='loading'/> 
-            : <BtnPlayAndPause/>
+          {
+            prop.buffer
+              ? <Loading src={istatic.musicLoading()} alt='loading'/> 
+              : <BtnPlayAndPause/>
           }
           <BtnPlayerControl onClick={e => {nextAndBack_Music(e, 1)}}>
              <IconPlay src={istatic.iconNext()} alt="Next Music" />
+          </BtnPlayerControl>
+          <BtnPlayerControl
+            nonactive={!prop.fullscreen}
+            disable={!includes.fullscreen}
+            onClick={onRequestFullscreen}
+          >
+            <IconPlay
+              src={
+                prop.fullscreen
+                  ? istatic.close_fullscreen_white()
+                  : istatic.fullscreen_white()
+              }
+              alt='Screen Mode'
+            />
           </BtnPlayerControl>
       </BtnsBackPlayNext>
       <MusicTimeCounter>

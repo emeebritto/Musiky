@@ -56,9 +56,9 @@ const ReactPlayerComp: React.FC = () => {
             }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
-          onBuffer={() => onBuffer(true)}
-          onBufferEnd={() => onBuffer(false)}
-          onEnded={() => prop.mode['only_audio']? nextMusic(1):null}
+          onBuffer={()=> onBuffer(true)}
+          onBufferEnd={()=> onBuffer(false)}
+          onEnded={()=> prop.mode['only_audio']? nextMusic(1):null}
           //onError={(e) => console.log(e)}
           url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
           width='100vw'

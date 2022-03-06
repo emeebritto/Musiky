@@ -85,6 +85,7 @@ export function usePlayerFlow() {
 		const params = `categoryInput=random&musicsType=vibes:${activeVibe}&maxPlaylists=1&maxPerList=2&minPerList=1`;
 		const [ playlist ] = await axios.get(`${IstaticBaseUrl}playlist/all?${params}`)
 			.then(r => r.data.items)
+		playlist.id = 'flow-dffvgbgh632d';
 		return playlist;
 	};
 
@@ -98,13 +99,8 @@ export function usePlayerFlow() {
 		await sleep(()=> setDiskOff(false), 500);
 	};
 
-	const startSong = ({ id, list }:{id: string, list: Music[]}) => {
-		load({
-			playIndex: 0,
-			list: list,
-			listId: 'flow-dvpfgdshgx7j',
-			onEnded: getData
-		});
+	const startSong = (playlist: PlaylistProps) => {
+		load({ playlist, onEnded: getData });
 	};
 
 	useEffect(()=>{

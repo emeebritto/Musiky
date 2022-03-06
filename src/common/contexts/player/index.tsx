@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
-import { EventTarget, SyntheticEvent, Music, PlaylistProps } from 'common/types';
 import { useFeaturedContext } from 'common/contexts/Featured';
 import { useAccountContext } from 'common/contexts/Account';
 import { usePlaylistContext } from 'common/contexts/Playlist';
@@ -9,6 +8,13 @@ import { PlayerContext } from './player-provider';
 export { usePlayerProgress, PlayerProgressProvider } from './progress';
 export { usePlayerFlow, PlayerFlowProvider } from './flow';
 export { PlayerProvider } from './player-provider';
+import {
+    EventTarget,
+    SyntheticEvent,
+    Music,
+    PlayerMode,
+    PlaylistProps
+} from 'common/types';
 
 export function usePlayer() {
 
@@ -20,6 +26,8 @@ export function usePlayer() {
 		setPlaying,
         mode,
         setMode,
+        fullscreen,
+        setFullscreen,
 		volume,
 		setVolume,
 		lastVolume,
@@ -49,36 +57,40 @@ export function usePlayer() {
 // ==================================================================
 
 	const load = async({
-        playIndex,
-        list,
-        listId=null,
+        media=null,
+        playIndex=0,
+        playlist=null,
         onEnded
     }:{
-        playIndex: number,
-        list: Array<Music>,
-        listId: string | null,
+        media?: Music | null,
+        playIndex?: number,
+        playlist?: PlaylistProps | null,
         onEnded?: () => Promise<PlaylistProps>
     }): Promise<void> => {
 
-        if (listId && list.length) {
-        	startPlaylist({
-                playIndex,
-                listId,
-                list,
-                onEnded
-            });
-        };
-
-        if (list.length) {
-    		setMusic(list[playIndex]);
+        if (media) {
+            setMusic(media);
             setBuffer(true);
             setPlaying(true);
             updateHistory({
                 type: 'music',
-                data: list[playIndex],
-                playlistId: listId
+                data: media,
+                playlistId: null
             });
-        };
+            return;
+        }
+
+        if (playlist) {
+            setMusic(playlist.list[playIndex]);
+            setBuffer(true);
+            setPlaying(true);
+            startPlaylist({
+                playIndex,
+                playlist,
+                onEnded
+            });
+            return;
+        }
     }
 
     const stopPlayer = (): void => {
@@ -87,10 +99,9 @@ export function usePlayer() {
         setBuffer(false);
     }
 
-    const desableAudioPlayer = (status?: boolean=true): void => {
-        status
-            ? setMode({only_audio:false, video:true})
-            : setMode({only_audio:true, video:false})
+    const changeMode = (newMode?: PlayerMode): void => {
+        if (!newMode) return;
+        setMode(newMode);
     }
 
     const onBuffer = (status: boolean): void => {
@@ -157,7 +168,7 @@ export function usePlayer() {
     const handleSeekMouseUp = (e: React.SyntheticEvent<EventTarget>): void => {
         let target = e.target as HTMLInputElement;
         setSeeking(false);
-        activeAudioPlayer
+        mode['only_audio']
             ? ref.audPlayer.current.seekTo(parseFloat(target.value))
             : ref.watchPlayer.current.seekTo(parseFloat(target.value))
     }
@@ -182,11 +193,13 @@ export function usePlayer() {
             seeking,
             playing,
             duration,
-            mode
+            mode,
+            fullscreen
         },
     	load,
         stopPlayer,
-        desableAudioPlayer,
+        setFullscreen,
+        changeMode,
     	onBuffer,
     	onPlayAndPause,
     	nextMusic,

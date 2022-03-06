@@ -7,6 +7,7 @@ import Styled from 'styled-components';
 import { verifyUnavailable } from 'common/utils';
 import { PlaylistProps, Music } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
+import { usePlayer } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
 import { IstaticBaseUrl } from 'api';
 import { istatic } from "api/istatic";
@@ -101,6 +102,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 
   const { infors, list=[] } = playlist;
   const { desableSplash } = useSplashContext();
+  const { load } = usePlayer();
   const router = useRouter();
   const [showPopUp, setShowPopUp] = useState(false);
   const [showWarnBox, setShowWarnBox] = useState(false);
@@ -115,6 +117,10 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
   let id: string = router.query.id
     ? String(router.query.id) 
     : '';
+
+  const startMedia = (playIndex: number): void => {
+    load({ playIndex, playlist });
+  };
 
   useEffect(()=>{
     if (list.some(ms => ms.unavailable)) {
@@ -173,6 +179,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
           <MusicList
             list={list}
             listId={id}
+            startMedia={startMedia}
             showUnavailable={showUnavailable}
           />
         </MusicListWrapper>

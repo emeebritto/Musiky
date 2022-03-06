@@ -158,11 +158,7 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
 
   const handlePlayPause = (): void => {
     if (!prop.music) {
-      load({
-        playIndex: 0,
-        list: [ pageContent ],
-        listId: 'embed-sffhrew3d'
-      });
+      load({ media: pageContent });
       return;
     }
     onPlayAndPause();

@@ -141,6 +141,7 @@ const MusicTime = Styled.section`
 interface MusicListProps {
   list: Array<Music>;
   listId: string;
+  startMedia: (s: number) => void;
   showUnavailable?: boolean;
 }
 
@@ -152,23 +153,12 @@ interface DurationOrPLaying {
 const MusicList: React.FC<MusicListProps> = ({
   list,
   listId,
+  startMedia,
   showUnavailable=false
 }) => {
 
   const { prop, load } = usePlayer();
   const { isPlayingIndex } = usePlaylistContext();
-
-  const clickOnMusic = (
-    targetIndex: number,
-    targetList: Array<Music>,
-    playlistId: string
-  ): void => {
-    load({
-      playIndex: targetIndex,
-      list: targetList,
-      listId: playlistId
-    });
-  }
 
   //Component:
   const BoxDurationOrPLayingNow: React.FC<DurationOrPLaying> = ({
@@ -212,7 +202,7 @@ const MusicList: React.FC<MusicListProps> = ({
           hoverOff={isPlayingIndex(listId, index)} 
           onClick={(e) => {
             e.stopPropagation();
-            clickOnMusic(index, list, listId);
+            startMedia(index);
           }}
           key={music.id}
           >

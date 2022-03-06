@@ -99,11 +99,7 @@ interface DiskLibraryProps {
 const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
   const { load, isPlayingId } = usePlayer();
   const playSong = (index: number): void => {
-    load({
-      playIndex: index,
-      list: data.list,
-      listId: data.id
-    });
+    load({ playIndex: index, playlist: data });
   };
 	return(
     <VerticalView viewLabel={name}>

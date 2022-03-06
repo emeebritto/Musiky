@@ -72,9 +72,15 @@ export interface ArtistDataProps {
     };
     genres: Array<string>;
 }
+export interface PlayerMode {
+    only_audio?: boolean;
+    watch?: boolean;
+}
 export interface PlayerContextData {
     ref: {
-        playerRef: any;
+        audPlayer: any;
+        watchPlayer: any;
+        watchPlayerWrapper: any;
     };
     music: Music | null;
     setMusic: (s: Music | null) => void;
@@ -82,6 +88,10 @@ export interface PlayerContextData {
     setPlaying: (s: boolean | ((s: boolean) => boolean)) => void;
     volume: number;
     setVolume: (s: number) => void;
+    mode: PlayerMode;
+    setMode: (s: PlayerMode) => void;
+    fullscreen: boolean;
+    setFullscreen: (s: boolean) => void;
     lastVolume: number;
     setLastVolume: (s: number) => void;
     loop: boolean;
@@ -110,7 +120,9 @@ export interface FeaturedContextData {
     setAudVol: (s: number) => void;
 }
 export interface PlaylistContextData {
-    playingIndex: number;
+    playlist: PlaylistProps | null;
+    setPlaylist: (s: PlaylistProps | null) => void;
+    playingIndex: number;s
     setPlayingIndex: (s: number) => void;
     musiclist: Array<Music>;
     setMusiclist: (s: Array<Music>) => void;

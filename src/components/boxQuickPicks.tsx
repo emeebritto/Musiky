@@ -158,17 +158,9 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
     const { isPlayingIndex, playlistInfor } = usePlaylistContext();
     const router = useRouter();
 
-    const startList = (
-        targetIndex: number,
-        targetList: Array<Music>,
-        playlistId: string | null = null
-    ): void => {
-        if (playlistId != playlistInfor.playlistId) {
-            load({
-                playIndex: targetIndex,
-                list: targetList,
-                listId: playlistId
-            });
+    const startList = (index, playlist: PlaylistProps): void => {
+        if (playlist.id != playlistInfor.playlistId) {
+            load({ playIndex: index, playlist });
         }
     }
 
@@ -213,7 +205,7 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
                         <Playlists
                             onClick={(e) => {
                                 e.stopPropagation();
-                                startList(0, pl.list, pl.id);
+                                startList(i, pl);
                                 goToList(pl.id);
                             }}
                             key={pl.id}

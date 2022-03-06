@@ -113,9 +113,7 @@ const Watch = () => {
 				const music = await axios.get(`${IstaticBaseUrl}music/${watch}`)
 					.then(r => r.data)
 				load({
-					playIndex: 0,
-					list: [ music ],
-					listId: 'watch-sdr5h742ng'
+					media: music,
 				});
   		}
   		setWatchMode(true);

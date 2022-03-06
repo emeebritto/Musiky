@@ -6,6 +6,8 @@ import { PlaylistContext } from './providers/Playlist-provider';
 export function usePlaylistContext(){
 
 	const {
+		playlist,
+		setPlaylist,
 		playingIndex,
 		setPlayingIndex,
 		musiclist,
@@ -25,18 +27,17 @@ export function usePlaylistContext(){
 
 	const startPlaylist = ({
 		playIndex,
-		listId,
-		list,
+		playlist,
 		onEnded
 	}: {
 		playIndex: number,
-		listId: string,
-		list: Array<Music>,
+		playlist: PlaylistProps,
 		onEnded?: () => Promise<PlaylistProps>
 	}) => {
+		setPlaylist(playlist);
 		setPlayingIndex(playIndex);
-		setPlaylistId(listId);
-		setMusiclist(list);
+		setPlaylistId(playlist.id);
+		setMusiclist(playlist.list);
 		if (onEnded) {
 			on.ended.current = onEnded;			
 		}

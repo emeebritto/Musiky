@@ -160,16 +160,8 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
   } = usePlaylistContext();
 	const { load, stopPlayer } = usePlayer();
 
-  const startList = (
-    targetIndex: number,
-    targetList: Array<Music>,
-    playlistId: string
-  ): void => {
-    load({
-      playIndex: targetIndex,
-      list: targetList,
-      listId: playlistId
-    });
+  const startList = (playlist: PlaylistProps): void => {
+    load({ playlist });
   }
 
   //Component:

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Styled from 'styled-components';
 import axios from 'axios';
-import { musicDownload, multiDownloads, copyContent } from 'common/utils';
+import { mediaDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { PopUp } from 'components';

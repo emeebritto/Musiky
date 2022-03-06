@@ -49,5 +49,7 @@ export const istatic = {
     arrow_white: ()=> `${BaseUrl}icons/expand_more_white_24dp.svg`,
     send_white: ()=> `${BaseUrl}icons/send_white_24dp.svg`,
     play_disabled_white: ()=> `${BaseUrl}icons/play_disabled_white_24dp.svg`,
-    music_note_white: ()=> `${BaseUrl}icons/music_note_white_24dp.svg`
+    music_note_white: ()=> `${BaseUrl}icons/music_note_white_24dp.svg`,
+    fullscreen_white: ()=> `${BaseUrl}icons/fullscreen_white_24dp.svg`,
+    close_fullscreen_white: ()=> `${BaseUrl}icons/close_fullscreen_white_24dp.svg`
 };

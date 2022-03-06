@@ -192,11 +192,7 @@ const WhatsTheVibe: NextPage = () => {
           if (evenExists >= 0) {
             setActiveVibes(songlist[evenExists].vibes);
           }
-          load({
-            playIndex: 0,
-            list: [ song ],
-            listId: 'dfscx'
-          });
+          load({ media: song });
           return song;
         })
     );

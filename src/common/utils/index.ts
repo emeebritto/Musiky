@@ -1,10 +1,16 @@
 import axios from 'axios';
 import { Music, UnavailableMusic } from 'common/types';
 
-export const musicDownload = async(music: Music): Promise<void> => {
-    if (!music) return
+interface musicListenOptions {
+    videoMode?: number;
+    source?: string;
+}
+
+export const mediaDownload = async(media: Music, options?: musicListenOptions): Promise<void> => {
+    if (!media) return
+    const { videoMode=0 } = options || {};
     await axios({
-        url:`https://musiky-listen.herokuapp.com/${music.id}`,
+        url:`https://musiky-listen.herokuapp.com/${media.id}?videoMode=${videoMode}&source=yt`,
         method:'GET',
         responseType: 'blob'
     })
@@ -13,14 +19,14 @@ export const musicDownload = async(music: Music): Promise<void> => {
             .createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', `${music.artists[0]} - ${music.title}.mp3`);
+        link.setAttribute('download', `${media.artists[0]} - ${media.title}.mp3`);
         document.body.appendChild(link);
         link.click();
     })
 }
 export const multiDownloads = async(list: Array<Music>): Promise<void> => {
     for (let i=0; i < list.length; i++) {
-        await musicDownload(list[i]);
+        await mediaDownload(list[i]);
     }
 }
 export const copyContent = (): void => {

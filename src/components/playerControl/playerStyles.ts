@@ -55,6 +55,7 @@ export const MusicInfor = styled(flex_Section)`
 export const ControlPainelWrapper = styled.section`
     width: 40%;
     height: 100%;
+    margin-bottom: 6px;
 `
 export const PlayerControlPainel = styled(flex_Section)`
     position: relative;
@@ -116,7 +117,6 @@ export const MusicTitleInControl = styled(MusicTitle)`
     border-radius: 4px;
     word-break: keep-all;
 `
-
 export const MusicSubTitle = styled.p`
     display: flex;
     font-size: 0.9em;
@@ -130,7 +130,8 @@ export const MusicSubTitle = styled.p`
 export const BtnsBackPlayNext = styled.section`
     display:flex;
     justify-content: space-between;
-    width: 26%;
+    align-items: center;
+    height: 80%;
 
     @media(max-width: 1070px) {
         width: 54%;
@@ -140,37 +141,30 @@ export const BtnsBackPlayNext = styled.section`
         width: 97%;
     }
 `
-
 export const BtnPlayerControl = styled.button`
-    background-color: ${(props: {play?: boolean}) => (
-        props.play ? "white" : "transparent"
-    )};
     border: none;
-    width:36px;
-    height: 36px;
-    margin-bottom: 10px;
-    border-radius: 30px;
+    border-radius: 50%;
     transition: 500ms;
-
-    :hover {
-        cursor: pointer;
-        background-color: rgb(255 255 255/${(props: {play?: boolean}) => (
-            props.play ? "70%" : "0%"
-        )});
-    }
-
-    @media(max-width: 1070px) {
-        margin: 0px 5px 0px 5px;
-    }
+    cursor: pointer;
+    margin: 0 8px;
+    ${(props: {play?: boolean, disable?: boolean, nonactive?: boolean}) => (`
+        display: ${props.disable ? "none" : "flex"};
+        justify-content: center;
+        align-items: center;
+        opacity: ${props.nonactive? "0.5": "1"};
+        background-color: ${props.play ? "#fff" : "transparent"};
+        :hover {
+            background-color: ${props.play ? "#B7C2C5" : "transparent"};
+        }
+    `)};
 `
 export const IconPlay = styled.img`
-    margin: 3px 0px 0px 0px;
+    width: 26px;
+    padding: 5px 2px;
 `
 export const Loading = styled.img`
-    position: relative;
-    bottom: 12%;
+    width: 46px;
 `
-
 export const MusicTimeCounter = styled.section`
     position: absolute;
     font-size: 0.75em;
@@ -178,7 +172,6 @@ export const MusicTimeCounter = styled.section`
     left: 11%;
     bottom: 26%;
 `
-
 export const MusicTimeTotal = styled.section`
     position: absolute;
     font-size: 0.75em;
@@ -186,7 +179,6 @@ export const MusicTimeTotal = styled.section`
     right: 11%;
     bottom: 26%;
 `
-
 export const DurationSlider = styled.input`
     -webkit-appearance: none;
     width: 80%;
@@ -228,7 +220,6 @@ export const DurationSlider = styled.input`
         }
     }
 `
-
 export const VolumeControl = styled(DurationSlider)`
     width: 25%;
     height: 3px;
@@ -253,9 +244,7 @@ export const VolumeControl = styled(DurationSlider)`
     @media(max-width: 700px) {
         display: none;
     }
-
 `
-
 export const BtnIconVolume = styled(BtnPlayerControl)`
     width: 30px;
     height: 30px;
@@ -263,7 +252,6 @@ export const BtnIconVolume = styled(BtnPlayerControl)`
     margin-bottom: 0px;
     transition: 0ms;
 `
-
 export const BtnLyrics = styled(BtnIconVolume)`
     opacity: ${(props: {lyrics: boolean}) => (props.lyrics ? "100%" : "60%")};
     filter: drop-shadow(0px 0px ${(props: {lyrics: boolean}) => (
@@ -273,7 +261,6 @@ export const BtnLyrics = styled(BtnIconVolume)`
         opacity: 100%;
     }
 `
-
 export const BtnRepeat = styled(BtnIconVolume)`
     opacity: ${(props: {loop: boolean}) => (props.loop ? "100%" : "60%")};
     filter: drop-shadow(0px 0px ${(props: {loop: boolean}) => (

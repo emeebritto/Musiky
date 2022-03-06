@@ -96,11 +96,7 @@ const Featured: React.FC<RecProps> = ({ data }) => {
   const { load } = usePlayer();
 
   const playMusic = (): void => {
-    load({
-      playIndex: 0,
-      list: [ data.clip ],
-      listId: 'featured-dfadcmskd76'
-    });
+    load({ media: data.clip });
   }
 
   useEffect(()=>{

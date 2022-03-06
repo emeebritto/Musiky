@@ -63,11 +63,7 @@ const LastPlayer: React.FC = () => {
 
   const playLastSong = (): void => {
     if (!last) return;
-    load({
-      playIndex: 0,
-      list: [ last ],
-      listId: 'last-fdsdsf4323'
-    });
+    load({ media: last });
   };
 
   useEffect(()=>{

@@ -119,11 +119,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
     let playlist = await axios.get(`${location.origin}/api/playlist/${playlistId}`)
       .then(r=>r.data)
       .catch(err => console.error(err));
-    load({
-      playIndex: 0,
-      list: playlist.list,
-      listId: playlistId
-    });
+    load({ playlist });
   }
 
   const isPlaying = (id: string): boolean => {

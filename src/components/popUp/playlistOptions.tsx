@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Styled from 'styled-components';
-import { musicDownload, multiDownloads, copyContent } from 'common/utils';
+import { mediaDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { PopUp } from 'components';
@@ -93,7 +93,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                                 readOnly
                             />
                             <DownloadBtn onClick={()=> {
-                                if (prop.music != null) musicDownload(prop.music)
+                                if (prop.music != null) mediaDownload(prop.music)
                             }}>
                                 <img src={istatic.downloadIcon()} alt='download icon'/>
                             </DownloadBtn>
