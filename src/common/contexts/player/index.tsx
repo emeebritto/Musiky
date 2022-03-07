@@ -53,6 +53,8 @@ export function usePlayer() {
 
     const { updateHistory } = useAccountContext();
 
+    //let PLAYER_MODE = !!mode ? mode : {};
+
 
 // ==================================================================
 

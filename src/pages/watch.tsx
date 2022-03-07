@@ -15,7 +15,6 @@ const ViewPort = Styled.section`
 	position: fixed;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	background-color: #020309;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	z-index: 10;
@@ -24,6 +23,7 @@ const ViewPort = Styled.section`
 	overflow: scroll;
 `
 const Media = Styled.section`
+	margin-top: 12vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -103,23 +103,30 @@ const AboutContent = Styled.section`
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: 50vw;
+	width: 53vw;
+	margin: 20px 0;
+`
+const ArtistsProfile = Styled.img`
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	margin: 0 15px 0 0;
 `
 const MetaData = Styled.section`
 	width: 75%;
-	margin: 20px 0;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 `
 const MediaTitle = Styled.p`
-	margin: 10px 0;
+	margin: 0 0 10px 0;
 	font-weight: bold;
 	font-size: 1.4em;
 `
 const ArtistName = Styled.p`
 	opacity: 0.7;
-	font-size: 1,1em;
+	font-size: 1em;
+	cursor: pointer;
 `
 const Actions = Styled.section`
 	display: flex;
@@ -265,6 +272,12 @@ const Watch: NextPage = () => {
 	      </Controls>
 	    </PlayerWrapper>
 	    <AboutContent>
+	    	{prop.music.snippetArtistsData[0] &&
+		    	<ArtistsProfile
+		    		src={prop.music.snippetArtistsData[0].images[1].url}
+		    		alt='artist profile image'
+		    	/>
+	    	}
 		    <MetaData>
 			    <MediaTitle contentEditable={true}>{prop.music.title}</MediaTitle>
 			    <ArtistName>

@@ -178,12 +178,12 @@ const MusicList: React.FC<MusicListProps> = ({
     <>
     {list.map((music, index) => {
       if (music.unavailable && !showUnavailable) {
-        return;
+        return (<></>);
       } else if (music.unavailable && showUnavailable) {
         return (
           <MusicOptionBox
             onClick={(e) => e.stopPropagation()}
-            key={music.id}
+            key={music.id + index}
             >
             <BoxNumMusic>
               <NumMusic>{index + 1}.</NumMusic>
@@ -194,6 +194,17 @@ const MusicList: React.FC<MusicListProps> = ({
                 <MusicTitle>[ Unavailable Music ]</MusicTitle>
               </Titles>
             </DataMusic>
+            <MusicTime>
+              <BoxDurationOrPLayingNow
+                duration='00:00'
+                index={index}
+              />
+              <BoxIconPLayHover
+                className="iconPlayHover"
+                src={istatic.iconPlay()}
+                alt="iconPlay"
+              />
+            </MusicTime>
           </MusicOptionBox>
         );
       }

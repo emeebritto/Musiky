@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface EventTarget {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void;
     dispatchEvent(evt: Event): boolean;
@@ -73,8 +75,9 @@ export interface ArtistDataProps {
     genres: Array<string>;
 }
 export interface PlayerMode {
-    only_audio?: boolean;
-    watch?: boolean;
+    //[key: string]: boolean;
+    only_audio: boolean;
+    watch: boolean;
 }
 export interface PlayerContextData {
     ref: {
@@ -122,7 +125,7 @@ export interface FeaturedContextData {
 export interface PlaylistContextData {
     playlist: PlaylistProps | null;
     setPlaylist: (s: PlaylistProps | null) => void;
-    playingIndex: number;s
+    playingIndex: number;
     setPlayingIndex: (s: number) => void;
     musiclist: Array<Music>;
     setMusiclist: (s: Array<Music>) => void;

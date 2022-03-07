@@ -51,16 +51,21 @@ export function usePlaylistContext(){
 	const changeMusic = async(action: number): Promise<Music | null> => {
 
 		if(!musiclist) return null;
+		let next = playingIndex + action;
 
-	    setPlayingIndex(playListShuffle
+		while (musiclist[next] && musiclist[next].unavailable) {
+			next++;
+		}
+
+	    setPlayingIndex(
+	    	playListShuffle
                 ? ~~(Math.random() * musiclist.length - 1)
-                : playingIndex + action
+                : next
         );
 
         let playlistFinished = false;
 
         if (playingIndex === (musiclist.length -1)){
-
             if(playlistLoop){
                 setPlayingIndex(0);
             } else {
@@ -76,7 +81,7 @@ export function usePlaylistContext(){
         	return listUpdated[musiclist.length]; // go to last song
         };
 
-        return playlistFinished ? null : musiclist[playingIndex + action];
+        return playlistFinished ? null : musiclist[next];
 	}
 
 

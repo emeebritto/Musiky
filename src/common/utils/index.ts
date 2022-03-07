@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { Music, UnavailableMusic } from 'common/types';
 
-interface musicListenOptions {
+interface MusicListenOptions {
     videoMode?: number;
     source?: string;
 }
 
-export const mediaDownload = async(media: Music, options?: musicListenOptions): Promise<void> => {
+export const mediaDownload = async(media: Music, options?: MusicListenOptions): Promise<void> => {
     if (!media) return
     const { videoMode=0 } = options || {};
     await axios({
@@ -55,6 +55,7 @@ export const verifyUnavailable = async(
                 return {
                     id: list[i].id,
                     unavailable: true,
+                    thumbnails: list[i].thumbnails,
                     reason: 'Deleted'
                 };
             })            

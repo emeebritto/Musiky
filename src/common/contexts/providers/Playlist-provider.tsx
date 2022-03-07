@@ -13,7 +13,7 @@ interface LayoutProps {
 export const PlaylistProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [playingIndex, setPlayingIndex] = useState(0);
-	const [playlist, setPlaylist] = useState<PlaylistProps | null>(null);
+	const [playlist, setPlaylist] = useState<null | PlaylistProps>(null);
 	const [playlistId, setPlaylistId] = useState('');
 	const [musiclist, setMusiclist] = useState<Array<Music>>([]);
 	const [playlistLoop, setPlaylistLoop] = useState(false);

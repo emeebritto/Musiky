@@ -17,7 +17,7 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [music, setMusic] = useState<null | Music>(null);
 	const [playing, setPlaying] = useState(false);
-	const [mode, setMode] = useState({ only_audio: true });
+	const [mode, setMode] = useState<PlayerMode>({ only_audio: true, watch: false });
 	const [fullscreen, setFullscreen] = useState(false);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);

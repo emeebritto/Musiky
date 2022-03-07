@@ -28,7 +28,10 @@ const ReactPlayerComp: React.FC = () => {
     nextMusic,
     handleDuration
   } = usePlayer();
-  const { changeCurrentTimeTo, currentTime } = usePlayerProgress();
+  const {
+    changeCurrentTimeTo,
+    currentTime
+  } = usePlayerProgress();
 
   useEffect(()=> {
     document.addEventListener("contextmenu", e => e.preventDefault());
@@ -48,8 +51,8 @@ const ReactPlayerComp: React.FC = () => {
           playing={prop.mode['only_audio'] && prop.playing}
           volume={prop.volume}
           loop={prop.loop}
-          onPlay={()=> prop.mode['only_audio']? onPlayAndPause(true):null}
-          onPause={()=> prop.mode['only_audio']? onPlayAndPause(false):null}
+          onPlay={()=> prop.mode['only_audio']? onPlayAndPause(true):false}
+          onPause={()=> prop.mode['only_audio']? onPlayAndPause(false):false}
           onProgress={(time: {played: number, playedSeconds: number}) => {
             if (!prop.seeking && prop.mode['only_audio']) {
               changeCurrentTimeTo(time.played, time.playedSeconds);
@@ -58,7 +61,7 @@ const ReactPlayerComp: React.FC = () => {
           onDuration={(duration: number) => handleDuration(duration)}
           onBuffer={()=> onBuffer(true)}
           onBufferEnd={()=> onBuffer(false)}
-          onEnded={()=> prop.mode['only_audio']? nextMusic(1):null}
+          onEnded={()=> prop.mode['only_audio']? nextMusic(1):false}
           //onError={(e) => console.log(e)}
           url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
           width='100vw'

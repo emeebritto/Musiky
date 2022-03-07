@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Styled from 'styled-components';
-import { verifyUnavailable } from 'common/utils';
 import { PlaylistProps, Music } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { usePlayer } from 'common/contexts/player';
@@ -171,8 +170,12 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
             activeIf={showWarnBox}
             txt='Unavailable Music was hidden'
             action={{
-                name: 'show anyway',
-                execute: ()=> setShowUnavailable(true)
+              name: showUnavailable? 'hide' : 'show anyway',
+              execute: ()=> {
+                showUnavailable
+                  ? setShowUnavailable(false)
+                  : setShowUnavailable(true)
+              }
             }}
             margin={'0 0 15px 0'}
           />

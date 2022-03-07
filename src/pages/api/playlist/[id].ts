@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import cache from "memory-cache";
 import { PlaylistProps } from 'common/types';
 import byId from 'common/utils/playlists/byId';
+import { verifyUnavailable } from 'common/utils';
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,6 +24,10 @@ export default async function handler(
   }
 
   const playlist = await byId({ id });
+  if (playlist) {
+    playlist.list = await verifyUnavailable(playlist.list);
+  }
+
   cache.put(KEY, playlist, 60 * 60000);
   res.status(200).json(playlist);
 }
