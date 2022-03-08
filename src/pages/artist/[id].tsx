@@ -17,7 +17,6 @@ const ViewPort = Styled.section`
     width: 100%;
     height: 100vh;
 `
-
 const Wrapper = Styled.section`
     position: relative;
     display: flex;
@@ -32,29 +31,24 @@ const Wrapper = Styled.section`
         margin-top: 16vh;
     }
 `
-
 const ArtistInfor = Styled.section`
     display: flex;
     align-items: center;
 `
-
 const ArtistImg = Styled.img`
     border-radius: 15%;
     width: 185px;
     height: 185px;
 `
-
 const ArtistData = Styled.section`
     margin: 0 30px;
 `
-
 const ArtistName = Styled.h1`
     color: #fff;
     height: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.7em;
 `
-
 const FollowesCounter = Styled.p`
     color: #7B7D83;
     height: 30px;
@@ -62,7 +56,6 @@ const FollowesCounter = Styled.p`
     font-size: 1.2em;
     margin: 10px 0 0 0;
 `
-
 const BrnFollow = Styled.button`
     border: none;
     background-color: rgb(0 0 0 /30%);
@@ -80,7 +73,6 @@ const BrnFollow = Styled.button`
         color: black;
     }
 `
-
 const WrapperGenres = Styled.section`
     display: flex;
     justify-content: center;
@@ -97,17 +89,14 @@ const Genre = Styled.p`
     margin: 5px 10px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 `
-
 const Hr = Styled.hr`
     margin: 30px 0;
     width: 50%;
     opacity: 20%;
 `
-
 const Listen = Styled.section`
     display: flex;
 `
-
 const MusicListWrapper = Styled.section`
     display: flex;
     align-items: center;
@@ -121,7 +110,6 @@ const MusicListWrapper = Styled.section`
         width: 0;
     } 
 `
-
 const PlayList = Styled.section`
     position: relative;
     display: flex;
@@ -132,12 +120,10 @@ const PlayList = Styled.section`
     height: 240px;
     margin: 0 15px;
     transition: 100ms;
-
     :hover {
         cursor: pointer;
         transform: translateY(-5px);
     }
-
     :hover #BtnPLayHover {
         display: inline-block;
     }
@@ -172,20 +158,17 @@ const ShadowHover = Styled.section`
         transform: scale(3.7);
     }
 `
-
 const BtnPLayHoverImg = Styled.img`
     width: 100%;
     margin-top: 2px;
     filter: invert(100%);
 `
-
 const PlayListImg = Styled.img`
     position: relative;
     border-radius: 10px;
     width: 150px;
     height: 150px;
 `
-
 const PlayListTitle = Styled.h1`
     color: white;
     height: 40px;
@@ -199,7 +182,6 @@ const Description = Styled.p`
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-left: 5px;
 `
-
 export const PlaylistWrapper = Styled.section`
     display: flex;
     flex-direction: column;
@@ -232,6 +214,11 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
         load({ playlist });
     }
 
+    const startMedia = (playIndex: number): void => {
+        load({ media: musics[playIndex] });
+    };
+
+
     if (requestId) desableSplash();
 
     return (
@@ -263,7 +250,11 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
                 <Hr/>
                 <Listen>
                     <MusicListWrapper>
-                        <MusicList list={musics} listId={requestId}/>
+                        <MusicList
+                            list={musics}
+                            listId={requestId}
+                            startMedia={startMedia}
+                        />
                     </MusicListWrapper>
                     {playlists.length > 0 &&
                     <PlaylistWrapper>

@@ -32,8 +32,8 @@ interface BoxGreetingProps {
 
 const BoxGreeting: React.FC<BoxGreetingProps> = ({ data }) => {
 
-    let nameUser = 'Emerson Britto';
-
+    //let nameUser = 'Emerson Britto';
+    let nameUser = 'Guest_';
 
     return (
         <ViewPort>

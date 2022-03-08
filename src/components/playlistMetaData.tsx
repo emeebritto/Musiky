@@ -160,7 +160,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
   } = usePlaylistContext();
 	const { load, stopPlayer } = usePlayer();
 
-  const startList = (playlist: PlaylistProps): void => {
+  const startList = (): void => {
     load({ playlist });
   }
 
@@ -208,7 +208,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
         <StartPlaylist onClick={()=> {
           playlistInfor.playlistId === id
             ? stopPlayer()
-            : startList(0, list, id)
+            : startList()
         }}>
           {playlistInfor.playlistId === id ? 'Stop' : 'Start'} Playlist
           <img

@@ -36,6 +36,11 @@ export interface Music {
     durationSec: number;
     viewCount: number;
     artists: Array<string>;
+    snippetArtistsData: Array<{
+        name: string;
+        idByName: string;
+        images: Array<{url: string}>;
+    }>;
     comments: {
         list: Array<{
             author: string;
@@ -92,7 +97,7 @@ export interface PlayerContextData {
     volume: number;
     setVolume: (s: number) => void;
     mode: PlayerMode;
-    setMode: (s: PlayerMode) => void;
+    setMode: (s: PlayerMode | ((s: PlayerMode) => PlayerMode)) => void;
     fullscreen: boolean;
     setFullscreen: (s: boolean) => void;
     lastVolume: number;

@@ -49,7 +49,7 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
     let q: string = String(router.query.q);
 
 	const startMedia = (playIndex: number): void => {
-		load({ playIndex, playlist });
+		load({ media: musics[playIndex] });
 	};
 
     useEffect(() => {

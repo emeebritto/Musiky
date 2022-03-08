@@ -1,9 +1,9 @@
-const devENV = process.env.NODE_ENV === 'development';
-const prodAPI = 'https://cdn-istatics.herokuapp.com/static/';
-const devAPI = 'http://localhost:9872/static/';
-const BaseUrl = devENV ? devAPI : prodAPI;
+import { IstaticBaseUrl } from 'api';
+
+const BaseUrl = `${IstaticBaseUrl}static/`;
 
 export const istatic = {
+    userImg: ()=> `${IstaticBaseUrl}user-img/guest_temp`,
     iconPlay: ()=> `${BaseUrl}icons/play_arrow_black_24dp.svg`,
     stopIcon: ()=> `${BaseUrl}icons/stop_black_24dp.svg`,
     icon_playing: ()=> `${BaseUrl}icons/AnimatedSvg/playing.svg`,
@@ -51,5 +51,6 @@ export const istatic = {
     play_disabled_white: ()=> `${BaseUrl}icons/play_disabled_white_24dp.svg`,
     music_note_white: ()=> `${BaseUrl}icons/music_note_white_24dp.svg`,
     fullscreen_white: ()=> `${BaseUrl}icons/fullscreen_white_24dp.svg`,
-    close_fullscreen_white: ()=> `${BaseUrl}icons/close_fullscreen_white_24dp.svg`
+    close_fullscreen_white: ()=> `${BaseUrl}icons/close_fullscreen_white_24dp.svg`,
+    loading_jump: ()=> `${BaseUrl}icons/AnimatedSvg/loading-jump_black.svg`
 };

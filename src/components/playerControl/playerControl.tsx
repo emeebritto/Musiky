@@ -60,11 +60,12 @@ const PlayerControl: React.FC = () => {
   return (
     <ViewPort
       onClick={e =>{handlelyricsMobile(e)}}
-      style={{ display: `${prop.music ? '' : 'none'}`}}
+      style={{ display: `${prop.music && prop.mode['only_audio'] ? '' : 'none'}`}}
       >
       {prop.music &&
         <MusicInfor
           onClick={()=> {
+            if (!prop.music) return;
             router.push({
               pathname: '/watch',
               query: {

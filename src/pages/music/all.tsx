@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Music } from 'common/types';
 import { MusicList, TabTitle } from 'components';
 import { useSplashContext } from 'common/contexts/splash';
+import { usePlayer } from 'common/contexts/player';
 import { IstaticBaseUrl } from 'api';
 
 
@@ -39,8 +40,10 @@ const LoadNewZone = Styled.section`
 
 const AllMusics: NextPage = () => {
 
-    const { desableSplash } = useSplashContext();
+    // TEMP
 
+    const { desableSplash } = useSplashContext();
+    const { load } = usePlayer();
     const [musicList, setMusicList] = useState<Array<Music>>([]);
     const [secondColumn, setSecondColumn] = useState<Array<Music>>([]);
     const [page, setPage] = useState(1);
@@ -49,6 +52,12 @@ const AllMusics: NextPage = () => {
     let id = 'allCol100';
     let secondId = 'allCol200';
 
+    const startMedia1col = (playIndex: number): void => {
+        load({ media: musicList[playIndex] });
+    };
+    const startMedia2col = (playIndex: number): void => {
+        load({ media: secondColumn[playIndex] });
+    };
 
     useEffect(() => {
         async function getData() {
@@ -90,10 +99,18 @@ const AllMusics: NextPage = () => {
         <ViewPort>
             <Wrapper>
                 <MusicListWrapper>
-                    <MusicList list={musicList} listId={id}/>
+                    <MusicList
+                        list={musicList}
+                        listId={id}
+                        startMedia={startMedia1col}
+                    />
                 </MusicListWrapper>
                 <MusicListWrapper>
-                    <MusicList list={secondColumn} listId={secondId}/>
+                    <MusicList
+                        list={secondColumn}
+                        listId={secondId}
+                        startMedia={startMedia2col}
+                    />
                 </MusicListWrapper>
             </Wrapper>
             <LoadNewZone ref={ref}/>

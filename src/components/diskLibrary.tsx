@@ -5,6 +5,7 @@ import { SwiperSlide } from 'swiper/react';
 import { Music } from 'common/types';
 import { VerticalView } from 'components';
 import { usePlayer } from 'common/contexts/player';
+import { PlaylistProps } from 'common/types';
 
 const ViewPort = Styled.section`
 `
@@ -91,15 +92,15 @@ const DiskTotalTime = Styled.p`
 interface DiskLibraryProps {
   name: string;
   data: {
-    id: string,
-    list: Array<Music>
+    id: string;
+    list: Music[];
   };
 }
 
 const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
   const { load, isPlayingId } = usePlayer();
   const playSong = (index: number): void => {
-    load({ playIndex: index, playlist: data });
+    load({ media: data.list[index] });
   };
 	return(
     <VerticalView viewLabel={name}>

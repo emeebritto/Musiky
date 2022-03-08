@@ -231,7 +231,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	  		</MediaData>
 	  		<Hr/>
 		  	<InputCommentsField>
-		  		<UserImg size='40px' src={istatic.EME_branding()} alt='user image'/>
+		  		<UserImg size='40px' src={istatic.userImg()} alt='user image'/>
 		  		<InputComment placeholder='comment..'/>
 		  		<Icon
 		  			size='28px'
@@ -245,7 +245,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 		  		onMouseEnter={() => swiper.disable()}
 		  		onMouseLeave={() => swiper.enable()}
 		  	>
-		  		{!comments && <NoComments>Nothing comments</NoComments>}
+		  		{!comments && <NoComments>No comments</NoComments>}
 		  		{!!comments && comments.map((cmm, i) => {
 		  			return (
 		  				<Comment>
