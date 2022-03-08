@@ -302,7 +302,7 @@ const Watch: NextPage = () => {
 				.then(r => r.data)
 			load({ media: music });
 		}
-		changeMode({ ...prop.mode, watch:true });
+		changeMode({ ...prop.mode, only_audio: false, watch:true });
   };
 
   useEffect(()=> {
@@ -318,7 +318,7 @@ const Watch: NextPage = () => {
   useEffect(()=>{
     router.events.on("routeChangeComplete", (url: string): void => {
     	if (!url.includes('/watch')) {
-    		changeMode({ ...prop.mode, only_audio:true });
+    		changeMode({ ...prop.mode, only_audio:true, watch:false });
     	}
     });
   },[])
