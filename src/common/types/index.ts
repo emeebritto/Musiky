@@ -19,6 +19,31 @@ export interface SyntheticEvent {
     timeStamp: Date;
     type: string;
 }
+export interface CommentProps {
+  authorThumb: Array<{
+        url: string;
+        width: number;
+        height: number;
+    }>;
+  author: string;
+  authorId: string;
+  commentId: string;
+  text: string;
+  likes: number;
+  numReplies: number;
+  isOwner: boolean;
+  isHearted: boolean;
+  isPinned: boolean;
+  hasOwnerReplied: boolean;
+  time: string;
+  edited: boolean;
+  replyToken: string;
+  isVerified: boolean;
+  isOfficialArtist: boolean;
+  isMember: boolean;
+  memberIconUrl: null | string;
+  customEmojis: Array<any>;
+}
 export interface Music {
     id: string;
     target: string;
@@ -42,12 +67,7 @@ export interface Music {
         images: Array<{url: string}>;
     }>;
     comments: {
-        list: Array<{
-            author: string;
-            time: string;
-            text: string;
-            authorThumb: Array<{url: string}>;
-        }>;
+        list: CommentProps[];
         continuation: string;
     } | null;
 }

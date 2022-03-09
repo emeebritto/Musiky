@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import ReactPlayer from 'react-player';
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
 import Styled from 'styled-components';
 import { istatic } from 'api/istatic';
 import { mediaDownload } from 'common/utils';
-import { PlayerMode } from 'common/types';
-import { usePlayer, usePlayerProgress } from 'common/contexts/player';
+import { CommentProps } from 'common/types';
+import { usePlayer } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
-import { PlayerProgressControl } from 'components';
+import {
+	Comment,
+	WatchPlayer
+} from 'components';
+
 
 const ViewPort = Styled.section`
 	overflow-y: scroll;
@@ -36,77 +39,6 @@ const Media = Styled.section`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-`
-const PlayerWrapper = Styled.section`
-  position: relative;
-  border-radius: 10px;
-  width: 55.4vw;
-  height: 65vh;
-  overflow: hidden;
-`
-const VideoPlayer = Styled(ReactPlayer)`
-  position: absolute;
-  top: 0;
-  left: 0;
-`
-const Controls = Styled.section`
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	box-shadow: inset 0 -80px 90px #000;
-	transition: 400ms;
-	opacity: ${(props: {active: boolean}) => (
-		props.active ? "1" : "0"
-	)};
-`
-const VolumeWrapper = Styled.section`
-	position: absolute;
-	top: 44%;
-	right: 3%;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-	width: 40px;
-`
-export const VolumeControl = Styled.input`
-  -webkit-appearance: none;
-  border-radius: 8px;
-  width: 130px;
-  height: 4px;
-  outline: none;
-  cursor: pointer;
-  transform: rotate(-90deg);
-  padding: 6px 0;
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 40px #000;
-
-  ::-webkit-slider-thumb{
-    height: 12px;
-    width: 12px;
-    top: 0px;
-  }
-`
-export const BtnIconVolume = Styled.button`
-  border: none;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  margin: 80px 0 0 0;
-`
-const ProgressWrapper = Styled.section`
-	position: relative;
-	width: 80%;
-	height: 18%;
-	margin: 30px 0;
 `
 const AboutContent = Styled.section`
 	display: flex;
@@ -228,21 +160,6 @@ const NoComments = Styled.p`
 	opacity: .7;
 	margin: 10px 20px;
 `
-const Comment = Styled.section`
-	display: flex;
-	width: 100%;
-	margin: 15px 0;
-`
-const AboutCommentUser = Styled.section`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 10px;
-`
-const CommentText = Styled.p`
-	color: #fff;
-	width: 25em;
-	overflow: hidden;
-`
 const LoadNewZone = Styled.img`
   width: 40px;
   height: 40px;
@@ -252,49 +169,15 @@ const LoadNewZone = Styled.img`
 const Watch: NextPage = () => {
   const router = useRouter();
   const { desableSplash } = useSplashContext();
-  const [controlsVisible, setControlsVisible] = useState(false);
-  const [comments, setComments] = useState<any>([]); // TEMP
-  const [continuation, setContinuation] = useState<null | string>(null);
+  const [comments, setComments] = useState<CommentProps[]>([]);
+  const [continuation, setContinuation] = useState('');
   const [snippetComments, setSnippetComments] = useState(0);
   const zoneRef = useRef<HTMLImageElement | null>(null);
   const {
-  	ref,
   	prop,
   	load,
-  	setFullscreen,
-  	toggleMuted,
-  	changeVolumeTo,
-  	changeMode,
-  	nextMusic,
-  	onBuffer,
-  	onPlayAndPause
+  	changeMode
   } = usePlayer();
-  const { changeCurrentTimeTo, currentTime } = usePlayerProgress();
-
-  const fullscreenMode = () => {
-  	let element = ref.watchPlayerWrapper.current;
-  	const doc: any = document;
-  	let req = null;
-   	const isInFullScreen = (doc.fullscreenElement && doc.fullscreenElement !== null) ||
-      (doc.webkitFullscreenElement && doc.webkitFullscreenElement !== null) ||
-      (doc.mozFullScreenElement && doc.mozFullScreenElement !== null) ||
-      (doc.msFullscreenElement && doc.msFullscreenElement !== null);
-    if (!isInFullScreen) {
-	    req = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen;
-	    req.call(element);
-	    setFullscreen(true);
-    } else {
-	    req = doc.exitFullscreen || doc.webkitExitFullscreen || doc.mozCancelFullScreen;
-	    req.call(doc);
-	    setFullscreen(false);
-    }
-  };
-
-  function getVolumeIconStatus() {
-    if(prop.muted) return istatic.iconVolumeOff()
-    if(prop.volume < 0.4) return istatic.iconVolumeDown()
-    return istatic.iconVolume()
-  }
 
   const init = async() => {
 		if (!prop.music) {
@@ -302,18 +185,14 @@ const Watch: NextPage = () => {
 				.then(r => r.data)
 			load({ media: music });
 		}
-		changeMode({ ...prop.mode, only_audio: false, watch:true });
+		changeMode({ ...prop.mode, watch:true });
   };
 
   useEffect(()=> {
+  	changeMode({ ...prop.mode, only_audio: false });
   	if (!router.query.v) return;
   	init();
   }, [router.query.v])
-
- 	useEffect(()=> {
- 	  if (!ref.watchPlayer.current) return;
-	 	ref.watchPlayer.current.seekTo(currentTime);
- 	},[ref.watchPlayer.current])
 
   useEffect(()=>{
     router.events.on("routeChangeComplete", (url: string): void => {
@@ -340,7 +219,7 @@ const Watch: NextPage = () => {
     let resComments = await axios.get(`${IstaticBaseUrl + URL_PATH}`)
       .then(r=>r.data)
       .catch(err => console.error(err));
-    setComments((currentValue: any) => [...currentValue, ...resComments.comments]);
+    setComments((currentValue: CommentProps[]) => [...currentValue, ...resComments.comments]);
     setContinuation(resComments.continuation);
   }
   if (snippetComments) getData();
@@ -365,63 +244,7 @@ const Watch: NextPage = () => {
 		<ViewPort>
 		<Wrapper>
 			<Media>
-				<PlayerWrapper
-					ref={(wrapper: HTMLDivElement) => ref.watchPlayerWrapper.current = wrapper}
-		  		onMouseEnter={()=> setControlsVisible(true)}
-		  		onMouseLeave={()=> setControlsVisible(false)}
-				>
-		      <VideoPlayer
-		      	ref={(reactPlayer: HTMLDivElement) => ref.watchPlayer.current = reactPlayer}
-		        playing={prop.playing}
-		        volume={prop.volume}
-		        loop={prop.loop}
-		        //onDuration={(duration: number) => ()}
-		        onBuffer={()=> onBuffer(true)}
-		        onBufferEnd={()=> onBuffer(false)}
-		        onEnded={()=> nextMusic(1)}
-		        //onError={(e) => console.log(e)}
-	          onProgress={(time: {played: number, playedSeconds: number}) => {
-	            if (!prop.seeking) {
-	              changeCurrentTimeTo(time.played, time.playedSeconds);
-	            }
-	          }}
-		        url={`https://musiky-listen.herokuapp.com/${prop.music.id}?videoMode=1&source=yt`}
-		        width='100%'
-		        height='100%'
-		        config={{
-		          file: {
-		            attributes: { autoPlay: 0, controls: 0 },
-		          }
-		        }}
-		      />
-		      <Controls
-		      	onClick={()=> onPlayAndPause()}
-		      	active={controlsVisible || !prop.playing || prop.buffer}
-		      >
-		      	<VolumeWrapper onClick={e=> e.stopPropagation()}>
-			        <VolumeControl 
-			          type='range'
-			          min={0} 
-			          max={1} 
-			          step='any'
-			          value={prop.volume}
-			          onChange={(e: React.SyntheticEvent<EventTarget>): void => {
-							    let target = e.target as HTMLInputElement;
-							    changeVolumeTo(parseFloat(target.value));
-							  }}
-			        />
-			        <BtnIconVolume onClick={()=> toggleMuted()}>
-			          <img src={getVolumeIconStatus()} alt="Volume Icon"/>
-			        </BtnIconVolume>
-		      	</VolumeWrapper>
-		      	<ProgressWrapper>
-		      		<PlayerProgressControl
-		      			includes={{loop:true, fullscreen:true}}
-		      			onRequestFullscreen={fullscreenMode}
-		      		/>
-		      	</ProgressWrapper>
-		      </Controls>
-		    </PlayerWrapper>
+				<WatchPlayer/>
 		    <AboutContent>
 		    	<ArtistsProfile
 		    		src={prop.music.snippetArtistsData[0]
@@ -452,7 +275,7 @@ const Watch: NextPage = () => {
 		    <Hr margin='20px 0'/>
 		    <InputCommentsField>
 		  		<UserImg size='44px' src={istatic.userImg()} alt='user image'/>
-		  		<InputComment placeholder='comment..'/>
+		  		<InputComment placeholder="what are your feeling?"/>
 		  		<Icon
 		  			size='28px'
 		  			margin='0 10px'
@@ -462,41 +285,18 @@ const Watch: NextPage = () => {
 			  </InputCommentsField>
 		  	<CommentsWrapper>
 		  		{!comments && <NoComments>No comments</NoComments>}
-		  		{!!comments && comments.map((cmm: any, i: number) => {
+		  		{!!comments && comments.map((cmm: CommentProps, i: number) => {
 		  			return (
-		  				<Comment>
-		  					<UserImg size='40px' src={cmm.authorThumb[1].url} alt='user image'/>
-		  					<CommentData>
-		  						<AboutCommentUser>
-		  							<UserName opacity={0.8} width='190px' bold>{cmm.author}</UserName>
-		  							<Count size='0.9em' margin='0 0' opacity={0.7}>{cmm.time}</Count>
-		  						</AboutCommentUser>
-		  						<CommentText>{cmm.text.replace(/<br>/ig, '\n')}</CommentText>
-		  						<Actions>
-		  							<ActionWrapper>
-								    	<Action
-								    		size='25px'
-								    		margin='0'
-								    		src={istatic.favorite_border_white()}
-								    		alt="I'm love it"
-								    	/>
-								    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{cmm.likes}</Count>
-		  							</ActionWrapper>
-		  							<ActionWrapper>
-								    	<Action
-								    		size='25px'
-								    		margin='0'
-								    		src={istatic.chat_bubble_outline_white()}
-								    		alt="replies"
-								    	/>
-								    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{cmm.numReplies}</Count>
-							    	</ActionWrapper>
-							    </Actions>
-		  					</CommentData>
-		  				</Comment>
+		  				<Comment cmm={cmm}/>
 		  			);
 		  		})}
-		  		<LoadNewZone ref={zoneRef} src={istatic.loading_jump()} alt='loading comments'/>
+		  		{(continuation != null) &&
+		  			<LoadNewZone
+		  				ref={zoneRef}
+		  				src={istatic.loading_jump()}
+		  				alt='loading comments'
+		  			/>
+		  		}
 		  	</CommentsWrapper>
 		  </Media>
 	  </Wrapper>
