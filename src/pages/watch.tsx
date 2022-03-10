@@ -11,6 +11,7 @@ import { WatchPageContent } from 'common/types/pagesSources';
 import { usePlayer } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
 import {
+	TabTitle,
 	Comment,
 	WatchPlayer
 } from 'components';
@@ -244,6 +245,7 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 
 	return (
 		<ViewPort>
+		<TabTitle name={`Musiky - Watch`}/>
 		<Wrapper>
 			<Media>
 				<WatchPlayer/>

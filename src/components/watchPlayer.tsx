@@ -141,6 +141,8 @@ const WatchPlayer = () => {
 	        onBufferEnd={()=> onBuffer(false)}
 	        onEnded={()=> nextMusic(1)}
 	        //onError={(e) => console.log(e)}
+          onPlay={()=> prop.mode['watch']? onPlayAndPause(true):''}
+          onPause={()=> prop.mode['watch']? onPlayAndPause(false):''}
 	        onProgress={(time: {played: number, playedSeconds: number}) => {
 	          if (!prop.seeking) {
 	            changeCurrentTimeTo(time.played, time.playedSeconds);
