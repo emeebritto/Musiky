@@ -7,6 +7,7 @@ import Styled from 'styled-components';
 import { istatic } from 'api/istatic';
 import { mediaDownload } from 'common/utils';
 import { CommentProps } from 'common/types';
+import { WatchPageContent } from 'common/types/pagesSources';
 import { usePlayer } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
 import {
@@ -166,7 +167,11 @@ const LoadNewZone = Styled.img`
   margin: 20px 0;
 `
 
-const Watch: NextPage = () => {
+interface Props {
+	pageContent: WatchPageContent;
+}
+
+const Watch: NextPage<Props> = ({ pageContent }) => {
   const router = useRouter();
   const { desableSplash } = useSplashContext();
   const [comments, setComments] = useState<CommentProps[]>([]);
@@ -181,22 +186,19 @@ const Watch: NextPage = () => {
 
   const init = async() => {
 		if (!prop.music) {
-			const music = await axios.get(`${IstaticBaseUrl}music/${router.query.v}`)
-				.then(r => r.data)
-			load({ media: music });
+			load({ media: pageContent.media });
 		}
-		changeMode({ ...prop.mode, watch:true });
+		changeMode({ ...prop.mode, only_audio: false, watch:true });
   };
 
   useEffect(()=> {
-  	changeMode({ ...prop.mode, only_audio: false });
   	if (!router.query.v) return;
   	init();
   }, [router.query.v])
 
   useEffect(()=>{
     router.events.on("routeChangeComplete", (url: string): void => {
-    	if (!url.includes('/watch')) {
+    	if (!url.includes('/watch') && prop.mode['watch']) {
     		changeMode({ ...prop.mode, only_audio:true, watch:false });
     	}
     });
@@ -235,7 +237,7 @@ const Watch: NextPage = () => {
     })
     intersectionObserver.observe(node);
     return () => intersectionObserver.disconnect();
-  }, [zoneRef]);
+  }, [zoneRef.current]);
 
 	if (prop.music) desableSplash();
   if (!prop.music) return(<></>);
@@ -305,3 +307,13 @@ const Watch: NextPage = () => {
 }
 
 export default Watch;
+
+export const getServerSideProps: GetServerSideProps = async(context) => {
+	const mediaId: string | string[] | undefined = context?.query?.v;
+
+  const URL = `http://${context.req.headers.host}/api/pages/watch?v=${mediaId}`;
+  const pageContent = await axios.get(URL).then(r => r.data);
+  return {
+    props: { pageContent }, // will be passed to the page component as props
+  }
+}

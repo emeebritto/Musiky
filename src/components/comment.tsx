@@ -58,6 +58,18 @@ const CommentText = Styled.p`
 	width: 25em;
 	overflow: hidden;
 `
+const TranslateBtn = Styled.button`
+	border: none;
+	background-color: transparent;
+	color: #305BE8;
+	font-size: 0.9em;
+	padding: 5px;
+	margin: 5px 0;
+	cursor: pointer;
+`
+const TranslateText = Styled.p`
+	margin: 5px 0 12px 0;
+`
 const Actions = Styled.section`
 	display: flex;
 `
@@ -120,18 +132,30 @@ interface Props {
 const Comment: React.FC<Props> = ({ cmm }) => {
 	const { prop } = usePlayer();
 	const [replies, setReplies] = useState<CommentProps[]>([]);
+	const [translate, setTranslate] = useState('');
 	const [repliesContinuation, setRepliesContinuation] = useState('');
+	const [loadingReplies, setLoadingReplies] = useState(false);
 	const mediaId = prop.music ? prop.music.id : null;
 
 	const getReplies = async(token: string): Promise<void> => {
 		if (!cmm.numReplies || !mediaId) return;
+		setLoadingReplies(true);
 		const repliesData = await axios
 			.get(`${IstaticBaseUrl}comments?id=${mediaId}&replyToken=${token}`)
 			.then(r => r.data)
 		setReplies((replies: CommentProps[]): CommentProps[] => (
 			[...replies, ...repliesData.comments]
 		));
+		setLoadingReplies(false);
 		setRepliesContinuation(repliesData.continuation);
+	};
+
+	const translateComment = async(): Promise<void> => {
+		const translatedText = await axios
+			.post(`${IstaticBaseUrl}translate?to=pt`, { text: cmm.text.replace(/<br>/ig, '\n')})
+			.then(r => r.data)
+			.catch(err => console.error(err))
+		setTranslate(translatedText.text);
 	};
 
 	return (
@@ -143,9 +167,21 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 					<Count size='0.9em' margin='0 0' opacity={0.7}>{cmm.time}</Count>
 				</AboutCommentUser>
 				<CommentText>{cmm.text.replace(/<br>/ig, '\n')}</CommentText>
+				<TranslateBtn onClick={()=> {
+						translate.length
+							? setTranslate('')
+							: translateComment();
+					}}
+				>
+					{!!translate.length? 'Hide' :'See'} Translate • PT-BR
+				</TranslateBtn>
+				{!!translate.length &&
+					<TranslateText>{translate}</TranslateText>
+				}
 				<Actions>
 					<ActionWrapper
 						onClick={() => {
+							if (loadingReplies) return;
 							replies.length
 								? setReplies([])
 							  : getReplies(cmm.replyToken)
@@ -155,7 +191,11 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 			    	<Action
 			    		size='25px'
 			    		margin='0'
-			    		src={istatic.chat_bubble_outline_white()}
+			    		src={
+			    			loadingReplies
+					    		?	istatic.loading_jump()
+					    		:	istatic.chat_bubble_outline_white()
+			    		}
 			    		alt="replies"
 			    	/>
 			    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{cmm.numReplies}</Count>
@@ -196,8 +236,13 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 				))}
 				{(!!replies.length && repliesContinuation) &&
 					<section>
-						<LoadMoreBtn onClick={()=> getReplies(repliesContinuation)}>
-							SHOW MORE
+						<LoadMoreBtn 
+							onClick={()=> {
+								if (loadingReplies) return;
+								getReplies(repliesContinuation)
+							}}
+						>
+							{loadingReplies ? '. . .' : 'SHOW MORE'}
 						</LoadMoreBtn>
 						<GoToTopBtn href={`#${cmm.commentId}`}>GO TO TOP</GoToTopBtn>
 					</section>

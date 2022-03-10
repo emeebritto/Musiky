@@ -7,7 +7,6 @@ export interface ExploreContent {
         list: Array<Music>
     };
 }
-
 export interface HomeContent {
     recommendations: {
         clip: Music;
@@ -27,9 +26,11 @@ export interface HomeContent {
     playlists: any;
     artists: Array<ArtistDataProps>;
 }
-
 export interface SearchPageContent {
 	playlists: any;
 	artists: Array<ArtistDataProps>;
 	searchSuggestions: Array<string>;
+}
+export interface WatchPageContent {
+    media: Music;
 }

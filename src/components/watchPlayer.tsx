@@ -120,7 +120,7 @@ const WatchPlayer = () => {
 
  	useEffect(()=> {
  		const playerNode = ref.watchPlayer?.current;
- 	  if (!playerNode || !prop.music || !prop.mode['watch']) return;
+ 	  if (!playerNode || !prop.music || !prop.mode['watch'] || !currentTime) return;
 	 	playerNode.seekTo(currentTime);
  	},[ref.watchPlayer.current])
 
