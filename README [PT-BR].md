@@ -9,10 +9,10 @@ Você pode acessa a ultima versão do projeto na [Vercel](http://musiky.vercel.a
 
 * Devido a dependencias externas, ainda não é possivel executar-lo localmente.
 
-## FrameWorks
+## FrameWorks/Tools
 
-- NodeJs;
-- Next (React);
+- NodeJs (Express);
+- Next.js (React);
 - Typescript;
 - Vue;
 

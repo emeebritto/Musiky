@@ -32,6 +32,8 @@ const PlayerControl: React.FC = () => {
   } = usePlayer();
   const { lyricProp, toggleLyrics } = useLyricContext();
 
+  const IsAllowed = prop.mode['only_audio'];
+
   const handlelyrics = (): void => {
     toggleLyrics();
   }
@@ -60,7 +62,7 @@ const PlayerControl: React.FC = () => {
   return (
     <ViewPort
       onClick={e =>{handlelyricsMobile(e)}}
-      style={{ display: `${prop.music && prop.mode['only_audio'] ? '' : 'none'}`}}
+      style={{ display: `${prop.music && IsAllowed ? '' : 'none'}`}}
       >
       {prop.music &&
         <MusicInfor

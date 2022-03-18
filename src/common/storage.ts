@@ -38,7 +38,7 @@ export class DataStorage {
 
   static hasToken(): boolean {
     if (typeof window !== 'undefined') {
-      return Boolean(localStorage.getItem(tokenSlotName));
+      return !!localStorage.getItem(tokenSlotName);
     }
     return false;
   }

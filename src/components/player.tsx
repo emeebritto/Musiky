@@ -22,6 +22,8 @@ const ReactPlayerComp: React.FC = () => {
 
   const {
     ref,
+    load,
+    IsReady,
     prop,
     onBuffer,
     onPlayAndPause,
@@ -33,35 +35,38 @@ const ReactPlayerComp: React.FC = () => {
     currentTime
   } = usePlayerProgress();
 
-  useEffect(()=> {
+  const IsAllowed = prop.mode['only_audio'];
+
+  useEffect(() => {
     document.addEventListener("contextmenu", e => e.preventDefault());
     return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
-  },[])
+  },[]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!prop.mode['only_audio'] || !ref.audPlayer.current) return;
     ref.audPlayer.current.seekTo(currentTime);
-  },[prop.mode])
+  },[prop.mode]);
 
   return (
     <ViewPort>
       {prop.music &&
         <VideoPlayer
           ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
-          playing={prop.mode['only_audio'] && prop.playing}
+          onReady={IsReady}
+          playing={IsAllowed && prop.playing}
           volume={prop.volume}
           loop={prop.loop}
-          onPlay={()=> prop.mode['only_audio']? onPlayAndPause(true):''}
-          onPause={()=> prop.mode['only_audio']? onPlayAndPause(false):''}
+          onPlay={()=> IsAllowed ? onPlayAndPause(true):''}
+          onPause={()=> IsAllowed ? onPlayAndPause(false):''}
           onProgress={(time: {played: number, playedSeconds: number}) => {
-            if (!prop.seeking && prop.mode['only_audio']) {
+            if (!prop.seeking && IsAllowed) {
               changeCurrentTimeTo(time.played, time.playedSeconds);
             }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
           onBuffer={()=> onBuffer(true)}
           onBufferEnd={()=> onBuffer(false)}
-          onEnded={()=> prop.mode['only_audio']? nextMusic(1):''}
+          onEnded={()=> IsAllowed ? nextMusic(1):''}
           //onError={(e) => console.log(e)}
           url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
           width='100vw'

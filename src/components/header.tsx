@@ -130,7 +130,7 @@ const Header: React.FC = () => {
           />
         </NavigationControl>
       </HeaderLeft>
-      {hasAccount() &&
+      {/*hasAccount()*/ false &&
         <ProfileField>
           <ProfileImg src={istatic.EME_branding()} alt="perfilePhoto"/>
           <UserName>{props.displayName}</UserName>
@@ -138,7 +138,7 @@ const Header: React.FC = () => {
       }
       <HeaderRight>
         <Time margin={`0 25px`}/>
-        {!hasAccount() &&
+        {/*hasAccount()*/ true &&
           <SignInBtn onClick={()=> redirectLogin()}>
             <AccountIcon src={istatic.iconAccount()} alt='account icon' />
             SIGN IN

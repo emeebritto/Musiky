@@ -59,6 +59,7 @@ export interface Music {
     thumbnails: Array<{ url: string }>;
     duration: string;
     durationSec: number;
+    startIn?: number;
     viewCount: number;
     artists: Array<string>;
     snippetArtistsData: Array<{
@@ -103,6 +104,9 @@ export interface PlayerMode {
     //[key: string]: boolean;
     only_audio: boolean;
     watch: boolean;
+    radio: null | {
+        channel: string;
+    };
 }
 export interface PlayerContextData {
     ref: {

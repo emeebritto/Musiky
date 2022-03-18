@@ -17,7 +17,12 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [music, setMusic] = useState<null | Music>(null);
 	const [playing, setPlaying] = useState(false);
-	const [mode, setMode] = useState<PlayerMode>({ only_audio: true, watch: false });
+	const [syncedStartIn, setSyncedStartIn] = useState(false);
+	const [mode, setMode] = useState<PlayerMode>({
+		only_audio: true,
+		watch: false,
+		radio: { channel: 'ch13' }
+	});
 	const [fullscreen, setFullscreen] = useState(false);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
@@ -26,6 +31,7 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [seeking, setSeeking] = useState(false);
 	const [buffer, setBuffer] = useState(false);
 	const [muted, setMuted] = useState(false);
+	const socket = useRef(null);
 	const audPlayer = useRef(null);
 	const watchPlayer = useRef(null);
 	const watchPlayerWrapper = useRef(null);
@@ -35,12 +41,15 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 			<PlayerFlowProvider>
 				<PlayerContext.Provider value={{
 					ref: {
+						socket,
 						audPlayer,
 						watchPlayer,
 						watchPlayerWrapper
 					},
 					music,
 					setMusic,
+					syncedStartIn,
+					setSyncedStartIn,
 					playing,
 					setPlaying,
 					mode,
