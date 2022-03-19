@@ -181,29 +181,19 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
   const zoneRef = useRef<HTMLImageElement | null>(null);
   const {
   	prop,
-  	load,
-  	changeMode
+  	load
   } = usePlayer();
 
   const init = async() => {
 		if (!prop.music) {
 			load({ media: pageContent.media });
 		}
-		changeMode({ ...prop.mode, only_audio: false, watch:true });
   };
 
   useEffect(()=> {
   	if (!router.query.v) return;
   	init();
   }, [router.query.v])
-
-  useEffect(()=>{
-    router.events.on("routeChangeComplete", (url: string): void => {
-    	if (!url.includes('/watch') && prop.mode['watch']) {
-    		changeMode({ ...prop.mode, only_audio:true, watch:false });
-    	}
-    });
-  },[])
 
   useEffect(()=>{
   	setSnippetComments(0);

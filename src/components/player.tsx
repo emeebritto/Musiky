@@ -23,7 +23,7 @@ const ReactPlayerComp: React.FC = () => {
   const {
     ref,
     load,
-    IsReady,
+    isReady,
     prop,
     onBuffer,
     onPlayAndPause,
@@ -35,38 +35,38 @@ const ReactPlayerComp: React.FC = () => {
     currentTime
   } = usePlayerProgress();
 
-  const IsAllowed = prop.mode['only_audio'];
+  const IsAllowed = prop.mode.includes('player:audio');
 
   useEffect(() => {
     document.addEventListener("contextmenu", e => e.preventDefault());
     return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
   },[]);
 
-  useEffect(() => {
-    if (!prop.mode['only_audio'] || !ref.audPlayer.current) return;
-    ref.audPlayer.current.seekTo(currentTime);
-  },[prop.mode]);
+//  useEffect(() => {
+//    if (!IsAllowed || !ref.audPlayer.current) return;
+//    ref.audPlayer.current.seekTo(currentTime);
+//  },[prop.mode]);
 
   return (
     <ViewPort>
       {prop.music &&
         <VideoPlayer
           ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
-          onReady={IsReady}
+          onReady={isReady}
           playing={IsAllowed && prop.playing}
           volume={prop.volume}
           loop={prop.loop}
-          onPlay={()=> IsAllowed ? onPlayAndPause(true):''}
-          onPause={()=> IsAllowed ? onPlayAndPause(false):''}
+          onPlay={()=> IsAllowed && onPlayAndPause(true)}
+          onPause={()=> IsAllowed && onPlayAndPause(false)}
           onProgress={(time: {played: number, playedSeconds: number}) => {
             if (!prop.seeking && IsAllowed) {
               changeCurrentTimeTo(time.played, time.playedSeconds);
             }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
-          onBuffer={()=> onBuffer(true)}
-          onBufferEnd={()=> onBuffer(false)}
-          onEnded={()=> IsAllowed ? nextMusic(1):''}
+          onBuffer={()=> IsAllowed && onBuffer(true)}
+          onBufferEnd={()=> IsAllowed && onBuffer(false)}
+          onEnded={()=> IsAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
           url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
           width='100vw'

@@ -83,6 +83,7 @@ const WatchPlayer = () => {
   const {
   	ref,
   	prop,
+  	isLive,
   	toggleMuted,
   	changeVolumeTo,
   	setFullscreen,
@@ -118,11 +119,11 @@ const WatchPlayer = () => {
     return istatic.iconVolume()
   }
 
- 	useEffect(()=> {
- 		const playerNode = ref.watchPlayer?.current;
- 	  if (!playerNode || !prop.music || !prop.mode['watch'] || !currentTime) return;
-	 	playerNode.seekTo(currentTime);
- 	},[ref.watchPlayer.current])
+// 	useEffect(()=> {
+// 		const playerNode = ref.watchPlayer?.current;
+// 	  if (!playerNode || !prop.music || !prop.mode['watch'] || !currentTime) return;
+//	 	playerNode.seekTo(currentTime);
+// 	},[ref.watchPlayer.current])
 
 	return (
 		<PlayerWrapper
@@ -180,6 +181,7 @@ const WatchPlayer = () => {
       	</VolumeWrapper>
       	<ProgressWrapper>
       		<PlayerProgressControl
+      			isLive={isLive}
       			includes={{loop:true, fullscreen:true}}
       			onRequestFullscreen={fullscreenMode}
       		/>

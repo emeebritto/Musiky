@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { io } from "socket.io-client";
 import axios from 'axios';
 import { IstaticBaseUrl } from 'api';
@@ -29,6 +30,8 @@ export function usePlayer() {
     setSyncedStartIn,
     mode,
     setMode,
+    isLive,
+    setIsLive,
     fullscreen,
     setFullscreen,
 		volume,
@@ -55,20 +58,45 @@ export function usePlayer() {
 	} = usePlaylistContext();
 
   const { updateHistory } = useAccountContext();
+  const router = useRouter();
 
 // ==================================================================
 
+  const switchMode = (newMode?: string[]): void => {
+    if (!newMode || !newMode.length) return;
+    setMode([...newMode]);
+  }
+
   const load = async({
+    wsMedia=null,
+    isWs=false,
     media=null,
     playIndex=0,
     playlist=null,
     onEnded
   }:{
+    wsMedia?: string,
     media?: Music | null,
+    isWs?: string,
     playIndex?: number,
     playlist?: PlaylistProps | null,
     onEnded?: () => Promise<PlaylistProps>
   }): Promise<void> => {
+
+    if (wsMedia) {
+      let socket = ref.socket?.current;
+      if (!socket) ref.socket.current = io("ws://localhost:9870");
+      setIsLive(true);
+      ref.socket.current.emit("connect-media", wsMedia);
+      ref.socket.current.on("update-channel", media => {
+        load({ media, isWs: true });
+      });
+      return;
+    } else if (ref.socket?.current && !isWs) {
+      setIsLive(false);
+      ref.socket.current.emit("disconnect-media");
+      ref.socket.current = null;
+    }
 
     if (media) {
       setMusic(media);
@@ -96,14 +124,15 @@ export function usePlayer() {
   }
 
   const stopPlayer = (): void => {
+    let socket = ref.socket?.current;
+    if (socket) {
+      socket.emit("disconnect-media");
+      ref.socket.current = null;
+    }
+    setIsLive(false);
     stopPlaylist();
     setMusic(null);
     setBuffer(false);
-  }
-
-  const changeMode = (newMode?: PlayerMode): void => {
-    if (!newMode) return;
-    setMode(newMode);
   }
 
   const onBuffer = (status: boolean): void => {
@@ -111,9 +140,10 @@ export function usePlayer() {
   }
 
   const onPlayAndPause = (status: boolean | undefined = undefined): void => {
-    if(status !== undefined) {
+    if (status === false && ref.socket?.current) stopPlayer();
+    if (status !== undefined) {
       setPlaying(status);
-      return
+      return;
     };
     setPlaying((status: boolean) => !status);
   }
@@ -167,7 +197,7 @@ export function usePlayer() {
   const handleSeekMouseUp = (e: React.SyntheticEvent<EventTarget>): void => {
     let target = e.target as HTMLInputElement;
     setSeeking(false);
-    mode['only_audio']
+    mode.includes('player:audio')
       ? ref.audPlayer.current.seekTo(parseFloat(target.value))
       : ref.watchPlayer.current.seekTo(parseFloat(target.value))
   }
@@ -181,8 +211,7 @@ export function usePlayer() {
     return false;
   }
 
-  const IsReady = () => {
-    console.log('ready!!');
+  const isReady = () => {
     if (music.startIn && ref.audPlayer.current && !syncedStartIn) {
       setSyncedStartIn(true);
       ref.audPlayer.current.seekTo(music.startIn, 'seconds');
@@ -190,28 +219,14 @@ export function usePlayer() {
   };
 
   useEffect(()=>{
-    let socket = ref.socket?.current;
-    if (mode['radio']?.channel && !socket) {
-      ref.socket.current = io("ws://localhost:9870");
-      ref.socket.current.emit("connect-radio", mode['radio'].channel);
-      ref.socket.current.on("update-channel", media => {
-        load({ media });
-      });
-    } else if (!mode['radio']?.channel && socket) {
-      socket.emit("disconnect-radio");
-      ref.socket.current = null;
-    }
-  },[mode])
-
-  //useEffect(() => {
-  //  let socket = ref.socket?.current;
-  //  if (mode['radio']?.channel && socket) {      
-  //    socket.emit("connect-radio", mode['radio'].channel);
-  //    socket.on("update-channel", media => {
-  //      load({ media });
-  //    });
-  //  }
-  //},[ref.socket.current]);
+    router.events.on("routeChangeComplete", (url: string): void => {
+      if (url.includes('/watch')) {
+        setSyncedStartIn(false);
+        switchMode(['player:watch'])
+      };
+      if (!url.includes('/watch')) switchMode(['player:audio']);
+    });
+  },[])
 
 
   return {
@@ -229,10 +244,11 @@ export function usePlayer() {
       fullscreen
     },
   	load,
-    IsReady,
+    isReady,
     stopPlayer,
     setFullscreen,
-    changeMode,
+    switchMode,
+    isLive,
   	onBuffer,
   	onPlayAndPause,
   	nextMusic,

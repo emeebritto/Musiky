@@ -18,11 +18,8 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [music, setMusic] = useState<null | Music>(null);
 	const [playing, setPlaying] = useState(false);
 	const [syncedStartIn, setSyncedStartIn] = useState(false);
-	const [mode, setMode] = useState<PlayerMode>({
-		only_audio: true,
-		watch: false,
-		radio: { channel: 'ch13' }
-	});
+	const [mode, setMode] = useState<string[]>(['player:audio']);
+	const [isLive, setIsLive] = useState(false);
 	const [fullscreen, setFullscreen] = useState(false);
 	const [volume, setVolume] = useState(1);
 	const [lastVolume, setLastVolume] = useState(0);
@@ -54,6 +51,8 @@ export const PlayerProvider: React.FC<LayoutProps> = ({ children }) => {
 					setPlaying,
 					mode,
 					setMode,
+					isLive,
+					setIsLive,
 					fullscreen,
 					setFullscreen,
 					volume,

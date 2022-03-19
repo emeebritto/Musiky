@@ -120,8 +120,10 @@ export interface PlayerContextData {
     setPlaying: (s: boolean | ((s: boolean) => boolean)) => void;
     volume: number;
     setVolume: (s: number) => void;
-    mode: PlayerMode;
-    setMode: (s: PlayerMode | ((s: PlayerMode) => PlayerMode)) => void;
+    mode: string[];
+    setMode: (s: string[] | ((s: string[]) => string[])) => void;
+    isLive: boolean;
+    setIsLive: (s: boolean | ((s: boolean) => boolean)) => void;
     fullscreen: boolean;
     setFullscreen: (s: boolean) => void;
     lastVolume: number;

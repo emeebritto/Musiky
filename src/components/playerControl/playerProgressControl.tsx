@@ -25,11 +25,13 @@ interface Props {
     loop?: boolean;
     fullscreen?: boolean;
   };
+  isLive?: string;
   onRequestFullscreen?: ()=> void;
 };
 
 const PlayerProgressControl: React.FC<Props> = ({
   includes={},
+  isLive,
   onRequestFullscreen
 }) => {
 
@@ -108,14 +110,14 @@ const PlayerProgressControl: React.FC<Props> = ({
          {fromSecondsToTime(currentTimeSec)}
       </MusicTimeCounter>
       <MusicTimeTotal>
-         {fromSecondsToTime(prop.duration)}
+         {isLive? 'LIVE' : fromSecondsToTime(prop.duration)}
       </MusicTimeTotal>
       <DurationSlider
         type='range' min={0} max={0.999999} step='any' 
-        value={currentTime}
-        onChange={e => {handleSeekChange(e)}}
-        onMouseDown={() => {handleSeekMouseDown()}}
-        onMouseUp={e => {handleSeekMouseUp(e)}}
+        value={isLive? 0.999 : currentTime}
+        onChange={e => {if (!isLive) handleSeekChange(e)}}
+        onMouseDown={() => {if (!isLive) handleSeekMouseDown()}}
+        onMouseUp={e => {if (!isLive) handleSeekMouseUp(e)}}
       />
     </PlayerControlPainel>
 	);

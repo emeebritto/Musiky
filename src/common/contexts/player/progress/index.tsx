@@ -1,5 +1,6 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { PlayerProgressContext } from './playerProgress-provider';
+import { PlayerContext } from '../player-provider';
 export { PlayerProgressProvider } from './playerProgress-provider';
 
 export function usePlayerProgress() {
@@ -10,6 +11,8 @@ export function usePlayerProgress() {
     currentTimeSec,
     setCurrentTimeSec
 	} = useContext(PlayerProgressContext);
+
+	const { ref, isLive, mode } = useContext(PlayerContext);
 
 
 // =============================================================
@@ -23,6 +26,15 @@ export function usePlayerProgress() {
     let target = e.target as HTMLInputElement;
     setCurrentTime(parseFloat(target.value));
   }
+
+  useEffect(()=>{
+  	const audPlayerRef = ref.audPlayer?.current;
+  	const watchPlayerRef = ref.watchPlayer?.current;
+  	if (!audPlayerRef || isLive) return;
+    mode.includes('player:audio')
+      ? ref.audPlayer.current.seekTo(currentTime)
+      : setTimeout(() => ref.watchPlayer.current.seekTo(currentTime), 1000);
+  },[mode])
 
 	return {
 		changeCurrentTimeTo,
