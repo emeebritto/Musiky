@@ -91,8 +91,10 @@ const WatchPlayer = () => {
   	onBuffer,
   	onPlayAndPause
   } = usePlayer();
-  const { changeCurrentTimeTo, currentTime } = usePlayerProgress();
+  const { changeCurrentTimeTo } = usePlayerProgress();
   const [controlsVisible, setControlsVisible] = useState(false);
+
+  const isAllowed = prop.mode.includes('player:watch');
 
   const fullscreenMode = () => {
   	let element = ref.watchPlayerWrapper.current;
@@ -119,12 +121,6 @@ const WatchPlayer = () => {
     return istatic.iconVolume()
   }
 
-// 	useEffect(()=> {
-// 		const playerNode = ref.watchPlayer?.current;
-// 	  if (!playerNode || !prop.music || !prop.mode['watch'] || !currentTime) return;
-//	 	playerNode.seekTo(currentTime);
-// 	},[ref.watchPlayer.current])
-
 	return (
 		<PlayerWrapper
 			ref={(wrapper: HTMLDivElement) => ref.watchPlayerWrapper.current = wrapper}
@@ -142,8 +138,8 @@ const WatchPlayer = () => {
 	        onBufferEnd={()=> onBuffer(false)}
 	        onEnded={()=> nextMusic(1)}
 	        //onError={(e) => console.log(e)}
-          onPlay={()=> prop.mode['watch']? onPlayAndPause(true):''}
-          onPause={()=> prop.mode['watch']? onPlayAndPause(false):''}
+          onPlay={()=> isAllowed && onPlayAndPause(true)}
+          onPause={()=> isAllowed && onPlayAndPause(false)}
 	        onProgress={(time: {played: number, playedSeconds: number}) => {
 	          if (!prop.seeking) {
 	            changeCurrentTimeTo(time.played, time.playedSeconds);

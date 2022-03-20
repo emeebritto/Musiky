@@ -1,5 +1,5 @@
 import React, { createContext, useState, useRef } from 'react';
-import { PlayerContextData, Music, PlayerMode } from 'common/types';
+import { PlayerContextData, Music } from 'common/types';
 import {
 	PlayerProgressProvider,
 	PlayerFlowProvider

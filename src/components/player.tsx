@@ -22,7 +22,6 @@ const ReactPlayerComp: React.FC = () => {
 
   const {
     ref,
-    load,
     isReady,
     prop,
     onBuffer,
@@ -31,8 +30,7 @@ const ReactPlayerComp: React.FC = () => {
     handleDuration
   } = usePlayer();
   const {
-    changeCurrentTimeTo,
-    currentTime
+    changeCurrentTimeTo
   } = usePlayerProgress();
 
   const IsAllowed = prop.mode.includes('player:audio');
@@ -42,10 +40,6 @@ const ReactPlayerComp: React.FC = () => {
     return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
   },[]);
 
-//  useEffect(() => {
-//    if (!IsAllowed || !ref.audPlayer.current) return;
-//    ref.audPlayer.current.seekTo(currentTime);
-//  },[prop.mode]);
 
   return (
     <ViewPort>
@@ -53,6 +47,7 @@ const ReactPlayerComp: React.FC = () => {
         <VideoPlayer
           ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
           onReady={isReady}
+          playbackRate={1}
           playing={IsAllowed && prop.playing}
           volume={prop.volume}
           loop={prop.loop}
@@ -61,14 +56,14 @@ const ReactPlayerComp: React.FC = () => {
           onProgress={(time: {played: number, playedSeconds: number}) => {
             if (!prop.seeking && IsAllowed) {
               changeCurrentTimeTo(time.played, time.playedSeconds);
-            }
+           }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
           onBuffer={()=> IsAllowed && onBuffer(true)}
           onBufferEnd={()=> IsAllowed && onBuffer(false)}
           onEnded={()=> IsAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
-          url={`https://musiky-listen.herokuapp.com/chunk/${prop.music ? prop.music.id : ''}`}
+          url={`https://musiky-listen.herokuapp.com/chunk/${prop.music?.id || ''}`}
           width='100vw'
           height='100vh'
           hidden

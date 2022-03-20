@@ -25,7 +25,7 @@ interface Props {
     loop?: boolean;
     fullscreen?: boolean;
   };
-  isLive?: string;
+  isLive?: boolean;
   onRequestFullscreen?: ()=> void;
 };
 

@@ -28,13 +28,11 @@ export function usePlayerProgress() {
   }
 
   useEffect(()=>{
-  	const audPlayerRef = ref.audPlayer?.current;
-  	const watchPlayerRef = ref.watchPlayer?.current;
-  	if (!audPlayerRef || isLive) return;
+  	if (isLive) return;
     mode.includes('player:audio')
-      ? ref.audPlayer.current.seekTo(currentTime)
-      : setTimeout(() => ref.watchPlayer.current.seekTo(currentTime), 1000);
-  },[mode])
+      ? ref.audPlayer?.current?.seekTo(currentTime)
+      : setTimeout(() => ref.watchPlayer?.current?.seekTo(currentTime), 1000);
+  },[ref.watchPlayer.current, ref.audPlayer.current, mode])
 
 	return {
 		changeCurrentTimeTo,

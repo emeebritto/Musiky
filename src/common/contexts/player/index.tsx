@@ -14,7 +14,6 @@ import {
   EventTarget,
   SyntheticEvent,
   Music,
-  PlayerMode,
   PlaylistProps
 } from 'common/types';
 
@@ -75,9 +74,9 @@ export function usePlayer() {
     playlist=null,
     onEnded
   }:{
-    wsMedia?: string,
+    wsMedia?: string | null,
     media?: Music | null,
-    isWs?: string,
+    isWs?: boolean,
     playIndex?: number,
     playlist?: PlaylistProps | null,
     onEnded?: () => Promise<PlaylistProps>
@@ -88,7 +87,7 @@ export function usePlayer() {
       if (!socket) ref.socket.current = io("ws://localhost:9870");
       setIsLive(true);
       ref.socket.current.emit("connect-media", wsMedia);
-      ref.socket.current.on("update-channel", media => {
+      ref.socket.current.on("update-channel", (media: Music): void => {
         load({ media, isWs: true });
       });
       return;
@@ -212,13 +211,13 @@ export function usePlayer() {
   }
 
   const isReady = () => {
-    if (music.startIn && ref.audPlayer.current && !syncedStartIn) {
+    if (music?.startIn && !syncedStartIn) {
       setSyncedStartIn(true);
-      ref.audPlayer.current.seekTo(music.startIn, 'seconds');
+      ref.audPlayer?.current?.seekTo(music.startIn, 'seconds');
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     router.events.on("routeChangeComplete", (url: string): void => {
       if (url.includes('/watch')) {
         setSyncedStartIn(false);

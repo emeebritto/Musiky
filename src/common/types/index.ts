@@ -100,6 +100,7 @@ export interface ArtistDataProps {
     };
     genres: Array<string>;
 }
+/*
 export interface PlayerMode {
     //[key: string]: boolean;
     only_audio: boolean;
@@ -108,11 +109,13 @@ export interface PlayerMode {
         channel: string;
     };
 }
+*/
 export interface PlayerContextData {
     ref: {
         audPlayer: any;
         watchPlayer: any;
         watchPlayerWrapper: any;
+        socket: any;
     };
     music: Music | null;
     setMusic: (s: Music | null) => void;
@@ -120,6 +123,8 @@ export interface PlayerContextData {
     setPlaying: (s: boolean | ((s: boolean) => boolean)) => void;
     volume: number;
     setVolume: (s: number) => void;
+    syncedStartIn: boolean;
+    setSyncedStartIn: (s: boolean) => void;
     mode: string[];
     setMode: (s: string[] | ((s: string[]) => string[])) => void;
     isLive: boolean;

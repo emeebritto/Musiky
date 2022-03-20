@@ -6,7 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  if (!res.socket.server.io) {
+  /*if (!res.socket.server.io) {
     console.log('*First use, starting socket.io')
 
     const io = new Server(res.socket.server)
@@ -22,7 +22,8 @@ export default async function handler(
   } else {
     console.log('socket.io already running')
   }
-  res.end()
+  res.end()*/
+  res.json({msg: 'Unavailable'});
 }
 
 export const config = {
