@@ -223,7 +223,9 @@ export function usePlayer() {
         setSyncedStartIn(false);
         switchMode(['player:watch'])
       };
-      if (!url.includes('/watch')) switchMode(['player:audio']);
+      if (!url.includes('/watch') && mode.includes('player:watch')) {
+        switchMode(['player:audio']);
+      };
     });
   },[])
 

@@ -17,15 +17,20 @@ const SwiperBtnStyle = Styled.img`
   )};
 `
 const RightBtn = Styled(SwiperBtnStyle)`
-  right: -2%;
+  right: ${(props:{right?: string}) => (props.right || "-2%")};
   transform: rotate(-90deg);
 `
 const LeftBtn = Styled(SwiperBtnStyle)`
-  left: -2%;
+  left: ${(props:{left?: string}) => (props.left || "-2%")};
   transform: rotate(90deg);
 `
 
-const SwiperBtns = () => {
+interface Props {
+  right?: string;
+  left?: string;
+}
+
+const SwiperBtns: React.FC<Props> = ({ right, left }) => {
 	const swiper = useSwiper();
 	const [isBeginning, setIsBeginning] = useState(true);
 	const [isEnd, setIsEnd] = useState(false);
@@ -43,15 +48,22 @@ const SwiperBtns = () => {
 		updateStatus();
 	};
 
+  useEffect(() => {
+    window.addEventListener("resize", updateStatus);
+    return ()=> window.removeEventListener("resize", updateStatus);
+  },[]);
+
   return (
     <>
       <RightBtn
+        right={right}
       	onClick={slideNext}
       	src={istatic.arrow_white()}
       	alt='RightBtn'
         visible={!isEnd}
       />
       <LeftBtn
+        left={left}
       	onClick={slidePrev}
       	src={istatic.arrow_white()}
       	alt='LeftBtn'

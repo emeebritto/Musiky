@@ -241,9 +241,10 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 				<WatchPlayer/>
 		    <AboutContent>
 		    	<ArtistsProfile
-		    		src={prop.music.snippetArtistsData[0]
-		    			? prop.music.snippetArtistsData[0].images[1].url
-		    			: prop.music.sourceBy.thumbnails[1].url
+		    		src={
+		    			prop.music?.snippetArtistsData[0]
+			    			? prop.music.snippetArtistsData[0].images[1].url
+			    			: prop.music.sourceBy.thumbnails[1].url
 		    		}
 		    		alt='artist profile image'
 		    	/>

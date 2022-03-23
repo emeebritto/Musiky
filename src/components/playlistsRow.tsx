@@ -8,7 +8,7 @@ import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { istatic } from 'api/istatic';
 import { PlaylistProps } from 'common/types';
-import { VerticalView } from 'components';
+import { VerticalView, SwiperBtns } from 'components';
 
 
 const PlayList = Styled.section`
@@ -83,12 +83,15 @@ const BtnPLayHoverImg = Styled.img`
 
 const PlayListImg = Styled.img`
   position: relative;
-  border-radius: 10px;
+  border-radius: 6px;
   width: 150px;
   height: 150px;
   filter: ${(props: {fade: boolean}) => (
     props.fade ? "brightness(0.4)" : "brightness(1)"
   )};
+  :hover {
+    border-bottom: 5px solid #4000A9;
+  }
 `
 
 const PlayListTitle = Styled.h2`
@@ -140,27 +143,27 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
           >
             <PlayList playHoverOff={playing}>
             	<PlayListImg 
-                    id="PlayListImg" 
-                    src={playlist.infors.img}
-                    fade={playing}
-                />
+                id="PlayListImg" 
+                src={playlist.infors.img}
+                fade={playing}
+              />
                 <PlayingList
-                    src={istatic.icon_playingList()}
-                    alt="playing list"
-                    active={playing}
+                  src={istatic.icon_playingList()}
+                  alt="playing list"
+                  active={playing}
                 />
                 <BtnPLayHover 
-                    onClick={e => {
-                        e.preventDefault()
-                        e.stopPropagation()
-                        startList(playlist.infors.playlistId)
-                    }}
-                    id="BtnPLayHover">
-                    <BtnPLayHoverImg
-                        src={istatic.iconPlay()}
-                        alt="play icon"
-                    />
-                    <ShadowHover/>
+                  onClick={e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    startList(playlist.infors.playlistId)
+                  }}
+                  id="BtnPLayHover">
+                  <BtnPLayHoverImg
+                      src={istatic.iconPlay()}
+                      alt="play icon"
+                  />
+                  <ShadowHover/>
                 </BtnPLayHover>
             	<section>
             		<PlayListTitle>{playlist.infors.title}</PlayListTitle>
@@ -171,6 +174,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
           </SwiperSlide>
         )
       })}
+      <SwiperBtns left='-5px' right='-5px'/>
     </VerticalView>
   )
 }

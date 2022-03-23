@@ -9,8 +9,8 @@ import { PlayerProgressControl } from 'components';
 const PlayerWrapper = Styled.section`
   position: relative;
   border-radius: 10px;
-  width: 55.4vw;
-  height: 65vh;
+  width: 755px;
+  height: 426px;
   overflow: hidden;
 `
 const VideoPlayer = Styled(ReactPlayer)`
