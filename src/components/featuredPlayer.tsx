@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
+import { mediaBaseUrl } from 'api';
 import { useFeaturedContext } from 'common/contexts/Featured';
 
 
@@ -21,7 +22,7 @@ const FeaturedPlayer: React.FC = () => {
       <ReactPlayer
         playing={playingAud}
         volume={AudVol}
-        url={`https://musiky-listen.herokuapp.com/${AudId}?source=${'yt'}`}
+        url={`${mediaBaseUrl}/${AudId}?source=yt`}
         hidden
         config={{
           file: {

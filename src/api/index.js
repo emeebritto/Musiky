@@ -11,3 +11,4 @@ const istaticURL = 'https://cdn-istatics.herokuapp.com/';
 
 //export const BaseUrl = devENV ? devAPI : prodAPI;
 export const IstaticBaseUrl = devENV ? istatic_LOCAL_URL : istaticURL;
+export const mediaBaseUrl = 'https://musiky-listen.herokuapp.com';

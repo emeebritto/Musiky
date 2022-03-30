@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { mediaBaseUrl } from 'api';
 import { Music, UnavailableMusic } from 'common/types';
 
 interface MusicListenOptions {
@@ -10,7 +11,7 @@ export const mediaDownload = async(media: Music, options?: MusicListenOptions): 
     if (!media) return
     const { videoMode=0 } = options || {};
     await axios({
-        url:`https://musiky-listen.herokuapp.com/${media.id}?videoMode=${videoMode}&source=yt`,
+        url:`${mediaBaseUrl}/${media.id}?videoMode=${videoMode}&source=yt&format=mp3`,
         method:'GET',
         responseType: 'blob'
     })

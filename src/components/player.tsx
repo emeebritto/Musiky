@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
+import { mediaBaseUrl } from 'api';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 
 const ViewPort = Styled.section`
@@ -63,7 +64,7 @@ const ReactPlayerComp: React.FC = () => {
           onBufferEnd={()=> IsAllowed && onBuffer(false)}
           onEnded={()=> IsAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
-          url={`https://musiky-listen.herokuapp.com/chunk/${prop.music?.id || ''}`}
+          url={`${mediaBaseUrl}/${prop.music?.id || ''}?source=${prop.music?.target || ''}`}
           width='100vw'
           height='100vh'
           hidden
