@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Music } from 'common/types';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 
 export default async function handler(
   req: NextApiRequest,

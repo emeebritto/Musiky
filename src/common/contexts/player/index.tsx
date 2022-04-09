@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { io } from "socket.io-client";
 import axios from 'axios';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { useFeaturedContext } from 'common/contexts/Featured';
 import { useAccountContext } from 'common/contexts/Account';
 import { usePlaylistContext } from 'common/contexts/Playlist';

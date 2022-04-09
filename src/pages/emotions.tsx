@@ -8,7 +8,7 @@ import { useSplashContext } from 'common/contexts/splash';
 import { usePlayer } from 'common/contexts/player';
 import { TabTitle, EmotionView } from 'components';
 import { Music } from 'common/types';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Virtual } from "swiper";
 import 'swiper/css';

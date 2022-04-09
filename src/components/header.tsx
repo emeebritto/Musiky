@@ -136,7 +136,7 @@ const Header: React.FC = () => {
       {/*hasAccount()*/ false &&
         <ProfileField>
           <ProfileImg
-            src={Istatic.imgsUrl({ path: "branding/MyPersonalLogo.png" })}
+            src={Istatic.imgUrl({ path: "branding/MyPersonalLogo.png" })}
             alt="perfilePhoto"
           />
           <UserName>{props.displayName}</UserName>

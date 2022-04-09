@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Styled from "styled-components";
 import cache from "memory-cache";
 import { Music } from 'common/types';
-import { istatic } from "api/istatic";
+import Istatic from "services/istatic";
 import { fromSecondsToTime } from 'common/utils';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 
@@ -23,7 +23,7 @@ const Branding = Styled.section`
   width: 100vw;
   height: 100vh;
   z-index: 99;
-  background: url(${istatic.branding()}) no-repeat center/20% #020309;
+  background: url(${Istatic.imgUrl({ path: "branding/branding_Musiky.png" })}) no-repeat center/20% #020309;
 `
 const Alert = Styled.section`
   display: flex;
@@ -189,9 +189,10 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
           <Controls>
             <BtnPlayerControl play onClick={handlePlayPause}>
                 <IconPlay
-                  src={prop.playing 
-                    ? istatic.iconPause() 
-                    : istatic.iconPlay()
+                  src={
+                    prop.playing 
+                      ? Istatic.iconUrl({ name: "stop", color: "black" })
+                      : Istatic.iconUrl({ name: "play_arrow", color: "black" })
                   }
                   alt="Play or Pause"
                 />

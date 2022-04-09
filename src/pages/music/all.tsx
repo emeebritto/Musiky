@@ -6,7 +6,7 @@ import { Music } from 'common/types';
 import { MusicList, TabTitle } from 'components';
 import { useSplashContext } from 'common/contexts/splash';
 import { usePlayer } from 'common/contexts/player';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 
 
 const ViewPort = Styled.section`

@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import Styled from 'styled-components';
-import { istatic } from 'api/istatic';
+import Istatic from 'services/istatic';
 import { mediaDownload } from 'common/utils';
 import { CommentProps } from 'common/types';
 import { WatchPageContent } from 'common/types/pagesSources';
@@ -255,26 +255,29 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 				    </ArtistName>
 			    </MetaData>
 			    <Actions>
-			    	<Action src={istatic.favorite_border_white()} alt="I'm love it"/>
+			    	<Action
+			    		src={Istatic.iconUrl({ name: "favorite_border" })}
+			    		alt="I'm love it"
+			    	/>
 			    	<Action
 			    		onClick={()=> {
 			    			if (!prop.music) return;
 			    			mediaDownload(prop.music, {videoMode: 1})
 			    		}}
-			    		src={istatic.downloadIcon()}
+			    		src={Istatic.iconUrl({ name: "file_download" })}
 			    		alt="download"
 			    	/>
-			    	<Action src={istatic.iconShare()} alt="share"/>
+			    	<Action src={Istatic.iconUrl({ name: "share" })} alt="share"/>
 			    </Actions>
 		    </AboutContent>
 		    <Hr margin='20px 0'/>
 		    <InputCommentsField>
-		  		<UserImg size='44px' src={istatic.userImg()} alt='user image'/>
+		  		<UserImg size='44px' src={Istatic.profileImg(null)} alt='user image'/>
 		  		<InputComment placeholder="what are your feeling?"/>
 		  		<Icon
 		  			size='28px'
 		  			margin='0 10px'
-		  			src={istatic.send_white()}
+		  			src={Istatic.iconUrl({ name: "send" })}
 		  			alt='send comment'
 		  		/>
 			  </InputCommentsField>
@@ -288,7 +291,7 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 		  		{(continuation != null) &&
 		  			<LoadNewZone
 		  				ref={zoneRef}
-		  				src={istatic.loading_jump()}
+		  				src={Istatic.animatedSvgUrl({ name: "loading-jump_black" })}
 		  				alt='loading comments'
 		  			/>
 		  		}

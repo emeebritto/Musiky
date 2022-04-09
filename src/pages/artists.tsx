@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import axios from 'axios';
 import Styled from "styled-components";
 import { ArtistCard, TabTitle } from 'components';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { useSplashContext } from 'common/contexts/splash';
 import { ArtistDataProps } from 'common/types';
 

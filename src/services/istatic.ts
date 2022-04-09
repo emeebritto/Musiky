@@ -1,32 +1,39 @@
-const devENV = process.env.NODE_ENV === 'development';
+const devENV: boolean = process.env.NODE_ENV === 'development';
 const istaticDEV = `http://localhost:${9872}`;
 const istaticPROD = 'https://cdn-istatics.herokuapp.com';
-const baseUrl = devENV ? istaticDEV : istaticPROD;
+const baseUrl: string = devENV ? istaticDEV : istaticPROD;
 const staticSourcesUrl = `${baseUrl}/static/`;
 
 // API WRAPPER
 class Istatic {
   contructor() {
-    throw new Error ("The contructor should not be initialized");
+    throw new Error ("The contructor must not be initialized");
   }
 
   static profileImg(id: null | string = null) {
     return `${baseUrl}/user-img/guest_temp`;
   }
 
-  static iconUrl({ name, color='white', format='svg', dp=24 }) {
+  static iconUrl({
+    name, color='white', format='svg', dp=24
+  }:{
+    name: string,
+    color?: string,
+    format?: string,
+    dp?: number
+  }): string {
     return `${baseUrl}/static/icons/${name}_${color}_${dp}dp.${format}`;
   }
 
-  static imgUrl({ path }) {
+  static imgUrl({ path }:{ path: string }): string {
     return `${baseUrl}/static/imgs/${path}`;
   }
 
-  static animatedSvgUrl({ name }) {
+  static animatedSvgUrl({ name }:{ name: string }): string {
     return `${baseUrl}/static/icons/AnimatedSvg/${name}.svg`;
   }
 
-  static staticPath(pathName) {
+  static staticPath(pathName: string): string {
     return `${baseUrl}/static/${pathName}`;
   }
 }

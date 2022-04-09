@@ -3,7 +3,7 @@ import Styled from "styled-components";
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import axios from 'axios';
-import { devENV, IstaticBaseUrl } from 'api';
+import { devENV, IstaticBaseUrl } from 'services';
 import { DataStorage } from 'common/storage';
 import { Music, ArtistDataProps } from 'common/types';
 import { useSplashContext } from 'common/contexts/splash';

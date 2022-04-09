@@ -4,7 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { ArtistDataProps, Music, PlaylistProps } from 'common/types';
-import { istatic } from "api/istatic";
+import Istatic from "services/istatic";
 import byId from 'common/utils/playlists/byId';
 import { formatValues } from 'common/scripts/formatNum';
 import { usePlayer } from 'common/contexts/player';
@@ -274,7 +274,10 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
                                                 startList(playList.infors.playlistId)
                                             }}
                                             id="BtnPLayHover">
-                                            <BtnPLayHoverImg src={istatic.iconPlay()} alt="play icon"/>
+                                            <BtnPLayHoverImg
+                                                src={Istatic.iconUrl({ name: "play_arrow", color: "black" })}
+                                                alt="play icon"
+                                            />
                                             <ShadowHover></ShadowHover>
                                         </BtnPLayHover>
                                         <section>
