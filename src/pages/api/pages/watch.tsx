@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import cache from "memory-cache";
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { Music } from 'common/types';
 
 interface WatchContent {

@@ -1,10 +1,10 @@
 import React from 'react';
 import Styled from "styled-components";
-import { istatic } from 'api/istatic';
+import Istatic from 'services/istatic';
 
 
 const ViewPort = Styled.section`
-    padding-top: 70px;
+   padding-top: 70px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -38,9 +38,9 @@ const AppBranding = Styled.img`
 		}
 	}
 
-    @media(max-width: 550px) {
-        width: 180px;
-    }
+  @media(max-width: 550px) {
+    width: 180px;
+  }
 `
 const Author = Styled.h1`
 	margin-top: 160px;
@@ -49,19 +49,21 @@ const Author = Styled.h1`
 	opacity: 25%;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
-    @media(max-width: 550px) {
-        font-size: 1.4em;
-    }
+  @media(max-width: 550px) {
+    font-size: 1.4em;
+  }
 `
 
 const SplashScreen: React.FC = () => (
 	<ViewPort>
 		<BrandingWrapper>
-			<AppBranding src={istatic.branding()} alt="musiky branding"/>
+			<AppBranding
+				src={Istatic.imgUrl({ path: "branding/branding_Musiky.png" })}
+				alt="musiky branding"
+			/>
 		</BrandingWrapper>
 		<Author>from <strong>Nordly</strong></Author>
 	</ViewPort>
 )
-
 
 export default SplashScreen;

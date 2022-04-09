@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { mediaBaseUrl } from 'api';
+import { mediaBaseUrl } from 'services';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 
 const ViewPort = Styled.section`

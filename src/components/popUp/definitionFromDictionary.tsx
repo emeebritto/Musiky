@@ -5,8 +5,8 @@ import { mediaDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { PopUp } from 'components';
-import { istatic } from "api/istatic";
-import { IstaticBaseUrl } from 'api';
+import Istatic from "services/istatic";
+import { IstaticBaseUrl } from 'services';
 
 const Wrapper = Styled.section`
     max-width: 40vw;
@@ -71,7 +71,10 @@ const DefinitionFromDictionary: React.FC<LayoutProps> = ({
             <Wrapper>
                 <Titles>
                     <WordName>Word: { word }</WordName>
-                    <Pronounce src={istatic.iconVolume()} alt='play pronounce'/>
+                    <Pronounce
+                        src={Istatic.iconUrl({ name: "volume_up" })}
+                        alt='play pronounce'
+                    />
                 </Titles>
                 <Hr/>
                 {!!isLoading && <p>Loading...</p>}

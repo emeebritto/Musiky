@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 import cache from "memory-cache";
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { HomeContent } from 'common/types/pagesSources';
 import greeting from 'common/utils/greeting';
 import recommendations from 'common/utils/recommendations';

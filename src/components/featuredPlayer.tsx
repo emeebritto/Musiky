@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { mediaBaseUrl } from 'api';
+import { mediaBaseUrl } from 'services';
 import { useFeaturedContext } from 'common/contexts/Featured';
 
 

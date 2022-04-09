@@ -6,7 +6,7 @@ import { EventTarget, SyntheticEvent } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { useLyricContext } from 'common/contexts/Lyric';
 import { PlayerProgressControl } from 'components';
-import { istatic } from "api/istatic";
+import Istatic from "services/istatic";
 import {
   ViewPort, MusicInfor, OtherSetting, MusicImg, 
   SectionTitles, MusicTitleInControl, MusicSubTitle, 
@@ -55,9 +55,9 @@ const PlayerControl: React.FC = () => {
   }
 
   function getVolumeIconStatus() {
-    if(prop.muted) return istatic.iconVolumeOff()
-    if(prop.volume < 0.4) return istatic.iconVolumeDown()
-    return istatic.iconVolume()
+    if(prop.muted) return Istatic.iconUrl({ name: "volume_off" })
+    if(prop.volume < 0.4) return Istatic.iconUrl({ name: "volume_down" })
+    return Istatic.iconUrl({ name: "volume_up" })
   }
 
   return (
@@ -98,7 +98,7 @@ const PlayerControl: React.FC = () => {
             </MusicSubTitle>
           </SectionTitles>
           <OpenVideo
-            src={istatic.arrow_white()}
+            src={Istatic.iconUrl({ name: "expand_more" })}
             alt='open video'
           />
         </MusicInfor>
@@ -112,14 +112,20 @@ const PlayerControl: React.FC = () => {
           lyrics={lyricProp.showLyrics}
           onClick={()=> handlelyrics()}
         >
-          <img src={istatic.iconLyric()} alt="Lyric" />
+          <img
+            src={Istatic.iconUrl({ name: "mic_external_on" })}
+            alt="Lyric"
+          />
         </BtnLyrics>}
 
         <BtnRepeat
           loop={prop.loop}
           onClick={()=>{handleLoop()}}
         >
-          <img src={istatic.iconRepeat()} alt="Repeat" />
+          <img
+            src={Istatic.iconUrl({ name: "repeat" })}
+            alt="Repeat"
+          />
         </BtnRepeat>
 
         <VolumeControl 

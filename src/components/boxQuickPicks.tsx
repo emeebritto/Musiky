@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Styled from "styled-components";
 import { Music, PlaylistProps } from 'common/types';
 import { MusicList } from 'components';
-import { istatic } from 'api/istatic';
+import Istatic from 'services/istatic';
 import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 
@@ -173,15 +173,15 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
 
         let status = {
             Playing: {
-                src: istatic.icon_playing(),
+                src: Istatic.animatedSvgUrl({ name: "playing" }),
                 alt: "playingNow"
             },
             notPlaying: {
-                src: istatic.iconPlay(),
+                src: Istatic.iconUrl({ name: "play_arrow", color: "black" }),
                 alt: "iconPlay"
             },
             Paused: {
-                src: istatic.icon_paused(),
+                src: Istatic.animatedSvgUrl({ name: "pausedIcon" }),
                 alt: "paused icon"
             }
         }

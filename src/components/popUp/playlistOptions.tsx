@@ -4,7 +4,7 @@ import { mediaDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { PopUp } from 'components';
-import { istatic } from "api/istatic";
+import Istatic  from "services/istatic";
 
 
 const Label = Styled.h2`
@@ -77,7 +77,10 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                         readOnly
                     />
                     <CopyBtn onClick={()=> copyContent()}>
-                        <img src={istatic.copyIcon()} alt='copy icon'/>
+                        <img
+                            src={Istatic.iconUrl({ name: "content_copy" })}
+                            alt='copy icon'
+                        />
                     </CopyBtn>
                 </UrlField>
             </section>
@@ -95,7 +98,10 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                             <DownloadBtn onClick={()=> {
                                 if (prop.music != null) mediaDownload(prop.music)
                             }}>
-                                <img src={istatic.downloadIcon()} alt='download icon'/>
+                                <img
+                                    src={Istatic.iconUrl({ name: "file_download" })}
+                                    alt='download icon'
+                                />
                             </DownloadBtn>
                         </UrlField>
                     }
@@ -111,7 +117,10 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                                 readOnly
                             />
                             <DownloadBtn onClick={()=> multiDownloads(playlist.list)}>
-                                <img src={istatic.downloadIcon()} alt='download icon'/>
+                                <img
+                                    src={Istatic.iconUrl({ name: "file_download" })}
+                                    alt='download icon'
+                                />
                             </DownloadBtn>
                         </UrlField>                        
                     </DownloadOption>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import axios from 'axios';
-import { istatic } from 'api/istatic';
-import { IstaticBaseUrl } from 'api';
+import Istatic from 'services/istatic';
+import { IstaticBaseUrl } from 'services';
 import { Music, DataHistory } from 'common/types';
 import { useAccountContext } from 'common/contexts/Account';
 import { usePlayer } from 'common/contexts/player';
@@ -115,7 +115,10 @@ const LastPlayer: React.FC = () => {
         {!!from && <From>From Playlist: {from.infors.title}</From>}
         {!from && <From>{last.artists[0]}</From>}
       </Data>
-      <Icon src={istatic.iconPlay()} alt='play'/>
+      <Icon
+        src={Istatic.iconUrl({ name: "play_arrow", color: "black" })}
+        alt='play'
+      />
     </ViewPort>
 	);
 }

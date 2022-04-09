@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { Music, PlaylistProps } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { usePlayer } from 'common/contexts/player';
-import { istatic } from "api/istatic";
+import Istatic from "services/istatic";
 
 const PlaylistInfor = Styled.section`
   position: fixed;
@@ -170,15 +170,15 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
       <>
         <CircleOption active={playlistInfor.playListShuffle} 
           onClick={() => togglePlaylistShuffle()} 
-          src={istatic.iconRandom()} 
+          src={Istatic.iconUrl({ name: "shuffle" })} 
           alt="Shuffle"/>
         <CircleOption active={playlistInfor.playlistLoop} 
           onClick={() => togglePlaylistLoop()}
-          src={istatic.iconLoop()} 
+          src={Istatic.iconUrl({ name: "loop" })} 
           alt="playlist loop"/>
         <CircleOption
           //onClick={() => setShowPopUp(true)}
-          src={istatic.more_horiz()} 
+          src={Istatic.iconUrl({ name: "more_horiz" })} 
           alt="more playlist options"/>
       </>
     )
@@ -186,8 +186,11 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
 
 	return (
     <PlaylistInfor>
-      <BackIcon onClick={()=> router.back()} src={istatic.backPage()} alt='back'/>
-
+      <BackIcon
+        onClick={()=> router.back()}
+        src={Istatic.iconUrl({ name: "back" })}
+        alt='back'
+      />
       <PlayListImg src={infors.img} alt="PlayList Img"/>
       <OthersData>
         <PlaylistTitle>{infors.title}</PlaylistTitle>
@@ -203,7 +206,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
       </OthersData>
       <PlaylistActions>
         <AddPlaylist>
-          <img src={istatic.addIcon()} alt="Add Playlist"/>
+          <img src={Istatic.iconUrl({ name: "add" })} alt="Add Playlist"/>
         </AddPlaylist>
         <StartPlaylist onClick={()=> {
           playlistInfor.playlistId === id
@@ -214,8 +217,8 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
           <img
             src={
               playlistInfor.playlistId === id 
-                ? istatic.stopIcon()
-                : istatic.iconPlay()
+                ? Istatic.iconUrl({ name: "stop" })
+                : Istatic.iconUrl({ name: "play_arrow", color: "black" })
             }
             alt="Start Playlist"
           />

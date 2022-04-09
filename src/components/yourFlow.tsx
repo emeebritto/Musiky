@@ -4,7 +4,6 @@ import Styled from 'styled-components';
 import faker from 'faker';
 import { Music } from 'common/types';
 import { SwiperSlide } from 'swiper/react';
-import { istatic } from 'api/istatic';
 import {
   VerticalView,
   EmotionPreviewBox,

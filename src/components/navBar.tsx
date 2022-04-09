@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import faker from 'faker';
 import Styled from 'styled-components';
-import { istatic } from "api/istatic";
+import Istatic from "services/istatic";
 
 
 const NavBarContainer = Styled.nav`
@@ -67,30 +67,30 @@ const NavBar: React.FC = () => {
     top: [
       {
         path: '/',
-        icon: istatic.homeIcon(),
+        icon: Istatic.iconUrl({ name: "home" }),
         alt: 'Home Icon'
       },{
         path: '/explore',
-        icon: istatic.exploreIcon(),
+        icon: Istatic.iconUrl({ name: "explore" }),
         alt: 'explore Icon'
       },{
         path: '/emotions',
-        icon: istatic.music_note_white(),
+        icon: Istatic.iconUrl({ name: "music_note" }),
         alt: 'emotions Icon'
       },{
         path: '/community',
-        icon: istatic.iconCommunity(),
+        icon: Istatic.iconUrl({ name: "groups" }),
         alt: 'community Icon'
       },{
         path: '/library',
-        icon: istatic.libraryIcon(),
+        icon: Istatic.iconUrl({ name: "video_library" }),
         alt: 'library Icon'
       },
     ],
     bottom: [
       {
         path: '/search',
-        icon: istatic.search_Icon(),
+        icon: Istatic.iconUrl({ name: "search" }),
         alt: 'search Icon'
       }
     ]

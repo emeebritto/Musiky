@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import { Music, UnavailableMusic } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
-import { istatic } from "api/istatic";
+import Istatic from "services/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
@@ -165,7 +165,7 @@ const MusicList: React.FC<MusicListProps> = ({
     duration,
     index
   }) => {
-    let iconPlaying = <img src={istatic.icon_playing()} alt="playingNow"/>;
+    let iconPlaying = <img src={Istatic.animatedSvgUrl({ name: "playing" })} alt="playingNow"/>;
     let durationComp = <p className="MusicTime">{duration}</p>;
 
     let match = isPlayingIndex(listId, index);
@@ -201,7 +201,7 @@ const MusicList: React.FC<MusicListProps> = ({
               />
               <BoxIconPLayHover
                 className="iconPlayHover"
-                src={istatic.iconPlay()}
+                src={Istatic.iconUrl({ name: "play_arrow", color: "black" })}
                 alt="iconPlay"
               />
             </MusicTime>
@@ -250,7 +250,7 @@ const MusicList: React.FC<MusicListProps> = ({
             />
             <BoxIconPLayHover
               className="iconPlayHover"
-              src={istatic.iconPlay()}
+              src={Istatic.iconUrl({ name: "play_arrow", color: "black" })}
               alt="iconPlay"
             />
           </MusicTime>

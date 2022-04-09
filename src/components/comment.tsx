@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import axios from 'axios';
-import { istatic } from 'api/istatic';
-import { IstaticBaseUrl } from 'api';
+import Istatic from 'services/istatic';
+import { IstaticBaseUrl } from 'services';
 import { CommentProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 
@@ -193,8 +193,8 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 			    		margin='0'
 			    		src={
 			    			loadingReplies
-					    		?	istatic.loading_jump()
-					    		:	istatic.chat_bubble_outline_white()
+					    		?	Istatic.animatedSvgUrl({ name: "loading-jump_black" })
+					    		:	Istatic.iconUrl({ name: "chat_bubble_outline" })
 			    		}
 			    		alt="replies"
 			    	/>
@@ -204,7 +204,7 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 			    	<Action
 			    		size='25px'
 			    		margin='0'
-			    		src={istatic.favorite_border_white()}
+			    		src={Istatic.iconUrl({ name: "favorite_border" })}
 			    		alt="I'm love it"
 			    	/>
 			    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{cmm.likes}</Count>
@@ -225,7 +225,7 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 						    	<Action
 						    		size='25px'
 						    		margin='0'
-						    		src={istatic.favorite_border_white()}
+						    		src={Istatic.iconUrl({ name: "favorite_border" })}
 						    		alt="I'm love it"
 						    	/>
 						    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{rep.likes}</Count>

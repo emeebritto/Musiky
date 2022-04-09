@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { istatic } from 'api/istatic';
+import Istatic from 'services/istatic';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 import { PlayerProgressControl } from 'components';
 
@@ -116,9 +116,9 @@ const WatchPlayer = () => {
   };
 
   const getVolumeIconStatus = () => {
-    if(prop.muted) return istatic.iconVolumeOff()
-    if(prop.volume < 0.4) return istatic.iconVolumeDown()
-    return istatic.iconVolume()
+    if(prop.muted) return Istatic.iconUrl({ name: "volume_off" })
+    if(prop.volume < 0.4) return Istatic.iconUrl({ name: "volume_down" })
+    return Istatic.iconUrl({ name: "volume_up" })
   }
 
 	return (

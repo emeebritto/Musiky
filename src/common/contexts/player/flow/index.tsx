@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { usePlayer } from 'common/contexts/player';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { Music, PlaylistProps } from 'common/types';
 import { sleep } from 'common/utils';
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import { useSwiper } from 'swiper/react';
-import { istatic } from 'api/istatic';
+import Istatic from 'services/istatic';
 
 const SwiperBtnStyle = Styled.img`
   position: absolute;
@@ -58,14 +58,14 @@ const SwiperBtns: React.FC<Props> = ({ right, left }) => {
       <RightBtn
         right={right}
       	onClick={slideNext}
-      	src={istatic.arrow_white()}
+      	src={Istatic.iconUrl({ name: "expand_more" })}
       	alt='RightBtn'
         visible={!isEnd}
       />
       <LeftBtn
         left={left}
       	onClick={slidePrev}
-      	src={istatic.arrow_white()}
+      	src={Istatic.iconUrl({ name: "expand_more" })}
       	alt='LeftBtn'
         visible={!isBeginning}
       />

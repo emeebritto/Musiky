@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { mediaBaseUrl } from 'api';
+import { mediaBaseUrl } from 'services';
 import { Music, UnavailableMusic } from 'common/types';
 
 interface MusicListenOptions {

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { EventTarget, SyntheticEvent } from 'common/types';
-import { IstaticBaseUrl } from 'api';
+import { IstaticBaseUrl } from 'services';
 import { LyricContext } from './providers/Lyric-provider';
 import { usePlayer, usePlayerProgress } from './player';
 
