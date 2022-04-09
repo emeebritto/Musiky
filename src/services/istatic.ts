@@ -1,4 +1,4 @@
-const devENV: boolean = process.env.NODE_ENV === 'development';
+const devENV: string = process.env.NODE_ENV === 'development';
 const istaticDEV = `http://localhost:${9872}`;
 const istaticPROD = 'https://cdn-istatics.herokuapp.com';
 const baseUrl: string = devENV ? istaticDEV : istaticPROD;

@@ -68,7 +68,7 @@ const PlayerProgressControl: React.FC<Props> = ({
         <IconPlay
           src={
             prop.playing
-              ? Istatic.iconUrl({ name: "stop", color: "black" })
+              ? Istatic.iconUrl({ name: "pause", color: "black" })
               : Istatic.iconUrl({ name: "play_arrow", color: "black" })
           }
           alt="Play or Pause"
