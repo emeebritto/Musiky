@@ -217,7 +217,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
           <img
             src={
               playlistInfor.playlistId === id 
-                ? Istatic.iconUrl({ name: "stop" })
+                ? Istatic.iconUrl({ name: "stop", color: "black" })
                 : Istatic.iconUrl({ name: "play_arrow", color: "black" })
             }
             alt="Start Playlist"
