@@ -6,7 +6,7 @@ import { SwiperSlide } from 'swiper/react';
 import axios from 'axios';
 import { usePlayer } from 'common/contexts/player';
 import { usePlaylistContext } from 'common/contexts/Playlist';
-import Istatic from 'services/istatic';
+import istatic from 'services/istatic';
 import { PlaylistProps } from 'common/types';
 import { VerticalView, SwiperBtns } from 'components';
 
@@ -148,7 +148,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
                 fade={playing}
               />
                 <PlayingList
-                  src={Istatic.animatedSvgUrl({ name: "playing-bar" })}
+                  src={istatic.animatedSvgUrl({ name: "playing-bar" })}
                   alt="playing list"
                   active={playing}
                 />
@@ -160,7 +160,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
                   }}
                   id="BtnPLayHover">
                   <BtnPLayHoverImg
-                      src={Istatic.iconUrl({ name: "play_arrow", color: "black" })}
+                      src={istatic.iconUrl({ name: "play_arrow", color: "black" })}
                       alt="play icon"
                   />
                   <ShadowHover/>

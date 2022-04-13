@@ -2,7 +2,7 @@ import React from 'react';
 import Styled from 'styled-components';
 import { useFeaturedContext } from 'common/contexts/Featured';
 import { DataStorage } from 'common/storage';
-import Istatic from 'services/istatic';
+import istatic from 'services/istatic';
 
 const SwiperBtnStyle = Styled.img`
   position: absolute;
@@ -35,13 +35,13 @@ const FeaturedControl = () => {
 			<RightBtn
 				onClick={resumeAndPauseAudio}
 				active={!playingAud}
-				src={Istatic.iconUrl({ name: "volume_off" })}
+				src={istatic.iconUrl({ name: "volume_off" })}
 				alt='stop background audio'
 			/>
 			<LeftBtn
 				onClick={resumeAndPauseVideo}
 				active={!playing}
-				src={Istatic.iconUrl({ name: "play_disabled" })} alt='stop video'
+				src={istatic.iconUrl({ name: "play_disabled" })} alt='stop video'
 			/>
 		</>
 	);

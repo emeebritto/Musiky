@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
+import istatic from 'services/istatic';
 import axios from 'axios';
-import Istatic from 'services/istatic';
-import { IstaticBaseUrl } from 'services';
 import { Music, DataHistory } from 'common/types';
 import { useAccountContext } from 'common/contexts/Account';
 import { usePlayer } from 'common/contexts/player';
@@ -71,7 +70,7 @@ const LastPlayer: React.FC = () => {
     if (!lastSong) return;
     setLoading(true);
     async function getData() {
-      const musicData = await axios.get(`${IstaticBaseUrl}music/${lastSong.id}`)
+      const musicData = await istatic.musicData({ id: lastSong.id })
         .then(r => r.data)
         .catch(err => setError(true))
       setLast(musicData || null);
@@ -116,7 +115,7 @@ const LastPlayer: React.FC = () => {
         {!from && <From>{last.artists[0]}</From>}
       </Data>
       <Icon
-        src={Istatic.iconUrl({ name: "play_arrow", color: "black" })}
+        src={istatic.iconUrl({ name: "play_arrow", color: "black" })}
         alt='play'
       />
     </ViewPort>

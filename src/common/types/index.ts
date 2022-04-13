@@ -68,8 +68,8 @@ export interface Music {
         images: Array<{url: string}>;
     }>;
     comments: {
-        list: CommentProps[];
-        continuation: string;
+        list: CommentProps[] | null;
+        continuation: string | null;
     } | null;
 }
 export interface UnavailableMusic {
@@ -178,7 +178,7 @@ export interface PlaylistContextData {
         };
     };
 }
-interface Lyric {
+export interface Lyric {
   [key: string]: string;
 }
 export interface LyricContextData {

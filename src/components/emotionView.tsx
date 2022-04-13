@@ -4,8 +4,7 @@ import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { Music } from 'common/types';
 import { formatValues } from 'common/scripts/formatNum';
-import Istatic from 'services/istatic';
-import { IstaticBaseUrl } from 'services';
+import istatic from 'services/istatic';
 import { useSwiperSlide, useSwiper } from 'swiper/react';
 
 const SectionWrapper = Styled.section`
@@ -231,12 +230,12 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	  		</MediaData>
 	  		<Hr/>
 		  	<InputCommentsField>
-		  		<UserImg size='40px' src={Istatic.profileImg(null)} alt='user image'/>
+		  		<UserImg size='40px' src={istatic.profileImg(null)} alt='user image'/>
 		  		<InputComment placeholder='comment..'/>
 		  		<Icon
 		  			size='28px'
 		  			margin='0 5px'
-		  			src={Istatic.iconUrl({ name: "send" })}
+		  			src={istatic.iconUrl({ name: "send" })}
 		  			alt='send comment'
 		  		/>
 		  	</InputCommentsField>
@@ -283,21 +282,21 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
 	    <Actions>
 	    	<SwiperUpBtn
 	    		onClick={()=> {if (!swiper.isBeginning) swiper.slidePrev()}}
-	    		src={Istatic.iconUrl({ name: "expand_more" })}
+	    		src={istatic.iconUrl({ name: "expand_more" })}
 	    		alt='up'
 	    		on={!swiper.isBeginning}
 	    	/>
 	      <Action
-	      	src={Istatic.iconUrl({ name: "favorite_border" })}
+	      	src={istatic.iconUrl({ name: "favorite_border" })}
 	      	alt='like'
 	      />
 	      <Action
-	      	src={Istatic.iconUrl({ name: "share" })}
+	      	src={istatic.iconUrl({ name: "share" })}
 	      	alt='share'
 	      />
 	      <SwiperDownBtn
 	      	onClick={()=> {if (!swiper.isEnd) swiper.slideNext()}}
-	      	src={Istatic.iconUrl({ name: "expand_more" })}
+	      	src={istatic.iconUrl({ name: "expand_more" })}
 	      	alt='down'
 	      	on={!swiper.isEnd}
 	      />

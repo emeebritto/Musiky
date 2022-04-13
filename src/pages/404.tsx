@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Styled from "styled-components";
 import { useSplashContext } from 'common/contexts/splash';
-import Istatic from "services/istatic";
+import istatic from "services/istatic";
 import { TabTitle } from "components";
 
 const ViewPort = Styled.section`
@@ -101,10 +101,10 @@ const NotFound404: NextPage = () => {
   return (
     <>
     <TabTitle name={`No Found (404)`}/>
-    <ViewPort style={{ background: `url(${Istatic.imgUrl({ path: "city.svg" })}) no-repeat center/80%`}}>
+    <ViewPort style={{ background: `url(${istatic.imgUrl({ path: "city.svg" })}) no-repeat center/80%`}}>
       <Wrapper>
         <Light
-          src={Istatic.imgUrl({ path: "cellingLight.png" })}
+          src={istatic.imgUrl({ path: "cellingLight.png" })}
           alt="celling Light"
         />
         <LightScattering/>

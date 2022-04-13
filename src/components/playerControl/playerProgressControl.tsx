@@ -2,7 +2,7 @@ import React/*, { useState, useEffect }*/ from 'react';
 import Styled from 'styled-components';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 import { fromSecondsToTime } from 'common/utils';
-import Istatic from "services/istatic";
+import istatic from "services/istatic";
 import {
 	PlayerControlPainel,
 	BtnsBackPlayNext, 
@@ -68,8 +68,8 @@ const PlayerProgressControl: React.FC<Props> = ({
         <IconPlay
           src={
             prop.playing
-              ? Istatic.iconUrl({ name: "pause", color: "black" })
-              : Istatic.iconUrl({ name: "play_arrow", color: "black" })
+              ? istatic.iconUrl({ name: "pause", color: "black" })
+              : istatic.iconUrl({ name: "play_arrow", color: "black" })
           }
           alt="Play or Pause"
         />
@@ -85,18 +85,18 @@ const PlayerProgressControl: React.FC<Props> = ({
             disable={!includes.loop}
             onClick={toggleLoop}
           >
-            <IconPlay src={Istatic.iconUrl({ name: "loop" })} alt='loop Mode'/>
+            <IconPlay src={istatic.iconUrl({ name: "loop" })} alt='loop Mode'/>
           </BtnPlayerControl>
           <BtnPlayerControl onClick={e => {nextAndBack_Music(e, -1)}}>
-            <IconPlay src={Istatic.iconUrl({ name: "skip_previous" })} alt="Back Music" />
+            <IconPlay src={istatic.iconUrl({ name: "skip_previous" })} alt="Back Music" />
           </BtnPlayerControl>
           {
             prop.buffer
-              ? <Loading src={Istatic.animatedSvgUrl({ name: "loading" })} alt='loading'/> 
+              ? <Loading src={istatic.animatedSvgUrl({ name: "loading" })} alt='loading'/> 
               : <BtnPlayAndPause/>
           }
           <BtnPlayerControl onClick={e => {nextAndBack_Music(e, 1)}}>
-             <IconPlay src={Istatic.iconUrl({ name: "skip_next" })} alt="Next Music" />
+             <IconPlay src={istatic.iconUrl({ name: "skip_next" })} alt="Next Music" />
           </BtnPlayerControl>
           <BtnPlayerControl
             nonactive={!prop.fullscreen}
@@ -106,8 +106,8 @@ const PlayerProgressControl: React.FC<Props> = ({
             <IconPlay
               src={
                 prop.fullscreen
-                  ? Istatic.iconUrl({ name: "close_fullscreen" })
-                  : Istatic.iconUrl({ name: "fullscreen" })
+                  ? istatic.iconUrl({ name: "close_fullscreen" })
+                  : istatic.iconUrl({ name: "fullscreen" })
               }
               alt='Screen Mode'
             />

@@ -4,7 +4,7 @@ import { mediaDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 import { PopUp } from 'components';
-import Istatic  from "services/istatic";
+import istatic  from "services/istatic";
 
 
 const Label = Styled.h2`
@@ -78,7 +78,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                     />
                     <CopyBtn onClick={()=> copyContent()}>
                         <img
-                            src={Istatic.iconUrl({ name: "content_copy" })}
+                            src={istatic.iconUrl({ name: "content_copy" })}
                             alt='copy icon'
                         />
                     </CopyBtn>
@@ -99,7 +99,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                                 if (prop.music != null) mediaDownload(prop.music)
                             }}>
                                 <img
-                                    src={Istatic.iconUrl({ name: "file_download" })}
+                                    src={istatic.iconUrl({ name: "file_download" })}
                                     alt='download icon'
                                 />
                             </DownloadBtn>
@@ -118,7 +118,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
                             />
                             <DownloadBtn onClick={()=> multiDownloads(playlist.list)}>
                                 <img
-                                    src={Istatic.iconUrl({ name: "file_download" })}
+                                    src={istatic.iconUrl({ name: "file_download" })}
                                     alt='download icon'
                                 />
                             </DownloadBtn>

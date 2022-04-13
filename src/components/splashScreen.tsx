@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import Styled from "styled-components";
-import Istatic from 'services/istatic';
+import istatic from "services/istatic";
 
 
 const ViewPort = Styled.section`
@@ -58,7 +58,7 @@ const SplashScreen: React.FC = () => (
 	<ViewPort>
 		<BrandingWrapper>
 			<AppBranding
-				src={Istatic.imgUrl({ path: "branding/branding_Musiky.png" })}
+				src={istatic.imgUrl({ path: "branding/branding_Musiky.png" })}
 				alt="musiky branding"
 			/>
 		</BrandingWrapper>

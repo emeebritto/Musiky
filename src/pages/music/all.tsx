@@ -1,122 +1,117 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage } from 'next';
 import Styled from "styled-components";
-import axios from 'axios';
 import { Music } from 'common/types';
 import { MusicList, TabTitle } from 'components';
 import { useSplashContext } from 'common/contexts/splash';
 import { usePlayer } from 'common/contexts/player';
-import { IstaticBaseUrl } from 'services';
+import istatic from 'services/istatic';
 
 
 const ViewPort = Styled.section`
-    overflow-y: scroll;
-    width: 96.33vw;
-    height: 100vh;
+  overflow-y: scroll;
+  width: 96.33vw;
+  height: 100vh;
 `
 const Wrapper = Styled.section`
-    display: flex;
-    margin: 14vh 0;
+  display: flex;
+  margin: 14vh 0;
 `
 const MusicListWrapper = Styled.section`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    width: 50vw;
-    height: auto;
-    margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 50vw;
+  height: auto;
+  margin: 0 auto;
 
-    ::-webkit-scrollbar {
-        width: 0;
-    } 
+  ::-webkit-scrollbar {
+    width: 0;
+  } 
 `
 const LoadNewZone = Styled.section`
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 `
-
 
 const AllMusics: NextPage = () => {
 
-    // TEMP
+  const { desableSplash } = useSplashContext();
+  const { load } = usePlayer();
+  const [musicList, setMusicList] = useState<Array<Music>>([]);
+  const [secondColumn, setSecondColumn] = useState<Array<Music>>([]);
+  const [page, setPage] = useState(1);
+  const ref = useRef<HTMLDivElement | null>(null);
 
-    const { desableSplash } = useSplashContext();
-    const { load } = usePlayer();
-    const [musicList, setMusicList] = useState<Array<Music>>([]);
-    const [secondColumn, setSecondColumn] = useState<Array<Music>>([]);
-    const [page, setPage] = useState(1);
-    const ref = useRef<HTMLDivElement | null>(null);
+  let id = 'allCol100';
+  let secondId = 'allCol200';
 
-    let id = 'allCol100';
-    let secondId = 'allCol200';
+  const startMedia1col = (playIndex: number): void => {
+    load({ media: musicList[playIndex] });
+  };
+  const startMedia2col = (playIndex: number): void => {
+    load({ media: secondColumn[playIndex] });
+  };
 
-    const startMedia1col = (playIndex: number): void => {
-        load({ media: musicList[playIndex] });
-    };
-    const startMedia2col = (playIndex: number): void => {
-        load({ media: secondColumn[playIndex] });
-    };
+  useEffect(() => {
+    async function getData() {
+      let res = await istatic.allMusicsData({ page })
+        .then(r => r.data)
+        .catch(err => console.error(err));
+      if (!res || !res.items) return;
+      let firstPoint: number = res.items.length / 2;
+      let endPoint: number = res.items.length;
 
-    useEffect(() => {
-        async function getData() {
-            let res = await axios.get(`${IstaticBaseUrl}music/all?page=${page}`)
-                .then(r=>r.data)
-                .catch(err => console.error(err));
-            let firstPoint: number = res.items.length / 2;
-            let endPoint: number = res.items.length;
+      let newList: Music[] = [...res.items].splice(0, firstPoint);
+      let newSecondColumn: Music[] = [...res.items].splice(firstPoint, endPoint);
 
-            let newList: Music[] = [...res.items].splice(0, firstPoint);
-            let newSecondColumn: Music[] = [...res.items].splice(firstPoint, endPoint);
+      setMusicList((musicList: Array<Music>) => [...musicList, ...newList]);
+      setSecondColumn((secondColumn: Array<Music>) => [...secondColumn, ...newSecondColumn]);
+    }
+    getData()
+  },[page]);
 
+  useEffect(() => {
+    const node = ref?.current // DOM Ref
+    if (!node) return
+    const intersectionObserver = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        setPage((currentValue) => currentValue + 1);
+      }
+    })
+    intersectionObserver.observe(node);
+    return () => intersectionObserver.disconnect();
+  }, []);
 
-            setMusicList((musicList: Array<Music>) => [...musicList, ...newList]);
-            setSecondColumn((secondColumn: Array<Music>) => [...secondColumn, ...newSecondColumn]);
-        }
-        getData()
-    },[page]);
-
-    useEffect(() => {
-        const node = ref?.current // DOM Ref
-        if (!node) return
-        const intersectionObserver = new IntersectionObserver(entries => {
-            if (entries.some(entry => entry.isIntersecting)) {
-                setPage((currentValue) => currentValue + 1);
-            }
-        })
-        intersectionObserver.observe(node);
-
-        return () => intersectionObserver.disconnect();
-    }, []);
-
-    if (!!musicList.length) desableSplash();
+  if (!!musicList.length) desableSplash();
 
 
-    return (
-        <>
-        <TabTitle name={`Musiky - All Tracks`}/>
-        <ViewPort>
-            <Wrapper>
-                <MusicListWrapper>
-                    <MusicList
-                        list={musicList}
-                        listId={id}
-                        startMedia={startMedia1col}
-                    />
-                </MusicListWrapper>
-                <MusicListWrapper>
-                    <MusicList
-                        list={secondColumn}
-                        listId={secondId}
-                        startMedia={startMedia2col}
-                    />
-                </MusicListWrapper>
-            </Wrapper>
-            <LoadNewZone ref={ref}/>
-        </ViewPort>
-        </>
-    )
+  return (
+    <>
+    <TabTitle name={`Musiky - All Tracks`}/>
+    <ViewPort>
+      <Wrapper>
+        <MusicListWrapper>
+          <MusicList
+            list={musicList}
+            listId={id}
+            startMedia={startMedia1col}
+          />
+        </MusicListWrapper>
+        <MusicListWrapper>
+          <MusicList
+            list={secondColumn}
+            listId={secondId}
+            startMedia={startMedia2col}
+          />
+        </MusicListWrapper>
+      </Wrapper>
+      <LoadNewZone ref={ref}/>
+    </ViewPort>
+    </>
+  )
 }
 
-export default AllMusics
+export default AllMusics;

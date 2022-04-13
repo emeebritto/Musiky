@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
-import axios from 'axios';
-import Istatic from 'services/istatic';
-import { IstaticBaseUrl } from 'services';
+import istatic from 'services/istatic';
 import { CommentProps } from 'common/types';
 import { usePlayer } from 'common/contexts/player';
 
@@ -137,11 +135,10 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 	const [loadingReplies, setLoadingReplies] = useState(false);
 	const mediaId = prop.music ? prop.music.id : null;
 
-	const getReplies = async(token: string): Promise<void> => {
+	const getReplies = async(replyToken: string): Promise<void> => {
 		if (!cmm.numReplies || !mediaId) return;
 		setLoadingReplies(true);
-		const repliesData = await axios
-			.get(`${IstaticBaseUrl}comments?id=${mediaId}&replyToken=${token}`)
+		const repliesData = await istatic.commentsTread({ mediaId, replyToken })
 			.then(r => r.data)
 		setReplies((replies: CommentProps[]): CommentProps[] => (
 			[...replies, ...repliesData.comments]
@@ -151,11 +148,11 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 	};
 
 	const translateComment = async(): Promise<void> => {
-		const translatedText = await axios
-			.post(`${IstaticBaseUrl}translate?to=pt`, { text: cmm.text.replace(/<br>/ig, '\n')})
+		const translatedText = await istatic
+			.translate({ text: cmm.text.replace(/<br>/ig, '\n')})
 			.then(r => r.data)
 			.catch(err => console.error(err))
-		setTranslate(translatedText.text);
+		if (translatedText) setTranslate(translatedText.text);
 	};
 
 	return (
@@ -193,8 +190,8 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 			    		margin='0'
 			    		src={
 			    			loadingReplies
-					    		?	Istatic.animatedSvgUrl({ name: "loading-jump_black" })
-					    		:	Istatic.iconUrl({ name: "chat_bubble_outline" })
+					    		?	istatic.animatedSvgUrl({ name: "loading-jump_black" })
+					    		:	istatic.iconUrl({ name: "chat_bubble_outline" })
 			    		}
 			    		alt="replies"
 			    	/>
@@ -204,7 +201,7 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 			    	<Action
 			    		size='25px'
 			    		margin='0'
-			    		src={Istatic.iconUrl({ name: "favorite_border" })}
+			    		src={istatic.iconUrl({ name: "favorite_border" })}
 			    		alt="I'm love it"
 			    	/>
 			    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{cmm.likes}</Count>
@@ -225,7 +222,7 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 						    	<Action
 						    		size='25px'
 						    		margin='0'
-						    		src={Istatic.iconUrl({ name: "favorite_border" })}
+						    		src={istatic.iconUrl({ name: "favorite_border" })}
 						    		alt="I'm love it"
 						    	/>
 						    	<Count size='0.93em' margin='0 8px' opacity={0.7}>{rep.likes}</Count>

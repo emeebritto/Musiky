@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Styled from "styled-components";
-import Istatic from 'services/istatic';
+import istatic from 'services/istatic';
 import { useLyricContext } from "common/contexts/Lyric";
 import { usePlayer } from "common/contexts/player";
 import { DefinitionFromDictionary } from "components";
@@ -150,7 +150,7 @@ const LyricScreen: React.FC = () => {
               onClick={()=> copyContent(lyricProp.currentLine)}
             >
               <img
-                src={Istatic.iconUrl({ name: "ontent_copy" })}
+                src={istatic.iconUrl({ name: "ontent_copy" })}
                 alt='copy'
               />
             </BtnCopyLine>

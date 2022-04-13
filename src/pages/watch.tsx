@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'services';
 import Styled from 'styled-components';
-import Istatic from 'services/istatic';
+import istatic from 'services/istatic';
 import { mediaDownload } from 'common/utils';
 import { CommentProps } from 'common/types';
 import { WatchPageContent } from 'common/types/pagesSources';
@@ -203,23 +202,21 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 
  useEffect(() => {
   async function getData() {
-  	if (snippetComments > 1 && !continuation) return;
+  	const mediaId = prop.music ? prop.music.id : null;
+  	if (snippetComments > 1 && !continuation || !mediaId) return;
 
-  	const musicId = prop.music ? prop.music.id : null;
-  	const continuationQuery = continuation? `&continuation=${continuation}`: '';
-  	const URL_PATH = `comments?id=${musicId}${continuationQuery}`;
-
-    let resComments = await axios.get(`${IstaticBaseUrl + URL_PATH}`)
-      .then(r=>r.data)
+    await istatic.commentsTread({ mediaId, continuation })
+      .then(r => {
+      	setComments((currentValue: CommentProps[]) => [...currentValue, ...r.data.comments]);
+	    	setContinuation(r.data.continuation);
+      })
       .catch(err => console.error(err));
-    setComments((currentValue: CommentProps[]) => [...currentValue, ...resComments.comments]);
-    setContinuation(resComments.continuation);
   }
   if (snippetComments) getData();
 },[snippetComments]);
 
   useEffect(() => {
-    const node = zoneRef?.current; // kDOM Ref
+    const node = zoneRef?.current; // DOM Ref
     if (!node) return;
     const intersectionObserver = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) {
@@ -256,7 +253,7 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 			    </MetaData>
 			    <Actions>
 			    	<Action
-			    		src={Istatic.iconUrl({ name: "favorite_border" })}
+			    		src={istatic.iconUrl({ name: "favorite_border" })}
 			    		alt="I'm love it"
 			    	/>
 			    	<Action
@@ -264,20 +261,20 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 			    			if (!prop.music) return;
 			    			mediaDownload(prop.music, {videoMode: 1})
 			    		}}
-			    		src={Istatic.iconUrl({ name: "file_download" })}
+			    		src={istatic.iconUrl({ name: "file_download" })}
 			    		alt="download"
 			    	/>
-			    	<Action src={Istatic.iconUrl({ name: "share" })} alt="share"/>
+			    	<Action src={istatic.iconUrl({ name: "share" })} alt="share"/>
 			    </Actions>
 		    </AboutContent>
 		    <Hr margin='20px 0'/>
 		    <InputCommentsField>
-		  		<UserImg size='44px' src={Istatic.profileImg(null)} alt='user image'/>
+		  		<UserImg size='44px' src={istatic.profileImg(null)} alt='user image'/>
 		  		<InputComment placeholder="what are your feeling?"/>
 		  		<Icon
 		  			size='28px'
 		  			margin='0 10px'
-		  			src={Istatic.iconUrl({ name: "send" })}
+		  			src={istatic.iconUrl({ name: "send" })}
 		  			alt='send comment'
 		  		/>
 			  </InputCommentsField>
@@ -291,7 +288,7 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 		  		{(continuation != null) &&
 		  			<LoadNewZone
 		  				ref={zoneRef}
-		  				src={Istatic.animatedSvgUrl({ name: "loading-jump_black" })}
+		  				src={istatic.animatedSvgUrl({ name: "loading-jump_black" })}
 		  				alt='loading comments'
 		  			/>
 		  		}

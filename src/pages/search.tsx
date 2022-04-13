@@ -9,7 +9,7 @@ import axios from 'axios';
 import Styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import { useSplashContext } from 'common/contexts/splash';
-import Istatic from "services/istatic";
+import istatic from "services/istatic";
 import autoComplete from 'common/utils/search/autoComplete';
 import { 
   PlaylistsRow, 
@@ -59,7 +59,7 @@ const SearchField = Styled.section`
     right: 0;
     bottom: 0;
     display: block;
-    background: url(${Istatic.imgUrl({ path: "background/classicDisc_darkfilter.png" })}) center;
+    background: url(${istatic.imgUrl({ path: "background/classicDisc_darkfilter.png" })}) center;
     transform-origin: center center 0;
     transform: translateZ(-1px) scale(2);
     z-index: -1;
@@ -235,7 +235,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
                 { shallow: true }
               )
             }}>
-              <SearchIcon src={Istatic.iconUrl({ name: "search" })} alt="search icon"/>
+              <SearchIcon src={istatic.iconUrl({ name: "search" })} alt="search icon"/>
             </BtnSearch>
 
             {!!optionsToComplete.length

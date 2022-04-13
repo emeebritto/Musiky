@@ -6,7 +6,7 @@ import Head from 'next/head';
 import Styled from "styled-components";
 import cache from "memory-cache";
 import { Music } from 'common/types';
-import Istatic from "services/istatic";
+import istatic from "services/istatic";
 import { fromSecondsToTime } from 'common/utils';
 import { usePlayer, usePlayerProgress } from 'common/contexts/player';
 
@@ -23,7 +23,7 @@ const Branding = Styled.section`
   width: 100vw;
   height: 100vh;
   z-index: 99;
-  background: url(${Istatic.imgUrl({ path: "branding/branding_Musiky.png" })}) no-repeat center/20% #020309;
+  background: url(${istatic.imgUrl({ path: "branding/branding_Musiky.png" })}) no-repeat center/20% #020309;
 `
 const Alert = Styled.section`
   display: flex;
@@ -191,8 +191,8 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
                 <IconPlay
                   src={
                     prop.playing 
-                      ? Istatic.iconUrl({ name: "stop", color: "black" })
-                      : Istatic.iconUrl({ name: "play_arrow", color: "black" })
+                      ? istatic.iconUrl({ name: "stop", color: "black" })
+                      : istatic.iconUrl({ name: "play_arrow", color: "black" })
                   }
                   alt="Play or Pause"
                 />
@@ -218,19 +218,22 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
 export default Embed;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  let id: string | string[] | undefined = context?.params?.id;
-  const URL = `${IstaticBaseUrl}music/${id}`;
-  let pageContent = {};
-  const cachedResponse = cache.get(URL);
+  let id: string | string[] | null = context?.params?.id || null;
+  let pageContent: Music | null = null;
+
+  if (!id) return { props: { pageContent } };
+
+  const KEY = `music:${id}`;
+
+  const cachedResponse = cache.get(KEY);
   if (cachedResponse) {
     pageContent = cachedResponse;
   } else {
-    pageContent = await axios.get(URL)
+    pageContent = await istatic.musicData({ id: String(id) })
       .then(r => r.data)
       .catch(err => null)
-    cache.put(URL, pageContent, 60 * 60000);
+    cache.put(KEY, pageContent, 60 * 60000); // one hour total
   }
-
 
   return {
     props: { pageContent }, // will be passed to the page component as props

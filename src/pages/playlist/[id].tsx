@@ -8,8 +8,7 @@ import { PlaylistProps, Music } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { usePlayer } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
-import { IstaticBaseUrl } from 'services';
-import Istatic from "services/istatic";
+import istatic from "services/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 import {
   MusicList,
@@ -136,18 +135,18 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
         <CircleOption
           active={playlistInfor.playListShuffle} 
           onClick={() => togglePlaylistShuffle()} 
-          src={Istatic.iconUrl({ name: "shuffle" })} 
+          src={istatic.iconUrl({ name: "shuffle" })} 
           alt="Shuffle"
         />
         <CircleOption
           active={playlistInfor.playlistLoop} 
           onClick={() => togglePlaylistLoop()}
-          src={Istatic.iconUrl({ name: "loop" })} 
+          src={istatic.iconUrl({ name: "loop" })} 
           alt="playlist loop"
         />
         <CircleOption
           onClick={() => setShowPopUp(true)}
-          src={Istatic.iconUrl({ name: "more_horiz" })} 
+          src={istatic.iconUrl({ name: "more_horiz" })} 
           alt="more playlist options"
         />
       </>

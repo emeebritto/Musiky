@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { ShortCutUrl } from 'common/shortcutUrl';
 import { useAccountContext } from 'common/contexts/Account';
-import Istatic from 'services/istatic';
+import istatic from 'services/istatic';
 import { Time } from 'components';
 
 const HeaderContainer = Styled.header`
@@ -116,19 +116,19 @@ const Header: React.FC = () => {
       <HeaderLeft>
         <Link href='/'>
           <HeaderBranding
-            src={Istatic.imgUrl({ path: "branding/branding_Musiky.png" })}
+            src={istatic.imgUrl({ path: "branding/branding_Musiky.png" })}
             alt="musiky branding"
           />
         </Link>
         <NavigationControl>
           <LeftBtn
             onClick={()=> router.back()}
-            src={Istatic.iconUrl({ name: "expand_more" })}
+            src={istatic.iconUrl({ name: "expand_more" })}
             alt='LeftBtn'
           />
           <RightBtn
             onClick={()=> window.history.forward()}
-            src={Istatic.iconUrl({ name: "expand_more" })}
+            src={istatic.iconUrl({ name: "expand_more" })}
             alt='RightBtn'
           />
         </NavigationControl>
@@ -136,7 +136,7 @@ const Header: React.FC = () => {
       {/*hasAccount()*/ false &&
         <ProfileField>
           <ProfileImg
-            src={Istatic.imgUrl({ path: "branding/MyPersonalLogo.png" })}
+            src={istatic.imgUrl({ path: "branding/MyPersonalLogo.png" })}
             alt="perfilePhoto"
           />
           <UserName>{props.displayName}</UserName>
@@ -147,7 +147,7 @@ const Header: React.FC = () => {
         {/*hasAccount()*/ true &&
           <SignInBtn onClick={()=> redirectLogin()}>
             <AccountIcon
-              src={Istatic.iconUrl({ name: "account_circle" })}
+              src={istatic.iconUrl({ name: "account_circle" })}
               alt='account icon'
             />
             SIGN IN

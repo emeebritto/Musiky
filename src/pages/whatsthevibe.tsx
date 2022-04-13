@@ -3,7 +3,8 @@ import Styled from "styled-components";
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import axios from 'axios';
-import { devENV, IstaticBaseUrl } from 'services';
+import { devENV } from 'services';
+import istatic from 'services/istatic';
 import { DataStorage } from 'common/storage';
 import { Music, ArtistDataProps } from 'common/types';
 import { useSplashContext } from 'common/contexts/splash';
@@ -180,7 +181,7 @@ const WhatsTheVibe: NextPage = () => {
 
   async function getSong() {
     setCurrentMusic(
-      await axios.get(`${IstaticBaseUrl}music/all?random=1&maxResult=1`)
+      await istatic.allMusicsData({ random: 1, maxResult: 1 })
         .then(r=> {
           let songlist = DataStorage.get(VIBE_KEY);
           let song = r.data.items[0];
@@ -206,7 +207,7 @@ const WhatsTheVibe: NextPage = () => {
     desableSplash();
     (async() => {
       if (!DataStorage.get(VIBE_KEY)) {
-        const vibesFromDB = await axios.get(`${IstaticBaseUrl}static/vibesDB.json`)
+        const vibesFromDB = await istatic.staticPath(`vibesDB.json`)
           .then(r => r.data);
         DataStorage.set(VIBE_KEY, [...vibesFromDB]);
       }

@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { Music, PlaylistProps } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { usePlayer } from 'common/contexts/player';
-import Istatic from "services/istatic";
+import istatic from "services/istatic";
 
 const PlaylistInfor = Styled.section`
   position: fixed;
@@ -170,15 +170,15 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
       <>
         <CircleOption active={playlistInfor.playListShuffle} 
           onClick={() => togglePlaylistShuffle()} 
-          src={Istatic.iconUrl({ name: "shuffle" })} 
+          src={istatic.iconUrl({ name: "shuffle" })} 
           alt="Shuffle"/>
         <CircleOption active={playlistInfor.playlistLoop} 
           onClick={() => togglePlaylistLoop()}
-          src={Istatic.iconUrl({ name: "loop" })} 
+          src={istatic.iconUrl({ name: "loop" })} 
           alt="playlist loop"/>
         <CircleOption
           //onClick={() => setShowPopUp(true)}
-          src={Istatic.iconUrl({ name: "more_horiz" })} 
+          src={istatic.iconUrl({ name: "more_horiz" })} 
           alt="more playlist options"/>
       </>
     )
@@ -188,7 +188,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
     <PlaylistInfor>
       <BackIcon
         onClick={()=> router.back()}
-        src={Istatic.iconUrl({ name: "back" })}
+        src={istatic.iconUrl({ name: "back" })}
         alt='back'
       />
       <PlayListImg src={infors.img} alt="PlayList Img"/>
@@ -206,7 +206,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
       </OthersData>
       <PlaylistActions>
         <AddPlaylist>
-          <img src={Istatic.iconUrl({ name: "add" })} alt="Add Playlist"/>
+          <img src={istatic.iconUrl({ name: "add" })} alt="Add Playlist"/>
         </AddPlaylist>
         <StartPlaylist onClick={()=> {
           playlistInfor.playlistId === id
@@ -217,8 +217,8 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
           <img
             src={
               playlistInfor.playlistId === id 
-                ? Istatic.iconUrl({ name: "stop", color: "black" })
-                : Istatic.iconUrl({ name: "play_arrow", color: "black" })
+                ? istatic.iconUrl({ name: "stop", color: "black" })
+                : istatic.iconUrl({ name: "play_arrow", color: "black" })
             }
             alt="Start Playlist"
           />

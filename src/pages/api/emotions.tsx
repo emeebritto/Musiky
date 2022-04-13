@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Music } from 'common/types';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'services';
+import istatic from 'services/istatic';
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,19 +11,20 @@ export default async function handler(
   const id = req.query.id;
   const maxResult = req.query.maxResult || 10;
 
-  let firstEmotion: Music | null = null;
-  const URL = `${IstaticBaseUrl}emotions?random=${random}&maxResult=${maxResult}`;
-  let emotions = await axios.get(URL).then(r => r.data);
+  const params = `random=${random}&maxResult=${maxResult}`;
+  let emotions = await istatic.emotions(params).then(r => r.data);
   if (id && id != 'undefined') {
-    firstEmotion = await axios.get(`${IstaticBaseUrl}emotions?id=${id}`)
+    const firstEmotion = await istatic.emotions(`id=${id}`)
       .then(r => r.data)
       .catch(err => console.error(err));
-    emotions = [firstEmotion, ...emotions];
+    if (firstEmotion) {
+      emotions = [...firstEmotion, ...emotions];      
+    }
   };
   for (let i=0; i < emotions.length; i++) {
     let emotion = emotions[i];
-    let resComments = await axios.get(`${IstaticBaseUrl}comments?id=${emotion.id}`)
-      .then(r=>r.data)
+    let resComments = await istatic.commentsTread({ mediaId: emotion.id })
+      .then(r => r.data)
     emotion['comments'] = {
       list: resComments.comments.length ? resComments.comments : null,
       continuation: resComments.continuation || null

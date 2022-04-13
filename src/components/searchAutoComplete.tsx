@@ -2,8 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { AppProps } from 'next/app';
 import Link from 'next/link';
-
 import Styled from 'styled-components';
+
 
 const OptionsCompleteSearch = Styled.section`
 	position: absolute;
@@ -22,7 +22,6 @@ const OptionsCompleteSearch = Styled.section`
         width: 100%;
     }
 `
-
 const Option = Styled.a`
     display: inline-block;
     text-decoration: none;

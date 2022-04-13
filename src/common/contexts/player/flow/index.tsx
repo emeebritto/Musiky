@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { usePlayer } from 'common/contexts/player';
 import axios from 'axios';
-import { IstaticBaseUrl } from 'services';
+import istatic from 'services/istatic';
 import { Music, PlaylistProps } from 'common/types';
 import { sleep } from 'common/utils';
 
@@ -83,7 +83,7 @@ export function usePlayerFlow() {
 
 	const getData = async(): Promise<PlaylistProps> => {
 		const params = `categoryInput=random&musicsType=vibes:${activeVibe}&maxPlaylists=1&maxPerList=2&minPerList=1`;
-		const [ playlist ] = await axios.get(`${IstaticBaseUrl}playlist/all?${params}`)
+		const [ playlist ] = await istatic.allPlaylists(params)
 			.then(r => r.data.items)
 		playlist.id = 'flow-dffvgbgh632d';
 		return playlist;
