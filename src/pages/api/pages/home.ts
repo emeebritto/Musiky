@@ -20,12 +20,13 @@ export default async function handler(
     return;
   }
 
+  // page content object
   const $ = {
     greeting: greeting(),
     recommendations: await recommendations(),
     quickPicks: await randomPlaylists({ totalList: 10, category: 'random' }),
     yourFlow: {
-      emotions: await istatic.emotions("random=1&maxResult=10").then(r=>r.data)
+      emotions: await istatic.emotions({ random: 1, maxResult: 10 }).then(r=>r.data)
     },
     playlists: {
       mixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
@@ -34,6 +35,7 @@ export default async function handler(
     },
     artists: await randomArtists({ maxResult: 6 }).then(r=>r.artists)
   };
+  
   // create playlists cache:
   let quickPicksPlaylists = $.quickPicks.items;
   for (let i=0; i < quickPicksPlaylists.length; i++) {
@@ -41,6 +43,6 @@ export default async function handler(
     cache.put(`playlist:${id}`, quickPicksPlaylists[i], 1440 * 60000);
   }
 
-  cache.put(KEY, $, 60 * 60000);
+  cache.put(KEY, $, 60 * 60000); // one hour total
   res.status(200).json($)
 }

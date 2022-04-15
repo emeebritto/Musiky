@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import axios from 'axios';
+import { musikyApi } from 'services';
 import Styled from "styled-components";
-import cache from "memory-cache";
 import faker from "faker";
 import { useSplashContext } from 'common/contexts/splash';
 import { usePlayer } from 'common/contexts/player';
@@ -34,21 +33,20 @@ const LoadNewZone = Styled.section`
 `
 
 interface EmotionsProps {
-  emotions: Music[];
+  emotions:Music[];
 };
 const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
 
   const { desableSplash } = useSplashContext();
   const { stopPlayer } = usePlayer();
   const [emotionsList, setEmotionsList] = useState<Music[]>(emotions);
-  //const [page, setPage] = useState(1);
 
   const loadMore = async() => {
-    let res = await axios.get(`${location.origin}/api/emotions?random=1&maxResult=8`)
-      .then(r=>r.data)
-      .catch(err => console.error(err));
-    setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
-    //setPage((currentValue) => currentValue + 1);
+    await musikyApi.emotions({ random: 1, maxResult: 8 })
+      .then(r => {
+        const res = r.data;
+        setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
+      }).catch(console.error);
   };
 
   useEffect(()=>{
@@ -86,10 +84,10 @@ const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
 export default Emotions;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const startWith: string | string[] | undefined = context?.query?.startWith;
-  let firstEmotion: Music | null = null;
-  const URL = `http://${context.req.headers.host}/api/emotions?id=${startWith}&random=1&maxResult=14`;
-  let emotions = await axios.get(URL).then(r => r.data);
+  const startWith = String(context?.query?.startWith || '');
+  let emotions = await musikyApi.emotions({ id: startWith, random: 1, maxResult: 8 })
+    .then(r => r.data);
+
   return {
     props: { emotions }, // will be passed to the page component as props
   }

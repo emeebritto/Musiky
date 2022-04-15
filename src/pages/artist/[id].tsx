@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import axios from 'axios';
+import { musikyApi } from 'services';
 import Link from 'next/link';
 import Styled from "styled-components";
-import { ArtistDataProps, Music, PlaylistProps } from 'common/types';
+import { ArtistPageContent } from 'common/types/pagesSources';
 import istatic from "services/istatic";
 import byId from 'common/utils/playlists/byId';
 import { formatValues } from 'common/scripts/formatNum';
@@ -81,7 +81,6 @@ const WrapperGenres = Styled.section`
   flex-wrap: wrap;
   margin: 30px 0;
 `
-
 const Genre = Styled.p`
   padding: 5px 10px;
   background-color: #181B20;
@@ -182,7 +181,7 @@ const Description = Styled.p`
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   margin-left: 5px;
 `
-export const PlaylistWrapper = Styled.section`
+const PlaylistWrapper = Styled.section`
   display: flex;
   flex-direction: column;
   width: 20vw;
@@ -194,12 +193,7 @@ export const PlaylistWrapper = Styled.section`
 `
 
 interface ArtistPageProps {
-  apiRes: {
-    artist: ArtistDataProps;
-    musics: Array<Music>;
-    playlists: Array<PlaylistProps>;
-    requestId: string;
-  }
+  apiRes: ArtistPageContent;
 }
 
 const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
@@ -207,17 +201,16 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
   const { desableSplash } = useSplashContext();
   const { load } = usePlayer();
 
-  const {artist, musics, playlists, requestId} = apiRes;
+  const { artist, musics, playlists, requestId } = apiRes;
 
   const startList = async(playlistId: string): Promise<void> => {
-    let playlist = await byId({id: playlistId});
+    let playlist = await byId({ id: playlistId });
     load({ playlist });
   }
 
   const startMedia = (playIndex: number): void => {
     load({ media: musics[playIndex] });
   };
-
 
   if (requestId) desableSplash();
 
@@ -299,16 +292,16 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
   )
 }
 
-export default Artist
+export default Artist;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  let q: string | string[] | undefined = context?.params?.id;
-  const URL = `http://${context.req.headers.host}/api/artist/${q}`;
-  let apiRes = await axios.get(URL)
-    .then(r=>r.data)
+  let id = String(context?.params?.id || '');
+  if(!id) return { notFound: true };
+  let apiRes = await musikyApi.artist({ id })
+    .then(r => r.data)
     .catch(err => console.error(err))
 
-  if(!apiRes) return { notFound: true }
+  if(!apiRes) return { notFound: true };
 
   return {
     props: { apiRes }, // will be passed to the page component as props

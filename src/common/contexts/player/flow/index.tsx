@@ -82,9 +82,14 @@ export function usePlayerFlow() {
 
 
 	const getData = async(): Promise<PlaylistProps> => {
-		const params = `categoryInput=random&musicsType=vibes:${activeVibe}&maxPlaylists=1&maxPerList=2&minPerList=1`;
-		const [ playlist ] = await istatic.allPlaylists(params)
-			.then(r => r.data.items)
+		const [ playlist ] = await istatic.allPlaylists({
+      categoryInput: 'random',
+      musicsType: `vibes:${activeVibe}`,
+      maxPlaylists: 1,
+      maxPerList: 2,
+      minPerList: 1
+    }).then(r => r.data.items)
+
 		playlist.id = 'flow-dffvgbgh632d';
 		return playlist;
 	};

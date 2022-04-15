@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+import { musikyApi } from 'services';
 import Styled from 'styled-components';
 import istatic from 'services/istatic';
 import { mediaDownload } from 'common/utils';
@@ -302,10 +302,9 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 export default Watch;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-	const mediaId: string | string[] | undefined = context?.query?.v;
+	const mediaId = String(context.query?.v || '');
+  const pageContent = await musikyApi.watchPage({ mediaId }).then(r => r.data);
 
-  const URL = `http://${context.req.headers.host}/api/pages/watch?v=${mediaId}`;
-  const pageContent = await axios.get(URL).then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }

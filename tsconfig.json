@@ -5,7 +5,7 @@
     "paths": {
       "components": ["components"],
       "common": ["common"],
-      "api": ["api"],
+      "services": ["services"],
       "assets": ["assets"]
     },
     "typeRoots": ["src/@types", "node_modules/@types"],

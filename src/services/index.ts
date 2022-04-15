@@ -1,0 +1,6 @@
+export { default as musikyApi } from './musikyApi';
+export { default as istatic } from './istatic';
+
+const musikyStreamApi = 'https://musiky-listen.herokuapp.com';
+const devENV = process.env.NODE_ENV === 'development';
+export { musikyStreamApi, devENV };

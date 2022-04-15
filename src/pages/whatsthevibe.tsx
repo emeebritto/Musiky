@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Styled from "styled-components";
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
-import axios from 'axios';
 import { devENV } from 'services';
 import istatic from 'services/istatic';
 import { DataStorage } from 'common/storage';

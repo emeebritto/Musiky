@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { IstaticBaseUrl } from 'services';
 import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Styled from "styled-components";

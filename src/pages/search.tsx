@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SearchPageContent } from 'common/types/pagesSources';
 import { Music } from 'common/types';
-import axios from 'axios';
+import { musikyApi } from 'services';
 import Styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import { useSplashContext } from 'common/contexts/splash';
@@ -263,8 +263,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
 export default Search;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const URL = `http://${context.req.headers.host}/api/pages/search`;
-  const pageContent = await axios.get(URL).then(r => r.data);
+  const pageContent = await musikyApi.searchPage().then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }

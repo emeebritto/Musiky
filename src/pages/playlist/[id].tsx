@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import axios from 'axios';
+import { musikyApi } from 'services';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Styled from 'styled-components';
 import { PlaylistProps, Music } from 'common/types';
 import { usePlaylistContext } from 'common/contexts/Playlist';
 import { usePlayer } from 'common/contexts/player';
 import { useSplashContext } from 'common/contexts/splash';
 import istatic from "services/istatic";
-import PausedAnim from 'assets/playingCompAnim.jsx';
 import {
   MusicList,
   WarnBox,
@@ -88,12 +86,12 @@ const CircleOption = Styled.img`
 
 
 interface PlaylistPageProp {
-  playlist: PlaylistProps;
+  playlist:PlaylistProps;
 }
 
 interface DurationOrPLaying {
-  duration: string;
-  index: number;
+  duration:string;
+  index:number;
 }
 
 const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
@@ -112,9 +110,7 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
     togglePlaylistLoop 
   } = usePlaylistContext();
     
-  let id: string = router.query.id
-    ? String(router.query.id) 
-    : '';
+  let id = String(router.query?.id || '');
 
   const startMedia = (playIndex: number): void => {
     load({ playIndex, playlist });
@@ -197,11 +193,9 @@ const Playlist: NextPage<PlaylistPageProp> = ({ playlist }) => {
 export default Playlist;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const id: string | string[] | undefined = context.params?.id;
+  const id = String(context.params?.id || '');
   if(!id) return { notFound: true }
-
-  const URL = `http://${context.req.headers.host}/api/playlist/${id}`;
-  const playlist = await axios.get(URL).then(r => r.data);
+  const playlist = await musikyApi.playlist({ id }).then(r => r.data);
   if(!playlist) return { notFound: true }
 
   return {

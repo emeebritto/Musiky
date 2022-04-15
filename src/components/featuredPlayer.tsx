@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { mediaBaseUrl } from 'services';
+import { musikyStreamApi } from 'services';
 import { useFeaturedContext } from 'common/contexts/Featured';
 
 
@@ -22,7 +22,7 @@ const FeaturedPlayer: React.FC = () => {
       <ReactPlayer
         playing={playingAud}
         volume={AudVol}
-        url={`${mediaBaseUrl}/${AudId}?source=yt`}
+        url={`${musikyStreamApi}/${AudId}?source=yt`}
         hidden
         config={{
           file: {

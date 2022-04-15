@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import axios from 'axios';
-import Image from 'next/image';
 import Styled from 'styled-components';
+import { musikyApi } from 'services';
 import { HomeContent } from 'common/types/pagesSources';
 import { useSplashContext } from 'common/contexts/splash';
 
@@ -88,8 +87,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const URL = `http://${context.req.headers.host}/api/pages/home`;
-  const pageContent = await axios.get(URL).then(r => r.data);
+  const pageContent = await musikyApi.homePage().then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }

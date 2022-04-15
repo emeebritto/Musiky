@@ -1,36 +1,44 @@
 import { Music, PlaylistProps, ArtistDataProps } from 'common/types';
 
 export interface ExploreContent {
-    playlists: any;
+    playlists:any;
     disks: {
-        id: string,
-        list: Array<Music>
+        id:string,
+        list:Music[]
     };
 }
 export interface HomeContent {
     recommendations: {
-        clip: Music;
-        artist: ArtistDataProps;
-        instrumental: Music;
+        clip:Music;
+        artist:ArtistDataProps;
+        instrumental:Music;
     } | undefined;
     greeting: {
-        greetingText: string;
-        greetingImg: string;
+        greetingText:string;
+        greetingImg:string;
     };
     quickPicks: {
-        items: Array<PlaylistProps>;
+        items:PlaylistProps[];
     };
     yourFlow: {
-        emotions: Music[];
+        emotions:Music[];
     }
-    playlists: any;
-    artists: Array<ArtistDataProps>;
+    playlists:any;
+    artists:ArtistDataProps[];
 }
 export interface SearchPageContent {
-	playlists: any;
-	artists: Array<ArtistDataProps>;
-	searchSuggestions: Array<string>;
+	playlists:any;
+	artists:ArtistDataProps[];
+	searchSuggestions:string[];
 }
+
 export interface WatchPageContent {
-    media: Music;
+    media:Music;
+}
+
+export interface ArtistPageContent {
+  artist:ArtistDataProps;
+  musics:Music[];
+  playlists:PlaylistProps[];
+  requestId:string;
 }
