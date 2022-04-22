@@ -3,12 +3,11 @@ import type { NextPage, GetServerSideProps } from 'next';
 import { musikyApi } from 'services';
 import Link from 'next/link';
 import Styled from "styled-components";
-import { ArtistPageContent } from 'common/types/pagesSources';
-import istatic from "services/istatic";
-import byId from 'common/utils/playlists/byId';
-import { formatValues } from 'common/scripts/formatNum';
-import { usePlayer } from 'common/contexts/player';
-import { useSplashContext } from 'common/contexts/splash';
+import { ArtistPageContent } from 'common/types/pages';
+import { istatic } from "services";
+import { formatValues } from 'helpers';
+import { usePlayer } from 'contexts/player';
+import { useSplashContext } from 'contexts/splash';
 import { MusicList, TabTitle } from 'components';
 
 
@@ -204,7 +203,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
   const { artist, musics, playlists, requestId } = apiRes;
 
   const startList = async(playlistId: string): Promise<void> => {
-    let playlist = await byId({ id: playlistId });
+    let playlist = await istatic.playlistData({ id: playlistId }).then(r => r.data);
     load({ playlist });
   }
 

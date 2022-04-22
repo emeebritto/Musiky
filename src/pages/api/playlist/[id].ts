@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import cache from "memory-cache";
 import { PlaylistProps } from 'common/types';
-import byId from 'common/utils/playlists/byId';
+import { istatic } from 'services';
 import { verifyUnavailable } from 'common/utils';
 
 export default async function handler(
@@ -23,7 +23,7 @@ export default async function handler(
     return;
   }
 
-  const playlist = await byId({ id });
+  const playlist = await istatic.playlistData({ id }).then(r => r.data);;
   if (playlist) {
     playlist.list = await verifyUnavailable(playlist.list);
   }

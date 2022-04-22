@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Styled from 'styled-components';
 import { mediaDownload, multiDownloads, copyContent } from 'common/utils';
 import { PlaylistProps } from 'common/types';
-import { usePlayer } from 'common/contexts/player';
+import { usePlayer } from 'contexts/player';
 import { PopUp } from 'components';
 import istatic  from "services/istatic";
 

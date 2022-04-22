@@ -2,7 +2,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { musikyStreamApi } from 'services';
-import { useFeaturedContext } from 'common/contexts/Featured';
+import { useFeaturedContext } from 'contexts/Featured';
 
 
 const ViewPort = Styled.section`

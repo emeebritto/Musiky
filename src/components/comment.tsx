@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 import istatic from 'services/istatic';
 import { CommentProps } from 'common/types';
-import { usePlayer } from 'common/contexts/player';
+import { usePlayer } from 'contexts/player';
 
 const ViewPort = Styled.section`
 	display: flex;

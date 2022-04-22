@@ -1,4 +1,6 @@
+import { createUrlParams } from 'helpers';
 import axios from 'axios';
+import { mapObjValues } from 'helpers';
 import { CommentProps, Music, PlaylistProps, ArtistDataProps, Lyric } from 'common/types';
 
 export interface DictionaryResponse {
@@ -27,22 +29,53 @@ export interface MusicResponse {
   data:Music;
 }
 
+export interface AllMusicsDataParams {
+  page?:number;
+  withArtist?:string;
+  categoryInput?:string;
+  random?: number;
+  allNames?:number;
+  maxResult?: number;
+}
+
 export interface AllMusicsResponse {
   data: {
     page:number;
     provider:string;
     requestId:string;
-    items:Music[];
+    items:Music[] | string[];
   };
 }
 
-export interface AllArtistsResponse {
-  data: {
-    page:number;
-    provider:string;
-    requestId:string;
-    items:ArtistDataProps[];
-  }; 
+export interface MusicsDataParams {
+  index?:number;
+  id?:string;
+  searchTitle?:string;
+  filter?:string;
+  random?:number;
+  onlyTitle?:number;
+  maxResult?:number;
+  page?:number;
+  maxPerPage?:number;
+}
+
+export interface MusicsResponse {
+  data:Music[];
+}
+
+export interface ArtistDataParams {
+  index?:number;
+  id?:string;
+  searchName?:string;
+  random?:number;
+  onlyNames?:number;
+  maxResult?:number;
+  page?:number;
+  maxPerPage?:number;
+}
+
+export interface ArtistsDataResponse {
+  data:ArtistDataProps[];
 }
 
 export interface LyricResponse {
@@ -51,6 +84,8 @@ export interface LyricResponse {
 
 export interface AllPlaylistsParams {
   categoryInput?:string;
+  random?:number;
+  withArtist?:string;
   musicsType?:string;
   maxPlaylists?:number | string;
   maxPerList?:number | string;
@@ -140,38 +175,33 @@ class Istatic {
     return axios.post(`${this.baseUrl}/translate?to=pt`, { text });
   }
 
-  musicData({ id }:{ id:string }): Promise<MusicResponse> {
-    return axios.get(`${this.baseUrl}/music/${id}`);
+// TEMP <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  playlistData({ id }:{ id:string }): Promise<{data:PlaylistProps}> {
+    return axios.get(`${this.baseUrl}/playlist/byId?id=${id}`);
   }
 
-  allMusicsData(opt: { page?:number, random?: number, maxResult?: number }): Promise<AllMusicsResponse> {
-    const { page=1, random=0, maxResult='' } = opt || {}
-    return axios.get(`${this.baseUrl}/music/all?page=${page}&random=${random}&maxResult=${maxResult}`);
+  musicsData(opt?:MusicsDataParams): Promise<MusicsResponse> {
+    const params:string = createUrlParams(opt);
+    return axios.get(`${this.baseUrl}/musics?${params}`);
   }
 
-  allArtistsData(opt:{ page:number }): Promise<AllArtistsResponse> {
-    const { page=1 } = opt || {};
-    return axios.get(`${this.baseUrl}/artist/all?page=${page}`);
+  artistsData(opt?:ArtistDataParams): Promise<ArtistsDataResponse> {
+    const params:string = createUrlParams(opt);
+    return axios.get(`${this.baseUrl}/artists?${params}`);
   }
 
   lyric({ title, artistRef }:{ title:string, artistRef:string }): Promise<LyricResponse> {
-    return axios.get(`${this.baseUrl}/music/lyric?title=${title}&artistRef=${artistRef}`);
+    return axios.get(`${this.baseUrl}/musics/lyric?title=${title}&artistRef=${artistRef}`);
   }
 
   allPlaylists(opt?:AllPlaylistsParams): Promise<AllPlaylistsResponse> {
-    const {
-      categoryInput='',
-      musicsType='',
-      maxPlaylists='',
-      maxPerList='',
-      minPerList=''
-    } = opt || {};
-    return axios.get(`${this.baseUrl}/playlist/all?categoryInput=${categoryInput}&musicsType=${musicsType}&maxPlaylists=${maxPlaylists}&maxPerList=${maxPerList}&minPerList=${minPerList}`);
+    const params:string = createUrlParams(opt);
+    return axios.get(`${this.baseUrl}/playlist/all?${params}`);
   }
 
   emotions(opt?:EmotionsParams): Promise<EmotionsResponse> {
-    const { id='', random='', maxResult='' } = opt || {};
-    return axios.get(`${this.baseUrl}/emotions?id=${id}&random=${random}&maxResult=${maxResult}`);
+    const params:string = createUrlParams(opt);
+    return axios.get(`${this.baseUrl}/emotions?${params}`);
   }
 }
 

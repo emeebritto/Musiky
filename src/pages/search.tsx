@@ -3,14 +3,12 @@ import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SearchPageContent } from 'common/types/pagesSources';
+import { SearchPageContent } from 'common/types/pages';
 import { Music } from 'common/types';
-import { musikyApi } from 'services';
+import { musikyApi, istatic } from 'services';
 import Styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
-import { useSplashContext } from 'common/contexts/splash';
-import istatic from "services/istatic";
-import autoComplete from 'common/utils/search/autoComplete';
+import { useSplashContext } from 'contexts/splash';
 import { 
   PlaylistsRow, 
   ArtistsRow, 
@@ -183,7 +181,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
   }
   const filterSearch = async (value: string): Promise<void> => {
     if (value.length > 1) {
-      setOptionsToComplete(await autoComplete({input: value, maxResult: 8}));
+      setOptionsToComplete(await musikyApi.autoComplete({ input: value }).then(r => r.data));
     } else {
       setOptionsToComplete([]);
       router.push('/search');

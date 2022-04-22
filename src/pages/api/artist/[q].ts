@@ -1,25 +1,46 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
 import faker from 'faker';
 import { ArtistDataProps, PlaylistProps, Music } from 'common/types';
-import artistData from 'common/utils/artists/artistData';
+import { istatic } from 'services';
 
 interface Response {
-  requestId: string;
-  query: string;
-  artist: ArtistDataProps | {};
-  playlists: Array<PlaylistProps>;
-  musics: Array<Music>;
+  requestId:string;
+  query:string;
+  artist:ArtistDataProps | {};
+  playlists:PlaylistProps[];
+  musics:Music[];
 };
 
+interface NotFound {
+  msg:string;
+}
+
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Response>
+  req:NextApiRequest,
+  res:NextApiResponse<Response | NotFound>
 ) {
+
+  const query = String(req.query?.q || '');
+
+  if (!query) {
+    return res.status(404).json({ msg: `artist not found (empty query)` })
+  }
+
   const infors = {
     requestId: faker.datatype.uuid(),
-    query: String(req.query.q)
+    query: query
   };
 
-  let data = await artistData({ q: String(req.query.q) });
-  res.status(200).json({...data, ...infors});
+  const artist = await istatic
+    .artistsData({ searchName: query })
+    .then(r => r.data[0]);
+
+  const musics = await istatic
+    .musicsData({ filter: `artists:${query}` })
+    .then(r => r.data);
+
+  const list = await istatic.allPlaylists({ withArtist: query }).then(r => r.data);
+  const playlists = list.items;
+
+  res.status(200).json({ ...infors, artist: artist || {}, playlists, musics });
 }

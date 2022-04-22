@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { musikyStreamApi } from 'services';
-import { usePlayer, usePlayerProgress } from 'common/contexts/player';
+import { usePlayer, usePlayerProgress } from 'contexts/player';
 
 const ViewPort = Styled.section`
   position: fixed;

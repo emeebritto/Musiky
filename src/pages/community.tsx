@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
-import { useSplashContext } from 'common/contexts/splash';
+import { useSplashContext } from 'contexts/splash';
 import { TabTitle } from 'components';
 
 

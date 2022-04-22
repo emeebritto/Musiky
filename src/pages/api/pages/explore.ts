@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import cache from "memory-cache";
-import { ExploreContent } from 'common/types/pagesSources';
+import faker from 'faker';
+import { istatic } from 'services';
+import { ExploreContent } from 'common/types/pages';
 import randomPlaylists from 'common/utils/random/playlists';
-import randomSongs from 'common/utils/random/songs';
 
 const KEY = 'page:explore';
 
@@ -23,7 +24,11 @@ export default async function handler(
       exploreNewSets: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
       anotherSets: await randomPlaylists({ totalList: 6 }).then(r=>r.items)
     },
-    disks: await randomSongs({ maxResult: 6 })
+    disks: await istatic.musicsData({
+      random: 1,
+      maxResult: 6,
+      filter: 'tags:music'
+    }).then(r => ({ id: faker.datatype.uuid(), list: r.data }))
   };
 
   cache.put(KEY, $, 60 * 60000);

@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import { usePlayer, usePlayerFlow, usePlayerProgress } from 'common/contexts/player';
+import { usePlayer, usePlayerFlow, usePlayerProgress } from 'contexts/player';
 import { VerticalView } from 'components';
 
 const MyFlowVerticalViewStyle = () => (`

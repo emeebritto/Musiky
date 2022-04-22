@@ -2,8 +2,7 @@ import React from "react";
 import Link from 'next/link';
 import Styled from "styled-components";
 import { ArtistDataProps } from 'common/types';
-
-import { formatValues } from 'common/scripts/formatNum';
+import { formatValues } from 'helpers';
 
 
 const Artist = Styled.a`

@@ -4,9 +4,9 @@ import { musikyApi } from 'services';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { PlaylistProps, Music } from 'common/types';
-import { usePlaylistContext } from 'common/contexts/Playlist';
-import { usePlayer } from 'common/contexts/player';
-import { useSplashContext } from 'common/contexts/splash';
+import { usePlaylistContext } from 'contexts/Playlist';
+import { usePlayer } from 'contexts/player';
+import { useSplashContext } from 'contexts/splash';
 import istatic from "services/istatic";
 import {
   MusicList,

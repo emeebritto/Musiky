@@ -3,8 +3,8 @@ import Link from 'next/link';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { ArtistDataProps, Music } from "common/types";
-import { useFeaturedContext } from 'common/contexts/Featured';
-import { usePlayer } from 'common/contexts/player';
+import { useFeaturedContext } from 'contexts/Featured';
+import { usePlayer } from 'contexts/player';
 import { FeaturedControl } from 'components';
 
 
@@ -85,7 +85,7 @@ interface RecProps {
     clip: Music;
     artist: ArtistDataProps;
     instrumental: Music;
-  } | undefined;
+  } | null;
 }
 
 const Featured: React.FC<RecProps> = ({ data }) => {

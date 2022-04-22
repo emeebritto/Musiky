@@ -1,23 +1,31 @@
-import { request } from 'common/utils/request';
+import { istatic } from 'services';
+import { PlaylistProps } from 'common/types';
 import faker from 'faker';
 
+interface ReturnObj {
+    request:string;
+    requestId:string;
+    items:PlaylistProps[] | [];
+}
 
 const randomPlaylists = async(
     { totalList, category='all' }: 
     {totalList: number, category?: string}
 ) => {
-    let playlists = {
+    let playlists: ReturnObj = {
         request: 'random-list',
         requestId: faker.datatype.uuid(),
-        items: [],
-        length: 0
+        items: []
     };
-    let lists = await request(
-        'allPlaylist',
-        `?random=1&categoryInput=${category}&musicsType=${'tags:music'}&maxPlaylists=${totalList}`
-    );
+
+    let lists = await istatic.allPlaylists({
+        random: 1,
+        categoryInput: category,
+        musicsType: 'tags:music',
+        maxPlaylists: totalList
+    }).then(r => r.data);
+
     playlists.items = lists.items;
-    playlists.length = lists.itemsLength;
     return playlists;
 }
 

@@ -6,7 +6,7 @@ import cache from "memory-cache";
 import { Music } from 'common/types';
 import istatic from "services/istatic";
 import { fromSecondsToTime } from 'common/utils';
-import { usePlayer, usePlayerProgress } from 'common/contexts/player';
+import { usePlayer, usePlayerProgress } from 'contexts/player';
 
 
 const ViewPort = Styled.section`
@@ -216,7 +216,7 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
 export default Embed;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  let id: string | string[] | null = context?.params?.id || null;
+  let id = String(context?.params?.id || '');
   let pageContent: Music | null = null;
 
   if (!id) return { props: { pageContent } };
@@ -227,8 +227,8 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   if (cachedResponse) {
     pageContent = cachedResponse;
   } else {
-    pageContent = await istatic.musicData({ id: String(id) })
-      .then(r => r.data)
+    pageContent = await istatic.musicsData({ id })
+      .then(r => r.data[0])
       .catch(err => null)
     cache.put(KEY, pageContent, 60 * 60000); // one hour total
   }

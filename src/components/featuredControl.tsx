@@ -1,7 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import { useFeaturedContext } from 'common/contexts/Featured';
-import { DataStorage } from 'common/storage';
+import { useFeaturedContext } from 'contexts/Featured';
 import istatic from 'services/istatic';
 
 const SwiperBtnStyle = Styled.img`

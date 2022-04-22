@@ -5,8 +5,8 @@ import Styled from "styled-components";
 import { Music, PlaylistProps } from 'common/types';
 import { MusicList } from 'components';
 import istatic from 'services/istatic';
-import { usePlayer } from 'common/contexts/player';
-import { usePlaylistContext } from 'common/contexts/Playlist';
+import { usePlayer } from 'contexts/player';
+import { usePlaylistContext } from 'contexts/Playlist';
 
 
 const ViewPort = Styled.section`

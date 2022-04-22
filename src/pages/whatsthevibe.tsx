@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import { devENV } from 'services';
 import istatic from 'services/istatic';
-import { DataStorage } from 'common/storage';
+import dataStorage from 'common/storage';
 import { Music, ArtistDataProps } from 'common/types';
-import { useSplashContext } from 'common/contexts/splash';
-import { usePlayer } from 'common/contexts/player';
+import { useSplashContext } from 'contexts/splash';
+import { usePlayer } from 'contexts/player';
 import { TabTitle } from 'components';
 
 
@@ -157,8 +157,8 @@ const WhatsTheVibe: NextPage = () => {
         artist: currentMusic.artists[0].replace(/\W|_/ig, ''),
         vibes: ActiveVibes
       };
-      let newList = [...DataStorage.get(VIBE_KEY), song];
-      DataStorage.set(VIBE_KEY, newList);
+      let newList = [...dataStorage.get(VIBE_KEY), song];
+      dataStorage.set(VIBE_KEY, newList);
     }
     setActiveVibes([]);
     getSong();
@@ -167,10 +167,10 @@ const WhatsTheVibe: NextPage = () => {
     setActiveVibes([]);
   };
   const actionClearStorage = () => {
-    DataStorage.set(VIBE_KEY, null);
+    dataStorage.set(VIBE_KEY, null);
   };
   const actionCopyStorage = () => {
-    navigator.clipboard.writeText(JSON.stringify(DataStorage.get(VIBE_KEY)))
+    navigator.clipboard.writeText(JSON.stringify(dataStorage.get(VIBE_KEY)))
       .then(()=> alert('copied'))
   };
   const actionSkip = () => {
@@ -180,10 +180,10 @@ const WhatsTheVibe: NextPage = () => {
 
   async function getSong() {
     setCurrentMusic(
-      await istatic.allMusicsData({ random: 1, maxResult: 1 })
-        .then(r=> {
-          let songlist = DataStorage.get(VIBE_KEY);
-          let song = r.data.items[0];
+      await istatic.musicsData({ random: 1, maxResult: 1 })
+        .then(r => {
+          let songlist = dataStorage.get(VIBE_KEY);
+          let song = r.data[0];
           let evenExists = songlist
             .findIndex((ms: {title: string, artist: string}) => (
               ms.title === song.title.replace(/\W|_/ig, '')
@@ -205,10 +205,10 @@ const WhatsTheVibe: NextPage = () => {
     }
     desableSplash();
     (async() => {
-      if (!DataStorage.get(VIBE_KEY)) {
+      if (!dataStorage.get(VIBE_KEY)) {
         const vibesFromDB = await istatic.staticPath(`vibesDB.json`)
           .then(r => r.data);
-        DataStorage.set(VIBE_KEY, [...vibesFromDB]);
+        dataStorage.set(VIBE_KEY, [...vibesFromDB]);
       }
       getSong();
     })()
@@ -247,7 +247,7 @@ const WhatsTheVibe: NextPage = () => {
           <Action onClick={actionNext}>Next</Action>
           <Action onClick={actionSkip}>Skip</Action>
         </Actions>
-        <ViewCode>{JSON.stringify(DataStorage.get(VIBE_KEY))}</ViewCode>
+        <ViewCode>{JSON.stringify(dataStorage.get(VIBE_KEY))}</ViewCode>
       </Wrapper>
     </ViewPort>
     </>

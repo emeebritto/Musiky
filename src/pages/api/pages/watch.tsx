@@ -5,35 +5,28 @@ import istatic from 'services/istatic';
 import { Music } from 'common/types';
 
 interface WatchContent {
-  media: Music;
+  media:Music;
 }
 
 interface NotFoundContent {
-  msg: string;
+  msg:string;
 }
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<WatchContent | NotFoundContent>
+  req:NextApiRequest,
+  res:NextApiResponse<WatchContent | NotFoundContent>
 ) {
 
   const KEY = `page:watch:${req.query.v}`;
 
   const cachedResponse = cache.get(KEY);
-  if (cachedResponse) {
-    res.status(200).json(cachedResponse);
-    return;
-  }
+  if (cachedResponse) return res.status(200).json(cachedResponse);
 
-  const id = req.query?.v || null;
-
-  if (!id) {
-    res.status(404).json({ msg: `not found (${id})` });
-    return;
-  }
+  const id = String(req.query?.v || '');
+  if (!id) return res.status(404).json({ msg: `id is required!` });
 
   const $ = {
-    media: await istatic.musicData({ id: String(id) }).then(r => r.data)
+    media: await istatic.musicsData({ id }).then(r => r.data[0])
   };
 
   cache.put(KEY, $, 60 * 60000); // one hour total

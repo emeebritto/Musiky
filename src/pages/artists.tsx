@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import type { NextPage } from 'next';
 import Styled from "styled-components";
 import { ArtistCard, TabTitle } from 'components';
-import istatic from 'services/istatic';
-import { useSplashContext } from 'common/contexts/splash';
+import { istatic } from 'services';
+import { useSplashContext } from 'contexts/splash';
 import { ArtistDataProps } from 'common/types';
 
 
@@ -56,9 +56,9 @@ const Artists: NextPage = () => {
 
   useEffect(() => {
     async function getData() {
-      await istatic.allArtistsData({ page })
+      await istatic.artistsData({ page })
         .then(r => {
-          let list = r.data.items;
+          let list = r.data;
           setArtists((artists: Array<ArtistDataProps>) => [...artists, ...list]);
         })
         .catch(err => console.error(err));

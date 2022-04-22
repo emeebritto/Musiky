@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { SwiperSlide } from 'swiper/react';
 import { Music } from 'common/types';
 import { VerticalView } from 'components';
-import { usePlayer } from 'common/contexts/player';
+import { usePlayer } from 'contexts/player';
 import { PlaylistProps } from 'common/types';
 
 const ViewPort = Styled.section`

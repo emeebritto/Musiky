@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { Music, UnavailableMusic } from 'common/types';
-import { usePlayer } from 'common/contexts/player';
-import { usePlaylistContext } from 'common/contexts/Playlist';
+import { usePlayer } from 'contexts/player';
+import { usePlaylistContext } from 'contexts/Playlist';
 import istatic from "services/istatic";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
@@ -139,15 +139,15 @@ const MusicTime = Styled.section`
 
 
 interface MusicListProps {
-  list: Array<Music>;
-  listId: string;
-  startMedia: (s: number) => void;
-  showUnavailable?: boolean;
+  list:Music[] | [];
+  listId:string;
+  startMedia:(s:number) => void;
+  showUnavailable?:boolean;
 }
 
 interface DurationOrPLaying {
-  duration: string;
-  index: number;
+  duration:string;
+  index:number;
 }
 
 const MusicList: React.FC<MusicListProps> = ({

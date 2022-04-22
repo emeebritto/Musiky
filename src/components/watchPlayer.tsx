@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import istatic from 'services/istatic';
-import { usePlayer, usePlayerProgress } from 'common/contexts/player';
+import { usePlayer, usePlayerProgress } from 'contexts/player';
 import { PlayerProgressControl } from 'components';
 
 

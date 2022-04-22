@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
-import istatic from 'services/istatic';
-import axios from 'axios';
+import { istatic, musikyApi } from 'services';
 import { Music, DataHistory } from 'common/types';
-import { useAccountContext } from 'common/contexts/Account';
-import { usePlayer } from 'common/contexts/player';
+import { useAccountContext } from 'contexts/Account';
+import { usePlayer } from 'contexts/player';
 
 const ViewPort = Styled.section`
   display: flex;
@@ -66,18 +65,17 @@ const LastPlayer: React.FC = () => {
   };
 
   useEffect(()=>{
-    const lastSong: DataHistory = prop.music? (history[1] || history[0]) : history[0];
+    const lastSong:DataHistory = prop.music? (history[1] || history[0]) : history[0];
     if (!lastSong) return;
     setLoading(true);
     async function getData() {
-      const musicData = await istatic.musicData({ id: lastSong.id })
-        .then(r => r.data)
+      await istatic.musicsData({ id: lastSong.id })
+        .then(r => setLast(r.data[0]))
         .catch(err => setError(true))
-      setLast(musicData || null);
-      if (lastSong.playlist) {
-        const playlistData = await axios.get(`${location.origin}/api/playlist/${lastSong.playlist.id}`)
-          .then(r => r.data)
-        setFrom(playlistData || null);
+
+      if (lastSong.playlist?.id) {
+        await musikyApi.playlist({ id: lastSong.playlist.id })
+          .then(r => setFrom(r.data));
       }
       setLoading(false);
     };

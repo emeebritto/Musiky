@@ -3,9 +3,9 @@ import type { NextPage } from 'next';
 import Styled from "styled-components";
 import { Music } from 'common/types';
 import { MusicList, TabTitle } from 'components';
-import { useSplashContext } from 'common/contexts/splash';
-import { usePlayer } from 'common/contexts/player';
-import istatic from 'services/istatic';
+import { useSplashContext } from 'contexts/splash';
+import { usePlayer } from 'contexts/player';
+import { istatic } from 'services';
 
 
 const ViewPort = Styled.section`
@@ -48,29 +48,29 @@ const AllMusics: NextPage = () => {
   let id = 'allCol100';
   let secondId = 'allCol200';
 
-  const startMedia1col = (playIndex: number): void => {
+  const startMedia1col = (playIndex:number): void => {
     load({ media: musicList[playIndex] });
   };
-  const startMedia2col = (playIndex: number): void => {
+  const startMedia2col = (playIndex:number): void => {
     load({ media: secondColumn[playIndex] });
   };
 
   useEffect(() => {
-    async function getData() {
-      let res = await istatic.allMusicsData({ page })
+    async function getData(): Promise<void> {
+      let musics = await istatic.musicsData({ page })
         .then(r => r.data)
         .catch(err => console.error(err));
-      if (!res || !res.items) return;
-      let firstPoint: number = res.items.length / 2;
-      let endPoint: number = res.items.length;
+      if (!musics || !musics.length) return;
+      let firstPoint:number = musics.length / 2;
+      let endPoint:number = musics.length;
 
-      let newList: Music[] = [...res.items].splice(0, firstPoint);
-      let newSecondColumn: Music[] = [...res.items].splice(firstPoint, endPoint);
+      let newList:Music[] = [...musics].splice(0, firstPoint);
+      let newSecondColumn:Music[] = [...musics].splice(firstPoint, endPoint);
 
       setMusicList((musicList: Array<Music>) => [...musicList, ...newList]);
       setSecondColumn((secondColumn: Array<Music>) => [...secondColumn, ...newSecondColumn]);
     }
-    getData()
+    getData();
   },[page]);
 
   useEffect(() => {

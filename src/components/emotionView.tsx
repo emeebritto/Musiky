@@ -3,7 +3,7 @@ import axios from 'axios';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { Music } from 'common/types';
-import { formatValues } from 'common/scripts/formatNum';
+import { formatValues } from 'helpers';
 import istatic from 'services/istatic';
 import { useSwiperSlide, useSwiper } from 'swiper/react';
 

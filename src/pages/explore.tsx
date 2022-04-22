@@ -2,8 +2,8 @@ import React from 'react';
 import { musikyApi } from 'services';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
-import { ExploreContent } from 'common/types/pagesSources';
-import { useSplashContext } from 'common/contexts/splash';
+import { ExploreContent } from 'common/types/pages';
+import { useSplashContext } from 'contexts/splash';
 import { PlaylistsRow, DiskLibrary, TabTitle } from 'components';
 
 

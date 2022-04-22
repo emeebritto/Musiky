@@ -1,53 +1,56 @@
-const tokenSlotName = "USER_SD_ACCESS";
-
 export class DataStorage {
+  tokenSlotName: string;
+  
   constructor() {
-    throw Error("No");
+    this.tokenSlotName = "USER_SD_ACCESS";
   }
 
-  static set(key: string, data: any ='empty'): void {
+  set(key:string, data:any ='empty'): void {
     if (!key) return;
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  static get(key: string): any {
+  get(key:string): any {
     if (typeof window !== 'undefined') {
-      const data: any = localStorage.getItem(key);
+      const data:any = localStorage.getItem(key);
       return JSON.parse(data);
     }
     return false;
   }
 
-  static del(key: string): void {
+  del(key:string): void {
     localStorage.removeItem(key);
   }
 
-  static reset(): void {
+  reset(): void {
     localStorage.clear();
   }
 
-  static getLength(): number {
+  getLength(): number {
     return localStorage.length;
   }
 
-  static setToken(token: string): void {
+  setToken(token:string): void {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(tokenSlotName, JSON.stringify(token));
+      localStorage.setItem(this.tokenSlotName, JSON.stringify(token));
     }
   }
 
-  static hasToken(): boolean {
+  hasToken(): boolean {
     if (typeof window !== 'undefined') {
-      return !!localStorage.getItem(tokenSlotName);
+      return !!localStorage.getItem(this.tokenSlotName);
     }
     return false;
   }
 
-  static getToken(): string {
+  getToken(): string {
     if (typeof window !== 'undefined') {
-      const data: any = localStorage.getItem(tokenSlotName);
+      const data:any = localStorage.getItem(this.tokenSlotName);
       return JSON.parse(data);
     }
     return '';
   }
 }
+
+const dataStorage = new DataStorage();
+export default dataStorage;

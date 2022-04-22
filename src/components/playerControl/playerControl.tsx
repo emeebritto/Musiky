@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { EventTarget, SyntheticEvent } from 'common/types';
-import { usePlayer } from 'common/contexts/player';
-import { useLyricContext } from 'common/contexts/Lyric';
+import { usePlayer } from 'contexts/player';
+import { useLyricContext } from 'contexts/Lyric';
 import { PlayerProgressControl } from 'components';
 import istatic from "services/istatic";
 import {

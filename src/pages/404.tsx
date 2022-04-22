@@ -2,7 +2,7 @@ import React from "react";
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Styled from "styled-components";
-import { useSplashContext } from 'common/contexts/splash';
+import { useSplashContext } from 'contexts/splash';
 import istatic from "services/istatic";
 import { TabTitle } from "components";
 

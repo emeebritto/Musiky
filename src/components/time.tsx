@@ -1,7 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import Styled from 'styled-components';
-//import { useFeaturedContext } from 'common/contexts/Featured';
+//import { useFeaturedContext } from 'contexts/Featured';
 
 const Clock = Styled(Moment)`
 	opacity: 0.9;

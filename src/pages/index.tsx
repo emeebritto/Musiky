@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from 'styled-components';
 import { musikyApi } from 'services';
-import { HomeContent } from 'common/types/pagesSources';
-import { useSplashContext } from 'common/contexts/splash';
+import { HomeContent } from 'common/types/pages';
+import { useSplashContext } from 'contexts/splash';
 
 import {
   Featured,

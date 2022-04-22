@@ -1,35 +1,41 @@
-import getPlaylistsById from 'common/utils/playlists/byId';
-import artistData from 'common/utils/artists/artistData';
+import { istatic } from 'services';
 import { Music, ArtistDataProps } from 'common/types';
 
-interface Return {
-	instrumental: Music,
-	artist: ArtistDataProps,
-	clip: Music
+
+interface Recommendations {
+	instrumental:Music;
+	artist:ArtistDataProps;
+	clip:Music;
 };
 
-const isEmpty = (obj: any): boolean => !!!Object.keys(obj).length;
+const isEmpty = (obj:any): boolean => !Object.keys(obj).length;
 
-const recommendations = async(): Promise<Return | undefined> => {
-	let noVocals = await getPlaylistsById({ id: 'PLrQmjsgFFZHi2KZhTy8717zlVnSi6Jiat' });
-	let officialVideos = await getPlaylistsById({ id: 'PLrQmjsgFFZHiLLcr1cKedzZVBMnujZQEE' });
-	let song = noVocals.list[~~(Math.random() * noVocals.list.length - 1)];
-	let data = await artistData({ q: song.artists[0].replace(/\W|_/gi, '') });
-	let tragetTitle = new RegExp(song.title, 'i');
-	let tragetArtist = new RegExp(song.artists[0], 'i');
-	let clip = officialVideos.list.find((ms: Music) => {
+const recommendations = async(): Promise<Recommendations | null> => {
+	const noVocals = await istatic.playlistData({ id: 'PLrQmjsgFFZHi2KZhTy8717zlVnSi6Jiat' })
+		.then(r => r.data);
+	const officialVideos = await istatic.playlistData({ id: 'PLrQmjsgFFZHiLLcr1cKedzZVBMnujZQEE' })
+		.then(r => r.data);
+
+	const randomSong = noVocals.list[~~(Math.random() * noVocals.list.length - 1)];
+	const songArtistName = randomSong.artists[0].replace(/\W|_/gi, '');
+
+	const artistData = await istatic.artistsData({ searchName: songArtistName })
+		.then(r => typeof r.data[0] == 'object' ? r.data[0] : null);
+
+	const tragetTitle = new RegExp(randomSong.title, 'i');
+	const tragetArtist = new RegExp(randomSong.artists[0], 'i');
+	
+	const clip = officialVideos.list.find((ms: Music) => {
 		return tragetTitle.test(ms.originTitle) 
-		&& tragetArtist.test(ms.originTitle)
-		|| tragetArtist.test(ms.artists[0])
+			&& tragetArtist.test(ms.originTitle)
+			|| tragetArtist.test(ms.artists[0])
 	});
 
-	if (isEmpty(data.artist) || isEmpty(clip)) {
-		return undefined;
-	}
+	if (!artistData || !clip || isEmpty(clip)) return null;
 
 	return {
-		instrumental: song,
-		artist: data.artist,
+		instrumental: randomSong,
+		artist: artistData,
 		clip: clip
 	}
 };

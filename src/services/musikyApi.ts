@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { Music, PlaylistProps } from 'common/types';
+import { Music, PlaylistProps, SearchReturn } from 'common/types';
 import {
   HomeContent,
   ExploreContent,
   SearchPageContent,
   WatchPageContent,
   ArtistPageContent
-} from 'common/types/pagesSources';
+} from 'common/types/pages';
 
 
 // API WRAPPER
@@ -21,6 +21,14 @@ class MusikyApi {
     this.musikyApiDEV = `http://localhost:${3000}/api`;
     this.musikyApiPROD = 'https://musiky.vercel.app/api';
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
+  }
+
+  autoComplete({ input }:{ input:string }): Promise<{data:string[] | []}> {
+    return axios.get(`${this.baseUrl}/autoComplete?input=${input}`);
+  }
+
+  search(query:string): Promise<{data:SearchReturn}> {
+    return axios.get(`${this.baseUrl}/search?q=${query}`);
   }
 
   homePage(): Promise<{data:HomeContent}> {

@@ -1,22 +1,12 @@
-import { request } from 'common/utils/request';
+import { istatic } from 'services';
 
-const suggestions = async({ total }: {total: number}) => {
 
-    let namesList = await request('allArtistNames')
-    let suggestionsList = [];
+const suggestions = async({ total }:{ total:number }): Promise<string[]> => {
+  const artistsNames: string[] = await istatic
+    .artistsData({ random: 1, onlyNames: 1, maxResult: total })
+    .then(r => r.data.map(artist => artist.name));
 
-    while(suggestionsList.length < total){
-
-    	let numRandom = ~~(Math.random() * namesList.length);
-    	let artistName = namesList[numRandom]
-
-        let hasSomeEvenName = suggestionsList.some(value => value == artistName);
-
-        if (!hasSomeEvenName){
-            suggestionsList.push(artistName)
-        }  
-    }
-    return suggestionsList;
+  return artistsNames;
 }
 
 export default suggestions;

@@ -3,12 +3,12 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
-import { PlayerProvider } from 'common/contexts/player';
-import { LyricProvider } from 'common/contexts/providers/Lyric-provider';
-import { PlaylistProvider } from 'common/contexts/providers/Playlist-provider';
-import { AccountProvider } from 'common/contexts/providers/Account-provider';
-import { SplashProvider } from 'common/contexts/splash';
-import { FeaturedProvider } from 'common/contexts/Featured';
+import { PlayerProvider } from 'contexts/player';
+import { LyricProvider } from 'contexts/providers/Lyric-provider';
+import { PlaylistProvider } from 'contexts/providers/Playlist-provider';
+import { AccountProvider } from 'contexts/providers/Account-provider';
+import { SplashProvider } from 'contexts/splash';
+import { FeaturedProvider } from 'contexts/Featured';
 import { GlobalStyle } from 'common/GlobalStyle';
 
 import {

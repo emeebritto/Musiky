@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Styled from "styled-components";
 import istatic from 'services/istatic';
-import { useLyricContext } from "common/contexts/Lyric";
-import { usePlayer } from "common/contexts/player";
+import { useLyricContext } from "contexts/Lyric";
+import { usePlayer } from "contexts/player";
 import { DefinitionFromDictionary } from "components";
 
 

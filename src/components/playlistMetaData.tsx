@@ -2,8 +2,8 @@ import React/*, { useState, useEffect }*/ from 'react';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { Music, PlaylistProps } from 'common/types';
-import { usePlaylistContext } from 'common/contexts/Playlist';
-import { usePlayer } from 'common/contexts/player';
+import { usePlaylistContext } from 'contexts/Playlist';
+import { usePlayer } from 'contexts/player';
 import istatic from "services/istatic";
 
 const PlaylistInfor = Styled.section`

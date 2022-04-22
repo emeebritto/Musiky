@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { ShortCutUrl } from 'common/shortcutUrl';
-import { useAccountContext } from 'common/contexts/Account';
+import { useAccountContext } from 'contexts/Account';
 import istatic from 'services/istatic';
 import { Time } from 'components';
 

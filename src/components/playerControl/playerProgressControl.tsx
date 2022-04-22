@@ -1,6 +1,6 @@
 import React/*, { useState, useEffect }*/ from 'react';
 import Styled from 'styled-components';
-import { usePlayer, usePlayerProgress } from 'common/contexts/player';
+import { usePlayer, usePlayerProgress } from 'contexts/player';
 import { fromSecondsToTime } from 'common/utils';
 import istatic from "services/istatic";
 import {

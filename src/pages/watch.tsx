@@ -6,9 +6,9 @@ import Styled from 'styled-components';
 import istatic from 'services/istatic';
 import { mediaDownload } from 'common/utils';
 import { CommentProps } from 'common/types';
-import { WatchPageContent } from 'common/types/pagesSources';
-import { usePlayer } from 'common/contexts/player';
-import { useSplashContext } from 'common/contexts/splash';
+import { WatchPageContent } from 'common/types/pages';
+import { usePlayer } from 'contexts/player';
+import { useSplashContext } from 'contexts/splash';
 import {
 	TabTitle,
 	Comment,

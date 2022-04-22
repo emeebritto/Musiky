@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import { usePlayer } from 'common/contexts/player';
+import { usePlayer } from 'contexts/player';
 
 interface TabTitleProps {
     name: string;
