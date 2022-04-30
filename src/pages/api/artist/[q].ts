@@ -32,14 +32,14 @@ export default async function handler(
   };
 
   const artist = await istatic
-    .artistsData({ searchName: query })
+    .artistsData({ altId: query })
     .then(r => r.data[0]);
 
   const musics = await istatic
-    .musicsData({ filter: `artists:${query}` })
+    .musicsData({ fromAltId: artist.altId })
     .then(r => r.data);
 
-  const list = await istatic.allPlaylists({ withArtist: query }).then(r => r.data);
+  const list = await istatic.allPlaylists({ fromAltId: artist.altId }).then(r => r.data);
   const playlists = list.items;
 
   res.status(200).json({ ...infors, artist: artist || {}, playlists, musics });

@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import { Music, UnavailableMusic } from 'common/types';
 import { usePlayer } from 'contexts/player';
 import { usePlaylistContext } from 'contexts/Playlist';
-import istatic from "services/istatic";
+import { istatic } from "services";
 import PausedAnim from 'assets/playingCompAnim.jsx';
 
 
@@ -226,15 +226,15 @@ const MusicList: React.FC<MusicListProps> = ({
               <MusicTitle>{music.title}</MusicTitle>
               <NamesList>
                 {music.artists.map((artist, index) => {
-                  let space='';
-                  if(index > 0){ space = ',  ' }
+                  let leftSpace = '';
+                  if(index > 0) leftSpace = ',  ';
                   return(
-                    <li key={index}>
+                    <li key={index + artist.altId}>
                       <Link 
-                          href={`/artist/${artist.replace(/\W/g, '')}`}
+                          href={`/artist/${artist.altId}`}
                       >
                         <ChannelName onClick={(e)=>{e.stopPropagation()}}>
-                          {space + artist}
+                          {leftSpace + artist.name}
                         </ChannelName>
                       </Link>
                     </li>

@@ -110,7 +110,7 @@ const LastPlayer: React.FC = () => {
       <Data>
         <Title>{last.title}</Title>
         {!!from && <From>From Playlist: {from.infors.title}</From>}
-        {!from && <From>{last.artists[0]}</From>}
+        {!from && <From>{last.artists[0].name}</From>}
       </Data>
       <Icon
         src={istatic.iconUrl({ name: "play_arrow", color: "black" })}

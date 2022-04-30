@@ -87,11 +87,11 @@ const PlayerControl: React.FC = () => {
             </MusicTitleInControl>
             <MusicSubTitle>
               {prop.music.artists.map((artist, index) => {
-                let space='';
-                if(index > 0){ space = ',  ' }
+                let space = '';
+                if(index > 0) space = ',  ';
                 return(
-                  <p key={index}>
-                    {space + artist}
+                  <p key={index + artist.altId}>
+                    {space + artist.name}
                   </p>
                 )
               })}

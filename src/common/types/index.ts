@@ -64,6 +64,7 @@ export interface Music {
   id:string;
   target:string;
   unavailable?:boolean;
+  content_verified:boolean;
   title:string;
   originTitle:string;
   sourceBy:{
@@ -77,11 +78,22 @@ export interface Music {
   durationSec:number;
   startIn?:number;
   viewCount:number;
-  artists:string[];
-  snippetArtistsData:Array<{
+  explicit:boolean;
+  album: {
+    id:string;
     name:string;
-    idByName:string;
-    images:Array<{url:string}>;
+    images:Array<{
+      height:number;
+      url:string;
+      width:number;
+    }>;
+    total_tracks:number;
+  };
+  artists:Array<{
+    id:string;
+    name:string;
+    altId:string;
+    type:string;
   }>;
   comments: {
     list:CommentProps[] | null;

@@ -50,6 +50,8 @@ export interface AllMusicsResponse {
 export interface MusicsDataParams {
   index?:number;
   id?:string;
+  fromId?:string;
+  fromAltId?:string;
   searchTitle?:string;
   filter?:string;
   random?:number;
@@ -66,6 +68,7 @@ export interface MusicsResponse {
 export interface ArtistDataParams {
   index?:number;
   id?:string;
+  altId?:string;
   searchName?:string;
   random?:number;
   onlyNames?:number;
@@ -85,7 +88,8 @@ export interface LyricResponse {
 export interface AllPlaylistsParams {
   categoryInput?:string;
   random?:number;
-  withArtist?:string;
+  fromAltId?:string;
+  fromId?:string;
   musicsType?:string;
   maxPlaylists?:number | string;
   maxPerList?:number | string;
