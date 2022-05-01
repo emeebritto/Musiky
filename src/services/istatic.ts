@@ -29,15 +29,6 @@ export interface MusicResponse {
   data:Music;
 }
 
-export interface AllMusicsDataParams {
-  page?:number;
-  withArtist?:string;
-  categoryInput?:string;
-  random?: number;
-  allNames?:number;
-  maxResult?: number;
-}
-
 export interface AllMusicsResponse {
   data: {
     page:number;
@@ -50,8 +41,7 @@ export interface AllMusicsResponse {
 export interface MusicsDataParams {
   index?:number;
   id?:string;
-  fromId?:string;
-  fromAltId?:string;
+  withArtist?:string;
   searchTitle?:string;
   filter?:string;
   random?:number;
@@ -63,6 +53,12 @@ export interface MusicsDataParams {
 
 export interface MusicsResponse {
   data:Music[];
+}
+
+export interface ArtistsImgParams {
+  sendFile?:string | number;
+  size?:string | number;
+  altId?:string | number;
 }
 
 export interface ArtistDataParams {
@@ -88,8 +84,7 @@ export interface LyricResponse {
 export interface AllPlaylistsParams {
   categoryInput?:string;
   random?:number;
-  fromAltId?:string;
-  fromId?:string;
+  withArtist?:string;
   musicsType?:string;
   maxPlaylists?:number | string;
   maxPerList?:number | string;
@@ -187,6 +182,11 @@ class Istatic {
   musicsData(opt?:MusicsDataParams): Promise<MusicsResponse> {
     const params:string = createUrlParams(opt);
     return axios.get(`${this.baseUrl}/musics?${params}`);
+  }
+
+  artistsImgUrl(id:string, opt?:ArtistsImgParams): string {
+    const params:string = createUrlParams(opt);
+    return `${this.baseUrl}/artists/images/${id}?${params}`;
   }
 
   artistsData(opt?:ArtistDataParams): Promise<ArtistsDataResponse> {

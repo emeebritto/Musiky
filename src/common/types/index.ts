@@ -93,6 +93,11 @@ export interface Music {
     id:string;
     name:string;
     altId:string;
+    images: Array<{
+      url:string;
+      height:number;
+      width:number;
+    }>;
     type:string;
   }>;
   comments: {

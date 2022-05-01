@@ -36,7 +36,7 @@ export default async function handler(
   result.artists = artists;
 
   const musics = await istatic
-    .musicsData({ filter: `artists:${artists[0].name}` })
+    .musicsData({ withArtist: `name:${artists[0].name}` })
     .then(r => r.data);
   if (musics) result.musics = musics;
 

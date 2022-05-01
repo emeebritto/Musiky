@@ -3,7 +3,7 @@ import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { musikyApi } from 'services';
 import Styled from 'styled-components';
-import istatic from 'services/istatic';
+import { istatic } from 'services';
 import { mediaDownload } from 'common/utils';
 import { CommentProps } from 'common/types';
 import { WatchPageContent } from 'common/types/pages';
@@ -230,6 +230,8 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 	if (prop.music) desableSplash();
   if (!prop.music) return(<></>);
 
+  const { title, artists, sourceBy } = prop.music;
+
 	return (
 		<ViewPort>
 		<TabTitle name={`Musiky - Watch`}/>
@@ -238,17 +240,13 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 				<WatchPlayer/>
 		    <AboutContent>
 		    	<ArtistsProfile
-		    		src={
-		    			prop.music?.snippetArtistsData[0]
-			    			? prop.music.snippetArtistsData[0].images[1].url
-			    			: prop.music.sourceBy.thumbnails[1].url
-		    		}
+		    		src={artists[0]?.images[1].url}
 		    		alt='artist profile image'
 		    	/>
 			    <MetaData>
-				    <MediaTitle contentEditable={true}>{prop.music.title}</MediaTitle>
+				    <MediaTitle>{ title }</MediaTitle>
 				    <ArtistName>
-				    	{prop.music.artists[0] || prop.music.sourceBy.name}
+				    	{artists[0].name || sourceBy.name}
 				    </ArtistName>
 			    </MetaData>
 			    <Actions>
@@ -309,3 +307,5 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
     props: { pageContent }, // will be passed to the page component as props
   }
 }
+
+// contentEditable={true}

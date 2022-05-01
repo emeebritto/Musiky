@@ -53,7 +53,7 @@ export function useLyricContext() {
     if (!prop.music) return;
     setCurrentLine('waiting for the best moment..');
     let title = prop.music.title;
-    let artistRef = prop.music.artists[0];
+    let artistRef = prop.music.artists[0].name;
     async function getData() {
       setLyric(
         await istatic.lyric({ title, artistRef })

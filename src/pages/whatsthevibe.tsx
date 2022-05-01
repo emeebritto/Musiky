@@ -154,7 +154,7 @@ const WhatsTheVibe: NextPage = () => {
     if (ActiveVibes.length && currentMusic) {
       let song = {
         title: currentMusic.title.replace(/\W|_/ig, ''),
-        artist: currentMusic.artists[0].replace(/\W|_/ig, ''),
+        artist: currentMusic.artists[0].altId,
         vibes: ActiveVibes
       };
       let newList = [...dataStorage.get(VIBE_KEY), song];
@@ -187,7 +187,7 @@ const WhatsTheVibe: NextPage = () => {
           let evenExists = songlist
             .findIndex((ms: {title: string, artist: string}) => (
               ms.title === song.title.replace(/\W|_/ig, '')
-              && ms.artist === song.artists[0].replace(/\W|_/ig, '')
+              && ms.artist === song.artists[0].altId
             ));
           if (evenExists >= 0) {
             setActiveVibes(songlist[evenExists].vibes);

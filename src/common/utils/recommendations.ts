@@ -23,12 +23,12 @@ const recommendations = async(): Promise<Recommendations | null> => {
 		.then(r => typeof r.data[0] == 'object' ? r.data[0] : null);
 
 	const tragetTitle = new RegExp(randomSong.title, 'i');
-	const tragetArtist = new RegExp(randomSong.artists[0], 'i');
+	const tragetArtist = new RegExp(randomSong.artists[0].name, 'i');
 	
 	const clip = officialVideos.list.find((ms: Music) => {
 		return tragetTitle.test(ms.originTitle) 
 			&& tragetArtist.test(ms.originTitle)
-			|| tragetArtist.test(ms.artists[0])
+			|| tragetArtist.test(ms.artists[0].name)
 	});
 
 	if (!artistData || !clip || isEmpty(clip)) return null;

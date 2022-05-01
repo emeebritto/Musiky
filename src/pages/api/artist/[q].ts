@@ -36,10 +36,10 @@ export default async function handler(
     .then(r => r.data[0]);
 
   const musics = await istatic
-    .musicsData({ fromAltId: artist.altId })
+    .musicsData({ withArtist: `altId:${artist.altId}` })
     .then(r => r.data);
 
-  const list = await istatic.allPlaylists({ fromAltId: artist.altId }).then(r => r.data);
+  const list = await istatic.allPlaylists({ withArtist: `altId:${artist.altId}` }).then(r => r.data);
   const playlists = list.items;
 
   res.status(200).json({ ...infors, artist: artist || {}, playlists, musics });
