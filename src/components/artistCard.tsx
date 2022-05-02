@@ -87,7 +87,7 @@ interface ArtistCardProps {
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist, index=0 }) => (
   <Link 
-    href={`/artist/${artist.name.replace(/\W|_/gi, '')}`}>
+    href={`/artist/${artist.altId}`}>
     <Artist>
       <ArtistImg
         src={artist.images.length ? artist.images[1].url : ''}
