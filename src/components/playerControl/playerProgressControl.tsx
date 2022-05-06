@@ -114,10 +114,10 @@ const PlayerProgressControl: React.FC<Props> = ({
           </BtnPlayerControl>
       </BtnsBackPlayNext>
       <MusicTimeCounter>
-         {fromSecondsToTime(currentTimeSec)}
+        {fromSecondsToTime(currentTimeSec)}
       </MusicTimeCounter>
       <MusicTimeTotal>
-         {isLive? 'LIVE' : fromSecondsToTime(prop.duration)}
+        {isLive? 'LIVE' : fromSecondsToTime(prop.duration)}
       </MusicTimeTotal>
       <DurationSlider
         type='range' min={0} max={0.999999} step='any' 

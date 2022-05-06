@@ -152,7 +152,6 @@ export interface PlayerContextData {
     audPlayer:any;
     watchPlayer:any;
     watchPlayerWrapper:any;
-    socket:any;
   };
   music:Music | null;
   setMusic:(s:Music | null) => void;
@@ -166,6 +165,8 @@ export interface PlayerContextData {
   setMode:(s:string[] | ((s:string[]) => string[])) => void;
   isLive:boolean;
   setIsLive:(s:boolean | ((s:boolean) => boolean)) => void;
+  isWs:boolean;
+  setIsWs:(s:boolean | ((s:boolean) => boolean)) => void;
   fullscreen:boolean;
   setFullscreen:(s:boolean) => void;
   lastVolume:number;

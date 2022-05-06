@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { io } from "socket.io-client";
+import { wSocket } from "services";
 import axios from 'axios';
-import { useFeaturedContext } from 'contexts/Featured';
 import { useAccountContext } from 'contexts/Account';
 import { usePlaylistContext } from 'contexts/Playlist';
 import { PlayerContext } from './player-provider';
@@ -30,6 +29,8 @@ export function usePlayer() {
     setMode,
     isLive,
     setIsLive,
+    isWs,
+    setIsWs,
     fullscreen,
     setFullscreen,
 		volume,
@@ -67,7 +68,6 @@ export function usePlayer() {
 
   const load = async({
     wsMedia=null,
-    isWs=false,
     media=null,
     playIndex=0,
     playlist=null,
@@ -75,25 +75,29 @@ export function usePlayer() {
   }:{
     wsMedia?: string | null,
     media?: Music | null,
-    isWs?: boolean,
     playIndex?: number,
     playlist?: PlaylistProps | null,
     onEnded?: () => Promise<PlaylistProps>
   }): Promise<void> => {
 
     if (wsMedia) {
-      let socket = ref.socket?.current;
-      if (!socket) ref.socket.current = io("ws://localhost:9870");
-      setIsLive(true);
-      ref.socket.current.emit("connect-media", wsMedia);
-      ref.socket.current.on("update-channel", (media: Music): void => {
-        load({ media, isWs: true });
+      const ws = wSocket.connection();
+      ws.emit("connectRadio", wsMedia);
+      ws.on("updateRadioTune", (tune: { media: { data:Music }}): void => {
+        setMusic(tune.media.data);
+        setBuffer(true);
+        setIsLive(true);
+        setIsWs(true);
+        setPlaying(true);
       });
       return;
-    } else if (ref.socket?.current && !isWs) {
+    } else {
       setIsLive(false);
-      ref.socket.current.emit("disconnect-media");
-      ref.socket.current = null;
+      setIsWs(false);
+      if (isWs) {
+        const ws = wSocket.connection();
+        ws.emit("disconnectRadio");
+      }
     }
 
     if (media) {
@@ -122,12 +126,12 @@ export function usePlayer() {
   }
 
   const stopPlayer = (): void => {
-    let socket = ref.socket?.current;
-    if (socket) {
-      socket.emit("disconnect-media");
-      ref.socket.current = null;
+    if (isWs) {
+      const ws = wSocket.connection();
+      ws.emit("disconnectRadio");
     }
     setIsLive(false);
+    setIsWs(false);
     stopPlaylist();
     setMusic(null);
     setBuffer(false);
@@ -138,7 +142,7 @@ export function usePlayer() {
   }
 
   const onPlayAndPause = (status: boolean | undefined = undefined): void => {
-    if (status === false && ref.socket?.current) stopPlayer();
+    if (status === false) stopPlayer();
     if (status !== undefined) {
       setPlaying(status);
       return;

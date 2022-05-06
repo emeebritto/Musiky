@@ -28,7 +28,7 @@ export function usePlayerProgress() {
   }
 
   useEffect(()=>{
-  	if (isLive) return;
+  	if (isLive || ref.audPlayer?.current) return;
     mode.includes('player:audio')
       ? ref.audPlayer?.current?.seekTo(currentTime)
       : setTimeout(() => ref.watchPlayer?.current?.seekTo(currentTime), 1000);

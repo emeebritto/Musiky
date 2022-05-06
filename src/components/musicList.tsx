@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { Music, UnavailableMusic } from 'common/types';
@@ -159,6 +159,10 @@ const MusicList: React.FC<MusicListProps> = ({
 
   const { prop, load } = usePlayer();
   const { isPlayingIndex } = usePlaylistContext();
+
+  // useEffect(()=>{
+  //   load({ wsMedia: 'ws_ch67' });
+  // },[])
 
   //Component:
   const BoxDurationOrPLayingNow: React.FC<DurationOrPLaying> = ({

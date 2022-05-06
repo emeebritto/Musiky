@@ -80,7 +80,7 @@ export const OtherSetting = styled(flex_Section)`
 export const MusicImg = styled.img`
     margin-left: 10px;
     margin-right: 15px;
-    width: 85px;
+    max-width: 85px;
     height: 55px;
     border-radius: 5px;
 
