@@ -205,7 +205,7 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
   	const mediaId = prop.music ? prop.music.id : null;
   	if (snippetComments > 1 && !continuation || !mediaId) return;
 
-    await istatic.commentsTread({ mediaId, continuation })
+    await istatic.commentsTread({ id: mediaId, continuation })
       .then(r => {
       	setComments((currentValue: CommentProps[]) => [...currentValue, ...r.data.comments]);
 	    	setContinuation(r.data.continuation);
@@ -240,7 +240,7 @@ const Watch: NextPage<Props> = ({ pageContent }) => {
 				<WatchPlayer/>
 		    <AboutContent>
 		    	<ArtistsProfile
-		    		src={artists[0]?.images[1].url}
+		    		src={artists[0]?.image[1].url}
 		    		alt='artist profile image'
 		    	/>
 			    <MetaData>

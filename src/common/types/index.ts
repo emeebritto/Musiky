@@ -93,7 +93,7 @@ export interface Music {
     id:string;
     name:string;
     altId:string;
-    images: Array<{
+    image: Array<{
       url:string;
       height:number;
       width:number;
@@ -161,8 +161,8 @@ export interface PlayerContextData {
   setVolume:(s:number) => void;
   syncedStartIn:boolean;
   setSyncedStartIn:(s:boolean) => void;
-  mode:string[];
-  setMode:(s:string[] | ((s:string[]) => string[])) => void;
+  mode:string;
+  setMode:(s:string) => void;
   isLive:boolean;
   setIsLive:(s:boolean | ((s:boolean) => boolean)) => void;
   isWs:boolean;

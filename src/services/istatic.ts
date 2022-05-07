@@ -12,7 +12,13 @@ export interface DictionaryResponse {
   }>;
 }
 
-export interface commentsTreadResponse {
+interface CommentsTreadParams {
+  id:string;
+  replyToken?:string;
+  continuation?:string;
+}
+
+export interface CommentsTreadResponse {
   data: {
     comments:CommentProps[];
     continuation:string;
@@ -158,16 +164,9 @@ class Istatic {
     return axios.get(`${this.baseUrl}/itools/dictionary?word=${word}`);
   }
 
-  commentsTread({
-    mediaId,
-    replyToken,
-    continuation
-  }:{
-    mediaId:string,
-    replyToken?:string,
-    continuation?:string
-  }): Promise<commentsTreadResponse> {
-    return axios.get(`${this.baseUrl}/comments?id=${mediaId}&replyToken=${replyToken || ''}&continuation=${continuation || ''}`);
+  commentsTread(opt:CommentsTreadParams): Promise<CommentsTreadResponse> {
+    const params:string = createUrlParams(opt);
+    return axios.get(`${this.baseUrl}/comments?${params}`);
   }
 
   translate({ text }:{ text:string }): Promise<TranslateResponse> {

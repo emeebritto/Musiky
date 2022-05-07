@@ -61,9 +61,9 @@ export function usePlayer() {
 
 // ==================================================================
 
-  const switchMode = (newMode?: string[]): void => {
+  const switchMode = (newMode?: string): void => {
     if (!newMode || !newMode.length) return;
-    setMode([...newMode]);
+    setMode(newMode);
   }
 
   const load = async({
@@ -142,7 +142,7 @@ export function usePlayer() {
   }
 
   const onPlayAndPause = (status: boolean | undefined = undefined): void => {
-    if (status === false) stopPlayer();
+    //if (status === false) stopPlayer();
     if (status !== undefined) {
       setPlaying(status);
       return;
@@ -221,13 +221,13 @@ export function usePlayer() {
   };
 
   useEffect(() => {
-    router.events.on("routeChangeComplete", (url: string): void => {
+    router.events.on("routeChangeComplete", (url: string): void => {      
       if (url.includes('/watch')) {
         setSyncedStartIn(false);
-        switchMode(['player:watch'])
+        switchMode('player:watch')
       };
-      if (!url.includes('/watch') && mode.includes('player:watch')) {
-        switchMode(['player:audio']);
+      if (!url.includes('/watch')) {
+        switchMode('player:audio');
       };
     });
   },[])

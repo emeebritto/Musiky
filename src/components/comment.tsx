@@ -138,7 +138,7 @@ const Comment: React.FC<Props> = ({ cmm }) => {
 	const getReplies = async(replyToken: string): Promise<void> => {
 		if (!cmm.numReplies || !mediaId) return;
 		setLoadingReplies(true);
-		const repliesData = await istatic.commentsTread({ mediaId, replyToken })
+		const repliesData = await istatic.commentsTread({ id: mediaId, replyToken })
 			.then(r => r.data)
 		setReplies((replies: CommentProps[]): CommentProps[] => (
 			[...replies, ...repliesData.comments]

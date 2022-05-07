@@ -34,7 +34,7 @@ const ReactPlayerComp: React.FC = () => {
     changeCurrentTimeTo
   } = usePlayerProgress();
 
-  const IsAllowed = prop.mode.includes('player:audio');
+  const isAllowed = prop.mode.includes('player:audio');
 
   useEffect(() => {
     document.addEventListener("contextmenu", e => e.preventDefault());
@@ -49,20 +49,20 @@ const ReactPlayerComp: React.FC = () => {
           ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
           onReady={isReady}
           playbackRate={1}
-          playing={IsAllowed && prop.playing}
+          playing={isAllowed && prop.playing}
           volume={prop.volume}
           loop={prop.loop}
-          onPlay={()=> IsAllowed && onPlayAndPause(true)}
-          onPause={()=> IsAllowed && onPlayAndPause(false)}
+          onPlay={()=> isAllowed && onPlayAndPause(true)}
+          onPause={()=> isAllowed && onPlayAndPause(false)}
           onProgress={(time: {played: number, playedSeconds: number}) => {
-            if (!prop.seeking && IsAllowed) {
+            if (!prop.seeking && isAllowed) {
               changeCurrentTimeTo(time.played, time.playedSeconds);
            }
           }}
           onDuration={(duration: number) => handleDuration(duration)}
-          onBuffer={()=> IsAllowed && onBuffer(true)}
-          onBufferEnd={()=> IsAllowed && onBuffer(false)}
-          onEnded={()=> IsAllowed && nextMusic(1)}
+          onBuffer={()=> isAllowed && onBuffer(true)}
+          onBufferEnd={()=> isAllowed && onBuffer(false)}
+          onEnded={()=> isAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
           url={`${musikyStreamApi}/${prop.music?.id || ''}?source=${prop.music?.target || ''}`}
           width='100vw'

@@ -80,6 +80,12 @@ const ListenNowBtn = Styled.button`
     background-color: #fff;
   }
 `
+const EmptySpace = Styled.section`
+  width: 95vw;
+  height: 10vh;
+`
+
+
 interface RecProps {
   data: {
     clip: Music;
@@ -90,7 +96,7 @@ interface RecProps {
 
 const Featured: React.FC<RecProps> = ({ data }) => {
 
-  if (!data) return (<></>);
+  if (!data) return (<EmptySpace/>);
 
   const { preLoad, playing, stopVideo, stopAll } = useFeaturedContext();
   const { load } = usePlayer();

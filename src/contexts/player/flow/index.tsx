@@ -5,6 +5,7 @@ import istatic from 'services/istatic';
 import { Music, PlaylistProps } from 'common/types';
 import { sleep } from 'common/utils';
 
+
 interface FlowContextProp {
 	diskOff: boolean;
 	setDiskOff: (s: boolean)=> void;
@@ -15,9 +16,11 @@ interface FlowContextProp {
 	vibesOptions: string[];
 	setVibesOptions: (s: string[])=> void;
 };
+
 interface LayoutProps {
 	children: React.ReactNode;
 }
+
 
 export const PlayerFlowContext = createContext<FlowContextProp>({} as FlowContextProp);
 PlayerFlowContext.displayName = 'PlayerFlow';

@@ -21,7 +21,7 @@ export default async function handler(
   };
   for (let i=0; i < emotions.length; i++) {
     let emotion = emotions[i];
-    let resComments = await istatic.commentsTread({ mediaId: emotion.id })
+    let resComments = await istatic.commentsTread({ id: emotion.id })
       .then(r => r.data)
     emotion['comments'] = {
       list: resComments.comments.length ? resComments.comments : null,

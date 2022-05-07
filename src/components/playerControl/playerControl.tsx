@@ -7,12 +7,10 @@ import { usePlayer } from 'contexts/player';
 import { useLyricContext } from 'contexts/Lyric';
 import { PlayerProgressControl } from 'components';
 import istatic from "services/istatic";
-import {
-  ViewPort, MusicInfor, OtherSetting, MusicImg, 
-  SectionTitles, MusicTitleInControl, MusicSubTitle, 
-  ControlPainelWrapper, BtnPlayerControl, IconPlay, VolumeControl,
-  BtnIconVolume, BtnLyrics, BtnRepeat
-} from './playerStyles';
+import { ViewPort, MusicInfor, OtherSetting, MusicImg, SectionTitles } from './playerStyles';
+import { MusicTitleInControl, MusicSubTitle, ControlPainelWrapper } from './playerStyles';
+import { BtnPlayerControl, IconPlay, VolumeControl, BtnIconVolume } from './playerStyles';
+import { BtnLyrics, BtnRepeat } from './playerStyles';
 
 const OpenVideo = Styled.img`
   transform: rotate(-180deg);
@@ -23,42 +21,29 @@ const OpenVideo = Styled.img`
 
 const PlayerControl: React.FC = () => {
   const router = useRouter();
-
-  const {
-    prop,
-    isLive,
-    toggleLoop,
-    changeVolumeTo,
-    toggleMuted
-  } = usePlayer();
+  const { prop, isLive, toggleLoop, changeVolumeTo, toggleMuted } = usePlayer();
   const { lyricProp, toggleLyrics } = useLyricContext();
-
   const isAllowed = prop.mode.includes('player:audio');
 
-  const handlelyrics = (): void => {
-    toggleLyrics();
-  }
+
   const handlelyricsMobile = (e: React.SyntheticEvent<EventTarget>): void => {
     if(window.innerWidth < 570){
       toggleLyrics();
     }
   }
-  const handleLoop = (): void => {
-    toggleLoop();
-  }
+
   const handleVolumeChange = (e: React.SyntheticEvent<EventTarget>): void => {
     let target = e.target as HTMLInputElement;
     changeVolumeTo(parseFloat(target.value));
   }
-  const handleToggleMuted = (): void => {
-    toggleMuted();
-  }
+
 
   function getVolumeIconStatus() {
-    if(prop.muted) return istatic.iconUrl({ name: "volume_off" })
-    if(prop.volume < 0.4) return istatic.iconUrl({ name: "volume_down" })
+    if (prop.muted) return istatic.iconUrl({ name: "volume_off" })
+    if (prop.volume < 0.4) return istatic.iconUrl({ name: "volume_down" })
     return istatic.iconUrl({ name: "volume_up" })
   }
+
 
   return (
     <ViewPort
@@ -110,7 +95,7 @@ const PlayerControl: React.FC = () => {
         {lyricProp.hasLyric &&
         <BtnLyrics
           lyrics={lyricProp.showLyrics}
-          onClick={()=> handlelyrics()}
+          onClick={()=> toggleLyrics()}
         >
           <img
             src={istatic.iconUrl({ name: "mic_external_on" })}
@@ -120,7 +105,7 @@ const PlayerControl: React.FC = () => {
 
         <BtnRepeat
           loop={prop.loop}
-          onClick={()=>{handleLoop()}}
+          onClick={()=>{toggleLoop()}}
         >
           <img
             src={istatic.iconUrl({ name: "repeat" })}
@@ -137,7 +122,7 @@ const PlayerControl: React.FC = () => {
           onChange={e => {handleVolumeChange(e)}}
         />
 
-        <BtnIconVolume onClick={()=>{handleToggleMuted()}}>
+        <BtnIconVolume onClick={()=>{toggleMuted()}}>
           <img src={getVolumeIconStatus()} alt="Volume Icon"/>
         </BtnIconVolume>
       </OtherSetting>

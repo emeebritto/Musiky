@@ -20,7 +20,8 @@ const recommendations = async(): Promise<Recommendations | null> => {
 	const songArtistAltId = randomSong.artists[0].altId;
 
 	const artistData = await istatic.artistsData({ altId: songArtistAltId })
-		.then(r => typeof r.data[0] == 'object' ? r.data[0] : null);
+		.then(r => typeof r.data[0] == 'object' ? r.data[0] : null)
+		.catch(err => console.error(err));
 
 	const tragetTitle = new RegExp(randomSong.title, 'i');
 	const tragetArtist = new RegExp(randomSong.artists[0].name, 'i');
