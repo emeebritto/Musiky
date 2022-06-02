@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
-import { ShortCutUrl } from 'common/shortcutUrl';
+import urlEncoding from 'common/urlEncoding';
 import { useAccountContext } from 'contexts/Account';
 import istatic from 'services/istatic';
 import { Time } from 'components';
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
 
   const redirectLogin = () => {
     //let after = ShortCutUrl.codeUrl(`https://web-musiky.vercel.app${router.pathname}`);
-    let after = ShortCutUrl.codeUrl(`http://localhost:3000${router.pathname}`);
+    let after = urlEncoding(`http://localhost:3000${router.pathname}`).encoder();
     //window.location.href = `https://account-infinity.vercel.app?after=${after}`;
     window.location.href = `http://localhost:8080/sso?after=${after}`;
   }

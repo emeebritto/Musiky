@@ -84,9 +84,9 @@ export function useAccountContext(){
     let pass = router.query['pass'];
 
     async function getData() {
-      let res = await axios.get(`http://localhost:1234/msk/account/accessFastToken?passToken=${pass}`);
-      dataStorage.setToken(res.data['ACCESS_TOKEN']);
-      setAuth(res.data['ACCESS_TOKEN']);
+      let res = await axios.get(`http://localhost:7050/account/accessFastToken?passToken=${pass}`);
+      dataStorage.setToken(res.data['accessToken']);
+      setAuth(res.data['accessToken']);
     }
     getData();
   },[router.query]);
