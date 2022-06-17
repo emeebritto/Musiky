@@ -81,7 +81,7 @@ export function usePlayer() {
   }): Promise<void> => {
 
     if (wsMedia) {
-      const ws = wSocket.connection();
+      const ws = wSocket.connection;
       ws.emit("connectRadio", wsMedia);
       ws.on("updateRadioTune", (tune: { media: { data:Music }}): void => {
         setMusic(tune.media.data);
@@ -95,7 +95,7 @@ export function usePlayer() {
       setIsLive(false);
       setIsWs(false);
       if (isWs) {
-        const ws = wSocket.connection();
+        const ws = wSocket.connection;
         ws.emit("disconnectRadio");
       }
     }
@@ -127,7 +127,7 @@ export function usePlayer() {
 
   const stopPlayer = (): void => {
     if (isWs) {
-      const ws = wSocket.connection();
+      const ws = wSocket.connection;
       ws.emit("disconnectRadio");
     }
     setIsLive(false);

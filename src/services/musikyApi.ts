@@ -11,10 +11,10 @@ import {
 
 // API WRAPPER
 class MusikyApi {
-  devENV: boolean;
-  musikyApiDEV: string;
-  musikyApiPROD: string;
-  baseUrl: string;
+  public devENV: boolean;
+  private musikyApiDEV: string;
+  private musikyApiPROD: string;
+  public baseUrl: string;
 
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';

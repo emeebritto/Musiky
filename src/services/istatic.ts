@@ -118,13 +118,11 @@ export interface EmotionsResponse {
 
 // API WRAPPER
 class Istatic {
-  
-  devENV:boolean;
-  istaticDEV:string;
-  istaticPROD:string;
-  baseUrl:string;
-  staticSourcesUrl:string;
-
+  public devENV:boolean;
+  private istaticDEV:string;
+  private istaticPROD:string;
+  public baseUrl:string;
+  private staticSourcesUrl:string;
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';
     this.istaticDEV = `http://localhost:${9872}`;
