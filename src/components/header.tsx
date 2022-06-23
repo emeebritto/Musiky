@@ -7,6 +7,7 @@ import { useAccountContext } from 'contexts/Account';
 import istatic from 'services/istatic';
 import { Time } from 'components';
 
+
 const HeaderContainer = Styled.header`
   position: fixed;
   display: flex;
@@ -101,7 +102,6 @@ const AccountIcon = Styled.img`
 const Header: React.FC = () => {
 
   const { props, hasAccount } = useAccountContext();
-
   const router = useRouter();
 
   const redirectLogin = () => {
@@ -133,18 +133,18 @@ const Header: React.FC = () => {
           />
         </NavigationControl>
       </HeaderLeft>
-      {/*hasAccount()*/ false &&
+      {hasAccount() &&
         <ProfileField>
           <ProfileImg
-            src={istatic.imgUrl({ path: "branding/MyPersonalLogo.png" })}
+            src={istatic.profileImg()}
             alt="perfilePhoto"
           />
           <UserName>{props.displayName}</UserName>
         </ProfileField>
       }
       <HeaderRight>
-        <Time margin={`0 25px`}/>
-        {/*hasAccount()*/ true &&
+        <Time margin="0 25px"/>
+        {!hasAccount() &&
           <SignInBtn onClick={()=> redirectLogin()}>
             <AccountIcon
               src={istatic.iconUrl({ name: "account_circle" })}

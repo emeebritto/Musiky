@@ -13,6 +13,7 @@ export const AccountProvider: React.FC<LayoutProps> = ({ children }) => {
 	
 	const [auth, setAuth] = useState('');
 	const [displayName, setDisplayName] = useState('');
+	const [userId, setUserId] = useState('');
 	const [profileImg, setProfileImg] = useState('');
 	const [history, setHistory] = useState<DataHistory[]>([]);
 
@@ -22,6 +23,8 @@ export const AccountProvider: React.FC<LayoutProps> = ({ children }) => {
 			setAuth,
 			displayName,
 			setDisplayName,
+			userId,
+			setUserId,
 			profileImg,
 			setProfileImg,
       history,

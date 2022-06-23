@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
+import nookies from 'nookies';
 import dataStorage from 'common/storage';
 import { Music, DataHistory, PlaylistProps } from 'common/types';
 import { AccountContext } from './providers/Account-provider';
@@ -15,6 +16,8 @@ export function useAccountContext(){
     setAuth,
     displayName,
     setDisplayName,
+    userId,
+    setUserId,
     profileImg,
     setProfileImg,
     history,
@@ -67,16 +70,18 @@ export function useAccountContext(){
   }
 
   const hasAccount = (): boolean => {
-    return dataStorage.hasToken();
+    return !!auth;
   }
 
   useEffect(() => {
-    if(!auth) {
-      setAuth(dataStorage.getToken());
-    } else {
-      let payload: any = jwt.decode(auth);
-      setDisplayName(payload.userNameINF);
-    }
+    if (!auth) {
+      const cookies = nookies.get();
+      return setAuth(cookies.itokenus);
+    };
+    let payload: any = jwt.decode(auth);
+    if (!payload) return setAuth('');
+    setDisplayName(payload.dName);
+    setUserId(payload.uuidb);
   },[auth]);
 
   useEffect(() => {
@@ -85,7 +90,7 @@ export function useAccountContext(){
 
     async function getData() {
       let res = await axios.get(`http://localhost:7050/account/accessFastToken?passToken=${pass}`);
-      dataStorage.setToken(res.data['accessToken']);
+      nookies.set(undefined, 'itokenus', res.data['accessToken'], { path: '/' });
       setAuth(res.data['accessToken']);
     }
     getData();

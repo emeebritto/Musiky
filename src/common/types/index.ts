@@ -251,6 +251,8 @@ export interface AccountContextData {
   setAuth:(s:string) => void;
   displayName:string;
   setDisplayName:(s:string) => void;
+  userId:string;
+  setUserId:(s:string) => void;
   profileImg:string;
   setProfileImg:(s:string) => void;
   history:DataHistory[];

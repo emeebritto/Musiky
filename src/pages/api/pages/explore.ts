@@ -4,6 +4,7 @@ import faker from 'faker';
 import { istatic } from 'services';
 import { ExploreContent } from 'common/types/pages';
 import randomPlaylists from 'common/utils/random/playlists';
+import { oneHour } from "consts";
 
 const KEY = 'page:explore';
 
@@ -31,6 +32,6 @@ export default async function handler(
     }).then(r => ({ id: faker.datatype.uuid(), list: r.data }))
   };
 
-  cache.put(KEY, $, 60 * 60000);
+  cache.put(KEY, $, oneHour);
   res.status(200).json($);
 }

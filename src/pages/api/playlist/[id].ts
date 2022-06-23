@@ -3,6 +3,7 @@ import cache from "memory-cache";
 import { PlaylistProps } from 'common/types';
 import { istatic } from 'services';
 import { verifyUnavailable } from 'common/utils';
+import { twoHour } from "consts";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,6 +29,6 @@ export default async function handler(
     playlist.list = await verifyUnavailable(playlist.list);
   }
 
-  cache.put(KEY, playlist, 60 * 60000);
+  cache.put(KEY, playlist, twoHour);
   res.status(200).json(playlist);
 }

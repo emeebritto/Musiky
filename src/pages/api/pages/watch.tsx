@@ -3,6 +3,7 @@ import axios from 'axios';
 import cache from "memory-cache";
 import istatic from 'services/istatic';
 import { Music } from 'common/types';
+import { oneHour } from "consts";
 
 interface WatchContent {
   media:Music;
@@ -29,6 +30,6 @@ export default async function handler(
     media: await istatic.musicsData({ id }).then(r => r.data[0])
   };
 
-  cache.put(KEY, $, 60 * 60000); // one hour total
+  cache.put(KEY, $, oneHour); // one hour total
   res.status(200).json($)
 }

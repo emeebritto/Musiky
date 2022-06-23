@@ -5,6 +5,7 @@ import { HomeContent } from 'common/types/pages';
 import greeting from 'common/utils/greeting';
 import recommendations from 'common/utils/recommendations';
 import randomPlaylists from 'common/utils/random/playlists';
+import { oneHour, twoHour } from "consts";
 
 const KEY = 'page:home';
 
@@ -39,9 +40,9 @@ export default async function handler(
   let quickPicksPlaylists = $.quickPicks.items;
   for (let i=0; i < quickPicksPlaylists.length; i++) {
     let { id } = quickPicksPlaylists[i];
-    cache.put(`playlist:${id}`, quickPicksPlaylists[i], 1440 * 60000);
+    cache.put(`playlist:${id}`, quickPicksPlaylists[i], twoHour);
   }
 
-  cache.put(KEY, $, 60 * 60000); // one hour total
+  cache.put(KEY, $, oneHour);
   res.status(200).json($)
 }
