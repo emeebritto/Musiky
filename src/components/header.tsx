@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import urlEncoding from 'common/urlEncoding';
-import { useAccountContext } from 'contexts/Account';
 import istatic from 'services/istatic';
 import { Time } from 'components';
 
@@ -14,8 +13,9 @@ const HeaderContainer = Styled.header`
   z-index: 15;
   justify-content: space-between;
   align-items: center;
-  width: 95.5vw;
+  width: 94vw;
   height: 9vh;
+  left: 60px;
   box-shadow: inset 0px 40px 30px rgb(0 0 0 /80%);
 
   @media(max-width: 670px) {
@@ -28,8 +28,8 @@ const HeaderLeft = Styled.section`
   align-items: center;
 `
 const HeaderBranding = Styled.img`
+  margin-left: 10px;
   width: 110px;
-  height: 65px;
   cursor: pointer;
 
   @media(max-width: 570px) {
@@ -100,16 +100,7 @@ const AccountIcon = Styled.img`
 
 
 const Header: React.FC = () => {
-
-  const { props, hasAccount } = useAccountContext();
   const router = useRouter();
-
-  const redirectLogin = () => {
-    //let after = ShortCutUrl.codeUrl(`https://web-musiky.vercel.app${router.pathname}`);
-    let after = urlEncoding(`http://localhost:3000${router.pathname}`).encoder();
-    //window.location.href = `https://account-infinity.vercel.app?after=${after}`;
-    window.location.href = `http://localhost:8080/sso?after=${after}`;
-  }
 
   return(
     <HeaderContainer>
@@ -133,26 +124,8 @@ const Header: React.FC = () => {
           />
         </NavigationControl>
       </HeaderLeft>
-      {hasAccount() &&
-        <ProfileField>
-          <ProfileImg
-            src={istatic.profileImg()}
-            alt="perfilePhoto"
-          />
-          <UserName>{props.displayName}</UserName>
-        </ProfileField>
-      }
       <HeaderRight>
         <Time margin="0 25px"/>
-        {!hasAccount() &&
-          <SignInBtn onClick={()=> redirectLogin()}>
-            <AccountIcon
-              src={istatic.iconUrl({ name: "account_circle" })}
-              alt='account icon'
-            />
-            SIGN IN
-          </SignInBtn>
-        }
       </HeaderRight>
     </HeaderContainer>
   )

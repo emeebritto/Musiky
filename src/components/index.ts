@@ -37,3 +37,4 @@ export { default as PlaylistMetaData } from './playlistMetaData';
 export { default as PlayerProgressControl } from './playerControl/playerProgressControl';
 export { default as Comment } from './comment';
 export { default as WatchPlayer } from './watchPlayer';
+export { default as ProfileImage } from './profileImage';

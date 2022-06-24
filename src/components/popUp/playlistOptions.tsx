@@ -92,7 +92,7 @@ const PlaylistMoreOptions: React.FC<LayoutProps> = ({
             <UrlField>
               <DownloadOptionInput
                 type='text'
-                value={`${prop.music.artists[0].name} - ${prop.music.title}`}
+                value={`${prop.music.artists[0]?.name || "Musiky"} - ${prop.music.title}`}
                 readOnly
               />
               <DownloadBtn onClick={()=> {

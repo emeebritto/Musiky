@@ -76,6 +76,23 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <link rel="icon" href="/favicon.ico"/>
       <link rel="manifest" href="/manifest.json"/>
       <meta name="keywords" content="Musiky, music player"/>
+      <meta name="description" content="live your feelings"/>
+      <meta name="twitter:image" content="/imgs/link_preview-home.jpg"/>
+      <meta name="twitter:description" content="live your feelings"/>
+      <meta name="twitter:url" content="https://musiky.vercel.app"/>
+      <meta property="og:description" content="live your feelings"/>
+      <meta property="og:title" content="Musiky"/>
+      <meta property="og:site_name" content="Musiky"/>
+      <meta property="og:type" content="website"/>
+      <meta property="og:url" content="https://musiky.vercel.app"/>
+      <meta property="og:image" content="/imgs/link_preview-home.jpg"/>
+      <meta property="og:image:alt" content="Musiky Link Preview"/>
+      <meta property="og:image:height" content="597"/>
+      <meta property="og:image:secure_url" content="/imgs/link_preview-home.jpg"/>
+      <meta property="og:image:type" content="image/jpg"/>
+      <meta property="og:image:width" content="994"/>
+      <meta property="og:locale" content="en_CA"/>
+
       <meta
         name="viewport"
         content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
@@ -88,11 +105,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       <GlobalStyle/>
       <ErrorBoundary>
         <FeaturedProvider>
-          <NavBar/>
           <LoadingCube/>
           <Cursorlight/>
           <Main>
             <AccountProvider>
+              <NavBar/>
               <PlaylistProvider>
                 <PlayerProvider>
                   <LyricProvider>
