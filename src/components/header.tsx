@@ -13,9 +13,9 @@ const HeaderContainer = Styled.header`
   z-index: 15;
   justify-content: space-between;
   align-items: center;
-  width: 94vw;
+  width: 95.5vw;
   height: 9vh;
-  left: 60px;
+  left: 50px;
   box-shadow: inset 0px 40px 30px rgb(0 0 0 /80%);
 
   @media(max-width: 670px) {

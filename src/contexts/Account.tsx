@@ -88,12 +88,11 @@ export function useAccountContext(){
     if(!router.query['pass']) return
     let pass = router.query['pass'];
 
-    async function getData() {
+    (async() => {
       let res = await axios.get(`http://localhost:7050/account/accessFastToken?passToken=${pass}`);
       nookies.set(undefined, 'itokenus', res.data['accessToken'], { path: '/' });
       setAuth(res.data['accessToken']);
-    }
-    getData();
+    })()
   },[router.query]);
 
   useEffect(()=>{
