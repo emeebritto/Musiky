@@ -193,7 +193,7 @@ const MusicList: React.FC<MusicListProps> = ({
               <NumMusic>{index + 1}.</NumMusic>
             </BoxNumMusic>
             <DataMusic>
-              <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
+              <BoxImgMusic src={istatic.baseUrl + music.thumbnails[1].url} alt="imgMusic" />
               <Titles>
                 <MusicTitle>[ Unavailable Music ]</MusicTitle>
               </Titles>
@@ -225,7 +225,7 @@ const MusicList: React.FC<MusicListProps> = ({
             <NumMusic>{index + 1}.</NumMusic>
           </BoxNumMusic>
           <DataMusic>
-            <BoxImgMusic src={music.thumbnails[1].url} alt="imgMusic" />
+            <BoxImgMusic src={istatic.baseUrl + music.thumbnails[1].url} alt="imgMusic" />
             <Titles>
               <MusicTitle>{music.title}</MusicTitle>
               <NamesList>

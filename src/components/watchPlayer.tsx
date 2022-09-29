@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import istatic from 'services/istatic';
+import { musikyStreamApi, istatic } from 'services';
 import { usePlayer, usePlayerProgress } from 'contexts/player';
 import { PlayerProgressControl } from 'components';
 
@@ -145,7 +145,7 @@ const WatchPlayer = () => {
 	            changeCurrentTimeTo(time.played, time.playedSeconds);
 	          }
 	        }}
-	        url={`https://musiky-listen.herokuapp.com/${prop.music.id}?videoMode=1&source=yt`}
+	        url={`${musikyStreamApi}/${prop.music.id}?videoMode=1&source=yt`}
 	        width='100%'
 	        height='100%'
 	        config={{

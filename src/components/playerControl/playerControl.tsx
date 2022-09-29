@@ -63,7 +63,7 @@ const PlayerControl: React.FC = () => {
           }}
         >
           <MusicImg 
-            src={prop.music.thumbnails[1].url}
+            src={istatic.baseUrl + prop.music.thumbnails[1].url}
             alt="musicImg"
             />
           <SectionTitles>

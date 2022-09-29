@@ -46,6 +46,7 @@ const ReactPlayerComp: React.FC = () => {
     <ViewPort>
       {prop.music &&
         <VideoPlayer
+          crossOrigin="anonymous"
           ref={(reactPlayer: HTMLDivElement) => ref.audPlayer.current = reactPlayer}
           onReady={isReady}
           playbackRate={1}
@@ -64,7 +65,7 @@ const ReactPlayerComp: React.FC = () => {
           onBufferEnd={()=> isAllowed && onBuffer(false)}
           onEnded={()=> isAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
-          url={`${musikyStreamApi}/${prop.music?.id || ''}?source=${prop.music?.target || ''}`}
+          url={`${musikyStreamApi}/${prop.music?.id}?source=${prop.music?.target}`}
           width='100vw'
           height='100vh'
           hidden

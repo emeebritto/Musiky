@@ -214,7 +214,7 @@ const BoxQuickPicks: React.FC<QuickPicksProps> = ({ data }) => {
                 <NumMusic>{i + 1}.</NumMusic>
               </BoxNumMusic>
               <DataMusic>
-                <BoxImgMusic src={pl.infors.img} alt="playlist image" />
+                <BoxImgMusic src={istatic.baseUrl + pl.infors.img} alt="playlist image" />
                 <Titles>
                   <MusicTitle>{pl.infors.title}</MusicTitle>
                   <NamesList>

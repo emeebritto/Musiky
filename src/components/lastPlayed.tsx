@@ -106,7 +106,7 @@ const LastPlayer: React.FC = () => {
 
 	return (
     <ViewPort onClick={playLastSong}>
-      <Thumbnail src={last.thumbnails[1].url} alt='music Thumbnail'/>
+      <Thumbnail src={istatic.baseUrl + last.thumbnails[1].url} alt='music Thumbnail'/>
       <Data>
         <Title>{last.title}</Title>
         {!!from && <From>From Playlist: {from.infors.title}</From>}

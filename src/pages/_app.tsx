@@ -57,14 +57,16 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
       </Head>
       <GlobalStyle/>
       <ErrorBoundary>
-        <PlaylistProvider>
-          <PlayerProvider>
-            <LyricProvider>
-              <ReactPlayerComp/>
-              <Component {...pageProps} />
-            </LyricProvider>
-          </PlayerProvider>
-        </PlaylistProvider>
+        <AccountProvider>
+          <PlaylistProvider>
+            <PlayerProvider>
+              <LyricProvider>
+                <ReactPlayerComp/>
+                <Component {...pageProps} />
+              </LyricProvider>
+            </PlayerProvider>
+          </PlaylistProvider>
+        </AccountProvider>
       </ErrorBoundary>
       </>
     )

@@ -191,7 +191,7 @@ const PlaylistMetaData: React.FC<Props> = ({ id, playlist }) => {
         src={istatic.iconUrl({ name: "back" })}
         alt='back'
       />
-      <PlayListImg src={infors.img} alt="PlayList Img"/>
+      <PlayListImg src={istatic.baseUrl + infors.img} alt="Playlist Img"/>
       <OthersData>
         <PlaylistTitle>{infors.title}</PlaylistTitle>
         {infors.length &&

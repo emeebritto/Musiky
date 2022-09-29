@@ -144,7 +144,7 @@ const PlayListRow: React.FC<PlayListRowProps> = ({ name, data }) => {
             <PlayList playHoverOff={playing}>
             	<PlayListImg 
                 id="PlayListImg" 
-                src={playlist.infors.img}
+                src={istatic.baseUrl + playlist.infors.img}
                 fade={playing}
               />
                 <PlayingList

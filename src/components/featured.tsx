@@ -6,6 +6,7 @@ import { ArtistDataProps, Music } from "common/types";
 import { useFeaturedContext } from 'contexts/Featured';
 import { usePlayer } from 'contexts/player';
 import { FeaturedControl } from 'components';
+import { musikyStreamApi, istatic } from 'services';
 
 
 const ViewPort = Styled.section`
@@ -25,7 +26,7 @@ const Thumbnail = Styled.section`
   left: 0;
   background: ${(props: {img: string | false}) => (
     props.img
-    ? `url(${props.img}) center/70%`
+    ? `url(${istatic.baseUrl + props.img}) center/70%`
     : `rgba(0, 0, 0, 0.6)`
   )};
   box-shadow: inset 0px -10px 330px #000, inset 0px -10px 50px #000;
@@ -127,7 +128,7 @@ const Featured: React.FC<RecProps> = ({ data }) => {
             playing={playing}
             ended={stopVideo}
             volume={0}
-            url={`https://musiky-listen.herokuapp.com/${data.clip.id}?videoMode=1&source=${data.clip.target}`}
+            url={`${musikyStreamApi}/${data.clip.id}?videoMode=1&source=${data.clip.target}`}
             width='95vw'
             height='112vh'
             config={{

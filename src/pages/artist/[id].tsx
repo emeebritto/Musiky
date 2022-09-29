@@ -259,7 +259,7 @@ const Artist: NextPage<ArtistPageProps> = ({ apiRes }) => {
                   <PlayList>
                     <PlayListImg 
                       id="PlayListImg" 
-                      src={playList.infors.img}
+                      src={istatic.baseUrl + playList.infors.img}
                     />
                     <BtnPLayHover 
                       onClick={e => {

@@ -177,12 +177,14 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
       <PlayerWrapper>
         <MusicThumbnail
           onClick={goToMusiky}
-          src={pageContent.thumbnails[1].url}
+          src={istatic.baseUrl + pageContent.thumbnails[1].url}
           alt='music Image'
         />
         <DataAndControls>
           <Titles>
-            <h1><strong>{pageContent.title}</strong> by {pageContent.artists[0]}</h1>
+            <h1>
+              <strong>{pageContent.title}</strong> by {pageContent.artists[0].name}
+            </h1>
           </Titles>
           <Controls>
             <BtnPlayerControl play onClick={handlePlayPause}>
