@@ -21,7 +21,7 @@ export const mediaDownload = async(media:Music, options?:MusicListenOptions): Pr
     const url = window.URL.createObjectURL(new Blob([res.data]));
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `${media.artists[0]} - ${media.title}.mp3`);
+    link.setAttribute('download', `${media.artists[0].name} - ${media.title}.mp3`);
     document.body.appendChild(link);
     link.click();
   })
@@ -34,8 +34,8 @@ export const multiDownloads = async(list:Music[]): Promise<void> => {
   }
 }
 
-export const copyContent = (): void => {
-  navigator.clipboard.writeText(location.href).then(()=> alert('copied'))
+export const copyContent = (content?:string): void => {
+  navigator.clipboard.writeText(content || location.href).then(()=> alert('copied'))
 }
 
 export const fromSecondsToTime = (secondsRaw:number): string => {

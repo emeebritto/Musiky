@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from 'styled-components';
-import { musikyApi } from 'services';
+import { musiky } from 'services';
 import { HomeContent } from 'common/types/pages';
 import { useSplashContext } from 'contexts/splash';
 
@@ -87,7 +87,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const pageContent = await musikyApi.homePage().then(r => r.data);
+  const pageContent = await musiky.api.homePage().then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }

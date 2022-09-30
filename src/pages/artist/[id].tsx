@@ -1,6 +1,6 @@
 import React from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import { musikyApi } from 'services';
+import { musiky } f.rom 'services';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { ArtistPageContent } from 'common/types/pages';
@@ -296,7 +296,7 @@ export default Artist;
 export const getServerSideProps: GetServerSideProps = async(context) => {
   let id = String(context?.params?.id || '');
   if(!id) return { notFound: true };
-  let apiRes = await musikyApi.artist({ id })
+  let apiRes = await musiky.api.artist({ id })
     .then(r => r.data)
     .catch(err => console.error(err))
 

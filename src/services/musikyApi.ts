@@ -9,6 +9,17 @@ import {
 } from 'common/types/pages';
 
 
+class MusikyClient {
+  public url:string;
+
+  constructor() {
+    this.devENV = process.env.NODE_ENV === 'development';
+    this.musikyDEV = `http://localhost:${3000}`;
+    this.musikyPROD = 'https://musiky.vercel.app';
+    this.url = this.devENV ? this.musikyDEV : this.musikyPROD;
+  }
+}
+
 // API WRAPPER
 class MusikyApi {
   public devENV: boolean;
@@ -64,4 +75,9 @@ class MusikyApi {
 }
 
 const musikyApi = new MusikyApi();
-export default musikyApi;
+const musikyClient = new MusikyClient();
+
+export default {
+  url: musikyClient.url,
+  api: musikyApi
+};

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { musikyApi } from 'services';
+import { musiky } f.rom 'services';
 import Styled from 'styled-components';
 import { istatic } from 'services';
 import { mediaDownload } from 'common/utils';
@@ -301,7 +301,7 @@ export default Watch;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
 	const mediaId = String(context.query?.v || '');
-  const pageContent = await musikyApi.watchPage({ mediaId }).then(r => r.data);
+  const pageContent = await musiky.api.watchPage({ mediaId }).then(r => r.data);
 
   return {
     props: { pageContent }, // will be passed to the page component as props

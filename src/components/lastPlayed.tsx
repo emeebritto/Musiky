@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
-import { istatic, musikyApi } from 'services';
+import { istatic, musiky } from 'services';
 import { Music, DataHistory } from 'common/types';
 import { useAccountContext } from 'contexts/Account';
 import { usePlayer } from 'contexts/player';
@@ -74,7 +74,7 @@ const LastPlayer: React.FC = () => {
         .catch(err => setError(true))
 
       if (lastSong.playlist?.id) {
-        await musikyApi.playlist({ id: lastSong.playlist.id })
+        await musiky.api.playlist({ id: lastSong.playlist.id })
           .then(r => setFrom(r.data));
       }
       setLoading(false);

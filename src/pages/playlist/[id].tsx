@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import { musikyApi } from 'services';
+import { musiky } from 'services';
 import { useRouter } from 'next/router';
 import Styled from 'styled-components';
 import { PlaylistProps, Music } from 'common/types';
@@ -195,7 +195,7 @@ export default Playlist;
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const id = String(context.params?.id || '');
   if(!id) return { notFound: true }
-  const playlist = await musikyApi.playlist({ id }).then(r => r.data);
+  const playlist = await musiky.api.playlist({ id }).then(r => r.data);
   if(!playlist) return { notFound: true }
 
   return {

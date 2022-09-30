@@ -133,9 +133,14 @@ const Embed: NextPage<EmbedProps> = ({ pageContent }) => {
 
   if (!pageContent) {
     return (
+      <>
+      <Head>
+        <title>Musiky - 404</title>
+      </Head>
       <Alert onClick={goToMusiky}>
         Musiky - Sorry, we don't found it (404)
       </Alert>
+      </>
     )
   }
 
@@ -221,7 +226,7 @@ export const getServerSideProps: GetServerSideProps = async(context) => {
   let id = String(context?.params?.id || '');
   let pageContent: Music | null = null;
 
-  if (!id) return { props: { pageContent } };
+  if (!id || id == "empty") return { props: { pageContent } };
 
   const KEY = `music:${id}`;
 

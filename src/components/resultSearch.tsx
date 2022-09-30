@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { withRouter, NextRouter } from 'next/router';
-import { musikyApi } from 'services';
+import { musiky } from 'services';
 import Styled from 'styled-components';
 import { usePlayer } from 'contexts/player';
 import { ArtistDataProps, Music, SearchReturn } from 'common/types';
@@ -53,7 +53,7 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 
   useEffect(() => {
     async function getData() {
-      let res = await musikyApi.search(q)
+      let res = await musiky.api.search(q)
       	.then(r => r.data)
       	.catch(err => console.error(err));
 

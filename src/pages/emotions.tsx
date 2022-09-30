@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import { musikyApi } from 'services';
+import { musiky } from 'services';
 import Styled from "styled-components";
 import faker from "faker";
 import { useSplashContext } from 'contexts/splash';
@@ -42,7 +42,7 @@ const Emotions: NextPage<EmotionsProps> = ({ emotions }) => {
   const [emotionsList, setEmotionsList] = useState<Music[]>(emotions);
 
   const loadMore = async() => {
-    await musikyApi.emotions({ random: 1, maxResult: 8 })
+    await musiky.api.emotions({ random: 1, maxResult: 8 })
       .then(r => {
         const res = r.data;
         setEmotionsList((emotionsList: Array<Music>) => [...emotionsList, ...res]);
@@ -85,7 +85,7 @@ export default Emotions;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
   const startWith = String(context?.query?.startWith || '');
-  let emotions = await musikyApi.emotions({ id: startWith, random: 1, maxResult: 8 })
+  let emotions = await musiky.api.emotions({ id: startWith, random: 1, maxResult: 8 })
     .then(r => r.data);
 
   return {

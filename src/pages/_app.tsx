@@ -46,7 +46,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }
   }, [])
 
-  if (router.route === "/embed/[id]") {
+  if (router.route.includes("/embed/")) {
     return (
       <>
       <Head>

@@ -18,6 +18,8 @@ const ViewPort = Styled.section`
 
 const Box = Styled.section`
     background-color: #020209;
+    display: flex;
+    flex-direction: ${(props) => (props.horizontal ? "row" : "column")};
     border-radius: 10px;
     border: 1px solid #020225;
     padding: 10px 15px;
@@ -25,16 +27,19 @@ const Box = Styled.section`
 
 
 interface LayoutProps {
-    children: React.ReactNode;
-    show: boolean;
+    children:React.ReactNode;
+    horizontal?:boolean;
+    show:boolean;
     onRequestClose: () => void;
 }
 
 const PopUpBox: React.FC<LayoutProps> = ({
     children,
+    horizontal=false,
     show=false,
     onRequestClose = ()=>{return}
 }) => {
+
 
     return (
         <>
@@ -43,7 +48,7 @@ const PopUpBox: React.FC<LayoutProps> = ({
                 e.stopPropagation();
                 onRequestClose();
             }}>
-                <Box onClick={(e)=> e.stopPropagation()}>
+                <Box horizontal={horizontal} onClick={(e)=> e.stopPropagation()}>
                     {children}
                 </Box>
             </ViewPort>

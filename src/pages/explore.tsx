@@ -1,5 +1,5 @@
 import React from 'react';
-import { musikyApi } from 'services';
+import { musiky } from 'services';
 import type { NextPage, GetServerSideProps } from 'next';
 import Styled from "styled-components";
 import { ExploreContent } from 'common/types/pages';
@@ -54,7 +54,7 @@ const Explore: NextPage<ExploreProps> = ({ pageContent }) => {
 export default Explore;
 
 export const getServerSideProps: GetServerSideProps = async(context) => {
-  const pageContent = await musikyApi.explorePage().then(r => r.data);
+  const pageContent = await musiky.api.explorePage().then(r => r.data);
   return {
     props: { pageContent }, // will be passed to the page component as props
   }
