@@ -10,7 +10,11 @@ import {
 
 
 class MusikyClient {
+  private devENV:boolean;
+  private musikyDEV:string;
+  private musikyPROD:string;
   public url:string;
+
 
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';

@@ -23,7 +23,9 @@ const SwitchBtn = Styled.button`
   border: none;
   font-size: 1em;
   margin: 0 5px;
-  background-color: ${(props) => (props.active ? "#091483" : "#091436")};
+  background-color: ${(props:{active?:boolean}) => (
+    props?.active ? "#091483" : "#091436"
+  )};
   border-radius: 8px;
   color: #fff;
   cursor: pointer;

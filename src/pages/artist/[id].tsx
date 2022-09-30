@@ -1,6 +1,6 @@
 import React from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
-import { musiky } f.rom 'services';
+import { musiky } from 'services';
 import Link from 'next/link';
 import Styled from "styled-components";
 import { ArtistPageContent } from 'common/types/pages';

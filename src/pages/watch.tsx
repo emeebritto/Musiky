@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { NextPage, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { musiky } f.rom 'services';
+import { musiky } from 'services';
 import Styled from 'styled-components';
 import { istatic } from 'services';
 import { mediaDownload } from 'common/utils';

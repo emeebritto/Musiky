@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SearchPageContent } from 'common/types/pages';
 import { Music } from 'common/types';
-import { musiky, is..tatic } from 'services';
+import { musiky, istatic } from 'services';
 import Styled from 'styled-components';
 import { useDebounce } from 'use-debounce';
 import { useSplashContext } from 'contexts/splash';
@@ -181,7 +181,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
   }
   const filterSearch = async (value: string): Promise<void> => {
     if (value.length > 1) {
-      setOptionsToComplete(await musiky.api..autoComplete({ input: value }).then(r => r.data));
+      setOptionsToComplete(await musiky.api.autoComplete({ input: value }).then(r => r.data));
     } else {
       setOptionsToComplete([]);
       router.push('/search');

@@ -1,4 +1,7 @@
 class N2xNordlyApi {
+  public devENV:boolean;
+  private n2xDEV:string;
+  private n2xPROD:string;
   public url:string;
 
   constructor() {

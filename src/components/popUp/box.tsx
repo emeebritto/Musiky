@@ -19,7 +19,9 @@ const ViewPort = Styled.section`
 const Box = Styled.section`
     background-color: #020209;
     display: flex;
-    flex-direction: ${(props) => (props.horizontal ? "row" : "column")};
+    flex-direction: ${(props:{horizontal?:boolean}) => (
+        props?.horizontal ? "row" : "column"
+    )};
     border-radius: 10px;
     border: 1px solid #020225;
     padding: 10px 15px;
