@@ -126,6 +126,10 @@ const MyFlow: React.FC = () => {
       addStyle={MyFlowVerticalViewStyle()}
       width='38.5%'
       desableSwipeMode
+      btnOption={{
+        displayName: "See All",
+        href: '/moods'
+      }}
     >
 			<ViewPort>
 				<DiskField active={!!activeVibe}>

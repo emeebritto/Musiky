@@ -13,8 +13,8 @@ const HeaderContainer = Styled.header`
   z-index: 15;
   justify-content: space-between;
   align-items: center;
-  width: 95.5vw;
-  height: 9vh;
+  width: 95.1vw;
+  height: 80px;
   left: 50px;
   box-shadow: inset 0px 40px 30px rgb(0 0 0 /80%);
 

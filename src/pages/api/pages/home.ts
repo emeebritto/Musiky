@@ -29,11 +29,11 @@ export default async function handler(
       emotions: await istatic.emotions({ random: 1, maxResult: 10 }).then(r=>r.data)
     },
     playlists: {
-      mixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
-      otherMixs: await randomPlaylists({ totalList: 6 }).then(r=>r.items),
-      justSongs: await randomPlaylists({ totalList: 6 }).then(r=>r.items)
+      mixs: await randomPlaylists({ totalList: 7 }).then(r=>r.items),
+      otherMixs: await randomPlaylists({ totalList: 7 }).then(r=>r.items),
+      justSongs: await randomPlaylists({ totalList: 7 }).then(r=>r.items)
     },
-    artists: await istatic.artistsData({ random: 1, maxResult: 6 }).then(r => r.data)
+    artists: await istatic.artistsData({ random: 1, maxResult: 7 }).then(r => r.data)
   };
   
   // create playlists cache:

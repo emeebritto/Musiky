@@ -26,10 +26,10 @@ class MusikyClient {
 
 // API WRAPPER
 class MusikyApi {
-  public devENV: boolean;
-  private musikyApiDEV: string;
-  private musikyApiPROD: string;
-  public baseUrl: string;
+  public devENV:boolean;
+  private musikyApiDEV:string;
+  private musikyApiPROD:string;
+  public baseUrl:string;
 
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';

@@ -150,7 +150,7 @@ const VerticalView: React.FC<VerticalViewProp> = ({
             {desableSwipeMode ?
                 <>{ children }</>
                 :<Swiper
-                    slidesPerView={slidesPerView || (6 * screenWidth) / 1366}
+                    slidesPerView={slidesPerView || (7 * screenWidth) / 1600}
                     modules={[]}
                 >
                     { children }

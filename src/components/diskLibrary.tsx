@@ -6,6 +6,8 @@ import { Music } from 'common/types';
 import { VerticalView } from 'components';
 import { usePlayer } from 'contexts/player';
 import { PlaylistProps } from 'common/types';
+import { istatic } from 'services';
+
 
 const ViewPort = Styled.section`
 `
@@ -52,9 +54,10 @@ const DiskImg = Styled.section`
   height: 150px;
   margin-bottom: 15px;
   transition: 400ms;
-  animation: ${(props: { playing: boolean }) => (
-    props.playing ? "spin infinite 30s linear" : ''
-  )};
+  ${(props: { playing:boolean, img:string }) => (`
+    animation: ${props.playing ? "spin infinite 30s linear" : ""};
+    background: url(${props.img}) no-repeat center/177.5%;
+  `)}
 
   @keyframes spin {
 	  to {
@@ -114,9 +117,7 @@ const DiskLibrary: React.FC<DiskLibraryProps> = ({ name, data }) => {
               <DiskImg 
                 playing={isPlayingId(disk.id)} 
                 id={isPlayingId(disk.id) ? '' : 'diskImg'}
-                style={{ 
-                  background: `url(${disk.thumbnails[1].url}) no-repeat center/177.5%`
-                }}
+                img={istatic.baseUrl + disk.thumbnails[1].url}
               >
                 <CenterHole/>
               </DiskImg>

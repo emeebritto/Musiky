@@ -61,7 +61,7 @@ const OptionsBox = Styled.section`
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
-  height: 40%;
+  height: 500px;
 `
 const IconOption = Styled.img`
   width: 25px;

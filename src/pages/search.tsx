@@ -20,8 +20,7 @@ import {
 const ViewPort = Styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: center;height: 30vh;
   perspective: 1px;
   transform-style: preserve-3d;
   width: 96.4vw;
@@ -34,12 +33,13 @@ const ViewPort = Styled.section`
   }
 `
 const SearchField = Styled.section`
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  min-height: 80vh;
+  height: 700px;
   position: relative;
   transform-style: inherit;
   width: 96vw;
@@ -61,7 +61,7 @@ const SearchField = Styled.section`
     transform-origin: center center 0;
     transform: translateZ(-1px) scale(2);
     z-index: -1;
-    min-height: 80vh;
+    height: 700px;
   }
 `
 const ContentField = Styled.section`
@@ -69,7 +69,7 @@ const ContentField = Styled.section`
   position: absolute;
   display: flex:
   justify-content: center;
-  top: 80vh;
+  top: 700px;
   padding: 0 10vw 14vh 10vw;
   background: #020309;
   line-height: 22px;

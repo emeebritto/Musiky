@@ -57,7 +57,7 @@ const Home: NextPage<HomeProps> = ({ pageContent }) => {
     const node = ref?.current // DOM Ref
     if (!node) return;
     node.scrollTo({
-      top: 230,
+      top: 220,
       left: 0,
       behavior: 'smooth'
     });

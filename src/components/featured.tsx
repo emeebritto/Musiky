@@ -12,7 +12,7 @@ import { musikyStreamApi, istatic } from 'services';
 const ViewPort = Styled.section`
   position: relative;
   width: 95.5vw;
-  height: 65vh;
+  height: 450px;
   overflow: hidden;
   margin: 0 0 3vh 0;
 `
@@ -22,7 +22,7 @@ const PlayerWrapper = Styled.section`
 `
 const Thumbnail = Styled.section`
   position: absolute;
-  top: -70px;
+  top: 0;
   left: 0;
   background: ${(props: {img: string | false}) => (
     props.img
@@ -30,8 +30,8 @@ const Thumbnail = Styled.section`
     : `rgba(0, 0, 0, 0.6)`
   )};
   box-shadow: inset 0px -10px 330px #000, inset 0px -10px 50px #000;
-  width: 100vw;
-  height: 100vh;
+  min-width: 130%;
+  height: 890px;
   transition: 600ms;
 `
 const Data = Styled.section`

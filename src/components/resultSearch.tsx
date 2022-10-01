@@ -72,7 +72,7 @@ const ResultSearch: React.FC<WithRouterProps> = ({ router }) => {
 
 	return (
 		<ViewPort>
-			<Label>Resultado para: {searchTop.name}</Label>
+			<Label>Results for: {searchTop.name}</Label>
 			<FirstSection>
 				<ArtistCard artist={searchTop}/>
 				<MusicListWrapper>

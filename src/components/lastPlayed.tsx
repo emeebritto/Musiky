@@ -21,14 +21,14 @@ const Data = Styled.section`
   text-align: center;
 `
 const Title = Styled.p`
-  width: 420px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 8px;
 `
 const From = Styled.p`
-  width: 420px;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
