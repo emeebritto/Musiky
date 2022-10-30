@@ -1,4 +1,10 @@
+export type { Playlist, PlaylistSnippet } from "./playlist";
+export type { Image } from "./image";
+export type { Track } from "./track";
+export type { ArtistResult, Artist } from "./artist";
 import React from 'react';
+
+
 
 export interface Obj {
   [key:string]:any;

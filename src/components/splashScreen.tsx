@@ -4,7 +4,7 @@ import istatic from "services/istatic";
 
 
 const ViewPort = Styled.section`
-   padding-top: 70px;
+  padding-top: 70px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -16,6 +16,10 @@ const ViewPort = Styled.section`
 	width: 100vw;
 	height: 100vh;
 	background-color: #020309;
+
+	a {
+		text-decoration: none;
+	}
 `
 const BrandingWrapper = Styled.section`
 	height: 10vh;
@@ -43,9 +47,9 @@ const AppBranding = Styled.img`
   }
 `
 const Author = Styled.h1`
-	margin-top: 160px;
+	margin-top: 15vh;
 	color: white;
-	font-size: 1.6em;
+	font-size: 1.4em;
 	opacity: 25%;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
@@ -62,7 +66,13 @@ const SplashScreen: React.FC = () => (
 				alt="musiky branding"
 			/>
 		</BrandingWrapper>
-		<Author>from <strong>Nordly</strong></Author>
+		<a
+      href="https://www.linkedin.com/in/emerson-britto/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+			<Author>Powered by <strong>emee</strong></Author>
+		</a>
 	</ViewPort>
 )
 

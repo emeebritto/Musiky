@@ -40,7 +40,6 @@ const SearchField = Styled.section`
   align-items: center;
   box-sizing: border-box;
   height: 700px;
-  position: relative;
   transform-style: inherit;
   width: 96vw;
   background: 50% 50%;
@@ -179,6 +178,7 @@ const Search: NextPage<SearchPageProp> = ({ pageContent }) => {
     setInputSearch(option);
     setOptionsToComplete([]);
   }
+  
   const filterSearch = async (value: string): Promise<void> => {
     if (value.length > 1) {
       setOptionsToComplete(await musiky.api.autoComplete({ input: value }).then(r => r.data));
