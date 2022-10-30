@@ -1,5 +1,5 @@
 import { createUrlParams } from 'helpers';
-import { Playlist } from "common/types";
+import { Playlist, ArtistResult } from "common/types";
 import axios from 'axios';
 
 
@@ -52,7 +52,7 @@ class DSpot {
   }
 
 
-  getAccessToken() {
+  getAccessToken():string {
     return axios({
       url: '/get_access_token?reason=transport&productType=web-player',
       baseURL: 'https://open.spotify.com',
@@ -80,7 +80,7 @@ class DSpot {
     }).then(r => r.data.accessToken).catch(err => console.log({ err }));
   }
 
-  getClientToken() {
+  getClientToken():string {
     return axios({
       url: "/v1/clienttoken",
       baseURL: "https://clienttoken.spotify.com",
@@ -109,7 +109,7 @@ class DSpot {
     }).then(r => r.data.granted_token.token)
   }
 
-  async playlist(id:string): Promise<{data:Playlist}> {
+  async playlist(id:string):Promise<{data:Playlist}> {
     const access_token = await this.getAccessToken();
     const clientToken = await this.getClientToken();
     return axios({
@@ -124,11 +124,75 @@ class DSpot {
     });
   }
 
-  async artist(uri:string) {
+  async artist(id:string):Promise<{data:ArtistResult}> {
     const access_token = await this.getAccessToken();
     const clientToken = await this.getClientToken();
     return axios({
-      url: `/query?operationName=queryArtistOverview&variables={"uri":"${uri}"}&extensions={"persistedQuery":{"version":1,"sha256Hash":"4e752c6e24b0c8b97d63466a0670ffb5fbd1de8f985e99cc52285174a139c96a"}}`,
+      url: `/query?operationName=queryArtistOverview&variables={"uri":"spotify:artist:${id}"}&extensions={"persistedQuery":{"version":1,"sha256Hash":"4e752c6e24b0c8b97d63466a0670ffb5fbd1de8f985e99cc52285174a139c96a"}}`,
+      baseURL: 'https://api-partner.spotify.com/pathfinder/v1',
+      method:'get',
+      headers: getHearder({
+        authorization: `Bearer ${access_token}`,
+        clientToken: clientToken,
+        host: "api-partner.spotify.com",
+        contentType: "application/json;charset=UTF-8"
+      })
+    });
+  }
+
+  async search(searchTerm:string):Promise<{data:any}> {
+    const access_token = await this.getAccessToken();
+    const clientToken = await this.getClientToken();
+    return axios({
+      url: `/query?operationName=searchDesktop&variables={"searchTerm":"${searchTerm}","offset":0,"limit":10,"numberOfTopResults":5,"includeAudiobooks":false}&extensions={"persistedQuery":{"version":1,"sha256Hash":"1d3a8f81abf4f33f49d1e389ed0956761af669eedb62a050c6c7bce5c66070bb"}}`,
+      baseURL: 'https://api-partner.spotify.com/pathfinder/v1',
+      method:'get',
+      headers: getHearder({
+        authorization: `Bearer ${access_token}`,
+        clientToken: clientToken,
+        host: "api-partner.spotify.com",
+        contentType: "application/json;charset=UTF-8"
+      })
+    });
+  }
+
+  async discography(id:string):Promise<{data:any}> {
+    const access_token = await this.getAccessToken();
+    const clientToken = await this.getClientToken();
+    return axios({
+      url: `/query?operationName=queryArtistDiscographyAll&variables={"uri":"spotify:artist:${id}","offset":0,"limit":50}&extensions={"persistedQuery":{"version":1,"sha256Hash":"35a699e12a728c1a02f5bf67121a50f87341e65054e13126c03b7697fbd26692"}}`,
+      baseURL: 'https://api-partner.spotify.com/pathfinder/v1',
+      method:'get',
+      headers: getHearder({
+        authorization: `Bearer ${access_token}`,
+        clientToken: clientToken,
+        host: "api-partner.spotify.com",
+        contentType: "application/json;charset=UTF-8"
+      })
+    });
+  }
+
+  async getAlbumMetadata(id:string):Promise<{data:any}> {
+    const access_token = await this.getAccessToken();
+    const clientToken = await this.getClientToken();
+    return axios({
+      url: `/query?operationName=getAlbumMetadata&variables={"uri":"spotify:album:${id}"}&extensions={"persistedQuery":{"version":1,"sha256Hash":"40a04a8555b99c39ba71648c044e32363655d44d3253fd59b31ac1d027b38224"}}`,
+      baseURL: 'https://api-partner.spotify.com/pathfinder/v1',
+      method:'get',
+      headers: getHearder({
+        authorization: `Bearer ${access_token}`,
+        clientToken: clientToken,
+        host: "api-partner.spotify.com",
+        contentType: "application/json;charset=UTF-8"
+      })
+    });
+  }
+
+  async queryAlbumTracks(id:string):Promise<{data:any}> {
+    const access_token = await this.getAccessToken();
+    const clientToken = await this.getClientToken();
+    return axios({
+      url: `/query?operationName=queryAlbumTracks&variables={"uri":"spotify:album:${id}","offset":0,"limit":300}&extensions={"persistedQuery":{"version":1,"sha256Hash":"f387592b8a1d259b833237a51ed9b23d7d8ac83da78c6f4be3e6a08edef83d5b"}}`,
       baseURL: 'https://api-partner.spotify.com/pathfinder/v1',
       method:'get',
       headers: getHearder({

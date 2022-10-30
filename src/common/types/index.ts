@@ -1,7 +1,7 @@
 export type { Playlist, PlaylistSnippet } from "./playlist";
 export type { Image } from "./image";
 export type { Track } from "./track";
-export type { ArtistResult, Artist } from "./artist";
+export type { ArtistResult, Artist } from "./user";
 import React from 'react';
 
 
