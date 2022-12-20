@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { musikyStreamApi } from 'services';
+import { musikyStreamApi, musiky } from 'services';
 import { usePlayer, usePlayerProgress } from 'contexts/player';
 
 const ViewPort = Styled.section`
@@ -20,6 +20,7 @@ const VideoPlayer = Styled(ReactPlayer)`
 `
 
 const ReactPlayerComp: React.FC = () => {
+  const [url, setUrl] = useState('');
 
   const {
     ref,
@@ -40,6 +41,12 @@ const ReactPlayerComp: React.FC = () => {
     document.addEventListener("contextmenu", e => e.preventDefault());
     return ()=> document.removeEventListener("contextmenu", e => e.preventDefault());
   },[]);
+
+
+  useEffect(()=>{
+    if (!prop.music) return;
+    musiky.api.media(prop.music.id).then(url => setUrl(url))
+  },[prop.music])
 
 
   return (
@@ -65,7 +72,8 @@ const ReactPlayerComp: React.FC = () => {
           onBufferEnd={()=> isAllowed && onBuffer(false)}
           onEnded={()=> isAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
-          url={`${musikyStreamApi}/${prop.music?.id}?source=${prop.music?.target}`}
+          // url={`${musikyStreamApi}/${prop.music?.id}?source=${prop.music?.target}`}
+          url={url}
           width='100vw'
           height='100vh'
           hidden

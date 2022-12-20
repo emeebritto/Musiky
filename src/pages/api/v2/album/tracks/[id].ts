@@ -16,9 +16,9 @@ export default async function handler(
 		status: 401,
 		message: "id is required"
 	});
-	return dSpot.queryAlbumTracks(id).then(r => {
-  		res.status(200).json(r.data.data.albumUnion);
-		}).catch(e => {
+	return dSpot.queryAlbumTracks(id)
+		.then(r => res.status(200).json(r.data.data.albumUnion))
+		.catch(e => {
 			console.log({ err: e });
   		res.status(404).json(e.response.data);
 		});

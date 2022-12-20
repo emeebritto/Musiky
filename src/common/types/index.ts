@@ -68,6 +68,7 @@ export interface SearchReturn {
 
 export interface Music {
   id:string;
+  url?:string;
   target:string;
   unavailable?:boolean;
   content_verified:boolean;

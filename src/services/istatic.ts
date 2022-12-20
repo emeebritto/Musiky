@@ -126,7 +126,7 @@ class Istatic {
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';
     this.istaticDEV = `http://localhost:${9872}`;
-    this.istaticPROD = 'https://cdn-istatics.herokuapp.com';
+    this.istaticPROD = 'https://nb-center.vercel.app';
     this.baseUrl = this.devENV ? this.istaticDEV : this.istaticPROD;
     this.staticSourcesUrl = `${this.baseUrl}/static`;
   }
@@ -143,7 +143,7 @@ class Istatic {
     format?:string,
     dp?:number
   }):string {
-    return `${this.staticSourcesUrl}/icons/${name}_${color}_${dp}dp.${format}`;
+    return `/icons/${name}_${color}_${dp}dp.${format}`; // local files 'public'
   }
 
   imgUrl({ path }:{ path:string }): string {
@@ -151,7 +151,7 @@ class Istatic {
   }
 
   animatedSvgUrl({ name }:{ name:string }): string {
-    return `${this.staticSourcesUrl}/icons/AnimatedSvg/${name}.svg`;
+    return `/icons/AnimatedSvg/${name}.svg`; // local files 'public'
   }
 
   staticPath(pathName:string): Promise<any> {

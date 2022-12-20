@@ -38,6 +38,12 @@ class MusikyApi {
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
   }
 
+  async media(url:string): Promise<string> {
+    if (!url) return "";
+    const res = await axios.get(`${this.baseUrl}/v2/media?id=${url}`);
+    return res.data.url;
+  }
+
   autoComplete({ input }:{ input:string }): Promise<{data:string[] | []}> {
     return axios.get(`${this.baseUrl}/autoComplete?input=${input}`);
   }
