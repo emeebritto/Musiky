@@ -38,9 +38,10 @@ class MusikyApi {
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
   }
 
-  async media(url:string): Promise<string> {
-    if (!url) return "";
-    const res = await axios.get(`${this.baseUrl}/v2/media?id=${url}`);
+  async media(url:string, type:string): Promise<string> {
+    if (!url || !url) return "";
+    const res = await axios.get(`${this.baseUrl}/v2/media?id=${url}&type=${type}`);
+    if (!res) return "";
     return res.data.url;
   }
 

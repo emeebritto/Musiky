@@ -15,8 +15,9 @@ export default async function handler(
 ) {
 
   const id = String(req.query?.id || '');
-  if (!id) return res.status(404).json({ msg: "id is required!" })
-  console.log({ id });
+  const type = String(req.query?.type || '');
+  if (!id || !type) return res.status(404).json({ msg: "id and type is required!" })
+  const exec = type.includes("aud") ? "dlmusicyt" : "dlvideoyt";
   try {
     const result = await axios({
         url: process.env.NXT_URL,
@@ -26,7 +27,7 @@ export default async function handler(
         },
         data: JSON.stringify({
           "fn_index": 0,
-          "data": [`exec::dlmusicyt::url::${formatUrl(id)}`]
+          "data": [`exec::${exec}::url::${formatUrl(id)}`]
         })
       }).then(r => r.data)
     const mediaUrl = result.data[0][0].msg

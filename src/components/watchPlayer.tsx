@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { musikyStreamApi, istatic } from 'services';
+import { musikyStreamApi, istatic, musiky } from 'services';
 import { usePlayer, usePlayerProgress } from 'contexts/player';
 import { PlayerProgressControl } from 'components';
 
@@ -92,6 +92,7 @@ const WatchPlayer = () => {
   	onPlayAndPause
   } = usePlayer();
   const { changeCurrentTimeTo } = usePlayerProgress();
+  const [url, setUrl] = useState('');
   const [controlsVisible, setControlsVisible] = useState(false);
 
   const isAllowed = prop.mode.includes('player:watch');
@@ -121,6 +122,17 @@ const WatchPlayer = () => {
     return istatic.iconUrl({ name: "volume_up" })
   }
 
+
+  useEffect(() => {
+    if (!prop.music) return;
+    onPlayAndPause(false)
+    musiky.api.media(prop.music.id, "vid").then(url => {
+    	setUrl(url)
+    	onPlayAndPause(true)
+    })
+  },[prop.music])
+
+
 	return (
 		<PlayerWrapper
 			ref={(wrapper: HTMLDivElement) => ref.watchPlayerWrapper.current = wrapper}
@@ -145,7 +157,8 @@ const WatchPlayer = () => {
 	            changeCurrentTimeTo(time.played, time.playedSeconds);
 	          }
 	        }}
-	        url={`${musikyStreamApi}/${prop.music.id}?videoMode=1&source=yt`}
+	        // url={`${musikyStreamApi}/${prop.music.id}?videoMode=1&source=yt`}
+          url={url}
 	        width='100%'
 	        height='100%'
 	        config={{

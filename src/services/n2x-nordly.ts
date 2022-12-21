@@ -7,7 +7,7 @@ class N2xNordlyApi {
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';
     this.n2xDEV = `http://localhost:${3080}`;
-    this.n2xPROD = 'https://n2x-nordly.herokuapp.com';
+    this.n2xPROD = 'https://nb-center-s2.vercel.app';
     this.url = this.devENV ? this.n2xDEV : this.n2xPROD;
   }
 }
