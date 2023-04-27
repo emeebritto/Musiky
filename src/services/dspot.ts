@@ -52,7 +52,7 @@ class DSpot {
   }
 
 
-  getAccessToken():string {
+  getAccessToken():Promise<string> {
     return axios({
       url: '/get_access_token?reason=transport&productType=web-player',
       baseURL: 'https://open.spotify.com',
@@ -80,7 +80,7 @@ class DSpot {
     }).then(r => r.data.accessToken).catch(err => console.log({ err }));
   }
 
-  getClientToken():string {
+  getClientToken():Promise<string> {
     return axios({
       url: "/v1/clienttoken",
       baseURL: "https://clienttoken.spotify.com",

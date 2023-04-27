@@ -1,4 +1,4 @@
-import { Artist } from "common/types/artist";
+import { Artist } from "common/types/user";
 import { Image } from "common/types/image";
 import { Album } from "common/types/album";
 
