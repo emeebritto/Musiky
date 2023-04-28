@@ -19,7 +19,7 @@ class MusikyClient {
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';
     this.musikyDEV = `http://localhost:${3000}`;
-    this.musikyPROD = 'https://musiky.vercel.app';
+    this.musikyPROD = 'https://musiky.neblika.com';
     this.url = this.devENV ? this.musikyDEV : this.musikyPROD;
   }
 }
@@ -34,7 +34,7 @@ class MusikyApi {
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';
     this.musikyApiDEV = `http://localhost:${3000}/api`;
-    this.musikyApiPROD = 'https://musiky.vercel.app/api';
+    this.musikyApiPROD = 'https://musiky.neblika.com/api';
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
   }
 
