@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
 import { Music } from 'common/types';
 import { formatValues } from 'helpers';
-import { musikyStreamApi, istatic } from 'services';
+import { musiky, istatic } from 'services';
 import { useSwiperSlide, useSwiper } from 'swiper/react';
 
 const SectionWrapper = Styled.section`
@@ -269,7 +269,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
           onPause={()=> setPlaying(false)}
 	        volume={1}
 	        loop={true}
-	        url={`${musikyStreamApi}/${src.id}?videoMode=1&source=${src.target}`}
+	        url={musiky.api.media(src.id, src.target)}
 	        width='100%'
 	        height='100%'
 	        config={{

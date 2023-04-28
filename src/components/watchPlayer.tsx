@@ -126,7 +126,7 @@ const WatchPlayer = () => {
   useEffect(() => {
     if (!prop.music) return;
     onPlayAndPause(false)
-  	setUrl(musiky.api.media(prop.music.id, "pt"))
+  	setUrl(musiky.api.media(prop.music.id, "default"))
   	onPlayAndPause(true)
   },[prop.music])
 
