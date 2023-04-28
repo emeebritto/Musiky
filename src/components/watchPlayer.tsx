@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { musikyStreamApi, istatic, musiky } from 'services';
+import { istatic, musiky } from 'services';
 import { usePlayer, usePlayerProgress } from 'contexts/player';
 import { PlayerProgressControl } from 'components';
 
@@ -126,10 +126,8 @@ const WatchPlayer = () => {
   useEffect(() => {
     if (!prop.music) return;
     onPlayAndPause(false)
-    musiky.api.media(prop.music.id, "vid").then(url => {
-    	setUrl(url)
-    	onPlayAndPause(true)
-    })
+  	setUrl(musiky.api.media(prop.music.id, "pt"))
+  	onPlayAndPause(true)
   },[prop.music])
 
 

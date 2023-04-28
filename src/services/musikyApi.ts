@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { Music, PlaylistProps, SearchReturn } from 'common/types';
+import axios from 'axios';
 import {
   HomeContent,
   ExploreContent,
@@ -38,11 +38,9 @@ class MusikyApi {
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
   }
 
-  async media(url:string, type:string): Promise<string> {
-    if (!url || !url) return "";
-    const res = await axios.get(`${this.baseUrl}/v2/media?id=${url}&type=${type}`);
-    if (!res) return "";
-    return res.data.url;
+  media(url:string, macro:string="default"):string {
+    if (!url) return "";
+    return `https://emee-stream.hf.space/?url=${url}&macro=${macro}`;
   }
 
   autoComplete({ input }:{ input:string }): Promise<{data:string[] | []}> {

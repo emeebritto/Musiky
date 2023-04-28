@@ -1,7 +1,8 @@
-export { default as musiky } from './musikyApi';
-export { default as istatic } from './istatic';
 export { default as wSocket } from './socket';
+export { default as istatic } from './istatic';
+export { default as musiky } from './musikyApi';
 export { default as n2xNordlyApi } from './n2x-nordly';
+
 export { default as dSpot } from './dspot';
 
 const musikyServerStream = 'https://musiky-listen.herokuapp.com';

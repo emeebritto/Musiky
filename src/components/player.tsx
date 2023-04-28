@@ -46,11 +46,8 @@ const ReactPlayerComp: React.FC = () => {
   useEffect(() => {
     if (!prop.music) return;
     onPlayAndPause(false)
-    musiky.api.media(prop.music.id, "aud").then(url => {
-      setUrl(url)
-      onPlayAndPause(true)
-
-    })
+    setUrl(musiky.api.media(prop.music.id, "default"))
+    onPlayAndPause(true)
   },[prop.music])
 
 
