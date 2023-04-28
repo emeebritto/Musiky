@@ -48,7 +48,7 @@ const Community: NextPage = () => {
     <ViewPort>
       <Wrapper>
         <Wormhole
-          src='https://cdn-istatics.herokuapp.com/static/imgs/illustrations/wormhole-gaef555396.jpg'
+          src='https://average-housecoat-clam.cyclic.app/static/imgs/illustrations/wormhole-gaef555396.jpg'
           alt='wormhole'
         />
         <Text>There's nothing around here...</Text>

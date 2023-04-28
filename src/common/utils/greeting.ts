@@ -1,6 +1,6 @@
 const urlBase = process.env.NODE_ENV 
     ? `http://localhost:${9872}/`
-    : 'https://cdn-istatics.herokuapp.com/'
+    : 'https://average-housecoat-clam.cyclic.app/'
 
 
 const getTime = () => {
