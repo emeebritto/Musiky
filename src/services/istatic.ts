@@ -124,7 +124,7 @@ class Istatic {
   public baseUrl:string;
   private staticSourcesUrl:string;
   constructor() {
-    this.devENV = process.env.NODE_ENV === 'development' && false;
+    this.devENV = process.env.NODE_ENV === 'development';
     this.istaticDEV = `http://localhost:${9872}`;
     this.istaticPROD = 'https://average-housecoat-clam.cyclic.app';
     this.baseUrl = this.devENV ? this.istaticDEV : this.istaticPROD;
