@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { istatic, musiky } from 'services';
+import { musikyStreamApi, istatic } from 'services';
 import { usePlayer, usePlayerProgress } from 'contexts/player';
 import { PlayerProgressControl } from 'components';
 
@@ -123,12 +123,12 @@ const WatchPlayer = () => {
   }
 
 
-  useEffect(() => {
-    if (!prop.music) return;
-    onPlayAndPause(false)
-  	setUrl(musiky.api.media(prop.music.id, "default"))
-  	onPlayAndPause(true)
-  },[prop.music])
+  // useEffect(() => {
+  //   if (!prop.music) return;
+  //   onPlayAndPause(false)
+  // 	setUrl(musiky.api.media(prop.music.id, "default"))
+  // 	onPlayAndPause(true)
+  // },[prop.music])
 
 
 	return (
@@ -155,8 +155,8 @@ const WatchPlayer = () => {
 	            changeCurrentTimeTo(time.played, time.playedSeconds);
 	          }
 	        }}
-	        // url={`${musikyStreamApi}/${prop.music.id}?videoMode=1&source=yt`}
-          url={url}
+	        url={`${musikyStreamApi}/${prop.music.id}?videoMode=1&source=yt`}
+          // url={url}
 	        width='100%'
 	        height='100%'
 	        config={{

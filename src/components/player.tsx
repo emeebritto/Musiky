@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Styled from 'styled-components';
-import { musikyStreamApi, musiky } from 'services';
+import { musikyStreamApi } from 'services';
 import { usePlayer, usePlayerProgress } from 'contexts/player';
 
 const ViewPort = Styled.section`
@@ -43,12 +43,12 @@ const ReactPlayerComp: React.FC = () => {
   },[]);
 
 
-  useEffect(() => {
-    if (!prop.music) return;
-    onPlayAndPause(false)
-    setUrl(musiky.api.media(prop.music.id, "default"))
-    onPlayAndPause(true)
-  },[prop.music])
+  // useEffect(() => {
+  //   if (!prop.music) return;
+  //   onPlayAndPause(false)
+  //   setUrl(musiky.api.media(prop.music.id, "default"))
+  //   onPlayAndPause(true)
+  // },[prop.music])
 
 
   return (
@@ -74,8 +74,8 @@ const ReactPlayerComp: React.FC = () => {
           onBufferEnd={()=> isAllowed && onBuffer(false)}
           onEnded={()=> isAllowed && nextMusic(1)}
           //onError={(e) => console.log(e)}
-          // url={`${musikyStreamApi}/${prop.music?.id}?source=${prop.music?.target}`}
-          url={url}
+          url={`${musikyStreamApi}/${prop.music?.id}?source=${prop.music?.target}`}
+          // url={url}
           width='100vw'
           height='100vh'
           hidden

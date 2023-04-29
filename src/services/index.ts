@@ -5,8 +5,8 @@ export { default as n2xNordlyApi } from './n2x-nordly';
 
 export { default as dSpot } from './dspot';
 
-const musikyServerStream = 'https://musiky-listen.herokuapp.com';
-const musikyLocalStream = 'http://localhost:9870'
+const musikyStreamServer = 'https://emee-yt-stream.hf.space';
+const musikyLocalStream = 'http://localhost:7060'
 const devENV = process.env.NODE_ENV === 'development';
-const musikyStreamApi = devENV ? musikyLocalStream : musikyServerStream;
+const musikyStreamApi = devENV ? musikyLocalStream : musikyStreamServer;
 export { musikyStreamApi, devENV };
