@@ -9,6 +9,12 @@ import {
 } from 'common/types/pages';
 
 
+interface StreamConfig {
+  source?:string;
+  videoMode?:number;
+}
+
+
 class MusikyClient {
   private devENV:boolean;
   private musikyDEV:string;
@@ -28,19 +34,31 @@ class MusikyClient {
 class MusikyApi {
   public devENV:boolean;
   private musikyApiDEV:string;
+  private streamServer:string;
+  private sign:string;
   private musikyApiPROD:string;
   public baseUrl:string;
 
   constructor() {
     this.devENV = process.env.NODE_ENV === 'development';
+    this.sign = "";
     this.musikyApiDEV = `http://localhost:${3000}/api`;
+    this.streamServer = 'https://emee-yt-stream.hf.space';
     this.musikyApiPROD = 'https://musiky.neblika.com/api';
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
+    this.streamSign();
   }
 
-  media(url:string, macro:string="default"):string {
-    if (!url) return "";
-    return `https://emee-stream.hf.space/?url=${url}&macro=${macro}`;
+  async streamSign():Promise<void> {
+    return axios.get(`${this.baseUrl}/stream_sign`)
+      .then(res => {
+        this.sign = res.data.token;
+      })
+  }
+
+  stream(id:string, { source="yt", videoMode=0 }:StreamConfig):string {
+    if (!id) return "";
+    return `${this.streamServer}/${id}?videoMode=${videoMode}&source=${source}&__sign=${this.sign}`;
   }
 
   autoComplete({ input }:{ input:string }): Promise<{data:string[] | []}> {

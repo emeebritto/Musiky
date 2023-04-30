@@ -269,7 +269,7 @@ const EmotionView: React.FC<EmotionViewProps> = ({ src }) => {
           onPause={()=> setPlaying(false)}
 	        volume={1}
 	        loop={true}
-	        url={musiky.api.media(src.id, src.target)}
+	        url={musiky.api.stream(src.id, { source: src.target, videoMode: 1 })}
 	        width='100%'
 	        height='100%'
 	        config={{
