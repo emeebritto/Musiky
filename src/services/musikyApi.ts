@@ -43,7 +43,7 @@ class MusikyApi {
     this.devENV = process.env.NODE_ENV === 'development';
     this.sign = "";
     this.musikyApiDEV = `http://localhost:${3000}/api`;
-    this.streamServer = 'https://emee-yt-stream.hf.space';
+    this.streamServer = 'https://emee-proxy.hf.space';
     this.musikyApiPROD = 'https://musiky.neblika.com/api';
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
     this.streamSign();

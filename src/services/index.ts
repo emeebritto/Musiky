@@ -5,7 +5,7 @@ export { default as n2xNordlyApi } from './n2x-nordly';
 
 export { default as dSpot } from './dspot';
 
-const musikyStreamServer = 'https://emee-yt-stream.hf.space';
+const musikyStreamServer = 'https://emee-proxy.hf.space';
 const musikyLocalStream = 'http://localhost:7060'
 const devENV = process.env.NODE_ENV === 'development';
 const musikyStreamApi = devENV ? musikyLocalStream : musikyStreamServer;
