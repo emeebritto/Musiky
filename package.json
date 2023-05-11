@@ -32,7 +32,8 @@
     "socket.io-client": "^4.4.1",
     "styled-components": "^5.3.3",
     "swiper": "^8.0.3",
-    "use-debounce": "^7.0.1"
+    "use-debounce": "^7.0.1",
+    "usetube": "^2.2.7"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.14.5",
@@ -45,6 +46,7 @@
     "@types/node": "^16.11.7",
     "@types/react": "17.0.34",
     "@types/styled-components": "^5.1.15",
+    "@types/usetube": "^2.1.0",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.3",

@@ -124,7 +124,7 @@ class DSpot {
     });
   }
 
-  async artist(id:string):Promise<{data:ArtistResult}> {
+  async artist(id:string):Promise<{data:any}> {
     const access_token = await this.getAccessToken();
     const clientToken = await this.getClientToken();
     return axios({
@@ -203,35 +203,6 @@ class DSpot {
       })
     });
   }
-
-  // musicsData(opt?:MusicsDataParams): Promise<MusicsResponse> {
-  //   const params:string = createUrlParams(opt);
-  //   return axios.get(`${this.DSpotURL}/musics?${params}`);
-  // }
-
-  // artistsImgUrl(id:string, opt?:ArtistsImgParams): string {
-  //   const params:string = createUrlParams(opt);
-  //   return `${this.DSpotURL}/artists/images/${id}?${params}`;
-  // }
-
-  // artistsData(opt?:ArtistDataParams): Promise<ArtistsDataResponse> {
-  //   const params:string = createUrlParams(opt);
-  //   return axios.get(`${this.DSpotURL}/artists?${params}`);
-  // }
-
-  // lyric({ title, artistRef }:{ title:string, artistRef:string }): Promise<LyricResponse> {
-  //   return axios.get(`${this.DSpotURL}/musics/lyric?title=${title}&artistRef=${artistRef}`);
-  // }
-
-  // allPlaylists(opt?:AllPlaylistsParams): Promise<AllPlaylistsResponse> {
-  //   const params:string = createUrlParams(opt);
-  //   return axios.get(`${this.DSpotURL}/playlist/all?${params}`);
-  // }
-
-  // emotions(opt?:EmotionsParams): Promise<EmotionsResponse> {
-  //   const params:string = createUrlParams(opt);
-  //   return axios.get(`${this.DSpotURL}/emotions?${params}`);
-  // }
 }
 
 const dSpot = new DSpot();
