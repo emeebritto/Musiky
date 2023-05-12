@@ -29,7 +29,7 @@ const Main = Styled.section`
 `
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-  const router = useRouter();
+  const { route } = useRouter();
 
   useEffect(() => {
     if("serviceWorker" in navigator) {
@@ -46,12 +46,14 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
     }
   }, [])
 
-  if (router.route.includes("/embed/")) {
+  if (route.includes("/embed/") || route.includes("/ext/")) {
     return (
       <>
       <Head>
+        <title>Musiky</title>
         <meta charSet="utf-8"/>
         <link rel="icon" href="/favicon.ico"/>
+        <meta name="theme-color" content="#020309"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="author" content="Emerson_Britto"/>
       </Head>

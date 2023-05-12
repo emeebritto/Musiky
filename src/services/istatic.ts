@@ -3,6 +3,16 @@ import axios from 'axios';
 import { mapObjValues } from 'helpers';
 import { CommentProps, Music, PlaylistProps, ArtistDataProps, Lyric } from 'common/types';
 
+interface IconUrlProps {
+  name:string;
+  iconCfg?: {
+    fill?:number;
+    wght?:number;
+    opsz?:number;
+    type?:string;
+  };
+}
+
 export interface DictionaryResponse {
   data:Array<{
     glossary:string;
@@ -135,6 +145,7 @@ class Istatic {
     return `${this.baseUrl}/user-img/guest_temp`;
   }
 
+  // OLD VERSION
   iconUrl({
     name, color='white', format='svg', dp=24
   }:{
@@ -144,6 +155,12 @@ class Istatic {
     dp?:number
   }):string {
     return `${this.staticSourcesUrl}/icons/${name}_${color}_${dp}dp.${format}`; // local files 'public'
+  }
+
+  getIconUrl({ name, iconCfg }:IconUrlProps):string {
+    const { fill=0, wght=400, opsz=48, type="svg" } = iconCfg || {};
+    const folder = "/icons";
+    return folder + `/${name}_FILL${fill}_wght${wght}_GRAD0_opsz${opsz}.${type}`;
   }
 
   imgUrl({ path }:{ path:string }): string {

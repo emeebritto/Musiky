@@ -38,3 +38,5 @@ export { default as PlayerProgressControl } from './playerControl/playerProgress
 export { default as Comment } from './comment';
 export { default as WatchPlayer } from './watchPlayer';
 export { default as ProfileImage } from './profileImage';
+export { default as Icon } from "./icon";
+export { default as SearchBar } from "./search-bar";

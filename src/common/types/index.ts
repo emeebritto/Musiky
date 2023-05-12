@@ -5,6 +5,7 @@ export type { ArtistResult, Artist } from "./user";
 import React from 'react';
 
 
+export type ClickEvent = React.MouseEvent<HTMLElement, MouseEvent>;
 
 export interface Obj {
   [key:string]:any;
@@ -265,3 +266,22 @@ export interface AccountContextData {
   history:DataHistory[];
   setHistory:(s:DataHistory[]) => void;
 }
+
+export interface Styles {
+  minWidth?:string;
+  width?:string;
+  maxWidth?:string;
+  minHeight?:string;
+  height?:string;
+  maxHeight?:string;
+  border_right?:string;
+  border_left?:string;
+  background_color?:string;
+  margin?:string;
+  padding?:string;
+  spec?:string;
+  shadowColor?:string;
+  transform?:string;
+  show?:boolean;
+}
+

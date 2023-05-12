@@ -39,7 +39,7 @@ interface HomeProps {
   pageContent: HomeContent;
 };
 
-const Home: NextPage<HomeProps> = ({ pageContent }) => {
+const Home:NextPage<HomeProps> = ({ pageContent }) => {
 
   const {
     recommendations,

@@ -24,6 +24,7 @@ export default async function handler(
 	}
 
 	res.status(200).json({
+		id: searchResult.videos[0].id,
 		url: musiky.api.stream(searchResult.videos[0].id, { source: "yt" })
 	});
 
