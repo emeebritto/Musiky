@@ -1,12 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { musiky } from "services";
-import * as usetube from "usetube";
-// import axios from "axios";
+// import * as usetube from "usetube";
+import axios from "axios";
 
 interface NotFound {
 	status:number;
 	message:string;
 }
+
+async function searchImages(term:string):Promise<any[]> {
+	return axios.get(`https://search.neblika.com/api/search?q=${term}&ai=false&keywords=&type=IMAGE`)
+		.then(r => r.data.images);
+}
+
+async function searchMedia(term:string):Promise<any[]> {
+	return axios.get(`https://emee-stream.hf.space/get-yt-results?q=${term}&limit=1`)
+		.then(r => r.data);
+}
+
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,18 +29,21 @@ export default async function handler(
 		message: "query is required"
 	});
 
-	const searchResult = await usetube.searchVideo(query);
-	if (!searchResult || !searchResult?.videos.length) {
+	const searchResult = await searchMedia(query);
+	if (!searchResult || !searchResult.length) {
 		return res.status(404).json({ message: "sorry - not found" });
 	}
 
+	const video = searchResult[0];
+	const images = await searchImages(video.channel.name || video.title.replace(/\W/g, " "));
 	res.status(200).json({
-		id: searchResult.videos[0].id,
-		url: musiky.api.stream(searchResult.videos[0].id, { source: "yt" })
+		...(video || {}),
+		cover: images[~~(Math.random() * images.length)] || {},
+		url: musiky.api.stream(video.id, { source: "yt" })
 	});
 
 	// return axios({
-	// 	url: musiky.api.stream(searchResult.videos[0].id, { source: "yt" }),
+	// 	url: musiky.api.stream(video.id, { source: "yt" }),
 	// 	method:'GET',
 	// 	responseType: "stream"
 	// }).then(r => r.data.pipe(res));

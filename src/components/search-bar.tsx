@@ -45,9 +45,9 @@ const SearchInput = Styled.input`
 	color: #fff;
 	font-size: 1.1em;
 	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-	padding: 15px 0;
+	padding: 11px 0;
 	margin: 3px 0;
-	transition: 400ms;
+	transition:	 400ms;
 `
 
 const ActionsWrapper = Styled.section<{ show?:boolean, margin?:string }>`
