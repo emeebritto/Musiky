@@ -51,7 +51,7 @@ const PlayerWrapper = Styled.section`
   max-width: 90vw;
   min-height: 320px;
   margin: 50px 0;
-  background-color: #060C31;
+  background-color: #060C1E;
 `
 
 const MusicCover = Styled.section<{ cover:string }>`
