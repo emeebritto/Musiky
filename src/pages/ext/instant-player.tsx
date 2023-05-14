@@ -270,10 +270,10 @@ const InstantPlayer:NextPage = () => {
 
  	useEffect(() => {
  		async function searchSound(query:string):Promise<void> {
- 			await axios.get(`http://localhost:3000/api/v2/search/stream?q=${query}`)
+ 			await axios.get(`${musiky.api.baseUrl}/v2/search/stream?q=${query} audio`)
  				.then(r => {
  					setTitle(r.data?.title || "unknown");
- 					setOwnwer(r.data?.artist || "unknown");
+ 					setOwnwer(r.data?.channel.name || "unknown");
  					setCover(r.data?.cover?.src.url || "https://i.pinimg.com/474x/96/a2/b9/96a2b9240a365ec80e638ec6d3cce5ee.jpg");
  					play(r.data?.url || "");
  				});
