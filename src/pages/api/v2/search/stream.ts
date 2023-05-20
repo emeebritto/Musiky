@@ -14,7 +14,7 @@ async function searchImages(term:string):Promise<any[]> {
 }
 
 async function searchMedia(term:string):Promise<any[]> {
-	return axios.get(`https://emee-stream.hf.space/get-yt-results?q=${term}&limit=1`)
+	return axios.get(`https://emee-proxy.hf.space/get-yt-results?q=${term}&limit=1&provider=url-stream`)
 		.then(r => r.data);
 }
 

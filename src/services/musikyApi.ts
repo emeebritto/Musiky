@@ -46,19 +46,11 @@ class MusikyApi {
     this.streamServer = 'https://emee-proxy.hf.space';
     this.musikyApiPROD = 'https://musiky.neblika.com/api';
     this.baseUrl = this.devENV ? this.musikyApiDEV : this.musikyApiPROD;
-    this.streamSign();
-  }
-
-  async streamSign():Promise<void> {
-    return axios.get(`${this.baseUrl}/stream_sign`)
-      .then(res => {
-        this.sign = res.data.token;
-      })
   }
 
   stream(id:string, { source="yt", videoMode=0 }:StreamConfig):string {
     if (!id) return "";
-    return `${this.streamServer}/${id}?videoMode=${videoMode}&source=${source}&__sign=${this.sign}`;
+    return `${this.streamServer}/${id}?videoMode=${videoMode}&source=${source}&provider=stream`;
   }
 
   autoComplete({ input }:{ input:string }): Promise<{data:string[] | []}> {
