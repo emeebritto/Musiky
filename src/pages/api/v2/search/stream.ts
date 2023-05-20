@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { musiky } from "services";
-// import * as usetube from "usetube";
 import axios from "axios";
 
 interface NotFound {
@@ -36,6 +35,7 @@ export default async function handler(
 
 	const video = searchResult[0];
 	const images = await searchImages(video.channel.name || video.title.replace(/\W/g, " "));
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.status(200).json({
 		...(video || {}),
 		cover: images[~~(Math.random() * images.length)] || {},
